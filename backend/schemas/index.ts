@@ -2,6 +2,7 @@ import { gql } from "apollo-server";
 
 export const typeDefs = gql`
     type User {
+        id: String!
         name: String!
         avatar: String
         posts: [Post]!
