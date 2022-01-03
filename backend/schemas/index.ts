@@ -18,5 +18,6 @@ export const typeDefs = gql`
     type Query {
         getUserById(id: String!): User
         getPostById(id: String!): Post
+        getPostsByAuthorId(id: String!): [Post]
     }
 `
