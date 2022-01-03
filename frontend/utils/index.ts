@@ -6,6 +6,8 @@ export const getUserById = async (id: string) => {
         getUserById(id: "${id}") {
             name,
             avatar,
+            banner,
+            id
         }
     `)
     return user;

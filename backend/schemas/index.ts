@@ -5,6 +5,7 @@ export const typeDefs = gql`
         id: String!
         name: String!
         avatar: String
+        banner: String
         posts: [Post]!
     }
     type Post {
