@@ -1,8 +1,9 @@
-import { posts } from "./Query";
+import { getPostsByAuthorId } from "../logic/db-actions";
 
 export const User = {
-    posts: (parent: any) => {
+    posts: async (parent: any) => {
         const userId = parent.id;
-        return posts.filter(post => post.authorId === userId);
+        const posts = await getPostsByAuthorId(userId);
+        return posts;
     }
 }

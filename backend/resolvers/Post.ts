@@ -1,5 +1,4 @@
 import { getUserById } from "../logic/db-actions";
-import { users } from "./Query";
 
 export const Post = {
     author: async (parent: any) => {
