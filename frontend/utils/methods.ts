@@ -8,6 +8,10 @@ const getRootQuery = (query: string) => {
 
 // GraphQL get request
 export const get = async (query: string) => {
+    // Adding query {} here so we dont have to add it when we use the function
+    query = `query {
+        ${query}
+    }`
     return await fetch(`${API_ENDPOINT}`, {
         method: 'POST',
         body: JSON.stringify({ query }),
@@ -16,6 +20,9 @@ export const get = async (query: string) => {
             'Accept': 'application/json'
         }
     }).then(res => res.json()).then(response => {
+        if(response.errors) {
+            console.error(response.errors);
+        }
         // Returning the data without graphql's 'data' and root query properties
         // Essentially returning pure data
         return response.data[getRootQuery(query)]
