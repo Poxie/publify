@@ -28,6 +28,7 @@ export const ProfileHeader: React.FC<Props> = ({ name, avatar, banner }) => {
                             src={getUserAvatar(avatar)}
                             width={110}
                             height={110}
+                            alt={`${name}'s avatar`}
                         />
                     </Flex>
                     <Flex className="text">

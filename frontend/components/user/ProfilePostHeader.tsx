@@ -21,6 +21,7 @@ export const ProfilePostHeader: React.FC<Props> = ({ name, avatar }) => {
                         width={32}
                         height={32}
                         layout={'fixed'}
+                        alt={`${name}'s avatar`}
                     />
                 </Flex>
                 <span>
