@@ -21,21 +21,27 @@ export const ProfileHeader: React.FC<Props> = ({ name, avatar, banner }) => {
             <Flex 
                 className={styles['header-content']} 
                 justifyContent={'space-between'}
-                alignItems={'center'}
             >
-                <Flex alignItems={'flex-end'}>
+                <div>
                     <Avatar 
                         avatar={avatar}
                         name={name}
                         size={110}
                         className={styles['header-avatar']}
                     />
-                    <Flex className="text">
-                        <span className={styles['name']}>
-                            {name}
+                    <span className={styles['name']}>
+                        {name}
+                    </span>
+                    <div className={styles['user-stats']}>
+                        <span>
+                            42 followers
                         </span>
-                    </Flex>
-                </Flex>
+                        •
+                        <span>
+                            76 posts
+                        </span>
+                    </div>
+                </div>
                 <div className={styles['options']}>
                     <Button>
                         Follow
