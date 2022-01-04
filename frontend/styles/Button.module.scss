@@ -1,0 +1,19 @@
+.button {
+    padding: 8px 15px;
+    font-weight: 500;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: opacity .2s;
+    text-align: center;
+    min-width: 60px;
+    font-size: 14px;
+}
+.button:hover {
+    opacity: .8;
+}
+.primary {
+    background-color: var(--color-primary);
+}
+.secondary {
+    background-color: var(--background-secondary);
+}
