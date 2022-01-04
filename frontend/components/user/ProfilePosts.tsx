@@ -17,6 +17,13 @@ export const ProfilePosts: React.FC<Props> = ({ posts }) => {
                     />
                 )
             })}
+
+            {/* If posts array is empty */}
+            {!posts.length && (
+                <div className={styles['empty-posts']}>
+                    This user doesn't have any posts yet.
+                </div>
+            )}
         </div>
     )
 }
