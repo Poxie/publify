@@ -31,3 +31,34 @@
     font-size: 24px;
     font-weight: 600;
 }
+
+// Profile overview
+.profile-overview {
+    margin-top: 10px;
+}
+.profile-sidebar {
+    min-width: 300px;
+    background-color: var(--background-secondary);
+    border-radius: var(--border-radius);
+    margin-right: 10px;
+    height: 100%;
+}
+
+// Profile Posts
+.posts {
+    width: 100%;
+}
+.post {
+    padding: 15px;
+    background-color: var(--background-secondary);
+    border-radius: var(--border-radius);
+    margin-bottom: 10px;
+}
+.post-header {
+    margin-bottom: 15px;
+}
+.post-avatar {
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 10px;
+}
