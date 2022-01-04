@@ -4,3 +4,9 @@ export type UserType = {
     avatar: string;
     banner: string;
 }
+
+export type PostType = {
+    content: string;
+    id: string;
+    author: UserType;
+}
