@@ -21,10 +21,12 @@
     border-radius: var(--border-radius);
 }
 .avatar {
-    margin-top: -90px;
-    margin-right: 15px;
     border-radius: calc(var(--border-radius) * 1.2);
     overflow: hidden;
+}
+.header-avatar {
+    margin-top: -90px;
+    margin-right: 15px;
     border: 4px solid var(--background-tertiary);
 }
 .name {

@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 import styles from '../../styles/User.module.scss';
-import { getUserAvatar } from '../../utils';
+import { Avatar } from '../Avatar';
 import { Flex } from '../Flex';
 
 interface Props {
@@ -15,15 +15,11 @@ export const ProfilePostHeader: React.FC<Props> = ({ name, avatar }) => {
                 className={styles['header-main']}
                 alignItems={'center'}
             >
-                <Flex className={styles['post-avatar']}>
-                    <Image 
-                        src={getUserAvatar(avatar)}
-                        width={32}
-                        height={32}
-                        layout={'fixed'}
-                        alt={`${name}'s avatar`}
-                    />
-                </Flex>
+                <Avatar 
+                    avatar={avatar}
+                    name={name}
+                    className={styles['post-avatar']}
+                />
                 <span>
                     {name}
                 </span>

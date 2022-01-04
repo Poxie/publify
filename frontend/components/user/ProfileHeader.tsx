@@ -2,12 +2,13 @@ import Image from 'next/image';
 import React from 'react';
 import styles from '../../styles/User.module.scss';
 import { getUserAvatar, getUserBanner } from '../../utils';
+import { Avatar } from '../Avatar';
 import { Button } from '../Button';
 import { Flex } from '../Flex';
 
 interface Props {
     name: string;
-    avatar: string;
+    avatar?: string;
     banner: string;
 }
 export const ProfileHeader: React.FC<Props> = ({ name, avatar, banner }) => {
@@ -23,14 +24,12 @@ export const ProfileHeader: React.FC<Props> = ({ name, avatar, banner }) => {
                 alignItems={'center'}
             >
                 <Flex alignItems={'flex-end'}>
-                    <Flex className={styles['avatar']}>
-                        <Image 
-                            src={getUserAvatar(avatar)}
-                            width={110}
-                            height={110}
-                            alt={`${name}'s avatar`}
-                        />
-                    </Flex>
+                    <Avatar 
+                        avatar={avatar}
+                        name={name}
+                        size={110}
+                        className={styles['header-avatar']}
+                    />
                     <Flex className="text">
                         <span className={styles['name']}>
                             {name}
