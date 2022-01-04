@@ -4,6 +4,7 @@ import styles from '../../styles/User.module.scss';
 import { get } from '../../utils/methods';
 import { useRouter } from 'next/router';
 import { ProfilePosts } from './ProfilePosts';
+import { LoadingPost } from '../loading/LoadingPost';
 
 export const ProfileOverview = () => {
     const router = useRouter();
@@ -40,11 +41,22 @@ export const ProfileOverview = () => {
     return(
         <Flex className={styles['profile-overview']}>
             <div className={styles['profile-sidebar']}>
-            
+
             </div>
-            <ProfilePosts 
-                posts={posts}
-            />
+            {!isLoading && (
+                <ProfilePosts 
+                    posts={posts}
+                />
+            )}
+            {/* Display posts skeleton if isLoading */}
+            {isLoading && (
+                <div style={{width: '100%'}}>
+                <LoadingPost />
+                <LoadingPost />
+                <LoadingPost />
+                <LoadingPost />
+                </div>
+            )}
         </Flex>
     )
 }
