@@ -18,3 +18,7 @@ export const getUserById = async (id: string) => {
 export const getUserAvatar = (avatar: string) => {
     return avatar;
 }
+// Getting user banner
+export const getUserBanner = (banner: string) => {
+    return banner;
+}

@@ -3,6 +3,7 @@ import { GetServerSideProps } from 'next';
 import { getUserAvatar, getUserById } from '../utils';
 import Head from 'next/head';
 import { UserType } from '../utils/types';
+import { UserPage } from '../components/user/UserPage';
 
 type Props = {
     user: UserType;
@@ -11,7 +12,7 @@ export default function User(props: Props) {
     const { user } = props;
 
     return(
-        <div>
+        <>
             <Head>
                 <title>
                     {user.name} | {process.env.NEXT_PUBLIC_WEBSITE_NAME}
@@ -23,7 +24,9 @@ export default function User(props: Props) {
 
                 <meta property="og:image" content={getUserAvatar(user.avatar)} />
             </Head>
-        </div>
+
+            <UserPage {...user} />
+        </>
     )
 }
 
