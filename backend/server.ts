@@ -5,6 +5,7 @@ import { Post } from './resolvers/Post';
 import { User } from './resolvers/User';
 import { initializeConnection } from './logic/connection';
 import dotenv from 'dotenv';
+import { Mutation } from './resolvers/Mutation';
 dotenv.config();
 
 const server = new ApolloServer({
@@ -12,7 +13,8 @@ const server = new ApolloServer({
     resolvers: {
         Query,
         Post,
-        User
+        User,
+        Mutation
     }
 });
 

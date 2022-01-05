@@ -4,6 +4,7 @@ export const Query = {
     getUserById: async (parent: any, args: any) => {
         const userId = args.id;
         const user = await getUserById(userId);
+        console.log(userId);
         return user;
     },
     getPostById: async (parent: any, args: any) => {
