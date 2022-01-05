@@ -15,9 +15,9 @@ export default function User(props: Props) {
         <>
             <Head>
                 <title>
-                    {user.name} | {process.env.NEXT_PUBLIC_WEBSITE_NAME}
+                    {user.displayName} | {process.env.NEXT_PUBLIC_WEBSITE_NAME}
                 </title>
-                <meta property="og:title" content={`${user.name}`} />
+                <meta property="og:title" content={`${user.displayName}`} />
 
                 {/* Add this with bio later */}
                 <meta property="og:description" />

@@ -21,7 +21,7 @@ export const ProfileOverview = () => {
             getPostsByAuthorId(id: "${userId}") {
                 content
                 author {
-                    name
+                    displayName
                     avatar
                 }
             }

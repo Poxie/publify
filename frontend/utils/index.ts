@@ -4,9 +4,10 @@ import { get } from "./methods"
 export const getUserById = async (id: string) => {
     const user = await get(`
         getUserById(id: "${id}") {
-            name,
-            avatar,
-            banner,
+            username
+            displayName
+            avatar
+            banner
             id
         }
     `)

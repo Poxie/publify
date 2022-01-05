@@ -1,8 +1,9 @@
 export type UserType = {
-    name: string;
+    username: string;
+    displayName: string;
     id: string;
-    avatar: string;
-    banner: string;
+    avatar?: string;
+    banner?: string;
 }
 
 export type PostType = {
