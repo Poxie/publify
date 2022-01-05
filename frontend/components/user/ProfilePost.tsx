@@ -2,8 +2,9 @@ import React from 'react';
 import { PostType } from '../../utils/types';
 import styles from '../../styles/User.module.scss';
 import { ProfilePostHeader } from './ProfilePostHeader';
+import { ProfilePostMedia } from './ProfilePostMedia';
 
-export const ProfilePost: React.FC<PostType> = ({ id, content, author }) => {
+export const ProfilePost: React.FC<PostType> = ({ id, content, author, media }) => {
     const { displayName, avatar } = author;
 
     return(
@@ -12,7 +13,14 @@ export const ProfilePost: React.FC<PostType> = ({ id, content, author }) => {
                 avatar={avatar}
                 name={displayName}
             />
+
             {content}
+
+            {media.length !== 0 && (
+                <ProfilePostMedia 
+                    media={media}
+                />
+            )}
         </div>
     )
 }
