@@ -3,6 +3,7 @@ import { PostType } from '../../utils/types';
 import styles from '../../styles/User.module.scss';
 import { ProfilePostHeader } from './ProfilePostHeader';
 import { ProfilePostMedia } from './ProfilePostMedia';
+import { ProfilePostFooter } from './ProfilePostFooter';
 
 export const ProfilePost: React.FC<PostType> = ({ id, content, author, media }) => {
     const { displayName, avatar } = author;
@@ -21,6 +22,8 @@ export const ProfilePost: React.FC<PostType> = ({ id, content, author, media }) 
                     media={media}
                 />
             )}
+
+            <ProfilePostFooter />
         </div>
     )
 }
