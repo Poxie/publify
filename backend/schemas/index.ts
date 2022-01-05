@@ -22,4 +22,9 @@ export const typeDefs = gql`
         getPostById(id: String!): Post
         getPostsByAuthorId(id: String!): [Post]
     }
+
+    # Mutations
+    type Mutation {
+        register(username: String!, password: String!, avatar: String, banner: String): User
+    }
 `
