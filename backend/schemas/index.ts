@@ -15,6 +15,11 @@ export const typeDefs = gql`
         authorId: Int!
         author: User!
         timestamp: Int!
+        media: [Media]!
+    }
+    type Media {
+        id: String!
+        url: String!
     }
 
     # Root Query Type
