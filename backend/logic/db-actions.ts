@@ -24,6 +24,9 @@ export const getPostById: (id: string) => Promise<Post> = async (id) => {
         connection.query(`SELECT * FROM posts WHERE id = ${id}`, (error, result) => {
             if(error) return reject(error);
 
+            // Media array will be string on fetch
+            result[0].media = JSON.parse(result[0].media)
+
             resolve(result[0]);
         })
     })
@@ -35,6 +38,11 @@ export const getPostsByAuthorId: (id: string) => Promise<Post[]> = async (author
     return new Promise((resolve, reject) => {
         connection.query(`SELECT * FROM posts WHERE authorId = ${authorId}`, (error, result) => {
             if(error) return reject(error);
+
+            result.forEach((post: Post) => {
+                // @ts-ignore: will be string when fetched from database
+                post.media = JSON.parse(post.media);
+            })
 
             resolve(result);
         })
