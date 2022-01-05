@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Flex } from '../Flex';
 import styles from '../../styles/User.module.scss';
-import { get } from '../../utils/methods';
 import { useRouter } from 'next/router';
+import { getPostsByAuthorId } from '../../utils';
+import { Flex } from '../Flex';
 import { ProfilePosts } from './ProfilePosts';
 import { LoadingPost } from '../loading/LoadingPost';
 
@@ -13,19 +13,13 @@ export const ProfileOverview = () => {
 
     useEffect(() => {
         let isMounted = true;
+        let { userId } = router.query;
 
-        const { userId } = router.query;
+        // Makes sure userId is
+        userId = Array.isArray(userId) ? userId[0] : userId;
 
         // Fetching user posts
-        get(`
-            getPostsByAuthorId(id: "${userId}") {
-                content
-                author {
-                    displayName
-                    avatar
-                }
-            }
-        `).then(response => {
+        getPostsByAuthorId(userId).then(response => {
             // Checking if isMounted to prevent memory leaks
             if(isMounted) {
                 setPosts(response);

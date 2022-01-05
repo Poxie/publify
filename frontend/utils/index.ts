@@ -1,4 +1,5 @@
 import { get } from "./methods"
+import { PostType } from "./types";
 
 // Getting user by ID
 export const getUserById = async (id: string) => {
@@ -12,6 +13,23 @@ export const getUserById = async (id: string) => {
         }
     `)
     return user;
+}
+// Getting posts by author ID
+export const getPostsByAuthorId: (userId: string) => Promise<PostType[]> = async (userId) => {
+    const posts = await get(`
+        getPostsByAuthorId(id: "${userId}") {
+            content
+            media {
+                id
+                url
+            }
+            author {
+                displayName
+                avatar
+            }
+        }
+    `)
+    return posts;
 }
 
 
