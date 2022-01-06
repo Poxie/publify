@@ -11,17 +11,20 @@ type Props = {
     likeCount: number;
     postId: string;
 }
-export const LikeButton: React.FC<Props> = ({ likes, likeCount, postId }) => {
+export const LikeButton: React.FC<Props> = ({ likes, likeCount: defaultLikeCount, postId }) => {
     const { user } = useAuth();
     // Set default as true if user has liked post
     const [isLiked, setIsLiked] = useState(likes.includes(user?.id));
+    const [likeCount, setLikeCount] = useState(defaultLikeCount);
 
     // Toggling like
     const toggleLiked = async () => {
         if(isLiked) {
             destroyPostLike(postId);
+            setLikeCount(previous => previous - 1);
         } else {
             createPostLike(postId);
+            setLikeCount(previous => previous + 1);
         }
         setIsLiked(previous => !previous);
     }
