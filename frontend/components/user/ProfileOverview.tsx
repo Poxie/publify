@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../../styles/User.module.scss';
 import { useRouter } from 'next/router';
-import { getPostsByAuthorId } from '../../utils';
 import { Flex } from '../Flex';
 import { ProfilePosts } from './ProfilePosts';
 import { LoadingPost } from '../loading/LoadingPost';
-import { PostType } from '../../utils/types';
 import { ProfileMediaPreview } from './ProfileMediaPreview';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchUserPosts } from '../../redux/actions';
+import { useAppSelector } from '../../redux/hooks';
 
 export const ProfileOverview = () => {
     const router = useRouter();
-    const [posts, setPosts] = useState<PostType[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
+    const dispatch = useDispatch();
+    const posts = useAppSelector(state => state.posts.posts);
+    const loading = useAppSelector(state => state.posts.loading);
 
     useEffect(() => {
         let isMounted = true;
@@ -21,17 +23,7 @@ export const ProfileOverview = () => {
         userId = Array.isArray(userId) ? userId[0] : userId;
 
         // Fetching user posts
-        getPostsByAuthorId(userId).then(response => {
-            // Checking if isMounted to prevent memory leaks
-            if(isMounted) {
-                setPosts(response);
-                setIsLoading(false);
-            }
-        })
-
-        return () => {
-            isMounted = false;
-        }
+        dispatch(fetchUserPosts(userId));
     }, [router.query]);
 
     const postsWithImages = posts.filter(post => post.media.length);
@@ -42,13 +34,13 @@ export const ProfileOverview = () => {
                     posts={posts}
                 />
             </div>
-            {!isLoading && (
+            {!loading && (
                 <ProfilePosts 
                     posts={posts}
                 />
             )}
-            {/* Display posts skeleton if isLoading */}
-            {isLoading && (
+            {/* Display posts skeleton if loading */}
+            {loading && (
                 <div style={{width: '100%'}}>
                 <LoadingPost />
                 <LoadingPost />
