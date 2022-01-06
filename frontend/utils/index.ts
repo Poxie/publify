@@ -33,6 +33,26 @@ export const getPostsByAuthorId: (userId: string) => Promise<PostType[]> = async
 }
 
 
+// Login
+export const login = async (username: string, password: string) => {
+    const response = await get(`
+        login(username: "${username}", password: "${password}") {
+            token
+            user {
+                username
+                displayName
+                avatar
+            }
+        }
+    `)
+
+    // Storing token in local storage
+    localStorage.accessToken = response.token;
+
+    return response;
+}
+
+
 // Getting user avatar
 export const getUserAvatar = (avatar: string) => {
     return avatar;
