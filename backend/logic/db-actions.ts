@@ -4,6 +4,7 @@ import { UserType } from "../types/UserType"
 import mysql from 'mysql';
 import { Media } from "../types/Media";
 import { DatabaseUser } from "../types/DatabaseUser";
+import { Like } from "../types";
 
 const escape = mysql.escape;
 
@@ -34,8 +35,13 @@ export const getUserByUsername: (username: string) => Promise<DatabaseUser | und
 export const getPostById: (id: string) => Promise<Post> = async (id) => {
     id = escape(id);
     return new Promise((resolve, reject) => {
-        connection.query(`SELECT * FROM posts WHERE id = ${id}`, (error, result) => {
+        connection.query(`SELECT * FROM posts WHERE id = ${id}`, async (error, result) => {
             if(error) return reject(error);
+
+            // Fetching post likes
+            if(result[0]) {
+                result[0].likes = await getLikesByPostId(id);
+            }
 
             resolve(result[0]);
         })
@@ -48,8 +54,20 @@ export const getPostsByAuthorId: (id: string) => Promise<Post[]> = async (author
     return new Promise((resolve, reject) => {
         connection.query(`SELECT * FROM posts WHERE authorId = ${authorId}`, (error, result) => {
             if(error) return reject(error);
+            
+            // If no posts found, resolve
+            if(!result.length) return resolve(result);
 
-            resolve(result);
+            // Fetching likes for posts
+            let fetched: Post[] = [];
+            result.forEach(async (post: Post) => {
+                post.likes = await getLikesByPostId(post.id);
+
+                // Once all likes are fetched, resolve
+                if(fetched.length === result.length) {
+                    resolve(fetched);
+                }
+            });
         })
     })
 }
@@ -62,6 +80,18 @@ export const getMediaByPostId: (postId: string) => Promise<Media[]> = async (pos
             if(error) return reject(error);
 
             resolve(result);
+        })
+    })
+}
+
+// Get likes by post ID
+export const getLikesByPostId: (postId: string) => Promise<String[]> = async (postId) => {
+    return new Promise((resolve, reject) => {
+        connection.query(`SELECT * FROM likes WHERE postId = ${postId}`, (error, result: Like[]) => {
+            if(error) return reject(error);
+
+            const likeUserIds = result.map(like => like.userId);
+            resolve(likeUserIds);
         })
     })
 }
@@ -100,6 +130,32 @@ export const insertUser: (password: string, {}: UserType) => Promise<UserType> =
 
             const user = await getUserById(id);
             resolve(user);
+        })
+    })
+}
+
+// Creating post like
+export const createtPostLike: (postId: string, userId: string) => Promise<void> = async (postId, userId) => {
+    postId = escape(postId);
+    userId = escape(userId);
+
+    return new Promise((resolve, reject) => {
+        connection.query(`INSERT INTO likes (userId, postId) VALUES (${userId}, ${postId})`, (error, result) => {
+            if(error) return reject(error);
+            resolve();
+        })
+    })
+}
+
+// Destroying post like
+export const destroyPostLike: (postId: string, userId: string) => Promise<void> = async (postId, userId) => {
+    postId = escape(postId);
+    userId = escape(userId);
+
+    return new Promise((resolve, reject) => {
+        connection.query(`DELETE FROM likes WHERE postId = ${postId} AND userId = ${userId}`, (error, result) => {
+            if(error) return reject(error);
+            resolve();
         })
     })
 }

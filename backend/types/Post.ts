@@ -5,4 +5,5 @@ export type Post = {
     authorId: string;
     content: string;
     media: Media[];
+    likes: String[];
 }

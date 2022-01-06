@@ -15,6 +15,7 @@ export const typeDefs = gql`
         authorId: Int!
         author: User!
         timestamp: Int!
+        likes: [String]!
         media: [Media]!
     }
     type Media {
@@ -46,5 +47,9 @@ export const typeDefs = gql`
             avatar: String, 
             banner: String
         ): User
+        
+        # Post stuff
+        createLike(postId: String!): Post!
+        destroyLike(postId: String!): Post!
     }
 `
