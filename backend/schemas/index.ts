@@ -25,6 +25,7 @@ export const typeDefs = gql`
 
     type AuthData {
         token: String!
+        user: User!
     }
 
     # Root Query Type

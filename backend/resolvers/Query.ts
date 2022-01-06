@@ -21,7 +21,6 @@ export const Query = {
     },
     login: async (parent: any, args: any, req: AuthRequest) => {
         const { username, password } = args;
-        console.log(req);
         
         // Checking if user exists
         const user = await getUserByUsername(username);
@@ -41,6 +40,6 @@ export const Query = {
             expiresIn: '12h'
         })
 
-        return { token };
+        return { token, user };
     }
 }
