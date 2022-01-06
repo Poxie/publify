@@ -22,6 +22,6 @@ export type Media = {
 
 // Contexts
 export type AuthContext = {
-    user: UserType;
+    user: UserType | null;
     login: (username: string, password: string) => Promise<void>;
 }
