@@ -1,4 +1,6 @@
-import { getPostById, getPostsByAuthorId, getUserById } from "../logic/db-actions";
+import { getPostById, getPostsByAuthorId, getUserById, getUserByUsername } from "../logic/db-actions";
+import jwt from 'jsonwebtoken';
+import { AuthRequest } from "../types/AuthRequest";
 
 export const Query = {
     getUserById: async (parent: any, args: any) => {
@@ -16,5 +18,29 @@ export const Query = {
         const authorId = args.id;
         const posts = await getPostsByAuthorId(authorId);
         return posts;
+    },
+    login: async (parent: any, args: any, req: AuthRequest) => {
+        const { username, password } = args;
+        console.log(req);
+        
+        // Checking if user exists
+        const user = await getUserByUsername(username);
+        if(!user) {
+            throw new Error('User not found.');
+        }
+
+        // Checking if passwords match
+        // Remember to hash passwords and match hashed passwords
+        const isEqual = user.password === password;
+        if(!isEqual) {
+            throw new Error('Password incorrect.');
+        }
+
+        // Signing in, creating token
+        const token = jwt.sign({ userId: user.id }, process.env.JSON_WEB_TOKEN_SECRET_KEY || '', {
+            expiresIn: '12h'
+        })
+
+        return { token };
     }
 }

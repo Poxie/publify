@@ -21,12 +21,18 @@ export const typeDefs = gql`
         id: String!
         url: String!
     }
+    
+
+    type AuthData {
+        token: String!
+    }
 
     # Root Query Type
     type Query {
         getUserById(id: String!): User
         getPostById(id: String!): Post
         getPostsByAuthorId(id: String!): [Post]
+        login(username: String!, password: String!): AuthData!
     }
 
     # Mutations
