@@ -1,7 +1,8 @@
 import { FormEvent, useState } from "react"
-import { login } from "../utils";
+import { useAuth } from "../contexts/AuthProvider";
 
 export default function Login() {
+    const { login } = useAuth();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 

@@ -17,3 +17,11 @@ export type Media = {
     id: string;
     url: string;
 }
+
+
+
+// Contexts
+export type AuthContext = {
+    user: UserType;
+    login: (username: string, password: string) => Promise<void>;
+}
