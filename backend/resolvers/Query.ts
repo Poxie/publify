@@ -3,10 +3,14 @@ import jwt from 'jsonwebtoken';
 import { AuthRequest } from "../types/AuthRequest";
 
 export const Query = {
+    getMe: async (parent: any, args: any, context: any) => {
+        const { userId } = context;
+        const user = await getUserById(userId);
+        return user;
+    },
     getUserById: async (parent: any, args: any) => {
         const userId = args.id;
         const user = await getUserById(userId);
-        console.log(userId);
         return user;
     },
     getPostById: async (parent: any, args: any) => {
@@ -14,7 +18,7 @@ export const Query = {
         const post = await getPostById(id);
         return post;
     },
-    getPostsByAuthorId: async (parent: any, args: any) => {
+    getPostsByAuthorId: async (parent: any, args: any, context: any) => {
         const authorId = args.id;
         const posts = await getPostsByAuthorId(authorId);
         return posts;
