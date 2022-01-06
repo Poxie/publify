@@ -5,7 +5,7 @@ import { ProfilePostHeader } from './ProfilePostHeader';
 import { ProfilePostMedia } from './ProfilePostMedia';
 import { ProfilePostFooter } from './ProfilePostFooter';
 
-export const ProfilePost: React.FC<PostType> = ({ id, content, author, media, likeCount, likes }) => {
+export const ProfilePost: React.FC<PostType> = React.memo(({ id, content, author, media, likeCount, likes }) => {
     const { displayName, avatar } = author;
 
     return(
@@ -32,4 +32,4 @@ export const ProfilePost: React.FC<PostType> = ({ id, content, author, media, li
             />
         </div>
     )
-}
+});
