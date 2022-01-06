@@ -13,9 +13,9 @@ const getRootQuery = (query: string) => {
 }
 
 // GraphQL request
-export const request = async (query: string) => {
+export const request: (query: string, method?: 'query' | 'mutation') => Promise<any> = async (query, method='query') => {
     // Adding query {} here so we dont have to add it when we use the function
-    query = `query {
+    query = `${method} {
         ${query}
     }`
     return await fetch(`${API_ENDPOINT}`, {
