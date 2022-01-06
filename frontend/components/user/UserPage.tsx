@@ -11,6 +11,7 @@ export const UserPage: React.FC<UserType> = ({ id, displayName, avatar, banner }
                 name={displayName}
                 avatar={avatar}
                 banner={banner}
+                id={id}
             />
             <ProfileOverview />
         </div>

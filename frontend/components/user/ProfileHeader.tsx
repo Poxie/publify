@@ -1,17 +1,24 @@
 import Image from 'next/image';
 import React from 'react';
+import { useAuth } from '../../contexts/AuthProvider';
 import styles from '../../styles/User.module.scss';
 import { getUserAvatar, getUserBanner } from '../../utils';
 import { Avatar } from '../Avatar';
 import { Button } from '../Button';
 import { Flex } from '../Flex';
+import { FollowButton } from './FollowButton';
+import { SettingsButton } from './SettingsButton';
 
 interface Props {
     name: string;
     avatar?: string;
     banner: string;
+    id: string;
 }
-export const ProfileHeader: React.FC<Props> = ({ name, avatar, banner }) => {
+export const ProfileHeader: React.FC<Props> = ({ name, avatar, banner, id }) => {
+    const { user } = useAuth();
+    
+    const isSelf = user?.id === id;
     return(
         <div className={styles['header']}>
             <div 
@@ -43,9 +50,14 @@ export const ProfileHeader: React.FC<Props> = ({ name, avatar, banner }) => {
                     </div>
                 </div>
                 <div className={styles['options']}>
-                    <Button>
-                        Follow
-                    </Button>
+                    {!isSelf && (
+                        <FollowButton 
+                            userId={id}
+                        />
+                    )}
+                    {isSelf && (
+                        <SettingsButton />
+                    )}
                 </div>
             </Flex>
         </div>
