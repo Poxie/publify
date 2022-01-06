@@ -18,16 +18,12 @@ export const LikeButton: React.FC<Props> = ({ likes, likeCount, postId }) => {
 
     // Toggling like
     const toggleLiked = async () => {
-        setIsLiked(previous => {
-            const newState = !previous;
-            if(newState) {
-                createPostLike(postId);
-            } else {
-                destroyPostLike(postId);
-            }
-
-            return newState;
-        });
+        if(isLiked) {
+            destroyPostLike(postId);
+        } else {
+            createPostLike(postId);
+        }
+        setIsLiked(previous => !previous);
     }
 
     const iconStyles = [postStyles['like-svg'], isLiked ? postStyles['is-active'] : ''].join(' ');

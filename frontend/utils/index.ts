@@ -40,11 +40,12 @@ export const getPostsByAuthorId: (userId: string) => Promise<PostType[]> = async
 
 // Create like
 export const createPostLike: (postId: string) => Promise<void> = async (postId) => {
+    console.log('test');
     return await request(`
         createLike(postId: "${postId}") {
             content
         }
-    `, 'mutation');
+    `, 'mutation').then(console.log)
 }
 // Destroy like
 export const destroyPostLike: (postId: string) => Promise<void> = async (postId) => {

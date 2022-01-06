@@ -4,6 +4,7 @@ import { getUserAvatar, getUserById } from '../utils';
 import Head from 'next/head';
 import { UserType } from '../utils/types';
 import { UserPage } from '../components/user/UserPage';
+import Link from 'next/link';
 
 type Props = {
     user: UserType;
