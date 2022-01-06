@@ -1,16 +1,29 @@
 import Image from 'next/image';
-import React from 'react';
+import React, { useState } from 'react';
+import { OptionsIcon } from '../../icons/OptionsIcon';
 import styles from '../../styles/User.module.scss';
 import { Avatar } from '../Avatar';
 import { Flex } from '../Flex';
+import { PostOptions } from './PostOptions';
 
 interface Props {
     name: string;
     avatar: string;
+    postId: string;
+    authorId: string;
 }
-export const ProfilePostHeader: React.FC<Props> = ({ name, avatar }) => {
+export const ProfilePostHeader: React.FC<Props> = ({ name, avatar, postId, authorId }) => {
+    const [options, setOptions] = useState(false);
+
+    const toggle = () => {
+        setOptions(previous => !previous);
+    }
+
     return(
-        <div className={styles['post-header']}>
+        <Flex 
+            className={styles['post-header']}
+            justifyContent={'space-between'}
+        >
             <Flex
                 className={styles['header-main']}
                 alignItems={'center'}
@@ -24,6 +37,21 @@ export const ProfilePostHeader: React.FC<Props> = ({ name, avatar }) => {
                     {name}
                 </span>
             </Flex>
-        </div>
+            <div className={styles['post-options']}>
+                <div 
+                    className={options ? styles['active'] : ''}
+                    onClick={toggle}
+                >
+                    <OptionsIcon />
+                </div>
+                {options && (
+                    <PostOptions 
+                        postId={postId}
+                        authorId={authorId}
+                        close={toggle}
+                    />
+                )}
+            </div>
+        </Flex>
     )
 }

@@ -27,6 +27,8 @@ export const getPostsByAuthorId: (userId: string) => Promise<PostType[]> = async
             author {
                 displayName
                 avatar
+                id
+                username
             }
             likes
             likeCount

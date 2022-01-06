@@ -13,6 +13,8 @@ export const ProfilePost: React.FC<PostType> = ({ id, content, author, media, li
             <ProfilePostHeader 
                 avatar={avatar}
                 name={displayName}
+                postId={id}
+                authorId={author.id}
             />
 
             {content}
