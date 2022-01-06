@@ -5,10 +5,12 @@ import { getPostsByAuthorId } from '../../utils';
 import { Flex } from '../Flex';
 import { ProfilePosts } from './ProfilePosts';
 import { LoadingPost } from '../loading/LoadingPost';
+import { PostType } from '../../utils/types';
+import { ProfileMediaPreview } from './ProfileMediaPreview';
 
 export const ProfileOverview = () => {
     const router = useRouter();
-    const [posts, setPosts] = useState([]);
+    const [posts, setPosts] = useState<PostType[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -32,10 +34,13 @@ export const ProfileOverview = () => {
         }
     }, [router.query]);
 
+    const postsWithImages = posts.filter(post => post.media.length);
     return(
         <Flex className={styles['profile-overview']}>
             <div className={styles['profile-sidebar']}>
-
+                <ProfileMediaPreview 
+                    posts={posts}
+                />
             </div>
             {!isLoading && (
                 <ProfilePosts 
