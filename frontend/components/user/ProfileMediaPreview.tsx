@@ -16,8 +16,9 @@ export const ProfileMediaPreview: React.FC<Props> = ({ posts }) => {
         media = [...media, ...post.media];
     })
 
+    const hasMedia = media.length > 0;
     return(
-        <div>
+        <div style={hasMedia ? {} : {height: 'unset'}}>
             <Flex 
                 className={styles['preview-header']}
                 justifyContent={'space-between'}
@@ -26,28 +27,37 @@ export const ProfileMediaPreview: React.FC<Props> = ({ posts }) => {
                 <span className={styles['preview-header-text']}>
                     Images
                 </span>
-                <span className={styles['preview-header-more']}>
-                    View more
-                </span>
+                {hasMedia && (
+                    <span className={styles['preview-header-more']}>
+                        View more
+                    </span>
+                )}
             </Flex>
-            <div className={styles['preview-container']}>
-                {media.map(media => {
-                    const { url } = media;
+            {hasMedia && (
+                <div className={styles['preview-container']}>
+                    {media.map(media => {
+                        const { url } = media;
 
-                    return(
-                        <div className={styles['preview-media']}>
-                            <Image 
-                                src={url}
-                                width="100%" 
-                                height="100%"
-                                layout="fill"
-                                objectFit={'cover'}
-                                objectPosition={'center'}
-                            />
-                        </div>
-                    )
-                })}
-            </div>
+                        return(
+                            <div className={styles['preview-media']}>
+                                <Image 
+                                    src={url}
+                                    width="100%" 
+                                    height="100%"
+                                    layout="fill"
+                                    objectFit={'cover'}
+                                    objectPosition={'center'}
+                                />
+                            </div>
+                        )
+                    })}
+                </div>
+            )}
+            {!hasMedia && (
+                <span className={styles['preview-empty']}>
+                    This user hasn't posted any media yet.
+                </span>
+            )}
         </div>
     )
 }

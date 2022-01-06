@@ -97,6 +97,11 @@
     height: 100%;
     position: relative;
 }
+.preview-empty {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-muted);
+}
 
 // Profile Posts
 .posts {
