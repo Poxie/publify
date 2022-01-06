@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { login } from '../utils';
-import { get } from '../utils/methods';
+import { request } from '../utils/methods';
 import { AuthContext as AuthContextType } from '../utils/types';
 
 const AuthContext = React.createContext({} as AuthContextType);
@@ -15,7 +15,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
 
     // Handling initial logic
     useEffect(() => {
-        get(`
+        request(`
             getMe {
                 displayName
                 avatar

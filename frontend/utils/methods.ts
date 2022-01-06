@@ -12,8 +12,8 @@ const getRootQuery = (query: string) => {
     return rootQuery;
 }
 
-// GraphQL get request
-export const get = async (query: string) => {
+// GraphQL request
+export const request = async (query: string) => {
     // Adding query {} here so we dont have to add it when we use the function
     query = `query {
         ${query}

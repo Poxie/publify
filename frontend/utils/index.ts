@@ -1,9 +1,9 @@
-import { get } from "./methods"
+import { request } from "./methods"
 import { PostType } from "./types";
 
 // Getting user by ID
 export const getUserById = async (id: string) => {
-    const user = await get(`
+    const user = await request(`
         getUserById(id: "${id}") {
             username
             displayName
@@ -16,7 +16,7 @@ export const getUserById = async (id: string) => {
 }
 // Getting posts by author ID
 export const getPostsByAuthorId: (userId: string) => Promise<PostType[]> = async (userId) => {
-    const posts = await get(`
+    const posts = await request(`
         getPostsByAuthorId(id: "${userId}") {
             content
             media {
@@ -35,9 +35,16 @@ export const getPostsByAuthorId: (userId: string) => Promise<PostType[]> = async
 }
 
 
+// Mutations
+
+// Create like
+export const createPostLike: (postId: string) => Promise<void> = async (postId) => {
+
+}
+
 // Login
 export const login = async (username: string, password: string) => {
-    const response = await get(`
+    const response = await request(`
         login(username: "${username}", password: "${password}") {
             token
             user {
