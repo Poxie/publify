@@ -5,7 +5,7 @@ import { ProfilePostHeader } from './ProfilePostHeader';
 import { ProfilePostMedia } from './ProfilePostMedia';
 import { ProfilePostFooter } from './ProfilePostFooter';
 
-export const ProfilePost: React.FC<PostType> = ({ id, content, author, media }) => {
+export const ProfilePost: React.FC<PostType> = ({ id, content, author, media, likeCount, likes }) => {
     const { displayName, avatar } = author;
 
     return(
@@ -23,7 +23,11 @@ export const ProfilePost: React.FC<PostType> = ({ id, content, author, media }) 
                 />
             )}
 
-            <ProfilePostFooter />
+            <ProfilePostFooter 
+                likes={likes}
+                likeCount={likeCount}
+                postId={id}
+            />
         </div>
     )
 }

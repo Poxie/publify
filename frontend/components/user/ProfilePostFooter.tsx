@@ -5,10 +5,19 @@ import { Flex } from '../Flex';
 import { CommentsIcon } from '../../icons/CommentsIcon';
 import { LikeButton } from '../LikeButton';
 
-export const ProfilePostFooter = () => {
+type Props = {
+    likeCount: number;
+    likes: string[];
+    postId: string;
+}
+export const ProfilePostFooter: React.FC<Props> = ({ postId, likeCount, likes }) => {
     return(
         <Flex className={styles['post-footer']}>
-            <LikeButton />
+            <LikeButton 
+                likeCount={likeCount}
+                likes={likes}
+                postId={postId}
+            />
             <Flex
                 className={styles['footer-item']}
                 alignItems={'center'}

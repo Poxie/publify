@@ -3,9 +3,17 @@ import { HeartIcon } from '../icons/HeartIcon';
 import styles from '../styles/User.module.scss';
 import postStyles from '../styles/Post.module.scss';
 import { Flex } from './Flex';
+import { useAuth } from '../contexts/AuthProvider';
 
-export const LikeButton = () => {
-    const [isLiked, setIsLiked] = useState(true);
+type Props = {
+    likes: string[];
+    likeCount: number;
+    postId: string;
+}
+export const LikeButton: React.FC<Props> = ({ likes, likeCount, postId }) => {
+    const { user } = useAuth();
+    // Set default as true if user has liked post
+    const [isLiked, setIsLiked] = useState(likes.includes(user?.id));
 
     // Toggling like
     const toggleLiked = () => {
@@ -61,7 +69,7 @@ export const LikeButton = () => {
                 </g>
             </svg>
             <span className={styles['footer-item-text']}>
-                {Math.floor(Math.random() * 10)}
+                {likeCount}
             </span>
         </Flex>
     )

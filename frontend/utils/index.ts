@@ -27,6 +27,8 @@ export const getPostsByAuthorId: (userId: string) => Promise<PostType[]> = async
                 displayName
                 avatar
             }
+            likes
+            likeCount
         }
     `)
     return posts;

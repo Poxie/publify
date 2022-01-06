@@ -11,6 +11,8 @@ export type PostType = {
     id: string;
     author: UserType;
     media: Media[];
+    likes: string[];
+    likeCount: number;
 }
 
 export type Media = {
