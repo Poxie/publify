@@ -4,6 +4,7 @@ import styles from '../styles/User.module.scss';
 import postStyles from '../styles/Post.module.scss';
 import { Flex } from './Flex';
 import { useAuth } from '../contexts/AuthProvider';
+import { createPostLike, destroyPostLike } from '../utils';
 
 type Props = {
     likes: string[];
@@ -16,8 +17,17 @@ export const LikeButton: React.FC<Props> = ({ likes, likeCount, postId }) => {
     const [isLiked, setIsLiked] = useState(likes.includes(user?.id));
 
     // Toggling like
-    const toggleLiked = () => {
-        setIsLiked(previous => !previous);
+    const toggleLiked = async () => {
+        setIsLiked(previous => {
+            const newState = !previous;
+            if(newState) {
+                createPostLike(postId);
+            } else {
+                destroyPostLike(postId);
+            }
+
+            return newState;
+        });
     }
 
     const iconStyles = [postStyles['like-svg'], isLiked ? postStyles['is-active'] : ''].join(' ');

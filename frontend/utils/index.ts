@@ -18,6 +18,7 @@ export const getUserById = async (id: string) => {
 export const getPostsByAuthorId: (userId: string) => Promise<PostType[]> = async (userId) => {
     const posts = await request(`
         getPostsByAuthorId(id: "${userId}") {
+            id
             content
             media {
                 id
@@ -39,7 +40,19 @@ export const getPostsByAuthorId: (userId: string) => Promise<PostType[]> = async
 
 // Create like
 export const createPostLike: (postId: string) => Promise<void> = async (postId) => {
-
+    return await request(`
+        createLike(postId: "${postId}") {
+            content
+        }
+    `, 'mutation');
+}
+// Destroy like
+export const destroyPostLike: (postId: string) => Promise<void> = async (postId) => {
+    return await request(`
+        destroyLike(postId: "${postId}") {
+            content
+        }
+    `, 'mutation');
 }
 
 // Login
