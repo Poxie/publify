@@ -166,3 +166,16 @@ export const destroyPostLike: (postId: string, userId: string) => Promise<void> 
         })
     })
 }
+
+// Destroying post
+export const destroyPost: (postId: string) => Promise<boolean> = async (postId) => {
+    postId = escape(postId);
+
+    return new Promise((resolve, reject) => {
+        connection.query(`DELETE FROM posts WHERE id = ${postId}`, (error, result) => {
+            if(error) return reject(error);
+
+            resolve(true);
+        })
+    })
+}

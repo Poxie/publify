@@ -52,5 +52,6 @@ export const typeDefs = gql`
         # Post stuff
         createLike(postId: String!): Post!
         destroyLike(postId: String!): Post!
+        destroyPost(postId: String!): Boolean
     }
 `
