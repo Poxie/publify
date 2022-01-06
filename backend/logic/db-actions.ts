@@ -67,6 +67,9 @@ export const getPostsByAuthorId: (id: string) => Promise<Post[]> = async (author
                 post.likes = await getLikesByPostId(post.id);
                 post.likeCount = post.likes.length;
 
+                // Pushing updated post to fetched array
+                fetched.push(post);
+
                 // Once all likes are fetched, resolve
                 if(fetched.length === result.length) {
                     resolve(fetched);
