@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import { ApolloServer } from 'apollo-server-express';
 import { typeDefs } from './schemas';
 import { Query } from './resolvers/Query';
@@ -14,6 +15,7 @@ dotenv.config();
 export const connection = initializeConnection();
 
 const app = express();
+app.use(cors({ origin: process.env.FRONTEND_ORIGIN }));
 // @ts-ignore
 app.use(isAuth);
 
