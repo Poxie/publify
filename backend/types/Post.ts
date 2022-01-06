@@ -6,4 +6,5 @@ export type Post = {
     content: string;
     media: Media[];
     likes: String[];
+    likeCount: number;
 }

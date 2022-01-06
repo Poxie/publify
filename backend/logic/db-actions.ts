@@ -40,7 +40,9 @@ export const getPostById: (id: string) => Promise<Post> = async (id) => {
 
             // Fetching post likes
             if(result[0]) {
+                // Make this more efficient later
                 result[0].likes = await getLikesByPostId(id);
+                result[0].likeCount = result[0].likes.length
             }
 
             resolve(result[0]);
@@ -61,7 +63,9 @@ export const getPostsByAuthorId: (id: string) => Promise<Post[]> = async (author
             // Fetching likes for posts
             let fetched: Post[] = [];
             result.forEach(async (post: Post) => {
+                // Make this more efficient later
                 post.likes = await getLikesByPostId(post.id);
+                post.likeCount = post.likes.length;
 
                 // Once all likes are fetched, resolve
                 if(fetched.length === result.length) {

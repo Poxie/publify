@@ -16,6 +16,7 @@ export const typeDefs = gql`
         author: User!
         timestamp: Int!
         likes: [String]!
+        likeCount: Int!
         media: [Media]!
     }
     type Media {
