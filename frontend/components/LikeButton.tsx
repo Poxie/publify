@@ -4,29 +4,28 @@ import styles from '../styles/User.module.scss';
 import postStyles from '../styles/Post.module.scss';
 import { Flex } from './Flex';
 import { useAuth } from '../contexts/AuthProvider';
-import { createPostLike, destroyPostLike } from '../utils';
+import { useAppSelector } from '../redux/hooks';
+import { addPostLike, removePostLike } from '../redux/actions';
+import { PostType } from '../utils/types';
+import { useDispatch } from 'react-redux';
 
 type Props = {
-    likes: string[];
-    likeCount: number;
     postId: string;
 }
-export const LikeButton: React.FC<Props> = ({ likes, likeCount: defaultLikeCount, postId }) => {
+export const LikeButton: React.FC<Props> = ({ postId }) => {
     const { user } = useAuth();
-    // Set default as true if user has liked post
-    const [isLiked, setIsLiked] = useState(likes.includes(user?.id));
-    const [likeCount, setLikeCount] = useState(defaultLikeCount);
+    const post: PostType = useAppSelector(state => state.posts.posts.find((post: PostType) => post.id === postId))
+    const isLiked = post.likes.includes(user?.id);
+    const likeCount = post.likeCount;
+    const dispatch = useDispatch();
 
     // Toggling like
     const toggleLiked = async () => {
         if(isLiked) {
-            destroyPostLike(postId);
-            setLikeCount(previous => previous - 1);
+            dispatch(removePostLike(postId, user.id))
         } else {
-            createPostLike(postId);
-            setLikeCount(previous => previous + 1);
+            dispatch(addPostLike(postId, user.id));
         }
-        setIsLiked(previous => !previous);
     }
 
     const iconStyles = [postStyles['like-svg'], isLiked ? postStyles['is-active'] : ''].join(' ');

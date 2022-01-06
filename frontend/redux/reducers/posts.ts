@@ -1,7 +1,10 @@
 import { PostType } from "../../utils/types";
 import { ADD_POST_LIKE, REMOVE_POST_LIKE, SET_POSTS } from "../actionTypes"
 
-const initialState = {
+const initialState: {
+    posts: PostType[];
+    loading: boolean;
+} = {
     posts: [],
     loading: true
 }

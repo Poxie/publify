@@ -13,9 +13,7 @@ type Props = {
 export const ProfilePostFooter: React.FC<Props> = ({ postId, likeCount, likes }) => {
     return(
         <Flex className={styles['post-footer']}>
-            <LikeButton 
-                likeCount={likeCount}
-                likes={likes}
+            <LikeButton
                 postId={postId}
             />
             <Flex
