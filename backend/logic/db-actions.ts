@@ -3,14 +3,26 @@ import { Post } from "../types/Post"
 import { UserType } from "../types/UserType"
 import mysql from 'mysql';
 import { Media } from "../types/Media";
+import { DatabaseUser } from "../types/DatabaseUser";
 
 const escape = mysql.escape;
 
 // Getting user by ID
-export const getUserById: (id: string) => Promise<UserType> = async (id) => {
+export const getUserById: (id: string) => Promise<DatabaseUser> = async (id) => {
     id = escape(id);
     return new Promise((resolve, reject) => {
         connection.query(`SELECT * FROM users WHERE id = ${id}`, (error, result) => {
+            if(error) return reject(error);
+
+            resolve(result[0]);
+        })
+    })
+}
+// Getting user by username
+export const getUserByUsername: (username: string) => Promise<DatabaseUser | undefined> = async (username) => {
+    username = escape(username);
+    return new Promise((resolve, reject) => {
+        connection.query(`SELECT * FROM users WHERE username = ${username}`, (error, result) => {
             if(error) return reject(error);
 
             resolve(result[0]);
