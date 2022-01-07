@@ -113,3 +113,28 @@ export const getUserAvatar = (avatar: string) => {
 export const getUserBanner = (banner: string) => {
     return banner;
 }
+
+const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+// Getting readable time from unix
+export const getReadableTimeFromUnix = (timestamp: string | number) => {
+    if(typeof timestamp === 'string') {
+        timestamp = parseInt(timestamp);
+    }
+    const date = new Date(timestamp);
+    const today = new Date();
+    const todayYear = today.getFullYear();
+
+    const monthId = date.getMonth();
+    const dateId = date.getDate();
+    const year = date.getFullYear();
+
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+
+    let time = `${months[monthId]} ${dateId} at ${hours}:${minutes}`
+    if(year !== todayYear) {
+        time = `${months[monthId]} ${dateId}, ${year} at ${hours}:${minutes}`
+    }
+
+    return time;
+}

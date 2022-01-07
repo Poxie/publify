@@ -14,7 +14,7 @@ export const ProfilePost: React.FC<Props> = ({ postId }) => {
     // Getting post
     const post = useAppSelector(state => selectPostById(state, postId));
 
-    const { author, content, media, likes, likeCount } = post;
+    const { author, content, media, likes, likeCount, createdAt } = post;
     const { displayName, avatar } = author;
 
     return(
@@ -24,6 +24,7 @@ export const ProfilePost: React.FC<Props> = ({ postId }) => {
                 name={displayName}
                 postId={postId}
                 authorId={author.id}
+                createdAt={createdAt}
             />
 
             {content}

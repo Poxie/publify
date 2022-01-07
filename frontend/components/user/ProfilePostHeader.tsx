@@ -10,8 +10,9 @@ interface Props {
     avatar: string;
     postId: string;
     authorId: string;
+    createdAt: string;
 }
-export const ProfilePostHeader: React.FC<Props> = ({ name, avatar, postId, authorId }) => {
+export const ProfilePostHeader: React.FC<Props> = ({ name, avatar, postId, authorId, createdAt }) => {
     return(
         <Flex 
             className={styles['post-header']}
@@ -20,6 +21,7 @@ export const ProfilePostHeader: React.FC<Props> = ({ name, avatar, postId, autho
             <ProfilePostHeaderMain 
                 name={name}
                 avatar={avatar}
+                createdAt={createdAt}
             />
             <PostOptionsContainer 
                 postId={postId}
