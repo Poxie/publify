@@ -1,5 +1,5 @@
-import { createPostLike, destroyPost, destroyPostLike, getPostsByAuthorId } from "../../utils"
-import { ADD_POST_LIKE, CREATE_NOTIFICATION, DESTROY_NOTIFICATION, REMOVE_POST, REMOVE_POST_LIKE, RESET_NOTIFICATION, SET_POSTS } from "../actionTypes"
+import { createPostLike, destroyPost, destroyPostLike, getPostsByAuthorId, publishPost } from "../../utils"
+import { ADD_POST_LIKE, CREATE_NOTIFICATION, CREATE_POST, DESTROY_NOTIFICATION, REMOVE_POST, REMOVE_POST_LIKE, RESET_NOTIFICATION, SET_POSTS } from "../actionTypes"
 
 export const addPostLike = (postId: string, userId: string) => {
     return async dispatch => {
@@ -43,6 +43,22 @@ export const removePost = (postId: string) => {
         })
         // Dispatching success message
         dispatch(createNotification('Successfully deleted post', 'success'));
+    }
+}
+
+export const createPost = (content: string) => {
+    return async dispatch => {
+        const post = await publishPost(content);
+
+        // Adding post to posts state
+        dispatch({
+            type: CREATE_POST,
+            payload: {
+                post
+            }
+        })
+        // Dispatching success message
+        dispatch(createNotification('Successfully published post', 'success'));
     }
 }
 

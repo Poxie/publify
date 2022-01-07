@@ -63,6 +63,26 @@ export const destroyPost: (postId: string) => Promise<boolean> = async (postId) 
         destroyPost(postId: "${postId}")
     `, 'mutation');
 }
+// Publishing post
+export const publishPost: (content: string) => Promise<PostType> = async (content) => {
+    return await request(`
+        createPost(content: "${content}") {
+            id
+            content
+            author {
+                avatar
+                username
+                displayName
+                id
+            }
+            likes
+            likeCount
+            media {
+                url
+            }
+        }
+    `, 'mutation');
+}
 
 // Login
 export const login = async (username: string, password: string) => {

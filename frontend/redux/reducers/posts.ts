@@ -1,5 +1,5 @@
 import { PostType } from "../../utils/types";
-import { ADD_POST_LIKE, REMOVE_POST, REMOVE_POST_LIKE, SET_POSTS } from "../actionTypes"
+import { ADD_POST_LIKE, CREATE_POST, REMOVE_POST, REMOVE_POST_LIKE, SET_POSTS } from "../actionTypes"
 
 const initialState: {
     posts: PostType[];
@@ -51,6 +51,13 @@ export default (state=initialState, action) => {
             return {
                 ...state,
                 posts: state.posts.filter(post => post.id !== postId)
+            }
+        }
+        case CREATE_POST: {
+            const { post } = action.payload;
+            return {
+                ...state,
+                posts: [...[post], ...state.posts]
             }
         }
         default:
