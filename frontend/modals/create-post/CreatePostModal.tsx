@@ -4,6 +4,9 @@ import { ModalContent } from '../ModalContent';
 import { ModalHeader } from '../ModalHeader';
 import { PostOptions } from './PostOptions';
 import styles from '../../styles/Modals.module.scss';
+import { ModalFooter } from '../ModalFooter';
+import { Button } from '../../components/Button';
+import { Flex } from '../../components/Flex';
 
 export const CreatePostModal = () => {
     const [content, setContent] = useState('');
@@ -34,6 +37,13 @@ export const CreatePostModal = () => {
                     updateParent={updatePostOption}
                 />
             </ModalContent>
+            <ModalFooter>
+                <Flex justifyContent={'flex-end'}>
+                    <Button>
+                        Publish
+                    </Button>
+                </Flex>
+            </ModalFooter>
         </div>
     )
 }
