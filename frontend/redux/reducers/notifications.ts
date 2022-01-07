@@ -3,12 +3,21 @@ import { CREATE_NOTIFICATION, DESTROY_NOTIFICATION, RESET_NOTIFICATION } from ".
 const intialState = {
     hasNotification: false,
     notification: '',
-    notificationStatus: null
+    notificationStatus: null,
+    queuedNotifications: []
 }
 
 export default (state=intialState, action) => {
     switch(action.type) {
         case CREATE_NOTIFICATION: {
+            // If there already is a notification, queue notification
+            if(state.hasNotification) {
+                return {
+                    ...state,
+                    queuedNotifications: [...state.queuedNotifications, ...[action.payload]]
+                }
+            }
+
             const { notification, notificationStatus='info' } = action.payload;
 
             return {
@@ -26,6 +35,20 @@ export default (state=intialState, action) => {
             }
         }
         case RESET_NOTIFICATION: {
+            // Running queued notifications
+            if(state.queuedNotifications.length) {
+                const queuedNotification = state.queuedNotifications[0];
+                const { notification, notificationStatus } = queuedNotification;
+                return {
+                    ...state,
+                    notification,
+                    notificationStatus,
+                    hasNotification: true,
+                    queuedNotifications: state.queuedNotifications.slice(1)
+                }
+            }
+
+            // Else resetting to initial state
             return intialState;
         }
         default:
