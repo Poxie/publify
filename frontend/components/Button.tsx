@@ -6,9 +6,10 @@ interface Props {
     style?: any;
     className?: any;
     onClick?: () => void;
+    disabled?: boolean;
 }
 
-export const Button: React.FC<Props> = ({ children, type='primary', style, className, onClick }) => {
+export const Button: React.FC<Props> = ({ children, type='primary', style, className, onClick, disabled }) => {
     let typeStyle: any;
     switch(type) {
         case 'primary':
@@ -23,7 +24,11 @@ export const Button: React.FC<Props> = ({ children, type='primary', style, class
     }
     const newClassName = [className, styles['button'], typeStyle].join(' ');
     return(
-        <div className={newClassName} style={style} onClick={onClick}>
+        <div 
+            className={newClassName} 
+            style={{...style, ...{pointerEvents: disabled ? 'none' : 'all'}}} 
+            onClick={onClick}
+        >
             {children}
         </div>
     )
