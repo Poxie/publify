@@ -8,4 +8,5 @@ export type Post = {
     likes: String[];
     likeCount: number;
     createdAt: string;
+    commentCount: number;
 }

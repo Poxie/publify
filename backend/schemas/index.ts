@@ -12,13 +12,14 @@ export const typeDefs = gql`
     type Post {
         id: String!
         content: String!
-        authorId: Int!
+        authorId: String!
         author: User!
         createdAt: String!
         likes: [String]!
         likeCount: Int!
         media: [Media]!
         comments: [Comment]!
+        commentCount: Int!
     }
     type Media {
         id: String!

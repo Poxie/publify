@@ -43,6 +43,7 @@ export const getPostById: (id: string) => Promise<Post> = async (id) => {
                 // Make this more efficient later
                 result[0].likes = await getLikesByPostId(id);
                 result[0].likeCount = result[0].likes.length
+                result[0].commentCount = await getCommentCountByPostId(result[0].id);
             }
 
             resolve(result[0]);
@@ -66,6 +67,9 @@ export const getPostsByAuthorId: (id: string) => Promise<Post[]> = async (author
                 // Make this more efficient later
                 post.likes = await getLikesByPostId(post.id);
                 post.likeCount = post.likes.length;
+                
+                // Fetching comment count
+                post.commentCount = await getCommentCountByPostId(post.id);
 
                 // Pushing updated post to fetched array
                 fetched.push(post);
@@ -276,6 +280,18 @@ export const getCommentsByPostId: (postId: string) => Promise<Comment[]> = async
         connection.query(`SELECT * FROM comments WHERE parentId = ${postId}`, (error, result) => {
             if(error) return reject(error);
             resolve(result);
+        })
+    })
+}
+// Getting post comment count
+export const getCommentCountByPostId: (postId: string) => Promise<number> = async (postId) => {
+    postId = escape(postId);
+
+    return new Promise((resolve, reject) => {
+        connection.query(`SELECT count(*) AS commentCount FROM comments WHERE parentId = ${postId}`, (error, result) => {
+            if(error) return reject(error);
+
+            resolve(result[0]?.commentCount);
         })
     })
 }
