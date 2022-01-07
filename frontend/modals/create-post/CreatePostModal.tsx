@@ -14,6 +14,7 @@ import { useModal } from '../../contexts/ModalProvider';
 export const CreatePostModal = () => {
     const [content, setContent] = useState('');
     const [media, setMedia] = useState([]);
+    const [canPost, setCanPost] = useState(true);
     const dispatch = useDispatch();
     const notificationSent = useRef(false);
     const { close } = useModal();
@@ -43,6 +44,9 @@ export const CreatePostModal = () => {
 
         // Closing modal
         close();
+
+        // Making sure you can't post multiple times
+        setCanPost(false);
     }
 
     return(
@@ -65,7 +69,7 @@ export const CreatePostModal = () => {
             </ModalContent>
             <ModalFooter>
                 <Flex justifyContent={'flex-end'}>
-                    <Button onClick={publish}>
+                    <Button onClick={publish} disabled={!canPost}>
                         Publish
                     </Button>
                 </Flex>
