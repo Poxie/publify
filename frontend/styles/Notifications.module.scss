@@ -25,6 +25,9 @@
     &.info::after {
         background-color: blue;
     }
+    &.error::after {
+        background-color: red;
+    }
     &.success::after {
         background-color: green;
     }
