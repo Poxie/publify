@@ -32,6 +32,7 @@ export const getPostsByAuthorId: (userId: string) => Promise<PostType[]> = async
             }
             likes
             likeCount
+            createdAt
         }
     `)
     return posts;

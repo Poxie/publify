@@ -13,6 +13,7 @@ export type PostType = {
     media: Media[];
     likes: string[];
     likeCount: number;
+    createdAt: string;
 }
 
 export type Media = {
