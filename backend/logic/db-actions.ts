@@ -256,6 +256,18 @@ export const createComment: (postId: string, authorId: string, content: string) 
         })
     })
 }
+// Destroying post comment
+export const destroyComment: (commentId: string) => Promise<void> = async (commentId) => {
+    commentId = escape(commentId);
+
+    return new Promise((resolve, reject) => {
+        connection.query(`DELETE FROM comments WHERE id = ${commentId}`, (error, result) => {
+            if(error) return reject(error);
+
+            resolve();
+        })
+    })
+}
 // Getting post comments
 export const getCommentsByPostId: (postId: string) => Promise<Comment[]> = async (postId) => {
     postId = escape(postId);

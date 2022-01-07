@@ -66,5 +66,6 @@ export const typeDefs = gql`
         destroyPost(postId: String!): Boolean
         createPost(content: String!): Post!
         createComment(postId: String!, content: String!): Comment!
+        destroyComment(id: String!): Boolean!
     }
 `
