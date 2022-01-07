@@ -11,6 +11,7 @@ import { useAppSelector } from '../../redux/hooks';
 import { selectPosts } from '../../redux/selectors';
 import { Input } from '../Input';
 import { CreatePost } from './CreatePost';
+import { LoadingPosts } from '../loading/LoadingPosts';
 
 export const ProfileOverview = () => {
     const router = useRouter();
@@ -46,12 +47,7 @@ export const ProfileOverview = () => {
                 )}
                 {/* Display posts skeleton if loading */}
                 {loading && (
-                    <div style={{width: '100%'}}>
-                    <LoadingPost />
-                    <LoadingPost />
-                    <LoadingPost />
-                    <LoadingPost />
-                    </div>
+                    <LoadingPosts />
                 )}
             </div>
         </Flex>
