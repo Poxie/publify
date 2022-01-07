@@ -3,6 +3,7 @@ import styles from '../../styles/User.module.scss';
 import { Avatar } from '../Avatar';
 import { Flex } from '../Flex';
 import { PostOptionsContainer } from './PostOptionsContainer';
+import { ProfilePostHeaderMain } from './ProfilePostHeaderMain';
 
 interface Props {
     name: string;
@@ -16,19 +17,10 @@ export const ProfilePostHeader: React.FC<Props> = ({ name, avatar, postId, autho
             className={styles['post-header']}
             justifyContent={'space-between'}
         >
-            <Flex
-                className={styles['header-main']}
-                alignItems={'center'}
-            >
-                <Avatar 
-                    avatar={avatar}
-                    name={name}
-                    className={styles['post-avatar']}
-                />
-                <span>
-                    {name}
-                </span>
-            </Flex>
+            <ProfilePostHeaderMain 
+                name={name}
+                avatar={avatar}
+            />
             <PostOptionsContainer 
                 postId={postId}
                 authorId={authorId}
