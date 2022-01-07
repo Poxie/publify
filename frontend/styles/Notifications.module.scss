@@ -4,7 +4,6 @@
     background-color: var(--background-tertiary);
     padding: 18px 55px;
     border-radius: calc(var(--border-radius) / 2);
-    border-bottom: 4px solid;
     font-weight: 600;
     position: fixed;
     bottom: var(--initial-bottom);
@@ -12,11 +11,22 @@
     transform: translateX(-50%);
     z-index: 141414;
 
-    &.info {
-        border-bottom-color: blue;
+    &::after {
+        content: '';
+        height: 4px;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        left: 0;
+        border-radius: var(--border-radius);
+        animation: animate-stripe 5s forwards;
+        animation-delay: .4s;
     }
-    &.success {
-        border-bottom-color: green;
+    &.info::after {
+        background-color: blue;
+    }
+    &.success::after {
+        background-color: green;
     }
     &.animate-in {
         animation: animate-in .3s forwards;
@@ -25,7 +35,14 @@
         animation: animate-out .3s forwards;
     }
 }
-
+@keyframes animate-stripe {
+    0% {
+        width: 100%;
+    }
+    100% {
+        width: 0;
+    }
+}
 @keyframes animate-in {
     0% {
         bottom: var(--initial-bottom);
