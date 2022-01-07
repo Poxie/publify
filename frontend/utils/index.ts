@@ -57,6 +57,12 @@ export const destroyPostLike: (postId: string) => Promise<void> = async (postId)
         }
     `, 'mutation');
 }
+// Destroy post
+export const destroyPost: (postId: string) => Promise<boolean> = async (postId) => {
+    return await request(`
+        destroyPost(postId: "${postId}")
+    `, 'mutation');
+}
 
 // Login
 export const login = async (username: string, password: string) => {
