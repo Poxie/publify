@@ -2,6 +2,7 @@ import React, { createRef, useEffect, useRef, useState } from 'react';
 import { Button } from '../../components/Button';
 import { Flex } from '../../components/Flex';
 import styles from '../../styles/Modals.module.scss';
+import { MediaItem } from './MediaItem';
 
 type Props = {
     media: File[];
@@ -50,51 +51,22 @@ export const MediaContainer: React.FC<Props> = ({ media, addMedia, clearMedia })
                 style={{width: '100%'}}
             >
                 {visibleImages.map((media, key) => {
-                    const source = URL.createObjectURL(media);
                     const expectedHeight = (mediaCount === 1) ? 400 : 200;
+                    const widthPercentage = 100 / mediaCount;
 
-                    const ref = createRef<HTMLImageElement>();
-                    const onLoad = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-                        // Freeing memory on load
-                        URL.revokeObjectURL(source);
-
-                        // Setting width/height if it doesn't cover area
-                        const { offsetHeight } = e.currentTarget;
-                        if(offsetHeight < expectedHeight) {
-                            e.currentTarget.style.height = '100%'
-                        }
+                    // Amount of images not fitting container
+                    let moreImages;
+                    if(mediaCount - 4 > 0 && key === 3) {
+                        moreImages = mediaCount - 4;
                     }
-
                     return(
-                        <Flex
-                            style={{
-                                maxWidth: `${100 / mediaCount}%`, minWidth: '50%',
-                                height: expectedHeight
-                            }}
-                            alignItems={'center'}
-                            className={styles['image-container']}
+                        <MediaItem 
+                            expectedHeight={expectedHeight}
+                            expectedWidthPercentage={widthPercentage}
+                            tempFile={media}
+                            moreImages={moreImages}
                             key={key}
-                        >
-                            <img 
-                                src={source}
-                                onLoad={onLoad}
-                                ref={ref}
-                            />
-
-                            {/* If there are more than four images, display how many more there are */}
-                            {key === 3 && mediaCount > 4 && (
-                                <Flex 
-                                    className={styles['extra-images']}
-                                    alignItems={'center'}
-                                    justifyContent={'center'}
-                                    flexDirection={'column'}
-                                >
-                                    <div>
-                                        {mediaCount - 4}+
-                                    </div> images
-                                </Flex>
-                            )}
-                        </Flex>
+                        />
                     )
                 })}
             </Flex>
