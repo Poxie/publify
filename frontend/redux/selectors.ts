@@ -1,4 +1,5 @@
 import { createSelector } from "reselect";
+import { PostType } from "../utils/types";
 import { RootState } from "./store";
 
 export const selectPosts = (state: RootState) => state.posts.posts;

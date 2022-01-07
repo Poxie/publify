@@ -3,20 +3,18 @@ import styles from '../../styles/User.module.scss';
 import { useRouter } from 'next/router';
 import { Flex } from '../Flex';
 import { ProfilePosts } from './ProfilePosts';
-import { LoadingPost } from '../loading/LoadingPost';
 import { ProfileMediaPreview } from './ProfileMediaPreview';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserPosts } from '../../redux/actions';
 import { useAppSelector } from '../../redux/hooks';
-import { selectPosts } from '../../redux/selectors';
-import { Input } from '../Input';
+import { selectPostIds } from '../../redux/selectors';
 import { CreatePost } from './CreatePost';
 import { LoadingPosts } from '../loading/LoadingPosts';
 
 export const ProfileOverview = () => {
     const router = useRouter();
     const dispatch = useDispatch();
-    const posts = useAppSelector(state => selectPosts(state));
+    const postIds = useAppSelector(state => selectPostIds(state));
     const loading = useAppSelector(state => state.posts.loading);
 
     useEffect(() => {
@@ -30,7 +28,6 @@ export const ProfileOverview = () => {
         dispatch(fetchUserPosts(userId));
     }, [router.query]);
 
-    const postsWithImages = posts.filter(post => post.media.length);
     return(
         <Flex className={styles['profile-overview']}>
             <div className={styles['profile-sidebar']}>
@@ -40,7 +37,7 @@ export const ProfileOverview = () => {
                 <CreatePost />
                 {!loading && (
                     <ProfilePosts 
-                        posts={posts}
+                        postIds={postIds}
                     />
                 )}
                 {/* Display posts skeleton if loading */}

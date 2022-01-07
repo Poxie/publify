@@ -4,8 +4,17 @@ import styles from '../../styles/User.module.scss';
 import { ProfilePostHeader } from './ProfilePostHeader';
 import { ProfilePostMedia } from './ProfilePostMedia';
 import { ProfilePostFooter } from './ProfilePostFooter';
+import { useAppSelector } from '../../redux/hooks';
+import { selectPostById } from '../../redux/selectors';
 
-export const ProfilePost: React.FC<PostType> = React.memo(({ id, content, author, media, likeCount, likes }) => {
+type Props = {
+    postId: string;
+}
+export const ProfilePost: React.FC<Props> = ({ postId }) => {
+    // Getting post
+    const post = useAppSelector(state => selectPostById(state, postId));
+
+    const { author, content, media, likes, likeCount } = post;
     const { displayName, avatar } = author;
 
     return(
@@ -13,7 +22,7 @@ export const ProfilePost: React.FC<PostType> = React.memo(({ id, content, author
             <ProfilePostHeader 
                 avatar={avatar}
                 name={displayName}
-                postId={id}
+                postId={postId}
                 authorId={author.id}
             />
 
@@ -28,8 +37,8 @@ export const ProfilePost: React.FC<PostType> = React.memo(({ id, content, author
             <ProfilePostFooter 
                 likes={likes}
                 likeCount={likeCount}
-                postId={id}
+                postId={postId}
             />
         </div>
     )
-});
+}

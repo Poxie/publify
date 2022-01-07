@@ -4,22 +4,22 @@ import styles from '../../styles/User.module.scss';
 import { ProfilePost } from './ProfilePost';
 
 type Props = {
-    posts: PostType[];
+    postIds: string[];
 }
-export const ProfilePosts: React.FC<Props> = ({ posts }) => {
+export const ProfilePosts: React.FC<Props> = ({ postIds }) => {
     return(
         <div className={styles['posts']}>
-            {posts.map(post => {
+            {postIds.map(postId => {
                 return(
-                    <ProfilePost 
-                        {...post}
-                        key={post.id}
+                    <ProfilePost
+                        postId={postId}
+                        key={postId}
                     />
                 )
             })}
 
             {/* If posts array is empty */}
-            {!posts.length && (
+            {!postIds.length && (
                 <div className={styles['empty-posts']}>
                     This user doesn't have any posts yet.
                 </div>
