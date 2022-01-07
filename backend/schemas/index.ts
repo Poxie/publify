@@ -23,6 +23,15 @@ export const typeDefs = gql`
         id: String!
         url: String!
     }
+    type Comment {
+        id: String!
+        parentId: String!
+        parent: Post!
+        content: String!
+        authorId: String!
+        author: User!
+        createdAt: String!
+    }
     
 
     type AuthData {
@@ -54,5 +63,6 @@ export const typeDefs = gql`
         destroyLike(postId: String!): Post!
         destroyPost(postId: String!): Boolean
         createPost(content: String!): Post!
+        createComment(postId: String!, content: String!): Comment!
     }
 `

@@ -4,7 +4,7 @@ import { UserType } from "../types/UserType"
 import mysql from 'mysql';
 import { Media } from "../types/Media";
 import { DatabaseUser } from "../types/DatabaseUser";
-import { Like } from "../types";
+import { Comment, Like } from "../types";
 
 const escape = mysql.escape;
 
@@ -211,6 +211,48 @@ export const createPost: (authorId: string, content: string) => Promise<Post> = 
             
             const post = await getPostById(id);
             resolve(post);
+        })
+    })
+}
+// Getting comment by ID
+export const getCommentById: (commentId: string) => Promise<Comment> = async (commentId) => {
+    commentId = escape(commentId);
+
+    return new Promise((resolve, reject) => {
+        connection.query(`SELECT * FROM comments WHERE id = ${commentId}`, (error, result) => {
+            if(error) return reject(error);
+
+            resolve(result[0]);
+        })
+    })
+}
+// Generating post ID
+const generateCommentId: () => Promise<string> = async () => {
+    // Generating random ID
+    const id = randomId();
+
+    // Checking if ID is in use
+    const comment = await getCommentById(id);
+    if(comment) return await generateCommentId();
+
+    // Else return generated ID
+    return id;
+}
+// Creating post comment
+export const createComment: (postId: string, authorId: string, content: string) => Promise<Comment> = async (postId, authorId, content) => {
+    postId = escape(postId)
+    authorId = escape(authorId)
+    content = escape(content);
+    const createdAt = escape(Date.now());
+    const id = await generateCommentId();
+    const escapedId = escape(id);
+
+    return new Promise((resolve, reject) => {
+        connection.query(`INSERT INTO comments (id, parentId, authorId, content, createdAt) VALUES (${escapedId}, ${postId}, ${authorId}, ${content}, ${createdAt})`, async (error, result) => {
+            if(error) return reject(error);
+
+            const comment = await getCommentById(id);
+            resolve(comment);
         })
     })
 }
