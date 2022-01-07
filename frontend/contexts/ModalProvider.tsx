@@ -44,7 +44,7 @@ export const ModalProvider: React.FC<Props> = ({ children }) => {
             <div className={containerStyles}>
                 {modal && (
                     <>
-                    <div className={styles['backdrop']} />
+                    <div className={styles['backdrop']} onClick={close} />
                     <div className={styles['modal']}>
                         {modal}
                     </div>
