@@ -58,6 +58,10 @@
         background-color: var(--background-primary);
     }
 }
+.modal-footer {
+    background: var(--background-primary);
+    padding: 15px;
+}
 
 // Post creation
 .post-input {
