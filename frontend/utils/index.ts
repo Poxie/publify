@@ -78,6 +78,7 @@ export const publishPost: (content: string) => Promise<PostType> = async (conten
             }
             likes
             likeCount
+            createdAt
             media {
                 url
             }
