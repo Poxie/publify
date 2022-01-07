@@ -37,8 +37,6 @@ export const ProfilePost: React.FC<Props> = ({ postId }) => {
             )}
 
             <ProfilePostFooter 
-                likes={likes}
-                likeCount={likeCount}
                 postId={postId}
             />
         </div>
