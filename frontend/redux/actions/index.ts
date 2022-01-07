@@ -66,13 +66,25 @@ export const fetchUserPosts = (userId: string) => {
 
 
 // Notifications
-export const createNotification = (notification: string, notificationStatus: 'success' | 'info' | 'error' = 'info') => ({
-    type: CREATE_NOTIFICATION,
-    payload: {
-        notification,
-        notificationStatus
+export const createNotification = (notification: string, notificationStatus: 'success' | 'info' | 'error' = 'info', duration: number = 5000) => {
+    return dispatch => {
+        dispatch({
+            type: CREATE_NOTIFICATION,
+            payload: {
+                notification,
+                notificationStatus
+            }
+        })
+
+        setTimeout(() => {
+            dispatch(destroyNotification());
+
+            setTimeout(() => {
+                dispatch(resetNotification());
+            }, 400);
+        }, duration);
     }
-})
+}
 export const destroyNotification = () => ({
     type: DESTROY_NOTIFICATION
 })
