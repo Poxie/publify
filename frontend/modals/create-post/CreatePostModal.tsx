@@ -32,6 +32,9 @@ export const CreatePostModal = () => {
             if(notificationSent.current) return;
             dispatch(createNotification('You cannot publish an empty post.', 'error'));
             notificationSent.current = true;
+            setTimeout(() => {
+                notificationSent.current = false;
+            }, 6000);
             return;
         } 
         
