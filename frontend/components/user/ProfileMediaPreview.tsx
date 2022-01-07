@@ -3,18 +3,14 @@ import React from 'react';
 import { PostType } from '../../utils/types';
 import styles from '../../styles/User.module.scss';
 import { Flex } from '../Flex';
+import { useAppSelector } from '../../redux/hooks';
+import { selectPostMedia } from '../../redux/selectors';
 
-interface Props {
-    posts: PostType[];
-}
 const IMAGE_WIDTH = 148;
 const FULL_WIDTH = 300;
-export const ProfileMediaPreview: React.FC<Props> = ({ posts }) => {
-    // Extracting all media from posts
-    let media = [];
-    posts.forEach(post => {
-        media = [...media, ...post.media];
-    })
+export const ProfileMediaPreview = () => {
+    // Getting posts media
+    const media = useAppSelector(state => selectPostMedia(state));
 
     const hasMedia = media.length > 0;
     return(

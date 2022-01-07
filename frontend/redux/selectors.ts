@@ -3,10 +3,23 @@ import { RootState } from "./store";
 
 export const selectPosts = (state: RootState) => state.posts.posts;
 export const selectPostId = (state: RootState, postId: string) => postId;
-
 export const selectPostById = createSelector(
     [selectPosts, selectPostId],
     (posts, postId) => posts.find(post => post.id === postId) 
+)
+export const selectPostIds = createSelector(
+    [selectPosts],
+    (posts) => posts.map(post => post.id)
+)
+export const selectPostMedia = createSelector(
+    [selectPosts],
+    (posts) => {
+        let media = [];
+        for(const post of posts) {
+            media = [...media, ...post.media];
+        }
+        return media;
+    }
 )
 
 // Notifications

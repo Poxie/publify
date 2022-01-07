@@ -34,9 +34,7 @@ export const ProfileOverview = () => {
     return(
         <Flex className={styles['profile-overview']}>
             <div className={styles['profile-sidebar']}>
-                <ProfileMediaPreview 
-                    posts={posts}
-                />
+                <ProfileMediaPreview />
             </div>
             <div className={styles['profile-main']}>
                 <CreatePost />
