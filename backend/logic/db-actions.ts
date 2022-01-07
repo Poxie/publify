@@ -54,7 +54,7 @@ export const getPostById: (id: string) => Promise<Post> = async (id) => {
 export const getPostsByAuthorId: (id: string) => Promise<Post[]> = async (authorId) => {
     authorId = escape(authorId);
     return new Promise((resolve, reject) => {
-        connection.query(`SELECT * FROM posts WHERE authorId = ${authorId}`, (error, result) => {
+        connection.query(`SELECT * FROM posts WHERE authorId = ${authorId} ORDER BY createdAt DESC`, (error, result) => {
             if(error) return reject(error);
             
             // If no posts found, resolve
@@ -203,9 +203,10 @@ export const createPost: (authorId: string, content: string) => Promise<Post> = 
     authorId = escape(authorId);
     const id = await generatePostId();
     const escapedId = escape(id);
+    const createdAt = escape(Date.now());
 
     return new Promise((resolve, reject) => {
-        connection.query(`INSERT INTO posts (id, authorId, content) VALUES (${escapedId}, ${authorId}, ${content})`, async (error, result) => {
+        connection.query(`INSERT INTO posts (id, authorId, content, createdAt) VALUES (${escapedId}, ${authorId}, ${content}, ${createdAt})`, async (error, result) => {
             if(error) return reject(error);
             
             const post = await getPostById(id);
