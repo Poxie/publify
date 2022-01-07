@@ -3,7 +3,7 @@
     font-weight: 500;
     border-radius: 5px;
     cursor: pointer;
-    transition: opacity .2s;
+    transition: opacity .2s, background-color .2s;
     text-align: center;
     min-width: 60px;
     font-size: 14px;
@@ -19,4 +19,8 @@
 }
 .transparent {
     background-color: transparent;
+
+    &:hover {
+        background-color: var(--background-tertiary);
+    }
 }
