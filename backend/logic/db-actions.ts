@@ -256,3 +256,14 @@ export const createComment: (postId: string, authorId: string, content: string) 
         })
     })
 }
+// Getting post comments
+export const getCommentsByPostId: (postId: string) => Promise<Comment[]> = async (postId) => {
+    postId = escape(postId);
+
+    return new Promise((resolve, reject) => {
+        connection.query(`SELECT * FROM comments WHERE parentId = ${postId}`, (error, result) => {
+            if(error) return reject(error);
+            resolve(result);
+        })
+    })
+}

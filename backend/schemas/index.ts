@@ -18,6 +18,7 @@ export const typeDefs = gql`
         likes: [String]!
         likeCount: Int!
         media: [Media]!
+        comments: [Comment]!
     }
     type Media {
         id: String!

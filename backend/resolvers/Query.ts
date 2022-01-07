@@ -1,4 +1,4 @@
-import { getPostById, getPostsByAuthorId, getUserById, getUserByUsername } from "../logic/db-actions";
+import { getCommentsByPostId, getPostById, getPostsByAuthorId, getUserById, getUserByUsername } from "../logic/db-actions";
 import jwt from 'jsonwebtoken';
 import { AuthRequest } from "../types/AuthRequest";
 
@@ -22,6 +22,11 @@ export const Query = {
         const authorId = args.id;
         const posts = await getPostsByAuthorId(authorId);
         return posts;
+    },
+    getCommentsByPostId: async (parent: any, args: any) => {
+        const postId = args.postId;
+        const comments = await getCommentsByPostId(postId);
+        return comments;
     },
     login: async (parent: any, args: any, req: AuthRequest) => {
         const { username, password } = args;
