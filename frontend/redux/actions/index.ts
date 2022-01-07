@@ -43,13 +43,6 @@ export const removePost = (postId: string) => {
         })
         // Dispatching success message
         dispatch(createNotification('Successfully deleted post', 'success'));
-        setTimeout(() => {
-            dispatch(destroyNotification());
-
-            setTimeout(() => {
-                dispatch(resetNotification());
-            }, 400);
-        }, 5000);
     }
 }
 
