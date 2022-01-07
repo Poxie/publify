@@ -8,13 +8,14 @@ import { useAppSelector } from '../redux/hooks';
 import { addPostLike, removePostLike } from '../redux/actions';
 import { PostType } from '../utils/types';
 import { useDispatch } from 'react-redux';
+import { selectPostById } from '../redux/selectors';
 
 type Props = {
     postId: string;
 }
 export const LikeButton: React.FC<Props> = ({ postId }) => {
     const { user } = useAuth();
-    const post: PostType = useAppSelector(state => state.posts.posts.find((post: PostType) => post.id === postId))
+    const post: PostType = useAppSelector(state => selectPostById(state, postId));
     const isLiked = post.likes.includes(user?.id);
     const likeCount = post.likeCount;
     const dispatch = useDispatch();

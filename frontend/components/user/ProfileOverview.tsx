@@ -8,11 +8,12 @@ import { ProfileMediaPreview } from './ProfileMediaPreview';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserPosts } from '../../redux/actions';
 import { useAppSelector } from '../../redux/hooks';
+import { selectPosts } from '../../redux/selectors';
 
 export const ProfileOverview = () => {
     const router = useRouter();
     const dispatch = useDispatch();
-    const posts = useAppSelector(state => state.posts.posts);
+    const posts = useAppSelector(state => selectPosts(state));
     const loading = useAppSelector(state => state.posts.loading);
 
     useEffect(() => {
