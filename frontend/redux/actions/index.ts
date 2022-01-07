@@ -32,7 +32,7 @@ export const removePostLike = (postId: string, userId: string) => {
 
 export const removePost = (postId: string) => {
     return async dispatch => {
-        // const response = await destroyPost(postId);
+        const response = await destroyPost(postId);
 
         // Removing post from posts state
         dispatch({
