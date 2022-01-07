@@ -16,6 +16,7 @@ type Props = {
 }
 export const ModalProvider: React.FC<Props> = ({ children }) => {
     const [modal, setModal] = useState<any>(null);
+    const [animatingOut, setAnimatingOut] = useState(false);
 
     // Setting modal
     const setModalFunction = (modal: any) => {
@@ -24,7 +25,11 @@ export const ModalProvider: React.FC<Props> = ({ children }) => {
 
     // Closing modal
     const close = () => {
-        setModal(null);
+        setAnimatingOut(true);
+        setTimeout(() => {
+            setModal(null);
+            setAnimatingOut(false);
+        }, 400);
     }
 
     const value = {
@@ -32,10 +37,11 @@ export const ModalProvider: React.FC<Props> = ({ children }) => {
         close
     }
 
+    const containerStyles = [styles['modal-container'], animatingOut ? styles['animating-out'] : ''].join(' ');
     return(
         <ModalContext.Provider value={value}>
             {children}
-            <div className={styles['modal-container']}>
+            <div className={containerStyles}>
                 {modal && (
                     <>
                     <div className={styles['backdrop']} />

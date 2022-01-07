@@ -17,6 +17,31 @@
     top: 0;
     left: 0;
     z-index: 1;
+    animation: backdrop-in .4s forwards;
+}
+@keyframes backdrop-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@keyframes backdrop-out {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+.animating-out {
+    .modal {
+        animation: modal-out .4s forwards;
+    }
+    .backdrop {
+        animation: backdrop-out .4s forwards;
+    }
 }
 .modal {
     background-color: var(--background-secondary);
@@ -27,6 +52,33 @@
     min-height: 200px;
     pointer-events: all;
     z-index: 2;
+    animation: modal-in .4s forwards;
+}
+@keyframes modal-in {
+    0% {
+        transform: scale(.7);
+        opacity: 0;
+    }
+    70% {
+        transform: scale(1.05);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+@keyframes modal-out {
+    0% {
+        transform: scale(1);
+    }
+    25% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(.7);
+        opacity: 0;
+    }
 }
 .modal-header {
     padding: 20px;
