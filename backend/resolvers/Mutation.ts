@@ -1,4 +1,4 @@
-import { createtPostLike, destroyPost, destroyPostLike, generateUserId, getPostById, getUserById, insertUser } from "../logic/db-actions";
+import { createtPostLike, destroyPost, createPost, destroyPostLike, generateUserId, getPostById, getUserById, insertUser } from "../logic/db-actions";
 import { DatabaseUser } from "../types/DatabaseUser";
 
 export const Mutation = {
@@ -71,5 +71,19 @@ export const Mutation = {
         const response = await destroyPost(postId);
 
         return response;
+    },
+    createPost: async (parent: any, args: any, context: any) => {
+        const { content } = args;
+        const { userId } = context;
+        if(!userId) throw new Error('Unauthorized.');
+
+        // Checking if user exists
+        const user = await getUserById(userId);
+        if(!user) throw new Error('Unauthorized.');
+
+        // Creating post
+        const post = await createPost(userId, content);
+        
+        return post;
     }
 }

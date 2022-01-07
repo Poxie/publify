@@ -104,16 +104,21 @@ export const getLikesByPostId: (postId: string) => Promise<String[]> = async (po
 }
 
 
+// Generating random ID
+const randomId = () => {
+    let opts = '1234567890';
+    let id = '';
+    for(let i = 0; i < 18; i++) {
+        id += opts[Math.floor(Math.random() * opts.length)];
+    }
+    return id;
+}
 
 // Generating user ID
 export const generateUserId: () => Promise<string> = async () => {
     return new Promise(async (resolve, reject) => {
         // Creating a random ID
-        let opts = '1234567890';
-        let id = '';
-        for(let i = 0; i < 18; i++) {
-            id += opts[Math.floor(Math.random() * opts.length) - 1];
-        }
+        const id = randomId();
         
         // Checking if ID already exists
         const user = await getUserById(id);
@@ -176,6 +181,35 @@ export const destroyPost: (postId: string) => Promise<boolean> = async (postId) 
             if(error) return reject(error);
 
             resolve(true);
+        })
+    })
+}
+
+// Generating post ID
+const generatePostId: () => Promise<string> = async () => {
+    // Generating random ID
+    const id = randomId();
+
+    // Checking if ID already exists
+    const post = await getPostById(id);
+    if(post) return await generatePostId();
+
+    // Else return
+    return id;
+}
+// Creating post
+export const createPost: (authorId: string, content: string) => Promise<Post> = async (authorId, content) => {
+    content = escape(content);
+    authorId = escape(authorId);
+    const id = await generatePostId();
+    const escapedId = escape(id);
+
+    return new Promise((resolve, reject) => {
+        connection.query(`INSERT INTO posts (id, authorId, content) VALUES (${escapedId}, ${authorId}, ${content})`, async (error, result) => {
+            if(error) return reject(error);
+            
+            const post = await getPostById(id);
+            resolve(post);
         })
     })
 }
