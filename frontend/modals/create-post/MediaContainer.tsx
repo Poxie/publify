@@ -3,6 +3,7 @@ import { Button } from '../../components/Button';
 import { Flex } from '../../components/Flex';
 import styles from '../../styles/Modals.module.scss';
 import { MediaItem } from './MediaItem';
+import { UploadedMedia } from './UploadedMedia';
 
 type Props = {
     media: File[];
@@ -46,30 +47,10 @@ export const MediaContainer: React.FC<Props> = ({ media, addMedia, clearMedia })
                     </Button>
                 </Flex>
             )}
-            <Flex
-                flexWrap={'wrap'}
-                style={{width: '100%'}}
-            >
-                {visibleImages.map((media, key) => {
-                    const expectedHeight = (mediaCount === 1) ? 400 : 200;
-                    const widthPercentage = 100 / mediaCount;
-
-                    // Amount of images not fitting container
-                    let moreImages;
-                    if(mediaCount - 4 > 0 && key === 3) {
-                        moreImages = mediaCount - 4;
-                    }
-                    return(
-                        <MediaItem 
-                            expectedHeight={expectedHeight}
-                            expectedWidthPercentage={widthPercentage}
-                            tempFile={media}
-                            moreImages={moreImages}
-                            key={key}
-                        />
-                    )
-                })}
-            </Flex>
+            <UploadedMedia 
+                visibleImages={visibleImages}
+                mediaCount={mediaCount}
+            />
         </Flex>
     )
 }
