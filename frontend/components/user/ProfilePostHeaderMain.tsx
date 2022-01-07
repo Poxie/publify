@@ -3,13 +3,15 @@ import { Avatar } from '../Avatar';
 import { Flex } from '../Flex';
 import styles from '../../styles/User.module.scss';
 import { getReadableTimeFromUnix } from '../../utils';
+import Link from 'next/link';
 
 type Props = {
     avatar: string;
+    username: string;
     name: string;
     createdAt: string;
 }
-export const ProfilePostHeaderMain: React.FC<Props> = ({ avatar, name, createdAt }) => {
+export const ProfilePostHeaderMain: React.FC<Props> = ({ avatar, name, username, createdAt }) => {
     return(
         <Flex
             className={styles['header-main']}
@@ -24,9 +26,9 @@ export const ProfilePostHeaderMain: React.FC<Props> = ({ avatar, name, createdAt
                 flexDirection={'column'}
                 className={styles['header-text']}
             >
-                <span>
+                <Link href={`/${username}`}>
                     {name}
-                </span>
+                </Link>
                 <span className={styles['created-at']}>
                     {getReadableTimeFromUnix(createdAt)}
                 </span>

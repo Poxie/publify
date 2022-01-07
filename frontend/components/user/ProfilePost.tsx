@@ -15,12 +15,13 @@ export const ProfilePost: React.FC<Props> = ({ postId }) => {
     const post = useAppSelector(state => selectPostById(state, postId));
 
     const { author, content, media, likes, likeCount, createdAt } = post;
-    const { displayName, avatar } = author;
+    const { displayName, avatar, username } = author;
 
     return(
         <div className={styles['post']}>
             <ProfilePostHeader 
                 avatar={avatar}
+                username={username}
                 name={displayName}
                 postId={postId}
                 authorId={author.id}
