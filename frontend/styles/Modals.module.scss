@@ -1,0 +1,208 @@
+.modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.backdrop {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.5);
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+.modal {
+    background-color: var(--background-secondary);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    min-width: 450px;
+    max-width: 450px;
+    min-height: 200px;
+    pointer-events: all;
+    z-index: 2;
+}
+.modal-header {
+    padding: 20px;
+    position: relative;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    border-bottom: 1px solid var(--background-tertiary);
+}
+.close-modal-button {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--background-tertiary);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+
+    svg {
+        fill: var(--text-primary);
+        width: 25px;
+        height: 25px;
+        padding: 5px;
+    }
+
+    &:hover {
+        background-color: var(--background-primary);
+    }
+}
+
+// Post creation
+.post-input {
+    margin-bottom: 0 !important;
+}
+.post-options {
+    margin: 15px;
+    
+    svg {
+        fill: var(--text-muted);
+    }
+}
+.extra-options {
+    animation: options-in .3s forwards;
+    overflow: hidden;
+
+    &.options-out {
+        animation: options-out .3s forwards;
+    }
+}
+@keyframes options-out {
+    from {
+        max-height: 450px;
+    }
+    to {
+        max-height: 0;
+    }
+}
+@keyframes options-in {
+    from {
+        max-height: 0;
+    }
+    to {
+        max-height: 450px;
+    }
+}
+.visible-option {
+    padding: 8px;
+    border: 1px solid var(--background-tertiary);
+    border-radius: var(--border-radius);
+    margin-bottom: 10px;
+    
+    &>div {
+        border-radius: var(--border-radius);
+        background-color: var(--background-tertiary);
+    }
+}
+.option-container {
+    border-radius: var(--border-radius);
+    padding: 5px;
+    border: 1px solid var(--background-tertiary);
+    width: 100%;
+    justify-content: flex-start;
+}
+.post-option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: unset;
+}
+.media {
+    overflow: hidden;
+}
+.media-content {
+    max-height: 400px;
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    width: 100%;
+    transition: transform .3s;
+    
+    &.has-media {
+        transform: translate3d(-100%,0,0);
+    }
+    &>div {
+        min-width: 100%;
+    }
+    svg {
+        width: 30px;
+        height: 30px;
+        margin-bottom: 5px;
+    }
+    &:hover {
+        background-color: var(--background-hover);
+    }
+}
+.add-media {
+    width: 100%;
+    height: 200px;
+}
+.media-container {
+    position: relative;
+    width: 100%;
+    transition: height .4s;
+    overflow: hidden;
+
+    img {
+        width: 100%;
+    }
+}
+@keyframes image-in {
+    from {
+        transform: scale(0);
+        position: relative;
+    }
+    to {
+        transform: scale(1);
+        position: relative;
+    }
+}
+.media-options {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    z-index: 2;
+
+    &>div {
+        margin-right: 5px;
+        color: var(--text-primary);
+        font-size: 12px;
+    }
+}
+.image-container {
+    overflow: hidden;
+    width: 100%;
+    transition: max-width .4s, height .4s;
+    transform: scale(0);
+    position: absolute;
+    animation: image-in .4s forwards;
+    animation-delay: .4s;
+    border: 1px solid var(--background-primary);
+}
+.extra-images {
+    position: absolute;
+    z-index: 2;
+    background-color: rgba(0,0,0,.8);
+    width: 100%;
+    height: 100%;
+    color: var(--text-primary);
+    text-align: center;
+    font-size: 16px;
+
+    div {
+        font-size: 28px;
+        font-weight: 700;
+    }
+}
