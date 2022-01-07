@@ -9,12 +9,14 @@ import { Button } from '../../components/Button';
 import { Flex } from '../../components/Flex';
 import { useDispatch } from 'react-redux';
 import { createNotification, createPost, destroyNotification, resetNotification } from '../../redux/actions';
+import { useModal } from '../../contexts/ModalProvider';
 
 export const CreatePostModal = () => {
     const [content, setContent] = useState('');
     const [media, setMedia] = useState([]);
     const dispatch = useDispatch();
     const notificationSent = useRef(false);
+    const { close } = useModal();
 
     // Updating options values
     const updatePostOption = (type: string, value: any) => {
@@ -35,6 +37,9 @@ export const CreatePostModal = () => {
         
         // Publishing post
         dispatch(createPost(content));
+
+        // Closing modal
+        close();
     }
 
     return(
