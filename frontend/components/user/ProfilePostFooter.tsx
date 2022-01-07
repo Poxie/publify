@@ -4,27 +4,20 @@ import { HeartIcon } from '../../icons/HeartIcon';
 import { Flex } from '../Flex';
 import { CommentsIcon } from '../../icons/CommentsIcon';
 import { LikeButton } from '../LikeButton';
+import { CommentButton } from './CommentButton';
 
 type Props = {
-    likeCount: number;
-    likes: string[];
     postId: string;
 }
-export const ProfilePostFooter: React.FC<Props> = ({ postId, likeCount, likes }) => {
+export const ProfilePostFooter: React.FC<Props> = ({ postId }) => {
     return(
         <Flex className={styles['post-footer']}>
             <LikeButton
                 postId={postId}
             />
-            <Flex
-                className={styles['footer-item']}
-                alignItems={'center'}
-            >
-                <CommentsIcon />
-                <span className={styles['footer-item-text']}>
-                    {Math.floor(Math.random() * 10)}
-                </span>
-            </Flex>
+            <CommentButton 
+                postId={postId}
+            />
         </Flex>
     )
 }

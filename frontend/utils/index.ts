@@ -33,6 +33,7 @@ export const getPostsByAuthorId: (userId: string) => Promise<PostType[]> = async
             likes
             likeCount
             createdAt
+            commentCount
         }
     `)
     return posts;
@@ -78,6 +79,7 @@ export const publishPost: (content: string) => Promise<PostType> = async (conten
             }
             likes
             likeCount
+            commentCount
             createdAt
             media {
                 url

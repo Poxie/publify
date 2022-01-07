@@ -14,13 +14,13 @@ export type PostType = {
     likes: string[];
     likeCount: number;
     createdAt: string;
+    commentCount: number;
 }
 
 export type Media = {
     id: string;
     url: string;
 }
-
 
 
 // Contexts
