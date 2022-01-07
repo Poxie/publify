@@ -12,7 +12,7 @@ export const ProfilePostMedia: React.FC<Props> = ({ media }) => {
         <Flex 
             className={styles['post-media']}
         >
-            {media.map(media => {
+            {media.map((media, key) => {
                 const { url } = media;
 
                 return(
@@ -23,6 +23,8 @@ export const ProfilePostMedia: React.FC<Props> = ({ media }) => {
                         layout="fill"
                         objectFit={'cover'}
                         objectPosition={'center'}
+                        // Change this to media.id later
+                        key={key}
                     />
                 )
             })}
