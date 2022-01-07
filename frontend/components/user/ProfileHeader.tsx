@@ -7,6 +7,7 @@ import { Avatar } from '../Avatar';
 import { Button } from '../Button';
 import { Flex } from '../Flex';
 import { FollowButton } from './FollowButton';
+import { ProfileOptions } from './ProfileOptions';
 import { SettingsButton } from './SettingsButton';
 
 interface Props {
@@ -16,9 +17,6 @@ interface Props {
     id: string;
 }
 export const ProfileHeader: React.FC<Props> = ({ name, avatar, banner, id }) => {
-    const { user } = useAuth();
-    
-    const isSelf = user?.id === id;
     return(
         <div className={styles['header']}>
             <div 
@@ -49,16 +47,9 @@ export const ProfileHeader: React.FC<Props> = ({ name, avatar, banner, id }) => 
                         </span>
                     </div>
                 </div>
-                <div className={styles['options']}>
-                    {!isSelf && (
-                        <FollowButton 
-                            userId={id}
-                        />
-                    )}
-                    {isSelf && (
-                        <SettingsButton />
-                    )}
-                </div>
+                <ProfileOptions 
+                    userId={id}
+                />
             </Flex>
         </div>
     )
