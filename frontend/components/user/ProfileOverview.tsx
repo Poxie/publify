@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserPosts } from '../../redux/actions';
 import { useAppSelector } from '../../redux/hooks';
 import { selectPosts } from '../../redux/selectors';
+import { Input } from '../Input';
+import { CreatePost } from './CreatePost';
 
 export const ProfileOverview = () => {
     const router = useRouter();
@@ -35,20 +37,23 @@ export const ProfileOverview = () => {
                     posts={posts}
                 />
             </div>
-            {!loading && (
-                <ProfilePosts 
-                    posts={posts}
-                />
-            )}
-            {/* Display posts skeleton if loading */}
-            {loading && (
-                <div style={{width: '100%'}}>
-                <LoadingPost />
-                <LoadingPost />
-                <LoadingPost />
-                <LoadingPost />
-                </div>
-            )}
+            <div className={styles['profile-main']}>
+                <CreatePost />
+                {!loading && (
+                    <ProfilePosts 
+                        posts={posts}
+                    />
+                )}
+                {/* Display posts skeleton if loading */}
+                {loading && (
+                    <div style={{width: '100%'}}>
+                    <LoadingPost />
+                    <LoadingPost />
+                    <LoadingPost />
+                    <LoadingPost />
+                    </div>
+                )}
+            </div>
         </Flex>
     )
 }

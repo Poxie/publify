@@ -104,8 +104,27 @@
 }
 
 // Profile Posts
-.posts {
+.posts, .profile-main {
     width: 100%;
+}
+.create-post {
+    padding: 12px 15px;
+    background-color: var(--background-tertiary);
+    border-radius: 120px;
+    cursor: pointer;
+
+    &:hover {
+        span {
+            opacity: .5;
+        }
+    }
+}
+.create-post-avatar {
+    margin-right: 15px;
+    border-radius: 50%;
+}
+.posts {
+    margin-top: 10px;
 }
 .post {
     background-color: var(--background-secondary);
@@ -143,7 +162,7 @@
 
     .active {
         pointer-events: none;
-        
+
         svg {
             background-color: var(--background-tertiary);
         }
