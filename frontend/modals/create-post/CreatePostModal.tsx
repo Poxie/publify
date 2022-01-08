@@ -8,8 +8,33 @@ import { ModalFooter } from '../ModalFooter';
 import { Button } from '../../components/Button';
 import { Flex } from '../../components/Flex';
 import { useDispatch } from 'react-redux';
-import { createNotification, createPost, destroyNotification, resetNotification } from '../../redux/actions';
+import { createNotification, destroyNotification, resetNotification } from '../../redux/actions';
 import { useModal } from '../../contexts/ModalProvider';
+import { gql, useMutation } from '@apollo/client';
+import { CREATE_POST } from '../../redux/actionTypes';
+
+const MUTATION = gql`
+    mutation($content: String!, $media: Upload) {
+        createPost(content: $content, media: $media) {
+            id
+            content
+            author {
+                id
+                avatar
+                displayName
+                username
+            }
+            likeCount
+            likes
+            commentCount
+            createdAt
+            media {
+                id
+                parentId
+            }
+        }
+    }
+`
 
 export const CreatePostModal = () => {
     const [content, setContent] = useState('');
@@ -18,6 +43,7 @@ export const CreatePostModal = () => {
     const dispatch = useDispatch();
     const notificationSent = useRef(false);
     const { close } = useModal();
+    const [createPost] = useMutation(MUTATION);
 
     // Updating options values
     const updatePostOption = (type: string, value: any) => {
@@ -27,7 +53,7 @@ export const CreatePostModal = () => {
     }
 
     // Publishing post
-    const publish = () => {
+    const publish = async () => {
         // If post is empty
         if(!content && !media.length) {
             if(notificationSent.current) return;
@@ -39,8 +65,12 @@ export const CreatePostModal = () => {
             return;
         } 
         
+        
         // Publishing post
-        dispatch(createPost(content));
+        const test: any = await createPost({
+            variables: { media: media[0], content }
+        }).catch(console.error);
+        dispatch({type: CREATE_POST, payload: { post: test.data.createPost }});
 
         // Closing modal
         close();

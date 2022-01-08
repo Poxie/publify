@@ -9,6 +9,7 @@ import { initializeConnection } from './logic/connection';
 import dotenv from 'dotenv';
 import { Mutation } from './resolvers/Mutation';
 import { isAuth } from './middleware/is-auth';
+import { GraphQLUpload, graphqlUploadExpress } from 'graphql-upload';
 dotenv.config();
 
 // Initializing MySQL connection
@@ -26,7 +27,8 @@ app.use(isAuth);
             Query,
             Post,
             User,
-            Mutation
+            Mutation,
+            Upload: GraphQLUpload
         },
         context: (context) => {
             const req: any = context.req;
@@ -40,6 +42,11 @@ app.use(isAuth);
 
     // Starting apollo server
     await server.start();
+
+    app.use(graphqlUploadExpress({
+        maxFiles: 10,
+        maxFileSize: 10000000000
+    }))
     
     // @ts-ignore
     server.applyMiddleware({ app, isAuth });

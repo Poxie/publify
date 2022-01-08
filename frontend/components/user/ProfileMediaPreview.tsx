@@ -5,6 +5,7 @@ import styles from '../../styles/User.module.scss';
 import { Flex } from '../Flex';
 import { useAppSelector } from '../../redux/hooks';
 import { selectPostMedia } from '../../redux/selectors';
+import { getMediaURL } from '../../utils';
 
 const IMAGE_WIDTH = 148;
 const FULL_WIDTH = 300;
@@ -32,12 +33,13 @@ export const ProfileMediaPreview = () => {
             {hasMedia && (
                 <div className={styles['preview-container']}>
                     {media.map(media => {
-                        const { url } = media;
+                        const { id } = media;
 
+                        const mediaURL = getMediaURL(id);
                         return(
                             <div className={styles['preview-media']}>
                                 <Image 
-                                    src={url}
+                                    src={mediaURL}
                                     width="100%" 
                                     height="100%"
                                     layout="fill"

@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 import styles from '../../styles/User.module.scss';
+import { getMediaURL } from '../../utils';
 import { Media } from '../../utils/types';
 import { Flex } from '../Flex';
 
@@ -13,16 +14,16 @@ export const ProfilePostMedia: React.FC<Props> = ({ media }) => {
             className={styles['post-media']}
         >
             {media.map((media, key) => {
-                const { url } = media;
+                const { id } = media;
 
+                const mediaURL = getMediaURL(id);
                 return(
                     <Image 
-                        src={url}
+                        src={mediaURL}
                         layout="fill"
                         objectFit={'cover'}
                         objectPosition={'center'}
-                        // Change this to media.id later
-                        key={key}
+                        key={id}
                     />
                 )
             })}

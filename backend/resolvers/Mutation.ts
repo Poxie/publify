@@ -1,4 +1,4 @@
-import { createtPostLike, destroyPost, createPost, destroyPostLike, generateUserId, getPostById, getUserById, insertUser, createComment, destroyComment, getCommentById } from "../logic/db-actions";
+import { createtPostLike, destroyPost, createPost, destroyPostLike, generateUserId, getPostById, getUserById, insertUser, createComment, destroyComment, getCommentById, createMedia } from "../logic/db-actions";
 import { DatabaseUser } from "../types/DatabaseUser";
 
 export const Mutation = {
@@ -73,7 +73,7 @@ export const Mutation = {
         return response;
     },
     createPost: async (parent: any, args: any, context: any) => {
-        const { content } = args;
+        const { content, media } = args;
         const { userId } = context;
         if(!userId) throw new Error('Unauthorized.');
 
@@ -81,8 +81,15 @@ export const Mutation = {
         const user = await getUserById(userId);
         if(!user) throw new Error('Unauthorized.');
 
+        
         // Creating post
         const post = await createPost(userId, content);
+        
+        // If uploaded media, insert media
+        if(media) {
+            // Creating media
+            await createMedia(post.id, media);
+        }
         
         return post;
     },

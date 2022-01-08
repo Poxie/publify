@@ -1,4 +1,4 @@
 export type Media = {
     id: string;
-    url: string;
+    parentId: string;
 }

@@ -46,9 +46,9 @@ export const removePost = (postId: string) => {
     }
 }
 
-export const createPost = (content: string) => {
+export const createPost = (content: string, media?: File) => {
     return async dispatch => {
-        const post = await publishPost(content);
+        const post = await publishPost(content, media);
 
         // Adding post to posts state
         dispatch({

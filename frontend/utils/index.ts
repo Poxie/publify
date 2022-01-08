@@ -22,7 +22,6 @@ export const getPostsByAuthorId: (userId: string) => Promise<PostType[]> = async
             content
             media {
                 id
-                url
             }
             author {
                 displayName
@@ -66,9 +65,9 @@ export const destroyPost: (postId: string) => Promise<boolean> = async (postId) 
     `, 'mutation');
 }
 // Publishing post
-export const publishPost: (content: string) => Promise<PostType> = async (content) => {
+export const publishPost: (content: string, media?: File) => Promise<PostType> = async (content, media) => {
     return await request(`
-        createPost(content: "${content}") {
+        createPost(content: "${content}", media: ${media}) {
             id
             content
             author {
@@ -82,7 +81,7 @@ export const publishPost: (content: string) => Promise<PostType> = async (conten
             commentCount
             createdAt
             media {
-                url
+                id
             }
         }
     `, 'mutation');
@@ -115,6 +114,10 @@ export const getUserAvatar = (avatar: string) => {
 // Getting user banner
 export const getUserBanner = (banner: string) => {
     return banner;
+}
+// Getting post media URL
+export const getMediaURL = (id: string) => {
+    return `${process.env.NEXT_PUBLIC_IMAGE_ENDPOINT}/media/${id}.png`;
 }
 
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];

@@ -1,7 +1,9 @@
+import mysql from 'mysql';
+import { createWriteStream } from 'fs';
+import path from 'path';
 import { connection } from "../server"
 import { Post } from "../types/Post"
 import { UserType } from "../types/UserType"
-import mysql from 'mysql';
 import { Media } from "../types/Media";
 import { DatabaseUser } from "../types/DatabaseUser";
 import { Comment, Like } from "../types";
@@ -292,6 +294,52 @@ export const getCommentCountByPostId: (postId: string) => Promise<number> = asyn
             if(error) return reject(error);
 
             resolve(result[0]?.commentCount);
+        })
+    })
+}
+// Getting media by ID
+export const getMediaById: (id: string) => Promise<Media> = (id) => {
+    id = escape(id);
+
+    return new Promise((resolve, reject) => {
+        connection.query(`SELECT * FROM media WHERE id = ${id}`, (error, result) => {
+            if(error) return reject(error);
+
+            resolve(result[0]);
+        })
+    })
+}
+// Generating media ID
+export const generateMediaId: () => Promise<string> = async () => {
+    // Generating random ID
+    const id = randomId();
+
+    // Checking if media exists
+    const media = await getMediaById(id);
+    if(media) return await generateMediaId();
+
+    return id;
+}
+// Creating media
+export const createMedia: (parentId: string, media: any) => Promise<Media> = async (parentId, media) => {
+    parentId = escape(parentId);
+    return new Promise(async (resolve, reject) => {
+        const { createReadStream } = await media;
+        const id = await generateMediaId();
+
+        // Inserting media into media folder
+        await new Promise(res =>
+            createReadStream()
+                .pipe(createWriteStream(path.join(__dirname, '../imgs/media', `${id}.png`)))
+                .on('close', res)
+        );
+
+        // Inserting media into database
+        connection.query(`INSERT INTO media (id, parentId) VALUES (${escape(id)}, ${parentId})`, async (error, result) => {
+            if(error) return reject(error);      
+            
+            const newMedia = await getMediaById(id);
+            resolve(newMedia);
         })
     })
 }
