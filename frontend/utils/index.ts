@@ -1,5 +1,25 @@
 import { request } from "./methods"
 import { PostType } from "./types";
+import { GraphQLClient } from 'graphql-request';
+import { CREATE_POST } from "./mutations";
+const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
+
+// Getting access token
+const getAccessToken = () => {
+    if(typeof window === 'undefined') return;
+    return window.localStorage.accessToken;
+}
+
+// Returning pure data from GraphQL response
+const sanitizeData = (data: string, query: string) => {
+    const rootQuery = query.split('{')[1].split('(')[0].trim();
+    return data[rootQuery];
+}
+
+// Exporting GraphQL client
+export const client = new GraphQLClient(API_ENDPOINT, { headers: {
+    authorization: `Bearer ${getAccessToken()}`
+} });
 
 // Getting user by ID
 export const getUserById = async (id: string) => {
@@ -65,27 +85,10 @@ export const destroyPost: (postId: string) => Promise<boolean> = async (postId) 
     `, 'mutation');
 }
 // Publishing post
-export const publishPost: (content: string, media?: File) => Promise<PostType> = async (content, media) => {
-    return await request(`
-        createPost(content: "${content}", media: ${media}) {
-            id
-            content
-            author {
-                avatar
-                username
-                displayName
-                id
-            }
-            likes
-            likeCount
-            commentCount
-            createdAt
-            media {
-                id
-            }
-        }
-    `, 'mutation');
-}
+export const publishPost: (content: string, media?: File[]) => Promise<PostType> = async (content, media) => {
+    const response = await client.request(CREATE_POST, { content, media });
+    return sanitizeData(response, CREATE_POST);
+} 
 
 // Login
 export const login = async (username: string, password: string) => {
