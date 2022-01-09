@@ -86,7 +86,7 @@ export const Mutation = {
         const post = await createPost(userId, content);
         
         // If uploaded media, insert media
-        if(media) {
+        if(media && media.length) {
             // Creating media
             await createMedia(post.id, media);
         }
