@@ -14,7 +14,7 @@ import { gql, useMutation } from '@apollo/client';
 import { CREATE_POST } from '../../redux/actionTypes';
 
 const MUTATION = gql`
-    mutation($content: String!, $media: Upload) {
+    mutation($content: String!, $media: [Upload]) {
         createPost(content: $content, media: $media) {
             id
             content
@@ -68,7 +68,7 @@ export const CreatePostModal = () => {
         
         // Publishing post
         const test: any = await createPost({
-            variables: { media: media[0], content }
+            variables: { media, content }
         }).catch(console.error);
         dispatch({type: CREATE_POST, payload: { post: test.data.createPost }});
 

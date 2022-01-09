@@ -321,25 +321,33 @@ export const generateMediaId: () => Promise<string> = async () => {
     return id;
 }
 // Creating media
-export const createMedia: (parentId: string, media: any) => Promise<Media> = async (parentId, media) => {
+export const createMedia: (parentId: string, media: any) => Promise<Media[]> = async (parentId, media) => {
     parentId = escape(parentId);
     return new Promise(async (resolve, reject) => {
-        const { createReadStream } = await media;
-        const id = await generateMediaId();
+        const createdMedia: Media[] = [];
+        
+        for(const mediaItem of media) {
+            const { createReadStream } = await mediaItem;
+            const id = await generateMediaId();
 
-        // Inserting media into media folder
-        await new Promise(res =>
-            createReadStream()
-                .pipe(createWriteStream(path.join(__dirname, '../imgs/media', `${id}.png`)))
-                .on('close', res)
-        );
+            // Inserting media into media folder
+            await new Promise(res =>
+                createReadStream()
+                    .pipe(createWriteStream(path.join(__dirname, '../imgs/media', `${id}.png`)))
+                    .on('close', res)
+            );
 
-        // Inserting media into database
-        connection.query(`INSERT INTO media (id, parentId) VALUES (${escape(id)}, ${parentId})`, async (error, result) => {
-            if(error) return reject(error);      
-            
-            const newMedia = await getMediaById(id);
-            resolve(newMedia);
-        })
+            // Inserting media into database
+            connection.query(`INSERT INTO media (id, parentId) VALUES (${escape(id)}, ${parentId})`, async (error, result) => {
+                if(error) return reject(error);      
+                
+                const newMedia = await getMediaById(id);
+                createdMedia.push(newMedia);
+                
+                if(createdMedia.length === media.length) {
+                    resolve(createdMedia);
+                }
+            })
+        }
     })
 }
