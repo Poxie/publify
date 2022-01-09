@@ -10,8 +10,9 @@ type Props = {
     mediaId: string;
     index: number;
     mediaCount: number;
+    additaionlMedia: number;
 }
-export const ProfilePostMediaItem: React.FC<Props> = ({ expectedHeight, expectedWidthPercentage, mediaId, index, mediaCount }) => {
+export const ProfilePostMediaItem: React.FC<Props> = ({ expectedHeight, expectedWidthPercentage, mediaId, index, mediaCount, additaionlMedia }) => {
     const source = getMediaURL(mediaId);
     if(index === 2 && mediaCount === 3) {
         expectedWidthPercentage = 100;
@@ -33,6 +34,20 @@ export const ProfilePostMediaItem: React.FC<Props> = ({ expectedHeight, expected
                 objectFit={'cover'}
                 objectPosition={'center'}
             />
+
+            {/* If there are more than four images, display how many more there are */}
+            {additaionlMedia && (
+                <Flex 
+                    className={styles['additional-images']}
+                    alignItems={'center'}
+                    justifyContent={'center'}
+                    flexDirection={'column'}
+                >
+                    <div>
+                        {additaionlMedia}+
+                    </div> images
+                </Flex>
+            )}
         </Flex>
     )
 }
