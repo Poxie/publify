@@ -8,42 +8,17 @@ import { ModalFooter } from '../ModalFooter';
 import { Button } from '../../components/Button';
 import { Flex } from '../../components/Flex';
 import { useDispatch } from 'react-redux';
-import { createNotification, destroyNotification, resetNotification } from '../../redux/actions';
+import { createNotification, createPost, destroyNotification, resetNotification } from '../../redux/actions';
 import { useModal } from '../../contexts/ModalProvider';
-import { gql, useMutation } from '@apollo/client';
-import { CREATE_POST } from '../../redux/actionTypes';
-
-const MUTATION = gql`
-    mutation($content: String!, $media: [Upload]) {
-        createPost(content: $content, media: $media) {
-            id
-            content
-            author {
-                id
-                avatar
-                displayName
-                username
-            }
-            likeCount
-            likes
-            commentCount
-            createdAt
-            media {
-                id
-                parentId
-            }
-        }
-    }
-`
 
 export const CreatePostModal = () => {
     const [content, setContent] = useState('');
-    const [media, setMedia] = useState([]);
+    const [media, setMedia] = useState<File[]>([]);
     const [canPost, setCanPost] = useState(true);
     const dispatch = useDispatch();
     const notificationSent = useRef(false);
     const { close } = useModal();
-    const [createPost] = useMutation(MUTATION);
+    // const [createPost] = useMutation(MUTATION);
 
     // Updating options values
     const updatePostOption = (type: string, value: any) => {
@@ -67,10 +42,7 @@ export const CreatePostModal = () => {
         
         
         // Publishing post
-        const test: any = await createPost({
-            variables: { media, content }
-        }).catch(console.error);
-        dispatch({type: CREATE_POST, payload: { post: test.data.createPost }});
+        dispatch(createPost(content, media));
 
         // Closing modal
         close();

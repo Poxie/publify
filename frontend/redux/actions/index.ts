@@ -46,7 +46,7 @@ export const removePost = (postId: string) => {
     }
 }
 
-export const createPost = (content: string, media?: File) => {
+export const createPost = (content: string, media?: File[]) => {
     return async dispatch => {
         const post = await publishPost(content, media);
 
