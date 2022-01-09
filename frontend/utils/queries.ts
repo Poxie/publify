@@ -20,6 +20,7 @@ export const GET_POSTS_BY_AUTHOR_ID = gql`
             likes
             likeCount
             commentCount
+            createdAt
             author {
                 id
                 avatar
