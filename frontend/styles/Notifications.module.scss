@@ -36,6 +36,10 @@
     }
     &.animate-out {
         animation: animate-out .3s forwards;
+
+        &::after {
+            display: none;
+        }
     }
 }
 @keyframes animate-stripe {
