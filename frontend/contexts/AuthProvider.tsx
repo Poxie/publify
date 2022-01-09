@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { login } from '../utils';
-import { request } from '../utils/methods';
+import { getMe, login } from '../utils';
 import { AuthContext as AuthContextType } from '../utils/types';
 
 const AuthContext = React.createContext({} as AuthContextType);
@@ -15,14 +14,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
 
     // Handling initial logic
     useEffect(() => {
-        request(`
-            getMe {
-                displayName
-                avatar
-                id
-                username
-            }
-        `).then(user => {
+        getMe().then(user => {
             setUser(user);
         })
     }, []);

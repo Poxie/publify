@@ -1,7 +1,7 @@
-import { request } from "./methods"
-import { PostType } from "./types";
+import { PostType, UserType } from "./types";
 import { GraphQLClient } from 'graphql-request';
-import { CREATE_POST } from "./mutations";
+import { CREATE_LIKE, CREATE_POST, DESTROY_LIKE, DESTROY_POST } from "./mutations";
+import { GET_ME, GET_POSTS_BY_AUTHOR_ID, GET_USER_BY_ID, LOGIN } from "./queries";
 const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
 // Getting access token
@@ -21,91 +21,65 @@ export const client = new GraphQLClient(API_ENDPOINT, { headers: {
     authorization: `Bearer ${getAccessToken()}`
 } });
 
+// Generic request function
+const request: (query: string, variables?: Object) => Promise<any> = async (query, variables) => {
+    // Making query to GraphQL
+    const response = await client.request(query, variables);
+
+    // Sanitizing data - returning pure data
+    const data = sanitizeData(response, query);
+
+    // Returning data
+    return data
+}
+
 // Getting user by ID
 export const getUserById = async (id: string) => {
-    const user = await request(`
-        getUserById(id: "${id}") {
-            username
-            displayName
-            avatar
-            banner
-            id
-        }
-    `)
-    return user;
+    const user = await request(GET_USER_BY_ID, { id });
+    return user
 }
 // Getting posts by author ID
 export const getPostsByAuthorId: (userId: string) => Promise<PostType[]> = async (userId) => {
-    const posts = await request(`
-        getPostsByAuthorId(id: "${userId}") {
-            id
-            content
-            media {
-                id
-            }
-            author {
-                displayName
-                avatar
-                id
-                username
-            }
-            likes
-            likeCount
-            createdAt
-            commentCount
-        }
-    `)
+    const posts = await request(GET_POSTS_BY_AUTHOR_ID, { id: userId });
     return posts;
 }
-
-
-// Mutations
-
 // Create like
 export const createPostLike: (postId: string) => Promise<void> = async (postId) => {
-    console.log('test');
-    return await request(`
-        createLike(postId: "${postId}") {
-            content
-        }
-    `, 'mutation').then(console.log)
+    const response = await request(CREATE_LIKE, { postId });
+    return response;
 }
 // Destroy like
 export const destroyPostLike: (postId: string) => Promise<void> = async (postId) => {
-    return await request(`
-        destroyLike(postId: "${postId}") {
-            content
-        }
-    `, 'mutation');
+    const response = await request(DESTROY_LIKE, { postId });
+    return response
 }
 // Destroy post
 export const destroyPost: (postId: string) => Promise<boolean> = async (postId) => {
-    return await request(`
-        destroyPost(postId: "${postId}")
-    `, 'mutation');
+    const response = await request(DESTROY_POST, { postId });
+    return response
 }
 // Publishing post
 export const publishPost: (content: string, media?: File[]) => Promise<PostType> = async (content, media) => {
-    const response = await client.request(CREATE_POST, { content, media });
-    return sanitizeData(response, CREATE_POST);
+    const response = await request(CREATE_POST, { content, media });
+    return response
 } 
 
 // Login
-export const login = async (username: string, password: string) => {
-    const response = await request(`
-        login(username: "${username}", password: "${password}") {
-            token
-            user {
-                username
-                displayName
-                avatar
-            }
-        }
-    `)
+type LoginType = {
+    user: UserType,
+    token: string;
+}
+export const login: (username: string, password: string) => Promise<LoginType> = async (username, password) => {
+    const response = await request(LOGIN, { username, password });
 
     // Storing token in local storage
     localStorage.accessToken = response.token;
 
+    return response;
+}
+// Get logged in user (Get me)
+export const getMe = async () => {
+    const response = await request(GET_ME);
     return response;
 }
 
