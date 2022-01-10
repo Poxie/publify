@@ -26,11 +26,13 @@ export const ProfilePostMediaItem: React.FC<Props> = ({ width, height, expectedH
     // Enlarge image on click
     const onClick = () => {
         setModal(
-            <Image 
-                src={source}
-                width={width}
-                height={height}
-            />,
+            <Flex>
+                <Image 
+                    src={source}
+                    width={width}
+                    height={height}
+                />
+            </Flex>,
             0
         )
     }
