@@ -15,7 +15,7 @@ export const INSERT_USER = 'INSERT INTO `users` (id, username, password, display
 export const INSERT_LIKE = 'INSERT INTO `likes` (userId, postId) VALUES (?, ?)';
 export const INSERT_POST = 'INSERT INTO `posts` (id, authorId, content, createdAt) VALUES (?, ?, ?, ?)';
 export const INSERT_COMMENT = 'INSERT INTO `comments` (id, parentId, authorId, content, createdAt) VALUES (?, ?, ?, ?, ?)';
-export const INSERT_MEDIA = 'INSERT INTO `media` (id, parentId) VALUES (?, ?)';
+export const INSERT_MEDIA = 'INSERT INTO `media` (id, parentId, width, height, ratio) VALUES (?, ?, ?, ?, ?)';
 
 // Deleteions
 export const DELETE_LIKE = 'DELETE FROM `likes` WHERE postId = ? AND userId = ?';

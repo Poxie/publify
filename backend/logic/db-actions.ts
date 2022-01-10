@@ -28,6 +28,9 @@ import {
     SELECT_USER_BY_USERNAME 
 } from './queries';
 import { RowDataPacket } from 'mysql2';
+import imageSize from 'image-size';
+import { promisify } from 'util';
+const sizeOf = promisify(imageSize);
 
 // MySQL data return types
 type User = DatabaseUser & RowDataPacket;
@@ -270,8 +273,21 @@ export const createMedia: (parentId: string, media: any) => Promise<Media[]> = a
                 .on('close', res)
         );
 
+        // Getting image dimensions
+        const dimensions = await sizeOf(`imgs/media/${id}.png`);
+
+        // Determining ratios
+        let width, height, ratio;
+        if(dimensions) {
+            width = dimensions.width;
+            height = dimensions.height;
+            if(width && height) {
+                ratio = width / height;
+            }
+        }
+
         // Inserting media into database
-        await connection.promise().query(INSERT_MEDIA, [id, parentId]);
+        await connection.promise().query(INSERT_MEDIA, [id, parentId, width, height, ratio]);
         
         // Getting media
         const newMediaItem = await getMediaById(id);
