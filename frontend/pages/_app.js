@@ -4,6 +4,7 @@ import { ModalProvider } from '../contexts/ModalProvider';
 import { Provider } from 'react-redux';
 import { store } from '../redux/store';
 import { NotificationLayout } from '../layouts/NotificationLayout';
+import { MainLayout } from '../layouts/MainLayout';
 
 function MyApp({ Component, pageProps }) {
   return(
@@ -11,7 +12,9 @@ function MyApp({ Component, pageProps }) {
       <Provider store={store}>
         <ModalProvider>
           <NotificationLayout>
-            <Component {...pageProps} />
+            <MainLayout>
+              <Component {...pageProps} />
+            </MainLayout>
           </NotificationLayout>
         </ModalProvider>
       </Provider>

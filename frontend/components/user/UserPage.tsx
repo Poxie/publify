@@ -6,7 +6,7 @@ import { ProfileOverview } from './ProfileOverview';
 
 export const UserPage: React.FC<UserType> = ({ id, displayName, avatar, banner }) => {
     return(
-        <div className={styles['user-page']}>
+        <div>
             <ProfileHeader 
                 name={displayName}
                 avatar={avatar}

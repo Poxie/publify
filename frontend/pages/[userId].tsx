@@ -32,10 +32,11 @@ export default function User(props: Props) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const userId = context.params.userId;
+    let userId = context.params.userId;
+    userId = Array.isArray(userId) ? userId[0] : userId
 
     // If is array, just use first index as userId
-    const user = await getUserById(Array.isArray(userId) ? userId[0] : userId);
+    const user = await getUserById(userId);
 
     return {
         props: {
