@@ -282,3 +282,21 @@
 .footer-item-text {
     margin-top: -1px;
 }
+.expand-post {
+    color: var(--text-muted);
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: var(--border-radius);
+    padding: 5px 8px;
+    margin-right: -5px;
+
+    span {
+        margin-right: 8px;
+        text-transform: uppercase;
+    }
+
+    &:hover {
+        background-color: var(--background-tertiary);
+    }
+}
