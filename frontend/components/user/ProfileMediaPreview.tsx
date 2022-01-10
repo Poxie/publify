@@ -13,8 +13,19 @@ export const ProfileMediaPreview = () => {
     const media = useAppSelector(state => selectPostMedia(state));
 
     const hasMedia = media.length > 0;
-    const visibleMedia = media.slice(0, 6);
-    const height = media.length === 1 ? 250 : media.length * 100;
+    const visibleMedia = media.slice(0, 4);
+    let height = 280;
+    switch(media.length) {
+        case 2:
+            height = 200
+            break;
+        case 3:
+            height = 320
+            break;
+        case 4:
+            height = 320
+            break;
+    }
     return(
         <div style={hasMedia ? { height } : {height: 'unset'}}>
             <Flex 
