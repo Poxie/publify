@@ -18,6 +18,9 @@ export const CREATE_POST = gql`
             media {
                 id
                 parentId
+                width
+                height
+                ratio
             }
         }
     }

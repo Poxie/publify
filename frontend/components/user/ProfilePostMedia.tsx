@@ -19,7 +19,7 @@ export const ProfilePostMedia: React.FC<Props> = ({ media }) => {
             flexWrap={'wrap'}
         >
             {visibleMedia.map((media, key) => {
-                const { id } = media;
+                const { id, width, height } = media;
 
                 const expectedHeight = (mediaCount === 1) ? 300 : 260;
                 const widthPercentage = 100 / mediaCount;
@@ -27,6 +27,8 @@ export const ProfilePostMedia: React.FC<Props> = ({ media }) => {
                 return(
                     <ProfilePostMediaItem
                         mediaId={id}
+                        width={width}
+                        height={height}
                         expectedHeight={expectedHeight}
                         expectedWidthPercentage={widthPercentage}
                         mediaCount={mediaCount}

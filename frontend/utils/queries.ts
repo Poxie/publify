@@ -30,6 +30,9 @@ export const GET_POSTS_BY_AUTHOR_ID = gql`
             media {
                 id
                 parentId
+                width
+                height
+                ratio
             }
         }
     }

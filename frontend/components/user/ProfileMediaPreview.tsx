@@ -14,8 +14,11 @@ export const ProfileMediaPreview = () => {
 
     const hasMedia = media.length > 0;
     const visibleMedia = media.slice(0, 4);
-    let height = 280;
+    let height;
     switch(media.length) {
+        case 1:
+            height = 280;
+            break;
         case 2:
             height = 200
             break;
@@ -25,6 +28,8 @@ export const ProfileMediaPreview = () => {
         case 4:
             height = 320
             break;
+        default:
+            height = 320
     }
     return(
         <div style={hasMedia ? { height } : {height: 'unset'}}>

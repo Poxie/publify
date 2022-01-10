@@ -20,6 +20,9 @@ export type PostType = {
 export type Media = {
     id: string;
     parentId: string;
+    width: number;
+    height: number;
+    ratio: number;
 }
 
 
