@@ -2,111 +2,106 @@ import mysql from 'mysql';
 import { createWriteStream } from 'fs';
 import path from 'path';
 import { connection } from "../server"
-import { Post } from "../types/Post"
+import { Post as PostType } from "../types/Post"
 import { UserType } from "../types/UserType"
-import { Media } from "../types/Media";
+import { Media as MediaType } from "../types/Media";
 import { DatabaseUser } from "../types/DatabaseUser";
-import { Comment, Like } from "../types";
+import { Comment as CommentType, Like as LikeType } from "../types";
+import { 
+    DELETE_COMMENT,
+    DELETE_LIKE, 
+    DELETE_POST, 
+    INSERT_COMMENT, 
+    INSERT_LIKE, 
+    INSERT_MEDIA, 
+    INSERT_POST, 
+    INSERT_USER, 
+    SELECT_COMMENTS_BY_POST_ID, 
+    SELECT_COMMENT_BY_ID, 
+    SELECT_COMMENT_COUNT_BY_PARENT_ID, 
+    SELECT_LIKES_BT_POST_ID, 
+    SELECT_MEDIA_BY_ID, 
+    SELECT_MEDIA_BY_POST_ID, 
+    SELECT_POSTS_BY_AUTHOR_ID, 
+    SELECT_POST_BY_ID, 
+    SELECT_USER_BY_ID, 
+    SELECT_USER_BY_USERNAME 
+} from './queries';
+import { RowDataPacket } from 'mysql2';
 
-const escape = mysql.escape;
+// MySQL data return types
+type User = DatabaseUser & RowDataPacket;
+type Post = PostType & RowDataPacket;
+type Media = MediaType & RowDataPacket;
+type Like = LikeType & RowDataPacket;
+type Comment = CommentType & RowDataPacket;
 
 // Getting user by ID
 export const getUserById: (id: string) => Promise<DatabaseUser> = async (id) => {
-    id = escape(id);
-    return new Promise((resolve, reject) => {
-        connection.query(`SELECT * FROM users WHERE id = ${id}`, (error, result) => {
-            if(error) return reject(error);
-
-            resolve(result[0]);
-        })
-    })
+    const [rows] = await connection.promise().query<User[]>(SELECT_USER_BY_ID, [id]);
+    return rows[0];
 }
 // Getting user by username
 export const getUserByUsername: (username: string) => Promise<DatabaseUser | undefined> = async (username) => {
-    username = escape(username);
-    return new Promise((resolve, reject) => {
-        connection.query(`SELECT * FROM users WHERE username = ${username}`, (error, result) => {
-            if(error) return reject(error);
-
-            resolve(result[0]);
-        })
-    })
+    const [rows] = await connection.promise().query<User[]>(SELECT_USER_BY_USERNAME, [username])
+    return rows[0];
 }
 
 // Getting post by ID
 export const getPostById: (id: string) => Promise<Post> = async (id) => {
-    id = escape(id);
-    return new Promise((resolve, reject) => {
-        connection.query(`SELECT * FROM posts WHERE id = ${id}`, async (error, result) => {
-            if(error) return reject(error);
+    const [rows] = await connection.promise().query<Post[]>(SELECT_POST_BY_ID, [id]);
+    const post = rows[0];
+    if(!post) return post;
 
-            // Fetching post likes
-            if(result[0]) {
-                // Make this more efficient later
-                result[0].likes = await getLikesByPostId(id);
-                result[0].likeCount = result[0].likes.length
-                result[0].commentCount = await getCommentCountByPostId(result[0].id);
-            }
+    // Fetching likes
+    post.likes = await getLikesByPostId(id);
+    post.likeCount = post.likes.length;
 
-            resolve(result[0]);
-        })
-    })
+    // Fetching comments
+    post.commentCount = await getCommentCountByPostId(id);
+
+    // Fetching media
+    post.media = await getMediaByPostId(id);
+
+    // Returning post
+    return post;
 }
 
 // Getting posts by author ID
 export const getPostsByAuthorId: (id: string) => Promise<Post[]> = async (authorId) => {
-    authorId = escape(authorId);
-    return new Promise((resolve, reject) => {
-        connection.query(`SELECT * FROM posts WHERE authorId = ${authorId} ORDER BY createdAt DESC`, (error, result) => {
-            if(error) return reject(error);
-            
-            // If no posts found, resolve
-            if(!result.length) return resolve(result);
+    const [posts] = await connection.promise().query<Post[]>(SELECT_POSTS_BY_AUTHOR_ID, [authorId])
+    
+    // If no posts found, return empty array
+    if(!posts.length) return [];
 
-            // Fetching likes for posts
-            let fetched: Post[] = [];
-            result.forEach(async (post: Post) => {
-                // Make this more efficient later
-                post.likes = await getLikesByPostId(post.id);
-                post.likeCount = post.likes.length;
-                
-                // Fetching comment count
-                post.commentCount = await getCommentCountByPostId(post.id);
+    // Fetching extra properties
+    for(const post of posts) {
+        // Fetch likes
+        post.likes = await getLikesByPostId(post.id);
+        post.likeCount = post.likes.length;
 
-                // Pushing updated post to fetched array
-                fetched.push(post);
+        // Fetch comments
+        post.commentCount = await getCommentCountByPostId(post.id);
 
-                // Once all likes are fetched, resolve
-                if(fetched.length === result.length) {
-                    resolve(fetched);
-                }
-            });
-        })
-    })
+        // Fetching media
+        post.media = await getMediaByPostId(post.id);
+    }
+
+    // Return posts
+    return posts;
 }
 
 // Get media by post ID
 export const getMediaByPostId: (postId: string) => Promise<Media[]> = async (postId) => {
-    postId = escape(postId);
-    return new Promise((resolve, reject) => {
-        connection.query(`SELECT * FROM media WHERE parentId = ${postId}`, (error, result) => {
-            if(error) return reject(error);
-
-            resolve(result);
-        })
-    })
+    const [media] = await connection.promise().query<Media[]>(SELECT_MEDIA_BY_POST_ID, [postId]);
+    return media;
 }
 
 // Get likes by post ID
 export const getLikesByPostId: (postId: string) => Promise<String[]> = async (postId) => {
-    return new Promise((resolve, reject) => {
-        connection.query(`SELECT * FROM likes WHERE postId = ${postId}`, (error, result: Like[]) => {
-            if(error) return reject(error);
-
-            const likeUserIds = result.map(like => like.userId);
-            resolve(likeUserIds);
-        })
-    })
+    const [likes] = await connection.promise().query<Like[]>(SELECT_LIKES_BT_POST_ID, [postId]);
+    const likeUserIds = likes.map(like => like.userId);
+    return likeUserIds;
 }
 
 
@@ -134,61 +129,33 @@ export const generateUserId: () => Promise<string> = async () => {
         return id;
     });
 }
-// Mutations
-export const insertUser: (password: string, {}: UserType) => Promise<UserType> = async (password, { id, username, displayName, avatar, banner }) => {
-    username = escape(username);
-    displayName = escape(displayName);
-    avatar = escape(avatar);
-    banner = escape(banner);
-    password = escape(password);
-    
-    return new Promise((resolve, reject) => {
-        connection.query(`INSERT INTO users (id, username, password, displayName, avatar, banner) VALUES (${id}, ${username}, ${password}, ${displayName}, ${avatar}, ${banner})`, async (error, result) => {
-            if(error) return reject(error);
 
-            const user = await getUserById(id);
-            resolve(user);
-        })
-    })
+// Inserting user
+export const insertUser: (password: string, {}: UserType) => Promise<UserType> = async (password, { id, username, displayName, avatar, banner }) => {
+    // Insert user
+    const [rows] = await connection.promise().query(INSERT_USER, [id, username, password, displayName, avatar, banner]);
+
+    // Returning user
+    const user = await getUserById(id);
+    return user;
 }
 
 // Creating post like
 export const createtPostLike: (postId: string, userId: string) => Promise<void> = async (postId, userId) => {
-    postId = escape(postId);
-    userId = escape(userId);
-
-    return new Promise((resolve, reject) => {
-        connection.query(`INSERT INTO likes (userId, postId) VALUES (${userId}, ${postId})`, (error, result) => {
-            if(error) return reject(error);
-            resolve();
-        })
-    })
+    await connection.promise().query(INSERT_LIKE, [userId, postId]);
+    return;
 }
 
 // Destroying post like
 export const destroyPostLike: (postId: string, userId: string) => Promise<void> = async (postId, userId) => {
-    postId = escape(postId);
-    userId = escape(userId);
-
-    return new Promise((resolve, reject) => {
-        connection.query(`DELETE FROM likes WHERE postId = ${postId} AND userId = ${userId}`, (error, result) => {
-            if(error) return reject(error);
-            resolve();
-        })
-    })
+    await connection.promise().query(DELETE_LIKE, [postId, userId]);
+    return;
 }
 
 // Destroying post
 export const destroyPost: (postId: string) => Promise<boolean> = async (postId) => {
-    postId = escape(postId);
-
-    return new Promise((resolve, reject) => {
-        connection.query(`DELETE FROM posts WHERE id = ${postId}`, (error, result) => {
-            if(error) return reject(error);
-
-            resolve(true);
-        })
-    })
+    await connection.promise().query(DELETE_POST, [postId]);
+    return true;
 }
 
 // Generating post ID
@@ -205,32 +172,22 @@ const generatePostId: () => Promise<string> = async () => {
 }
 // Creating post
 export const createPost: (authorId: string, content: string) => Promise<Post> = async (authorId, content) => {
-    content = escape(content);
-    authorId = escape(authorId);
     const id = await generatePostId();
-    const escapedId = escape(id);
-    const createdAt = escape(Date.now());
+    const createdAt = Date.now();
 
-    return new Promise((resolve, reject) => {
-        connection.query(`INSERT INTO posts (id, authorId, content, createdAt) VALUES (${escapedId}, ${authorId}, ${content}, ${createdAt})`, async (error, result) => {
-            if(error) return reject(error);
-            
-            const post = await getPostById(id);
-            resolve(post);
-        })
-    })
+    // Inserting post
+    await connection.promise().query(INSERT_POST, [id, authorId, content, createdAt]);
+    
+    // Getting created post
+    const post = await getPostById(id);
+
+    // Returning post
+    return post;
 }
 // Getting comment by ID
 export const getCommentById: (commentId: string) => Promise<Comment> = async (commentId) => {
-    commentId = escape(commentId);
-
-    return new Promise((resolve, reject) => {
-        connection.query(`SELECT * FROM comments WHERE id = ${commentId}`, (error, result) => {
-            if(error) return reject(error);
-
-            resolve(result[0]);
-        })
-    })
+    const [rows] = await connection.promise().query<Comment[]>(SELECT_COMMENT_BY_ID, [commentId]);
+    return rows[0];
 }
 // Generating post ID
 const generateCommentId: () => Promise<string> = async () => {
@@ -246,68 +203,47 @@ const generateCommentId: () => Promise<string> = async () => {
 }
 // Creating post comment
 export const createComment: (postId: string, authorId: string, content: string) => Promise<Comment> = async (postId, authorId, content) => {
-    postId = escape(postId)
-    authorId = escape(authorId)
-    content = escape(content);
-    const createdAt = escape(Date.now());
+    const createdAt = Date.now();
     const id = await generateCommentId();
-    const escapedId = escape(id);
 
-    return new Promise((resolve, reject) => {
-        connection.query(`INSERT INTO comments (id, parentId, authorId, content, createdAt) VALUES (${escapedId}, ${postId}, ${authorId}, ${content}, ${createdAt})`, async (error, result) => {
-            if(error) return reject(error);
+    // Creating comment
+    await connection.promise().query(INSERT_COMMENT, [id, postId, authorId, content, createdAt]);
+    
+    // Getting comment
+    const comment = await getCommentById(id);
 
-            const comment = await getCommentById(id);
-            resolve(comment);
-        })
-    })
+    // Returning comment
+    return comment;
 }
 // Destroying post comment
 export const destroyComment: (commentId: string) => Promise<void> = async (commentId) => {
-    commentId = escape(commentId);
-
-    return new Promise((resolve, reject) => {
-        connection.query(`DELETE FROM comments WHERE id = ${commentId}`, (error, result) => {
-            if(error) return reject(error);
-
-            resolve();
-        })
-    })
+    await connection.promise().query(DELETE_COMMENT, [commentId]);
+    return;
 }
 // Getting post comments
 export const getCommentsByPostId: (postId: string) => Promise<Comment[]> = async (postId) => {
-    postId = escape(postId);
-
-    return new Promise((resolve, reject) => {
-        connection.query(`SELECT * FROM comments WHERE parentId = ${postId}`, (error, result) => {
-            if(error) return reject(error);
-            resolve(result);
-        })
-    })
+    // Fetching comments
+    const [comments] = await connection.promise().query<Comment[]>(SELECT_COMMENTS_BY_POST_ID, [postId]);
+    
+    // Returning comments
+    return comments;
 }
 // Getting post comment count
 export const getCommentCountByPostId: (postId: string) => Promise<number> = async (postId) => {
-    postId = escape(postId);
-
-    return new Promise((resolve, reject) => {
-        connection.query(`SELECT count(*) AS commentCount FROM comments WHERE parentId = ${postId}`, (error, result) => {
-            if(error) return reject(error);
-
-            resolve(result[0]?.commentCount);
-        })
-    })
+    // Getting comment count of post
+    const [rows] = await connection.promise().query<any>(SELECT_COMMENT_COUNT_BY_PARENT_ID, [postId]);
+    if(!rows[0]) return 0;
+    
+    // Returning count
+    return rows[0].commentCount;
 }
 // Getting media by ID
-export const getMediaById: (id: string) => Promise<Media> = (id) => {
-    id = escape(id);
-
-    return new Promise((resolve, reject) => {
-        connection.query(`SELECT * FROM media WHERE id = ${id}`, (error, result) => {
-            if(error) return reject(error);
-
-            resolve(result[0]);
-        })
-    })
+export const getMediaById: (id: string) => Promise<Media> = async (id) => {
+    // Getting media
+    const [media] = await connection.promise().query<Media[]>(SELECT_MEDIA_BY_ID, [id]);
+    
+    // Returning media
+    return media[0];
 }
 // Generating media ID
 export const generateMediaId: () => Promise<string> = async () => {
@@ -322,32 +258,28 @@ export const generateMediaId: () => Promise<string> = async () => {
 }
 // Creating media
 export const createMedia: (parentId: string, media: any) => Promise<Media[]> = async (parentId, media) => {
-    parentId = escape(parentId);
-    return new Promise(async (resolve, reject) => {
-        const createdMedia: Media[] = [];
+    const newMedia = [];
+    for(const mediaItem of media) {
+        const { createReadStream } = await mediaItem;
+        const id = await generateMediaId();
+
+        // Inserting media into media folder
+        await new Promise(res =>
+            createReadStream()
+                .pipe(createWriteStream(path.join(__dirname, '../imgs/media', `${id}.png`)))
+                .on('close', res)
+        );
+
+        // Inserting media into database
+        await connection.promise().query(INSERT_MEDIA, [id, parentId]);
         
-        for(const mediaItem of media) {
-            const { createReadStream } = await mediaItem;
-            const id = await generateMediaId();
+        // Getting media
+        const newMediaItem = await getMediaById(id);
 
-            // Inserting media into media folder
-            await new Promise(res =>
-                createReadStream()
-                    .pipe(createWriteStream(path.join(__dirname, '../imgs/media', `${id}.png`)))
-                    .on('close', res)
-            );
+        // Pushing media
+        newMedia.push(newMediaItem);
+    }
 
-            // Inserting media into database
-            connection.query(`INSERT INTO media (id, parentId) VALUES (${escape(id)}, ${parentId})`, async (error, result) => {
-                if(error) return reject(error);      
-                
-                const newMedia = await getMediaById(id);
-                createdMedia.push(newMedia);
-                
-                if(createdMedia.length === media.length) {
-                    resolve(createdMedia);
-                }
-            })
-        }
-    })
+    // Returning created media
+    return newMedia;
 }
