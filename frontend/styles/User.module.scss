@@ -72,7 +72,7 @@
         background-color: var(--background-secondary);
         border-radius: var(--border-radius);
         padding: 15px;
-        height: 240px;
+        height: 200px;
         display: flex;
         flex-direction: column;
     }
@@ -89,6 +89,8 @@
 .preview-container {
     position: relative;
     height: 100%;
+    display: grid;
+    gap: 4px;
 }
 .preview-media {
     border-radius: var(--border-radius);

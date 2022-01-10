@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import React from 'react';
-import { PostType } from '../../utils/types';
 import styles from '../../styles/User.module.scss';
 import { Flex } from '../Flex';
 import { useAppSelector } from '../../redux/hooks';
@@ -14,8 +13,10 @@ export const ProfileMediaPreview = () => {
     const media = useAppSelector(state => selectPostMedia(state));
 
     const hasMedia = media.length > 0;
+    const visibleMedia = media.slice(0, 6);
+    const height = media.length === 1 ? 250 : media.length * 100;
     return(
-        <div style={hasMedia ? {} : {height: 'unset'}}>
+        <div style={hasMedia ? { height } : {height: 'unset'}}>
             <Flex 
                 className={styles['preview-header']}
                 justifyContent={'space-between'}
@@ -31,8 +32,11 @@ export const ProfileMediaPreview = () => {
                 )}
             </Flex>
             {hasMedia && (
-                <div className={styles['preview-container']}>
-                    {media.map(media => {
+                <div 
+                    className={styles['preview-container']}
+                    style={{gridTemplateColumns: `repeat(${media.length === 1 ? 1 : 2}, 1fr)`}}
+                >
+                    {visibleMedia.map(media => {
                         const { id } = media;
 
                         const mediaURL = getMediaURL(id);
