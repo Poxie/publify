@@ -38,6 +38,32 @@ export const GET_POSTS_BY_AUTHOR_ID = gql`
     }
 `
 
+export const GET_POST_BY_ID = gql`
+    query($id: String!) {
+        getPostById(id: $id) {
+            id
+            content
+            likes
+            likeCount
+            commentCount
+            createdAt
+            author {
+                id
+                avatar
+                username
+                displayName
+            }
+            media {
+                id
+                parentId
+                width
+                height
+                ratio
+            }
+        }
+    }
+`
+
 // Auth stuff
 export const LOGIN = gql`
     query($username: String!, $password: String!) {

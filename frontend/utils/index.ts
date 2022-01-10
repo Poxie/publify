@@ -1,7 +1,7 @@
 import { PostType, UserType } from "./types";
 import { GraphQLClient } from 'graphql-request';
 import { CREATE_LIKE, CREATE_POST, DESTROY_LIKE, DESTROY_POST } from "./mutations";
-import { GET_ME, GET_POSTS_BY_AUTHOR_ID, GET_USER_BY_ID, LOGIN } from "./queries";
+import { GET_ME, GET_POSTS_BY_AUTHOR_ID, GET_POST_BY_ID, GET_USER_BY_ID, LOGIN } from "./queries";
 const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
 // Getting access token
@@ -42,6 +42,11 @@ export const getUserById = async (id: string) => {
 export const getPostsByAuthorId: (userId: string) => Promise<PostType[]> = async (userId) => {
     const posts = await request(GET_POSTS_BY_AUTHOR_ID, { id: userId });
     return posts;
+}
+// Getting post by post ID
+export const getPostById: (postId: string) => Promise<PostType> = async (postId) => {
+    const post = await request(GET_POST_BY_ID, { id: postId });
+    return post;
 }
 // Create like
 export const createPostLike: (postId: string) => Promise<void> = async (postId) => {

@@ -1,5 +1,6 @@
 import { createPostLike, destroyPost, destroyPostLike, getPostsByAuthorId, publishPost } from "../../utils"
-import { ADD_POST_LIKE, CREATE_NOTIFICATION, CREATE_POST, DESTROY_NOTIFICATION, REMOVE_POST, REMOVE_POST_LIKE, RESET_NOTIFICATION, SET_POSTS } from "../actionTypes"
+import { PostType } from "../../utils/types";
+import { ADD_POST_LIKE, CREATE_NOTIFICATION, CREATE_POST, DESTROY_NOTIFICATION, REMOVE_POST, REMOVE_POST_LIKE, RESET_NOTIFICATION, SET_POST, SET_POSTS } from "../actionTypes"
 
 export const addPostLike = (postId: string, userId: string) => {
     return async dispatch => {
@@ -91,4 +92,11 @@ export const destroyNotification = () => ({
 })
 export const resetNotification = () => ({
     type: RESET_NOTIFICATION
+})
+
+
+// Post
+export const setPost = (post: PostType) => ({
+    type: SET_POST,
+    payload: { post }
 })
