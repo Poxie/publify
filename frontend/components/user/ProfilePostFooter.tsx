@@ -3,7 +3,7 @@ import styles from '../../styles/User.module.scss';
 import { Flex } from '../Flex';
 import { LikeButton } from '../LikeButton';
 import { CommentButton } from './CommentButton';
-import { ArrowIcon } from '../../icons/ARrowIcon';
+import { ArrowIcon } from '../../icons/ArrowIcon';
 import { useRouter } from 'next/router';
 
 type Props = {
