@@ -56,7 +56,7 @@ export const ProfilePostMediaItem: React.FC<Props> = ({ width, height, expectedH
             />
 
             {/* If there are more than four images, display how many more there are */}
-            {additaionlMedia && (
+            {additaionlMedia > 0 && (
                 <Flex 
                     className={styles['additional-images']}
                     alignItems={'center'}
