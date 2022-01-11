@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import styles from '../styles/Modals.module.scss';
 
 type ModalContextType = {
-    setModal: (modal: any, minWidth?: number) => void;
+    setModal: (modal: any, minWidth?: number, maxWidth?: number) => void;
     close: () => void;
 }
 
@@ -16,14 +16,17 @@ type Props = {
 }
 export const ModalProvider: React.FC<Props> = ({ children }) => {
     const [modal, setModal] = useState<any>(null);
-    const [minWidth, setMinWidth] = useState(450);
+    const [dimensions, setDimensions] = useState({minWidth: 450, maxWidth: 450});
     const [animatingOut, setAnimatingOut] = useState(false);
 
     // Setting modal
-    const setModalFunction = (modal: any, minWidth?: number) => {
+    const setModalFunction = (modal: any, minWidth?: number, maxWidth?: number) => {
         setModal(modal);
         if(minWidth !== undefined) {
-            setMinWidth(minWidth);
+            setDimensions(previous => ({...previous, ...{ minWidth }}))
+        }
+        if(maxWidth !== undefined) {
+            setDimensions(previous => ({...previous, ...{maxWidth}}));
         }
     }
 
@@ -33,7 +36,7 @@ export const ModalProvider: React.FC<Props> = ({ children }) => {
         setTimeout(() => {
             setModal(null);
             setAnimatingOut(false);
-            setMinWidth(450);
+            setDimensions({minWidth: 450, maxWidth: 450});
         }, 400);
     }
 
@@ -52,7 +55,7 @@ export const ModalProvider: React.FC<Props> = ({ children }) => {
                     <div className={styles['backdrop']} onClick={close} />
                     <div 
                         className={styles['modal']}
-                        style={{ minWidth }}
+                        style={{ minWidth: dimensions.minWidth, maxWidth: dimensions.maxWidth }}
                     >
                         {modal}
                     </div>

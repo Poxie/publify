@@ -33,7 +33,8 @@ export const ProfilePostMediaItem: React.FC<Props> = ({ width, height, expectedH
                     height={height}
                 />
             </Flex>,
-            0
+            0,
+            950
         )
     }
 

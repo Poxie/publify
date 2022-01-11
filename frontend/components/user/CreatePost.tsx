@@ -14,7 +14,7 @@ export const CreatePost = () => {
         <Flex 
             className={styles['create-post']}
             alignItems={'center'}
-            onClick={() => setModal(<CreatePostModal />)}
+            onClick={() => setModal(<CreatePostModal />, undefined, 450)}
         >
             <Avatar 
                 avatar={user?.avatar}
