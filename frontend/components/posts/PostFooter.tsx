@@ -7,6 +7,7 @@ import { LikeButton } from './LikeButton';
 import { useAuth } from '../../contexts/AuthProvider';
 import { useDispatch } from 'react-redux';
 import { addActivePostLike, removeActivePostLike } from '../../redux/actions';
+import { CommentButton } from './CommentButton';
 
 export const PostFooter = () => {
     const { id: postId, likes, likeCount, commentCount } = useAppSelector(state => selectActivePost(state));
@@ -30,6 +31,9 @@ export const PostFooter = () => {
                 isLiked={isLiked}
                 likeCount={likeCount}
                 toggle={toggleLiked} 
+            />
+            <CommentButton 
+                commentCount={commentCount}
             />
         </Flex>
     )
