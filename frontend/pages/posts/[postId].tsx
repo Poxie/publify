@@ -13,10 +13,8 @@ export default function Post(props) {
     const router = useRouter();
     const pathname = router.asPath;
     
-    // On client store data in redux store
-    useEffect(() => {
-        dispatch(setPost(post));
-    }, []);
+    // Store data in redux store
+    dispatch(setPost(post));
 
     return(
         <>
