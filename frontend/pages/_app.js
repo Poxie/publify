@@ -7,14 +7,14 @@ import { NotificationLayout } from '../layouts/NotificationLayout';
 import { MainLayout } from '../layouts/MainLayout';
 
 function MyApp({ Component, pageProps }) {
+  const getLayout = Component.getLayout ?? (page => page);
+
   return(
     <AuthProvider>
       <Provider store={store}>
         <ModalProvider>
           <NotificationLayout>
-            <MainLayout>
-              <Component {...pageProps} />
-            </MainLayout>
+            {getLayout(<Component {...pageProps} />)}
           </NotificationLayout>
         </ModalProvider>
       </Provider>

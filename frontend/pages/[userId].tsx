@@ -5,6 +5,8 @@ import Head from 'next/head';
 import { UserType } from '../utils/types';
 import { UserPage } from '../components/user/UserPage';
 import Link from 'next/link';
+import { ReactElement } from 'react';
+import { MainLayout } from '../layouts/MainLayout';
 
 type Props = {
     user: UserType;
@@ -31,6 +33,16 @@ export default function User(props: Props) {
     )
 }
 
+// Setting page layout
+User.getLayout = (page: ReactElement) => {
+    return(
+        <MainLayout>
+            {page}
+        </MainLayout>
+    )
+}
+
+// Fetching props
 export const getServerSideProps: GetServerSideProps = async (context) => {
     let userId = context.params.userId;
     userId = Array.isArray(userId) ? userId[0] : userId
