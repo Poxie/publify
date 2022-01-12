@@ -2,8 +2,12 @@ import { createSelector } from "reselect";
 import { Media, PostType } from "../utils/types";
 import { RootState } from "./store";
 
+type LoadingPost = PostType & {
+    loading: boolean;
+}
 export const selectPosts: (state: RootState) => PostType[] = (state) => state.posts.posts;
 export const selectPostId: (state: RootState, postId: string) => string = (state, postId) => postId;
+export const selectActivePost: (state: RootState) => LoadingPost = (state) => state.post;
 export const selectPostById: (state: RootState, postId: string) => PostType = createSelector(
     [selectPosts, selectPostId],
     (posts, postId) => posts.find(post => post.id === postId) 
