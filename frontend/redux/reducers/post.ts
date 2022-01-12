@@ -1,4 +1,4 @@
-import { ADD_ACTIVE_POST_LIKE, REMOVE_ACTIVE_POST_LIKE, SET_POST } from "../actionTypes"
+import { ADD_ACTIVE_POST_LIKE, REMOVE_ACTIVE_POST_LIKE, SET_COMMENTS, SET_POST } from "../actionTypes"
 
 const initialState: any = {
     loading: true
@@ -24,6 +24,12 @@ export default (state=initialState, action) => {
                 ...state,
                 likeCount: state.likeCount - 1,
                 likes: state.likes.filter(like => like !== action.payload.userId)
+            }
+        }
+        case SET_COMMENTS: {
+            return {
+                ...state,
+                comments: action.payload.comments
             }
         }
         default:

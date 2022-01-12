@@ -15,6 +15,7 @@ export type PostType = {
     likeCount: number;
     createdAt: string;
     commentCount: number;
+    comments?: Comment[];
 }
 
 export type Media = {
@@ -23,6 +24,16 @@ export type Media = {
     width: number;
     height: number;
     ratio: number;
+}
+
+export type Comment = {
+    id: string;
+    authorId: string;
+    author?: UserType;
+    content: string;
+    parentId: string;
+    parent?: PostType;
+    createdAt: string;
 }
 
 

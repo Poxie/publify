@@ -1,6 +1,6 @@
-import { createPostLike, destroyPost, destroyPostLike, getPostsByAuthorId, publishPost } from "../../utils"
+import { createPostLike, destroyPost, destroyPostLike, getCommentsByPostId, getPostsByAuthorId, publishPost } from "../../utils"
 import { PostType } from "../../utils/types";
-import { ADD_ACTIVE_POST_LIKE, ADD_POST_LIKE, CREATE_NOTIFICATION, CREATE_POST, DESTROY_NOTIFICATION, REMOVE_ACTIVE_POST_LIKE, REMOVE_POST, REMOVE_POST_LIKE, RESET_NOTIFICATION, SET_POST, SET_POSTS } from "../actionTypes"
+import { ADD_ACTIVE_POST_LIKE, ADD_POST_LIKE, CREATE_NOTIFICATION, CREATE_POST, DESTROY_NOTIFICATION, REMOVE_ACTIVE_POST_LIKE, REMOVE_POST, REMOVE_POST_LIKE, RESET_NOTIFICATION, SET_COMMENTS, SET_POST, SET_POSTS } from "../actionTypes"
 
 export const addPostLike = (postId: string, userId: string) => {
     return async dispatch => {
@@ -117,6 +117,16 @@ export const removeActivePostLike = (postId: string, userId: string) => {
         dispatch({
             type: REMOVE_ACTIVE_POST_LIKE,
             payload: { userId }
+        })
+    }
+}
+export const fetchComments = (postId: string) => {
+    return async dispatch => {
+        const comments = await getCommentsByPostId(postId);
+
+        dispatch({
+            type: SET_COMMENTS,
+            payload: { comments }
         })
     }
 }

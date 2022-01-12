@@ -103,6 +103,44 @@
         background: var(--background-secondary);
     }
 }
+.comments {
+    padding-top: 25px;
+}
+.comment {
+    margin-bottom: 25px;
+}
+.comment-header {
+    a {
+        margin-left: 10px;
+    }
+}
+.comment-main {
+    padding: 10px;
+    background: var(--background-secondary);
+    border-radius: var(--border-radius);
+    position: relative;
+    margin-left: 18px;
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 11px;
+        left: -7px;
+        width: 15px;
+        height: 15px;
+        background-color: var(--background-secondary);
+        transform: rotate(-45deg);
+        border-radius: 25% 0 0 0 / 30%;
+    }
+}
+.comment-author {
+    font-weight: 600;
+    margin-bottom: 4px;
+    font-size: 14px;
+}
+.comment-content {
+    font-size: 16px;
+}
 
 // Like button
 .like-svg {

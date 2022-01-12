@@ -64,6 +64,24 @@ export const GET_POST_BY_ID = gql`
     }
 `
 
+export const GET_COMMENTS_BY_POST_ID = gql`
+    query($postId: String!) {
+        getCommentsByPostId(postId: $postId) {
+            id
+            authorId
+            author {
+                id
+                avatar
+                username
+                displayName
+            }
+            content
+            parentId
+            createdAt
+        }
+    }
+`
+
 // Auth stuff
 export const LOGIN = gql`
     query($username: String!, $password: String!) {

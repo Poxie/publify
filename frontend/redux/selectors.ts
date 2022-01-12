@@ -1,5 +1,5 @@
 import { createSelector } from "reselect";
-import { Media, PostType } from "../utils/types";
+import { Comment, Media, PostType, UserType } from "../utils/types";
 import { RootState } from "./store";
 
 type LoadingPost = PostType & {
@@ -8,6 +8,17 @@ type LoadingPost = PostType & {
 export const selectPosts: (state: RootState) => PostType[] = (state) => state.posts.posts;
 export const selectPostId: (state: RootState, postId: string) => string = (state, postId) => postId;
 export const selectActivePost: (state: RootState) => LoadingPost = (state) => state.post;
+export const selectComments: (state: RootState) => Comment[] = (state) => state.post.comments;
+export const selectCommentIds: (state: RootState) => string[] | undefined = state => state.post.comments?.map(comment => comment?.id);
+export const selectCommentId: (state: RootState, commentId: string) => string = (state, commentId) => commentId;
+export const selectCommentById: (state: RootState, commentId: string) => Comment = createSelector(
+    [selectComments, selectCommentId],
+    (comments, commentId) => comments.find(comment => comment.id === commentId)
+)
+export const selectCommentAuthor: (state: RootState, commentId: string) => UserType = createSelector(
+    [selectComments, selectCommentById],
+    (comments, comment) => comment.author
+)
 export const selectPostById: (state: RootState, postId: string) => PostType = createSelector(
     [selectPosts, selectPostId],
     (posts, postId) => posts.find(post => post.id === postId) 
