@@ -10,6 +10,7 @@ import dotenv from 'dotenv';
 import { Mutation } from './resolvers/Mutation';
 import { isAuth } from './middleware/is-auth';
 import { GraphQLUpload, graphqlUploadExpress } from 'graphql-upload';
+import { Comment } from './resolvers/Comment';
 dotenv.config();
 
 // Initializing MySQL connection
@@ -27,6 +28,7 @@ app.use(isAuth);
             Query,
             Post,
             User,
+            Comment,
             Mutation,
             Upload: GraphQLUpload
         },
