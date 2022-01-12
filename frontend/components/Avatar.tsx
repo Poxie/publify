@@ -8,14 +8,15 @@ type Props = {
     avatar: string;
     name: string;
     size?: number;
+    rounded?: boolean;
     className?: string;
 }
-export const Avatar: React.FC<Props> = ({ avatar, name, className, size=32 }) => {
+export const Avatar: React.FC<Props> = ({ avatar, name, className, rounded=true, size=32 }) => {
     const newClassName = [styles['avatar'], className ? className : ''].join(' ');
     return(
         <Flex 
             className={newClassName}
-            style={{width: size, height: size}}
+            style={{width: size, height: size, borderRadius: rounded ? '50%' : 'var(--border-radius)'}}
         >
             {avatar && (
                 <Image 
