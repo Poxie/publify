@@ -4,6 +4,7 @@ import styles from '../../styles/Post.module.scss';
 import { PostContent } from './PostContent';
 import { PostFooter } from './PostFooter';
 import { PostComments } from './PostComments';
+import { AddComment } from './AddComment';
 
 export const PostMain = () => {
     return(
@@ -11,6 +12,7 @@ export const PostMain = () => {
             <PostHeader />
             <PostContent />
             <PostFooter />
+            <AddComment />
             <PostComments />
         </div>
     )

@@ -20,9 +20,6 @@ export const PostComments = () => {
 
     return(
         <div className={styles['comments']}>
-            <AddComment 
-                postId={id}
-            />
             {commentIds && (
                 commentIds.map(commentId => {
                     return(

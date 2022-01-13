@@ -4,13 +4,14 @@ import styles from '../../styles/Post.module.scss';
 import { Flex } from '../Flex';
 import { useAuth } from '../../contexts/AuthProvider';
 import { Avatar } from '../Avatar';
+import { PostType } from '../../utils/types';
+import { useAppSelector } from '../../redux/hooks';
+import { selectActivePost } from '../../redux/selectors';
 
-type Props = {
-    postId: string;
-}
-export const AddComment: React.FC<Props> = ({ postId }) => {
+export const AddComment = () => {
     const { user } = useAuth();
     const { avatar, displayName } = user;
+    const { id }: PostType = useAppSelector(state => selectActivePost(state));
 
     return(
         <Flex className={styles['add-comment']} alignItems={'center'}>
@@ -20,7 +21,7 @@ export const AddComment: React.FC<Props> = ({ postId }) => {
                 className={styles['add-comment-avatar']}
             />
             <CommentInput 
-                parentId={postId}
+                parentId={id}
                 type={'post'}
             />
         </Flex>
