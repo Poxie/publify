@@ -144,6 +144,15 @@
 }
 .add-comment {
     margin-bottom: 25px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid var(--background-secondary);
+    
+    &>:last-child {
+        width: 100%;
+    }
+}
+.add-comment-avatar {
+    margin-right: 15px;
 }
 
 // Like button
