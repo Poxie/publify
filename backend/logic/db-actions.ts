@@ -190,7 +190,13 @@ export const createPost: (authorId: string, content: string) => Promise<Post> = 
 // Getting comment by ID
 export const getCommentById: (commentId: string) => Promise<Comment> = async (commentId) => {
     const [rows] = await connection.promise().query<Comment[]>(SELECT_COMMENT_BY_ID, [commentId]);
-    return rows[0];
+    const comment = rows[0];
+    
+    // Fetching comment likes
+    comment.likes = await getLikesByParentId(comment.id);
+    comment.likeCount = comment.likes.length;
+
+    return comment;
 }
 // Generating post ID
 const generateCommentId: () => Promise<string> = async () => {
