@@ -35,6 +35,8 @@ export type Comment = {
     parent?: PostType;
     createdAt: string;
     replies?: Comment[];
+    likes: string[];
+    likeCount: number;
 }
 
 

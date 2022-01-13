@@ -72,6 +72,8 @@ export const GET_COMMENTS_BY_PARENT_ID = gql`
             content
             parentId
             createdAt
+            likes
+            likeCount
             author {
                 id
                 avatar
@@ -84,6 +86,8 @@ export const GET_COMMENTS_BY_PARENT_ID = gql`
                 content
                 parentId
                 createdAt
+                likes
+                likeCount
                 author {
                     id
                     avatar
