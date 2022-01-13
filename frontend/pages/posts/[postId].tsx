@@ -19,6 +19,7 @@ export default function Post(props) {
             <title>
                 {content} | {author.username}
             </title>
+            <meta content={content} name="description" />
             <meta content={content} property="og:description" />
             <meta content={getUserAvatar(author.avatar)} property="og:image" />
             <meta content={`${process.env.NEXT_PUBLIC_WEBSITE_ORIGIN}${pathname}`} property="og:url" />
