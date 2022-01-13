@@ -57,7 +57,7 @@ export const ProfileMediaPreview = () => {
 
                         const mediaURL = getMediaURL(id);
                         return(
-                            <div className={styles['preview-media']}>
+                            <div className={styles['preview-media']} key={id}>
                                 <Image 
                                     src={mediaURL}
                                     width="100%" 
