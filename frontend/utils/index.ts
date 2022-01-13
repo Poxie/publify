@@ -1,7 +1,7 @@
 import { PostType, UserType } from "./types";
 import { GraphQLClient } from 'graphql-request';
 import { CREATE_COMMENT, CREATE_LIKE, CREATE_POST, DESTROY_LIKE, DESTROY_POST } from "./mutations";
-import { GET_COMMENTS_BY_POST_ID, GET_ME, GET_POSTS_BY_AUTHOR_ID, GET_POST_BY_ID, GET_USER_BY_ID, LOGIN } from "./queries";
+import { GET_COMMENTS_BY_PARENT_ID, GET_ME, GET_POSTS_BY_AUTHOR_ID, GET_POST_BY_ID, GET_USER_BY_ID, LOGIN } from "./queries";
 const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
 // Getting access token
@@ -69,8 +69,8 @@ export const publishPost: (content: string, media?: File[]) => Promise<PostType>
     return response
 } 
 // Getting comments by post ID
-export const getCommentsByPostId: (postId: string) => Promise<Comment[]> = async (postId) => {
-    const response = await request(GET_COMMENTS_BY_POST_ID, { postId });
+export const getCommentsByParentId: (parentId: string) => Promise<Comment[]> = async (parentId) => {
+    const response = await request(GET_COMMENTS_BY_PARENT_ID, { parentId });
     return response;
 }
 // Creating comment

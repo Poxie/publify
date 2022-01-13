@@ -1,4 +1,4 @@
-import { createComment, createPostLike, destroyPost, destroyPostLike, getCommentsByPostId, getPostsByAuthorId, publishPost } from "../../utils"
+import { createComment, createPostLike, destroyPost, destroyPostLike, getCommentsByParentId, getPostsByAuthorId, publishPost } from "../../utils"
 import { PostType } from "../../utils/types";
 import { ADD_ACTIVE_POST_LIKE, ADD_COMMENT, ADD_POST_LIKE, CREATE_NOTIFICATION, CREATE_POST, DESTROY_NOTIFICATION, LOAD_MORE_POSTS, REMOVE_ACTIVE_POST_LIKE, REMOVE_POST, REMOVE_POST_LIKE, RESET_COMMENTS, RESET_NOTIFICATION, SET_COMMENTS, SET_POST, SET_POSTS } from "../actionTypes"
 
@@ -132,7 +132,7 @@ export const removeActivePostLike = (postId: string, userId: string) => {
 }
 export const fetchComments = (postId: string) => {
     return async dispatch => {
-        const comments = await getCommentsByPostId(postId);
+        const comments = await getCommentsByParentId(postId);
 
         dispatch({
             type: SET_COMMENTS,

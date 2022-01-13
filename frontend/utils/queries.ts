@@ -64,9 +64,9 @@ export const GET_POST_BY_ID = gql`
     }
 `
 
-export const GET_COMMENTS_BY_POST_ID = gql`
-    query($postId: String!) {
-        getCommentsByPostId(postId: $postId) {
+export const GET_COMMENTS_BY_PARENT_ID = gql`
+    query($parentId: String!) {
+        getCommentsByParentId(parentId: $parentId) {
             id
             authorId
             author {
