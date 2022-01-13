@@ -50,7 +50,7 @@ export const typeDefs = gql`
         getUserById(id: String!): User
         getPostById(id: String!): Post
         getPostsByAuthorId(id: String!, startIndex: Int, endIndex: Int): [Post]
-        getCommentsByPostId(postId: String!): [Comment]!
+        getCommentsByParentId(parentId: String!): [Comment]!
         login(username: String!, password: String!): AuthData!
     }
 
@@ -70,7 +70,7 @@ export const typeDefs = gql`
         destroyLike(postId: String!): Post!
         destroyPost(postId: String!): Boolean
         createPost(content: String!, media: [Upload]): Post!
-        createComment(postId: String!, content: String!): Comment!
+        createComment(parentId: String!, content: String!): Comment!
         destroyComment(id: String!): Boolean!
     }
 `

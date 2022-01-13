@@ -1,4 +1,4 @@
-import { getCommentsByPostId, getMediaByPostId, getUserById } from "../logic/db-actions";
+import { getCommentsByParentId, getMediaByPostId, getUserById } from "../logic/db-actions";
 
 export const Post = {
     author: async (parent: any) => {
@@ -13,7 +13,7 @@ export const Post = {
     },
     comments: async (parent: any) => {
         const parentId = parent.id;
-        const comments = await getCommentsByPostId(parentId);
+        const comments = await getCommentsByParentId(parentId);
         return comments;
     }
 }

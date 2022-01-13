@@ -16,7 +16,7 @@ import {
     INSERT_MEDIA, 
     INSERT_POST, 
     INSERT_USER, 
-    SELECT_COMMENTS_BY_POST_ID, 
+    SELECT_COMMENTS_BY_PARENT_ID, 
     SELECT_COMMENT_BY_ID, 
     SELECT_COMMENT_COUNT_BY_PARENT_ID, 
     SELECT_LIKES_BT_POST_ID, 
@@ -224,9 +224,9 @@ export const destroyComment: (commentId: string) => Promise<void> = async (comme
     return;
 }
 // Getting post comments
-export const getCommentsByPostId: (postId: string) => Promise<Comment[]> = async (postId) => {
+export const getCommentsByParentId: (postId: string) => Promise<Comment[]> = async (postId) => {
     // Fetching comments
-    const [comments] = await connection.promise().query<Comment[]>(SELECT_COMMENTS_BY_POST_ID, [postId]);
+    const [comments] = await connection.promise().query<Comment[]>(SELECT_COMMENTS_BY_PARENT_ID, [postId]);
     
     // Returning comments
     return comments;

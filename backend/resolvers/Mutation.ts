@@ -94,7 +94,7 @@ export const Mutation = {
         return post;
     },
     createComment: async (parent: any, args: any, context: any) => {
-        const { postId, content } = args;
+        const { parentId, content } = args;
         const { userId } = context;
         if(!userId) throw new Error('Unauthorized.');
 
@@ -103,11 +103,11 @@ export const Mutation = {
         if(!user) throw new Error('Unauthorized.');
 
         // Checking if post exists
-        const post = await getPostById(postId);
+        const post = await getPostById(parentId) || await getCommentById(parentId);
         if(!post) throw new Error('Post does not exist.');
 
         // Creating commend
-        const comment = await createComment(postId, userId, content);
+        const comment = await createComment(parentId, userId, content);
 
         return comment;
     },
