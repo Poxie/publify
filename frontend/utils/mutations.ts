@@ -33,16 +33,16 @@ export const DESTROY_POST = gql`
 `
 
 export const DESTROY_LIKE = gql`
-    mutation($postId: String!) {
-        destroyLike(postId: $postId) {
+    mutation($parentId: String!) {
+        destroyLike(parentId: $parentId) {
             content
         }
     }
 `
 
 export const CREATE_LIKE = gql`
-    mutation($postId: String!) {
-        createLike(postId: $postId) {
+    mutation($parentId: String!) {
+        createLike(parentId: $parentId) {
             content
         }
     }

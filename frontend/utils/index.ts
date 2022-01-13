@@ -49,13 +49,13 @@ export const getPostById: (postId: string) => Promise<PostType> = async (postId)
     return post;
 }
 // Create like
-export const createPostLike: (postId: string) => Promise<void> = async (postId) => {
-    const response = await request(CREATE_LIKE, { postId });
+export const createPostLike: (parentId: string) => Promise<void> = async (parentId) => {
+    const response = await request(CREATE_LIKE, { parentId });
     return response;
 }
 // Destroy like
-export const destroyPostLike: (postId: string) => Promise<void> = async (postId) => {
-    const response = await request(DESTROY_LIKE, { postId });
+export const destroyPostLike: (parentId: string) => Promise<void> = async (parentId) => {
+    const response = await request(DESTROY_LIKE, { parentId });
     return response
 }
 // Destroy post
