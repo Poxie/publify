@@ -275,6 +275,21 @@
         .comment-author {
             font-size: 11px;
         }
+        .footer-item {
+            padding: 2px 6px;
+
+            svg {
+                width: 10px;
+                height: 10px;
+            }
+            span {
+                font-size: 11px;
+            }
+        }
+        .comment-likes {
+            top: -7px;
+            right: -7px;
+        }
     }
 }
 .show-replies {
