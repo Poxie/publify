@@ -255,6 +255,17 @@
     margin-right: 15px;
 }
 
+@media only screen and (max-width: 900px) {
+    .post {
+        flex-direction: column;
+    }
+    .media {
+        width: 100%;
+        min-height: 500px !important;
+    }
+}
+
+
 // Like button
 .like-svg {
     cursor: pointer;
