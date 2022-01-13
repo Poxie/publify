@@ -60,8 +60,6 @@ export const ProfileMediaPreview = () => {
                             <div className={styles['preview-media']} key={id}>
                                 <Image 
                                     src={mediaURL}
-                                    width="100%" 
-                                    height="100%"
                                     layout="fill"
                                     objectFit={'cover'}
                                     objectPosition={'center'}
