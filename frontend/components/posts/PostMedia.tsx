@@ -24,7 +24,10 @@ export const PostMedia = () => {
     }, [router.query]);
     
     return(
-        <div className={styles['media']}>
+        <Flex 
+            flexDirection={'column'} 
+            className={styles['media']}
+        >
             <MediaHeader />
             <MediaItem {...media[activeIndex]} />
             <MediaNavigation 
@@ -32,6 +35,6 @@ export const PostMedia = () => {
                 mediaLength={media.length}
                 currentIndex={activeIndex}
             />
-        </div>
+        </Flex>
     )
 }
