@@ -16,7 +16,7 @@ export const PostMedia = () => {
     // Updating active index by query params
     useEffect(() => {
         const mediaIndex = Array.isArray(router.query.media) ? parseInt(router.query.media[0]) : parseInt(router.query.media);
-        if(isNaN(mediaIndex) || mediaIndex > media.length) {
+        if(isNaN(mediaIndex) || mediaIndex > media.length - 1 || mediaIndex < 0) {
             router.replace(`/posts/${id}?media=0`);
             return
         }
