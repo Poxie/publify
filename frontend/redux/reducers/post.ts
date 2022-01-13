@@ -40,9 +40,25 @@ export default (state=initialState, action) => {
             }
         }
         case ADD_COMMENT: {
+            const comment = action.payload.comment;
+            const parentId = comment.parentId;
+            let newComments = [...state.comments];
+
+            // If new comment is reply, add to reply array of parent
+            const reply = state.comments.map(comment => comment.id).find(id => id === parentId);
+            if(reply) {
+                for(const c of newComments) {
+                    if(c.id === reply) {
+                        c.replies.push(comment);
+                    }
+                }
+            } else {
+                // Else push comment to post comments
+                newComments.push(comment);
+            }
             return {
                 ...state,
-                comments: [...state.comments, ...[action.payload.comment]],
+                comments: newComments,
                 commentCount: state.commentCount + 1
             }
         }
