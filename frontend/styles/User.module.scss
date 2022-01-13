@@ -294,3 +294,15 @@
         background-color: var(--background-tertiary);
     }
 }
+
+@media only screen and (max-width: 700px) {
+    .profile-overview {
+        flex-direction: column;
+    }
+    .profile-sidebar {
+        margin-bottom: 25px;
+    }
+    .banner {
+        height: 140px;
+    }
+}
