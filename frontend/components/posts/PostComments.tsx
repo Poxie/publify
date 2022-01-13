@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { fetchComments } from '../../redux/actions';
+import { fetchComments, resetComments } from '../../redux/actions';
 import { useAppSelector } from '../../redux/hooks';
 import { selectActivePost, selectCommentIds } from '../../redux/selectors';
 import styles from '../../styles/Post.module.scss';
@@ -14,9 +14,14 @@ export const PostComments = () => {
     const commentIds = useAppSelector(state => selectCommentIds(state));
     const dispatch = useDispatch();
 
-    // Fetching commentst
+    // Fetching comments
     useEffect(() => {
         dispatch(fetchComments(id));
+
+        // Resetting comments on unmount
+        return () => {
+            dispatch(resetComments());
+        };
     }, []);
 
     return(

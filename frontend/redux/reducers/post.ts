@@ -1,4 +1,4 @@
-import { ADD_ACTIVE_POST_LIKE, ADD_COMMENT, REMOVE_ACTIVE_POST_LIKE, SET_COMMENTS, SET_POST } from "../actionTypes"
+import { ADD_ACTIVE_POST_LIKE, ADD_COMMENT, REMOVE_ACTIVE_POST_LIKE, RESET_COMMENTS, SET_COMMENTS, SET_POST } from "../actionTypes"
 
 const initialState: any = {
     loading: true
@@ -31,6 +31,12 @@ export default (state=initialState, action) => {
             return {
                 ...state,
                 comments: action.payload.comments
+            }
+        }
+        case RESET_COMMENTS: {
+            return {
+                ...state,
+                comments: null
             }
         }
         case ADD_COMMENT: {
