@@ -1,4 +1,4 @@
-import { ADD_ACTIVE_POST_LIKE, ADD_COMMENT, REMOVE_ACTIVE_POST_LIKE, RESET_COMMENTS, SET_COMMENTS, SET_POST } from "../actionTypes"
+import { ADD_ACTIVE_POST_LIKE, ADD_COMMENT, ADD_COMMENT_LIKE, REMOVE_ACTIVE_POST_LIKE, REMOVE_COMMENT_LIKE, RESET_COMMENTS, SET_COMMENTS, SET_POST } from "../actionTypes"
 
 const initialState: any = {
     loading: true
@@ -60,6 +60,58 @@ export default (state=initialState, action) => {
                 ...state,
                 comments: newComments,
                 commentCount: state.commentCount + 1
+            }
+        }
+        case ADD_COMMENT_LIKE: {
+            const { userId, commentId, replyId } = action.payload;
+
+            let newComments = [...state.comments];
+            for(const comment of newComments) {
+                if(comment.id === commentId) {
+                    // If comment is a reply
+                    if(replyId) {
+                        for(const reply of comment.replies) {
+                            if(reply.id === replyId) {
+                                reply.likeCount++;
+                                reply.likes.push(userId);
+                            }
+                        }
+                    } else {
+                        comment.likeCount++;
+                        comment.likes.push(userId);
+                    }
+                }
+            }
+
+            return {
+                ...state,
+                comments: newComments
+            }
+        }
+        case REMOVE_COMMENT_LIKE: {
+            const { userId, commentId, replyId } = action.payload;
+
+            let newComments = [...state.comments];
+            for(const comment of newComments) {
+                if(comment.id === commentId) {
+                    // If comment is a reply
+                    if(replyId) {
+                        for(const reply of comment.replies) {
+                            if(reply.id === replyId) {
+                                reply.likeCount--;
+                                reply.likes = reply.likes.filter(like => like !== userId);
+                            }
+                        }
+                    } else {
+                        comment.likeCount--;
+                        comment.likes = comment.likes.filter(like => like !== userId);
+                    }
+                }
+            }
+
+            return {
+                ...state,
+                comments: newComments
             }
         }
         default:

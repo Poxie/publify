@@ -1,6 +1,6 @@
 import { createComment, createLike, destroyPost, destroyLike, getCommentsByParentId, getPostsByAuthorId, publishPost } from "../../utils"
 import { PostType } from "../../utils/types";
-import { ADD_ACTIVE_POST_LIKE, ADD_COMMENT, ADD_POST_LIKE, CREATE_NOTIFICATION, CREATE_POST, DESTROY_NOTIFICATION, LOAD_MORE_POSTS, REMOVE_ACTIVE_POST_LIKE, REMOVE_POST, REMOVE_POST_LIKE, RESET_COMMENTS, RESET_NOTIFICATION, SET_COMMENTS, SET_POST, SET_POSTS } from "../actionTypes"
+import { ADD_ACTIVE_POST_LIKE, ADD_COMMENT, ADD_COMMENT_LIKE, ADD_POST_LIKE, CREATE_NOTIFICATION, CREATE_POST, DESTROY_NOTIFICATION, LOAD_MORE_POSTS, REMOVE_ACTIVE_POST_LIKE, REMOVE_COMMENT_LIKE, REMOVE_POST, REMOVE_POST_LIKE, RESET_COMMENTS, RESET_NOTIFICATION, SET_COMMENTS, SET_POST, SET_POSTS } from "../actionTypes"
 
 export const addPostLike = (postId: string, userId: string) => {
     return async dispatch => {
@@ -150,6 +150,26 @@ export const addComment = (parentId: string, content: string) => {
         dispatch({
             type: ADD_COMMENT,
             payload: { comment }
+        })
+    }
+}
+export const addCommentLike = (userId: string, commentId: string, replyId?: string) => {
+    return async dispatch => {
+        const comment = replyId ? await createLike(replyId) : await createLike(commentId);
+
+        dispatch({
+            type: ADD_COMMENT_LIKE,
+            payload: { userId, commentId, replyId }
+        })
+    }
+}
+export const removeCommentLike = (userId: string, commentId: string, replyId?: string) => {
+    return async dispatch => {
+        const comment = replyId ? await destroyLike(replyId) : await destroyLike(commentId);
+
+        dispatch({
+            type: REMOVE_COMMENT_LIKE,
+            payload: { userId, commentId, replyId }
         })
     }
 }

@@ -7,8 +7,9 @@ type Props = {
     toggle: (state: boolean) => void;
     isLiked: boolean;
     likeCount: number;
+    hasLabel?: boolean;
 }
-export const LikeButton: React.FC<Props> = ({ toggle, isLiked, likeCount }) => {
+export const LikeButton: React.FC<Props> = ({ toggle, isLiked, likeCount, hasLabel=true }) => {
     return(
         <Flex 
             className={styles['footer-item']} 
@@ -19,7 +20,7 @@ export const LikeButton: React.FC<Props> = ({ toggle, isLiked, likeCount }) => {
                 isLiked={isLiked}
             />
             <span>
-                {likeCount} likes
+                {likeCount} {hasLabel && 'likes'}
             </span>
         </Flex>
     )

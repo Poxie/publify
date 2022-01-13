@@ -309,6 +309,34 @@
         opacity: .7;
     }
 }
+.comment-likes {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: var(--background-secondary);
+    border-radius: var(--border-radius);
+    z-index: 2;
+    transition: background-color .2s;
+
+    .footer-item {
+        margin: 0;
+        
+        &:hover {
+            background-color: transparent;
+        }
+    }
+    svg {
+        width: 14px;
+        height: 14px;
+    }
+    span {
+        margin-left: 5px;
+        font-size: 12px;
+    }
+    &:hover {
+        background-color: var(--background-tertiary);
+    }
+}
 
 @media only screen and (max-width: 900px) {
     .post {
