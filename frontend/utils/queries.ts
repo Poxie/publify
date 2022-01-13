@@ -13,8 +13,8 @@ export const GET_USER_BY_ID = gql`
 `
 
 export const GET_POSTS_BY_AUTHOR_ID = gql`
-    query($id: String!) {
-        getPostsByAuthorId(id: $id) {
+    query($id: String!, $startIndex: Int, $endIndex: Int) {
+        getPostsByAuthorId(id: $id, startIndex: $startIndex, endIndex: $endIndex) {
             id
             content
             likes

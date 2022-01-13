@@ -1,6 +1,6 @@
 import { createComment, createPostLike, destroyPost, destroyPostLike, getCommentsByPostId, getPostsByAuthorId, publishPost } from "../../utils"
 import { PostType } from "../../utils/types";
-import { ADD_ACTIVE_POST_LIKE, ADD_COMMENT, ADD_POST_LIKE, CREATE_NOTIFICATION, CREATE_POST, DESTROY_NOTIFICATION, REMOVE_ACTIVE_POST_LIKE, REMOVE_POST, REMOVE_POST_LIKE, RESET_COMMENTS, RESET_NOTIFICATION, SET_COMMENTS, SET_POST, SET_POSTS } from "../actionTypes"
+import { ADD_ACTIVE_POST_LIKE, ADD_COMMENT, ADD_POST_LIKE, CREATE_NOTIFICATION, CREATE_POST, DESTROY_NOTIFICATION, LOAD_MORE_POSTS, REMOVE_ACTIVE_POST_LIKE, REMOVE_POST, REMOVE_POST_LIKE, RESET_COMMENTS, RESET_NOTIFICATION, SET_COMMENTS, SET_POST, SET_POSTS } from "../actionTypes"
 
 export const addPostLike = (postId: string, userId: string) => {
     return async dispatch => {
@@ -63,12 +63,23 @@ export const createPost = (content: string, media?: File[]) => {
     }
 }
 
-export const fetchUserPosts = (userId: string) => {
+export const fetchUserPosts = (userId: string, startIndex?: number, endIndex?: number) => {
     return async dispatch => {
-        const posts = await getPostsByAuthorId(userId);
+        const posts = await getPostsByAuthorId(userId, startIndex, endIndex);
 
         dispatch({
             type: SET_POSTS,
+            payload: { posts }
+        })
+    }
+}
+
+export const loadMorePosts = (userId: string, startIndex: number, endIndex: number) => {
+    return async dispatch => {
+        const posts = await getPostsByAuthorId(userId, startIndex, endIndex);
+
+        dispatch({
+            type: LOAD_MORE_POSTS,
             payload: { posts }
         })
     }

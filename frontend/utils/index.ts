@@ -39,8 +39,8 @@ export const getUserById = async (id: string) => {
     return user
 }
 // Getting posts by author ID
-export const getPostsByAuthorId: (userId: string) => Promise<PostType[]> = async (userId) => {
-    const posts = await request(GET_POSTS_BY_AUTHOR_ID, { id: userId });
+export const getPostsByAuthorId: (userId: string, startIndex?: number, endIndex?: number) => Promise<PostType[]> = async (userId, startIndex, endIndex ) => {
+    const posts = await request(GET_POSTS_BY_AUTHOR_ID, { id: userId, startIndex, endIndex });
     return posts;
 }
 // Getting post by post ID
@@ -105,7 +105,7 @@ export const getUserAvatar = (avatar: string) => {
 }
 // Getting user banner
 export const getUserBanner = (banner: string) => {
-    return banner;
+    return `${process.env.NEXT_PUBLIC_IMAGE_ENDPOINT}/media/${banner}.png`;
 }
 // Getting post media URL
 export const getMediaURL = (id: string) => {
