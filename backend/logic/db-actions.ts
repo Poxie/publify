@@ -193,8 +193,10 @@ export const getCommentById: (commentId: string) => Promise<Comment> = async (co
     const comment = rows[0];
     
     // Fetching comment likes
-    comment.likes = await getLikesByParentId(comment.id);
-    comment.likeCount = comment.likes.length;
+    if(comment) {
+        comment.likes = await getLikesByParentId(comment.id);
+        comment.likeCount = comment.likes.length;
+    }
 
     return comment;
 }
