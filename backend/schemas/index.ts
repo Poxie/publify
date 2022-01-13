@@ -67,8 +67,8 @@ export const typeDefs = gql`
         ): User
         
         # Post stuff
-        createLike(postId: String!): Post!
-        destroyLike(postId: String!): Post!
+        createLike(parentId: String!): Post!
+        destroyLike(parentId: String!): Post!
         destroyPost(postId: String!): Boolean
         createPost(content: String!, media: [Upload]): Post!
         createComment(parentId: String!, content: String!): Comment!

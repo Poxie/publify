@@ -19,7 +19,7 @@ import {
     SELECT_COMMENTS_BY_PARENT_ID, 
     SELECT_COMMENT_BY_ID, 
     SELECT_COMMENT_COUNT_BY_PARENT_ID, 
-    SELECT_LIKES_BT_POST_ID, 
+    SELECT_LIKES_BT_PARENT_ID, 
     SELECT_MEDIA_BY_ID, 
     SELECT_MEDIA_BY_POST_ID, 
     SELECT_POSTS_BY_AUTHOR_ID, 
@@ -57,7 +57,7 @@ export const getPostById: (id: string) => Promise<Post> = async (id) => {
     if(!post) return post;
 
     // Fetching likes
-    post.likes = await getLikesByPostId(id);
+    post.likes = await getLikesByParentId(id);
     post.likeCount = post.likes.length;
 
     // Fetching comments
@@ -80,7 +80,7 @@ export const getPostsByAuthorId: (id: string, startIndex?: number, endIndex?: nu
     // Fetching extra properties
     for(const post of posts) {
         // Fetch likes
-        post.likes = await getLikesByPostId(post.id);
+        post.likes = await getLikesByParentId(post.id);
         post.likeCount = post.likes.length;
 
         // Fetch comments
@@ -100,9 +100,9 @@ export const getMediaByPostId: (postId: string) => Promise<Media[]> = async (pos
     return media;
 }
 
-// Get likes by post ID
-export const getLikesByPostId: (postId: string) => Promise<String[]> = async (postId) => {
-    const [likes] = await connection.promise().query<Like[]>(SELECT_LIKES_BT_POST_ID, [postId]);
+// Get likes by parent ID
+export const getLikesByParentId: (parentId: string) => Promise<String[]> = async (parentId) => {
+    const [likes] = await connection.promise().query<Like[]>(SELECT_LIKES_BT_PARENT_ID, [parentId]);
     const likeUserIds = likes.map(like => like.userId);
     return likeUserIds;
 }

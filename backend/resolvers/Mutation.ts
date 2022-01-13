@@ -13,7 +13,7 @@ export const Mutation = {
         return user;
     },
     createLike: async (parent: any, args: any, context: any) => {
-        const { postId } = args;
+        const { parentId } = args;
         const { userId } = context;
         if(!userId) throw new Error('Unauthorized.');
 
@@ -22,19 +22,19 @@ export const Mutation = {
         if(!user) throw new Error('Unauthorized.');
 
         // Checking if post exists
-        const post = await getPostById(postId);
+        const post = await getPostById(parentId) || await getCommentById(parentId);
         if(!post) throw new Error('Post does not exist.');
 
         // Checking if user has already liked post
         if(post.likes.includes(userId)) throw new Error('User has already liked this post.');
 
         // Appending userId to liked posts
-        await createtPostLike(postId, userId);
+        await createtPostLike(parentId, userId);
 
         return post;
     },
     destroyLike: async (parent: any, args: any, context: any) => {
-        const { postId } = args;
+        const { parentId } = args;
         const { userId } = context;
         if(!userId) throw new Error('Unauthorized.');
 
@@ -43,14 +43,14 @@ export const Mutation = {
         if(!user) return new Error('Unauthorized.');
 
         // Checking if post exists
-        const post = await getPostById(postId);
+        const post = await getPostById(parentId) || await getCommentById(parentId);
         if(!post) throw new Error('Post does not exist.');
 
         // Checking if user has liked post
         if(!post.likes.includes(userId)) throw new Error('User has not liked this post.');
 
         // Deleting like
-        await destroyPostLike(postId, userId);
+        await destroyPostLike(parentId, userId);
 
         return post;
     },
