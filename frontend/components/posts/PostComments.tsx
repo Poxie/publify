@@ -5,6 +5,7 @@ import { useAppSelector } from '../../redux/hooks';
 import { selectActivePost, selectCommentIds } from '../../redux/selectors';
 import styles from '../../styles/Post.module.scss';
 import { PostType } from '../../utils/types';
+import { AddComment } from './AddComment';
 import { Comment } from './Comment';
 
 export const PostComments = () => {
@@ -19,6 +20,9 @@ export const PostComments = () => {
 
     return(
         <div className={styles['comments']}>
+            <AddComment 
+                postId={id}
+            />
             {commentIds && (
                 commentIds.map(commentId => {
                     return(
