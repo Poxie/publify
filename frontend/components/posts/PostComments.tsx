@@ -5,6 +5,7 @@ import { useAppSelector } from '../../redux/hooks';
 import { selectActivePost, selectCommentIds } from '../../redux/selectors';
 import styles from '../../styles/Post.module.scss';
 import { PostType } from '../../utils/types';
+import { LoadingComments } from '../loading/LoadingComments';
 import { AddComment } from './AddComment';
 import { Comment } from './Comment';
 
@@ -29,6 +30,9 @@ export const PostComments = () => {
                         />
                     )
                 })
+            )}
+            {!commentIds && (
+                <LoadingComments />
             )}
         </div>
     )

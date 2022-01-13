@@ -13,3 +13,14 @@
     background-color: var(--background-tertiary);
     border-radius: var(--border-radius);
 }
+.loading-comment {
+    margin-bottom: 25px;
+    .loading-avatar {
+        margin-right: 15px !important;
+        background-color: var(--background-secondary);
+    }
+    .loading-text {
+        background-color: var(--background-secondary);
+    }
+}
+
