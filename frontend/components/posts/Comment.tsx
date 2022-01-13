@@ -1,27 +1,45 @@
 import React from 'react';
 import { useAppSelector } from '../../redux/hooks';
-import { selectCommentAuthor } from '../../redux/selectors';
+import { selectCommentAuthor, selectReplyAuthor } from '../../redux/selectors';
 import styles from '../../styles/Post.module.scss';
 import { Avatar } from '../Avatar';
 import { Flex } from '../Flex';
 import { CommentMain } from './CommentMain';
+import { CommentReplies } from './CommentReplies';
 
 type Props = {
     id: string;
+    replyId?: string;
+    type?: 'comment' | 'reply';
 }
-export const Comment: React.FC<Props> = ({ id }) => {
-    const { avatar, displayName, id: authorId } = useAppSelector(state => selectCommentAuthor(state, id));
+export const Comment: React.FC<Props> = ({ id, replyId, type='comment' }) => {
+    let author;
+    if(type === 'comment') {
+        author = useAppSelector(state => selectCommentAuthor(state, id));
+    } else {
+        author = useAppSelector(state => selectReplyAuthor(state, id, replyId));
+    }
+    const { avatar, displayName } = author;
 
     return(
-        <Flex className={styles['comment']}>
-            <Avatar 
-                avatar={avatar}
-                name={displayName}
-                size={34}
-            />
-            <CommentMain 
-                commentId={id}
-            />
-        </Flex>
+        <div className={styles['comment']}>
+            <Flex>
+                <Avatar 
+                    avatar={avatar}
+                    name={displayName}
+                    size={34}
+                />
+                <CommentMain 
+                    commentId={id}
+                    replyId={replyId}
+                    type={type}
+                />
+            </Flex>
+            {type === 'comment' && (
+                <CommentReplies 
+                    commentId={id}
+                />
+            )}
+        </div>
     )
 }
