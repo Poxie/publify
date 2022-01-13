@@ -71,8 +71,8 @@ export const getPostById: (id: string) => Promise<Post> = async (id) => {
 }
 
 // Getting posts by author ID
-export const getPostsByAuthorId: (id: string) => Promise<Post[]> = async (authorId) => {
-    const [posts] = await connection.promise().query<Post[]>(SELECT_POSTS_BY_AUTHOR_ID, [authorId])
+export const getPostsByAuthorId: (id: string, startIndex?: number, endIndex?: number) => Promise<Post[]> = async (authorId, startIndex=0, endIndex=3) => {
+    const [posts] = await connection.promise().query<Post[]>(SELECT_POSTS_BY_AUTHOR_ID, [authorId, startIndex, endIndex])
     
     // If no posts found, return empty array
     if(!posts.length) return [];

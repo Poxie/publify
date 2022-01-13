@@ -19,8 +19,8 @@ export const Query = {
         return post;
     },
     getPostsByAuthorId: async (parent: any, args: any, context: any) => {
-        const authorId = args.id;
-        const posts = await getPostsByAuthorId(authorId);
+        const { id: authorId, startIndex, endIndex } = args;
+        const posts = await getPostsByAuthorId(authorId, startIndex, endIndex);
         return posts;
     },
     getCommentsByPostId: async (parent: any, args: any) => {

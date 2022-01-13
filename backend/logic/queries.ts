@@ -2,7 +2,7 @@
 export const SELECT_USER_BY_ID = 'SELECT * FROM `users` WHERE id = ?';
 export const SELECT_USER_BY_USERNAME = 'SELECT * FROM `users` WHERE username = ?'
 export const SELECT_POST_BY_ID = 'SELECT * FROM `posts` WHERE id = ?';
-export const SELECT_POSTS_BY_AUTHOR_ID = 'SELECT * FROM `posts` WHERE authorId = ? ORDER BY createdAt DESC';
+export const SELECT_POSTS_BY_AUTHOR_ID = 'SELECT * FROM `posts` WHERE authorId = ? ORDER BY createdAt DESC LIMIT ?, ?';
 export const SELECT_MEDIA_BY_POST_ID = 'SELECT * FROM `media` WHERE parentId = ?';
 export const SELECT_MEDIA_BY_ID = 'SELECT * FROM `media` WHERE id = ?';
 export const SELECT_LIKES_BT_POST_ID = 'SELECT * FROM `likes` WHERE postId = ?';

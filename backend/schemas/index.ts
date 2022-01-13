@@ -49,7 +49,7 @@ export const typeDefs = gql`
         getMe: User
         getUserById(id: String!): User
         getPostById(id: String!): Post
-        getPostsByAuthorId(id: String!): [Post]
+        getPostsByAuthorId(id: String!, startIndex: Int, endIndex: Int): [Post]
         getCommentsByPostId(postId: String!): [Comment]!
         login(username: String!, password: String!): AuthData!
     }
