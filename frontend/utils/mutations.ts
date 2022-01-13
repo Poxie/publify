@@ -51,9 +51,12 @@ export const CREATE_LIKE = gql`
 export const CREATE_COMMENT = gql`
     mutation($parentId: String!, $content: String!) {
         createComment(parentId: $parentId, content: $content) {
+            id
             content
             createdAt
             parentId
+            likes
+            likeCount
             author {
                 id
                 avatar
