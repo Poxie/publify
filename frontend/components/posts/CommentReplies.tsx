@@ -3,6 +3,7 @@ import styles from '../../styles/Post.module.scss';
 import { useAppSelector } from '../../redux/hooks';
 import { selectCommentReplyIds } from '../../redux/selectors';
 import { Comment } from './Comment';
+import { CommentInput } from './CommentInput';
 
 type Props = {
     commentId: string;
@@ -22,6 +23,10 @@ export const CommentReplies: React.FC<Props> = ({ commentId }) => {
                     />
                 )
             })}
+            <CommentInput 
+                parentId={commentId}
+                type={'comment'}
+            />
         </div>
     )
 }
