@@ -6,10 +6,8 @@ type Props = {
 }
 export const MainLayout: React.FC<Props> = ({ children }) => {
     return(
-        <div className="layout">
-            <div className={styles['main']}>
-                {children}
-            </div>
+        <div className={styles['main']}>
+            {children}
         </div>
     )
 }
