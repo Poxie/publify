@@ -259,6 +259,8 @@
     margin-top: 15px;
 
     .comment {
+        margin-bottom: 10px;
+
         &>div>:first-child {
             width: 28px !important;
             min-width: 28px !important;
@@ -273,6 +275,38 @@
         .comment-author {
             font-size: 11px;
         }
+    }
+}
+.show-replies {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+
+    svg {
+        width: 22px;
+        height: 22px;
+        margin-top: -13px;
+        fill: var(--text-muted);
+        margin-right: 7px;
+    }
+    &:hover {
+        color: var(--text-primary);
+        opacity: .7;
+
+        svg {
+            fill: var(--text-primary);
+        }
+    }
+}
+.hide-replies {
+    margin-top: 10px;
+    color: var(--text-muted);
+    cursor: pointer;
+
+    &:hover {
+        color: var(--text-primary);
+        opacity: .7;
     }
 }
 
