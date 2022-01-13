@@ -8,6 +8,7 @@ export default (state=initialState, action) => {
     switch(action.type) {
         case SET_POST: {
             return {
+                ...state,
                 loading: false,
                 ...action.payload.post
             }
