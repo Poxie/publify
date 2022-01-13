@@ -102,6 +102,32 @@
         padding-left: 25px;
         padding-right: 25px;
     }
+    &.no-media {
+        background-color: var(--background-secondary);
+        border-radius: var(--border-radius);
+
+        .footer {
+            border-color: var(--background-tertiary);
+        }
+        .add-comment {
+            border-color: var(--background-tertiary);
+        }
+        input {
+            background-color: var(--background-tertiary);
+        }
+        .comment-main {
+            background-color: var(--background-tertiary);
+
+            &::after {
+                background-color: var(--background-tertiary);
+            }
+        }
+        .footer-item {
+            &:hover {
+                background-color: var(--background-tertiary);
+            }
+        }
+    }
 }
 .header {
     margin-bottom: 15px;

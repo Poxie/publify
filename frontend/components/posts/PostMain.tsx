@@ -8,11 +8,15 @@ import { AddComment } from './AddComment';
 import { useAuth } from '../../contexts/AuthProvider';
 import { Flex } from '../Flex';
 
-export const PostMain = () => {
+type Props = {
+    hasMedia?: boolean;
+}
+export const PostMain: React.FC<Props> = ({ hasMedia=true }) => {
     const { user } = useAuth();
 
+    const className = [styles['post-main'], !hasMedia ? styles['no-media'] : ''].join(' ');
     return(
-        <Flex className={styles['post-main']} flexDirection={'column'}>
+        <Flex className={className} flexDirection={'column'}>
             <PostHeader />
             <PostContent />
             <PostFooter />
