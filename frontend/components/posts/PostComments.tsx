@@ -40,7 +40,7 @@ export const PostComments = () => {
             {commentIds && !commentIds.length && (
                 <Flex 
                     justifyContent={'center'}
-                    style={{padding: '10px 0'}}
+                    style={{padding: '10px 0 35px 0'}}
                 >
                     There are no comments on this post yet.
                 </Flex>

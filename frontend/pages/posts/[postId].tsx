@@ -12,9 +12,6 @@ export default function Post(props) {
     const { content, author } = post;
     const router = useRouter();
     const pathname = router.asPath;
-    
-    // Store data in redux store
-    dispatch(setPost(post));
 
     return(
         <>
