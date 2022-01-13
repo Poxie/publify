@@ -4,6 +4,7 @@ import { Flex } from '../Flex';
 import styles from '../../styles/User.module.scss';
 import Image from 'next/image';
 import { useModal } from '../../contexts/ModalProvider';
+import { useRouter } from 'next/router';
 
 type Props = {
     expectedWidthPercentage: number;
@@ -14,9 +15,10 @@ type Props = {
     index: number;
     mediaCount: number;
     additaionlMedia: number;
+    postId: string;
 }
-export const ProfilePostMediaItem: React.FC<Props> = ({ width, height, expectedHeight, expectedWidthPercentage, mediaId, index, mediaCount, additaionlMedia }) => {
-    const { setModal } = useModal();
+export const ProfilePostMediaItem: React.FC<Props> = ({ postId, width, height, expectedHeight, expectedWidthPercentage, mediaId, index, mediaCount, additaionlMedia }) => {
+    const router = useRouter();
     const source = getMediaURL(mediaId);
 
     if(index === 2 && mediaCount === 3) {
@@ -25,17 +27,7 @@ export const ProfilePostMediaItem: React.FC<Props> = ({ width, height, expectedH
 
     // Enlarge image on click
     const onClick = () => {
-        setModal(
-            <Flex>
-                <Image 
-                    src={source}
-                    width={width}
-                    height={height}
-                />
-            </Flex>,
-            0,
-            950
-        )
+        router.push(`/posts/${postId}?media=${index}`)
     }
 
     return(
