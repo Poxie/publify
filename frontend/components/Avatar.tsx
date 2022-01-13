@@ -16,7 +16,7 @@ export const Avatar: React.FC<Props> = ({ avatar, name, className, rounded=true,
     return(
         <Flex 
             className={newClassName}
-            style={{width: size, height: size, borderRadius: rounded ? '50%' : 'var(--border-radius)'}}
+            style={{width: size, minWidth: size, height: size, borderRadius: rounded ? '50%' : 'var(--border-radius)'}}
         >
             {avatar && (
                 <Image 
