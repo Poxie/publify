@@ -47,3 +47,19 @@ export const CREATE_LIKE = gql`
         }
     }
 `
+
+export const CREATE_COMMENT = gql`
+    mutation($postId: String!, $content: String!) {
+        createComment(postId: $postId, content: $content) {
+            content
+            createdAt
+            parentId
+            author {
+                id
+                avatar
+                username
+                displayName
+            }
+        }
+    }
+`
