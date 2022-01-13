@@ -4,7 +4,6 @@ import { ADD_ACTIVE_POST_LIKE, ADD_COMMENT, ADD_POST_LIKE, CREATE_NOTIFICATION, 
 
 export const addPostLike = (postId: string, userId: string) => {
     return async dispatch => {
-        console.log(postId);
         const response = await createPostLike(postId);
 
         dispatch({
