@@ -69,15 +69,28 @@ export const GET_COMMENTS_BY_PARENT_ID = gql`
         getCommentsByParentId(parentId: $parentId) {
             id
             authorId
+            content
+            parentId
+            createdAt
             author {
                 id
                 avatar
                 username
                 displayName
             }
-            content
-            parentId
-            createdAt
+            replies {
+                id
+                authorId
+                content
+                parentId
+                createdAt
+                author {
+                    id
+                    avatar
+                    username
+                    displayName
+                }
+            }
         }
     }
 `

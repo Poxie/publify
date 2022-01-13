@@ -75,7 +75,7 @@ export const getCommentsByParentId: (parentId: string) => Promise<Comment[]> = a
 }
 // Creating comment
 export const createComment: (parentId: string, content: string) => Promise<Comment> = async (parentId: string, content: string) => {
-    const comment = await request(CREATE_COMMENT, { postId: parentId, content });
+    const comment = await request(CREATE_COMMENT, { parentId, content });
     return comment;
 }
 

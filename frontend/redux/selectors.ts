@@ -12,13 +12,30 @@ export const selectActivePostMedia: (state: RootState) => Media[] = (state) => s
 export const selectComments: (state: RootState) => Comment[] = (state) => state.post.comments;
 export const selectCommentIds: (state: RootState) => string[] | undefined = state => state.post.comments?.map(comment => comment?.id);
 export const selectCommentId: (state: RootState, commentId: string) => string = (state, commentId) => commentId;
+export const selectReplyId: (statet: RootState, commentId: string, replyId: string) => string = (state, commentId, replyId) => replyId;
 export const selectCommentById: (state: RootState, commentId: string) => Comment = createSelector(
     [selectComments, selectCommentId],
     (comments, commentId) => comments.find(comment => comment.id === commentId)
 )
+export const selectCommentReplies: (state: RootState, commentId: string) => Comment[] = createSelector(
+    [selectCommentById],
+    (comment) => comment.replies
+)
+export const selectCommentReplyIds: (state: RootState, commentId: string) => string[] = createSelector(
+    [selectCommentReplies],
+    (replies) => replies.map(reply => reply.id)
+)
+export const selectReplyById: (state: RootState, commentId: string, replyId: string) => Comment = createSelector(
+    [selectCommentReplies, selectReplyId],
+    (replies, replyId) => replies.find(reply => reply.id === replyId)
+)
 export const selectCommentAuthor: (state: RootState, commentId: string) => UserType = createSelector(
     [selectComments, selectCommentById],
     (comments, comment) => comment.author
+)
+export const selectReplyAuthor: (state: RootState, commentId: string, replyId: string) => UserType = createSelector(
+    [selectReplyById],
+    (reply) => reply.author
 )
 export const selectPostById: (state: RootState, postId: string) => PostType = createSelector(
     [selectPosts, selectPostId],
