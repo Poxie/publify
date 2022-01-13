@@ -6,6 +6,7 @@ import { selectActivePost } from '../../redux/selectors';
 import { MediaHeader } from './MediaHeader';
 import { Flex } from '../Flex';
 import { useRouter } from 'next/router';
+import { MediaNavigation } from './MediaNavigation';
 
 export const PostMedia = () => {
     const router = useRouter();
@@ -26,6 +27,11 @@ export const PostMedia = () => {
         <div className={styles['media']}>
             <MediaHeader />
             <MediaItem {...media[activeIndex]} />
+            <MediaNavigation 
+                postId={id}
+                mediaLength={media.length}
+                currentIndex={activeIndex}
+            />
         </div>
     )
 }
