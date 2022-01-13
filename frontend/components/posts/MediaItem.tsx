@@ -14,6 +14,7 @@ export const MediaItem: React.FC<Media> = ({ id, width, height }) => {
                 layout={'fill'}
                 objectFit={'contain'}
                 alt={`User Media`}
+                priority
             />
         </div>
     )
