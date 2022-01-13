@@ -13,6 +13,7 @@ export const MediaItem: React.FC<Media> = ({ id, width, height }) => {
                 src={source}
                 layout={'fill'}
                 objectFit={'contain'}
+                alt={`User Media`}
             />
         </div>
     )
