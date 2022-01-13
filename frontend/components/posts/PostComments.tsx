@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchComments, resetComments } from '../../redux/actions';
 import { useAppSelector } from '../../redux/hooks';
@@ -11,12 +11,15 @@ import { AddComment } from './AddComment';
 import { Comment } from './Comment';
 
 export const PostComments = () => {
+    // Checking if isMounted. If so, display loading comment skeleton (preventing different styles on server and client)
+    const [isMounted, setIsMounted] = useState(false);
     const { id }: PostType = useAppSelector(state => selectActivePost(state));
     const commentIds = useAppSelector(state => selectCommentIds(state));
     const dispatch = useDispatch();
 
     // Fetching comments
     useEffect(() => {
+        setIsMounted(true);
         dispatch(fetchComments(id));
 
         // Resetting comments on unmount
@@ -45,7 +48,7 @@ export const PostComments = () => {
                     There are no comments on this post yet.
                 </Flex>
             )}
-            {!commentIds && (
+            {!commentIds && isMounted && (
                 <LoadingComments />
             )}
         </div>

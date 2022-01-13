@@ -18,6 +18,9 @@ export const ProfileOverview = () => {
     const loading = useAppSelector(state => state.posts.loading);
     const loadingMore = useRef(false);
 
+    // Checking if isMounted. If so, display loading comment skeleton (preventing different styles on server and client)
+    const [isMounted, setIsMounted] = useState(false);
+
     const getUserId = useMemo(() => () => {
         let { userId } = router.query;
 
@@ -27,14 +30,17 @@ export const ProfileOverview = () => {
         return userId
     }, [router.query]);
 
+
     useEffect(() => {
         let isMounted = true;
+        setIsMounted(true);
         const userId = getUserId();
 
         // Fetching user posts
         dispatch(fetchUserPosts(userId, 0, postIds.length || 3));
     }, [getUserId]);
 
+    // If scroll exceeds threshold, load more posts
     useEffect(() => {
         const listenForScroll = (e: Event) => {
             const scrollPercentage = ((window.innerHeight + window.scrollY) / (document.body.offsetHeight)) * 100;
@@ -52,6 +58,7 @@ export const ProfileOverview = () => {
         return () => document.removeEventListener('scroll', listenForScroll);
     }, [getUserId, postIds]);
 
+    // When more posts are loaded, set loading status to false
     useEffect(() => {
         loadingMore.current = false;
     }, [postIds.length]);
@@ -69,7 +76,7 @@ export const ProfileOverview = () => {
                     />
                 )}
                 {/* Display posts skeleton if loading */}
-                {loading && (
+                {loading && isMounted && (
                     <LoadingPosts />
                 )}
             </div>
