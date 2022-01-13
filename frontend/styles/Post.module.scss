@@ -7,7 +7,33 @@
     position: relative;
     background: var(--background-secondary);
     overflow: hidden;
-    padding: 20px;
+}
+.media-header {
+    position: absolute;
+    z-index: 25;
+    padding: 15px;
+    width: 100%;
+    
+    svg {
+        width: 18px;
+        height: 18px;
+        transform: rotate(180deg);
+        margin-right: 10px;
+    }
+    span {
+        font-weight: 600;
+        color: var(--text-muted);
+        text-transform: uppercase;
+    }
+}
+.go-back {
+    cursor: pointer;
+    padding: 8px 10px;
+    border-radius: var(--border-radius);
+        
+    &:hover {
+        background-color: var(--background-primary);
+    }
 }
 .media-item {
     width: 100%;
