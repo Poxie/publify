@@ -101,7 +101,7 @@ export const getMediaByPostId: (postId: string) => Promise<Media[]> = async (pos
 }
 
 // Get likes by parent ID
-export const getLikesByParentId: (parentId: string) => Promise<String[]> = async (parentId) => {
+export const getLikesByParentId: (parentId: string) => Promise<string[]> = async (parentId) => {
     const [likes] = await connection.promise().query<Like[]>(SELECT_LIKES_BT_PARENT_ID, [parentId]);
     const likeUserIds = likes.map(like => like.userId);
     return likeUserIds;
@@ -228,6 +228,12 @@ export const getCommentsByParentId: (postId: string) => Promise<Comment[]> = asy
     // Fetching comments
     const [comments] = await connection.promise().query<Comment[]>(SELECT_COMMENTS_BY_PARENT_ID, [postId]);
     
+    // Fetching comment likes
+    for(const comment of comments) {
+        comment.likes = await getLikesByParentId(comment.id);
+        comment.likeCount = comment.likes.length;
+    }
+
     // Returning comments
     return comments;
 }

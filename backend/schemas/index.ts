@@ -37,6 +37,8 @@ export const typeDefs = gql`
         author: User!
         createdAt: String!
         replies: [Comment]!
+        likes: [String]!
+        likeCount: Int!
     }
     
 
