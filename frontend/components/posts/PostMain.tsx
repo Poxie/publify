@@ -5,15 +5,21 @@ import { PostContent } from './PostContent';
 import { PostFooter } from './PostFooter';
 import { PostComments } from './PostComments';
 import { AddComment } from './AddComment';
+import { useAuth } from '../../contexts/AuthProvider';
+import { Flex } from '../Flex';
 
 export const PostMain = () => {
+    const { user } = useAuth();
+
     return(
-        <div className={styles['post-main']}>
+        <Flex className={styles['post-main']} flexDirection={'column'}>
             <PostHeader />
             <PostContent />
             <PostFooter />
-            <AddComment />
+            {user && (
+                <AddComment />
+            )}
             <PostComments />
-        </div>
+        </Flex>
     )
 }

@@ -36,7 +36,7 @@
 }
 .post-main {
     flex: 1;
-    padding: 25px 0;
+    padding-top: 25px;
 
     &>div {
         padding-left: 25px;
@@ -106,6 +106,20 @@
 }
 .comments {
     padding-top: 25px;
+    overflow: auto;
+    max-height: 100%;
+
+    &::-webkit-scrollbar {
+        width: 10px;
+    }
+    &::-webkit-scrollbar-track {
+        background-color: var(--background-secondary);
+        border-radius: 25px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--background-tertiary);
+        border-radius: 25px;
+    }
 }
 .comment {
     margin-bottom: 25px;
