@@ -20,13 +20,12 @@ export const CommentInput: React.FC<Props> = ({ parentId, type }) => {
     }
 
     return(
-        <div>
-            <Input 
-                placeholder={parent ? `Respond to ${parent.author.displayName}` : 'Add comment...'}
-                onChange={setContent}
-                onSubmit={submitComment}
-                clearOnSubmit={true}
-            />
-        </div>
+        <Input 
+            placeholder={parent ? `Reply to ${parent.author.displayName}` : 'Add comment...'}
+            onChange={setContent}
+            onSubmit={submitComment}
+            clearOnSubmit={true}
+            focusOnMount={true}
+        />
     )
 }
