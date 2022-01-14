@@ -5,10 +5,13 @@ import { RootState } from "./store";
 type LoadingPost = PostType & {
     loading: boolean;
 }
+
+export const selectActivePostMedia: (state: RootState) => Media[] = state => state.post.media;
+export const selectActivePostId: (state: RootState) => string = state => state.post.id;
+
 export const selectPosts: (state: RootState) => PostType[] = (state) => state.posts.posts;
 export const selectPostId: (state: RootState, postId: string) => string = (state, postId) => postId;
 export const selectActivePost: (state: RootState) => LoadingPost = (state) => state.post;
-export const selectActivePostMedia: (state: RootState) => Media[] = (state) => state.post.media;
 export const selectComments: (state: RootState) => Comment[] = (state) => state.post.comments;
 export const selectCommentIds: (state: RootState) => string[] | undefined = state => state.post.comments?.map(comment => comment?.id);
 export const selectCommentId: (state: RootState, commentId: string) => string = (state, commentId) => commentId;

@@ -2,7 +2,7 @@ import react, { useEffect, useState } from 'react';
 import { MediaItem } from './MediaItem';
 import styles from '../../styles/Post.module.scss';
 import { useAppSelector } from '../../redux/hooks';
-import { selectActivePost } from '../../redux/selectors';
+import { selectActivePost, selectActivePostId, selectActivePostMedia } from '../../redux/selectors';
 import { MediaHeader } from './MediaHeader';
 import { Flex } from '../Flex';
 import { useRouter } from 'next/router';
@@ -10,7 +10,8 @@ import { MediaNavigation } from './MediaNavigation';
 
 export const PostMedia = () => {
     const router = useRouter();
-    const { media, id } = useAppSelector(state => selectActivePost(state));
+    const media = useAppSelector(state => selectActivePostMedia(state));
+    const id = useAppSelector(state => selectActivePostId(state))
     const [activeIndex, setActiveIndex] = useState(0);
 
     // Updating active index by query params
