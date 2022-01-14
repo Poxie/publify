@@ -127,6 +127,13 @@
                 background-color: var(--background-tertiary);
             }
         }
+        .footer-item {
+            background-color: var(--background-tertiary);
+
+            &:hover {
+                background-color: var(--background-hover);
+            }
+        }
     }
 }
 .header {
