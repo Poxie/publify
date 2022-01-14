@@ -215,8 +215,42 @@
         border-radius: 25px;
     }
 }
+.comment-settings {
+    transform: translateX(15px);
+    position: relative;
+    z-index: 5;
+
+    &:not(.visible) {
+        display: none;
+    }
+
+    svg {
+        width: 35px;
+        height: 35px;
+        padding: 8px;
+        border-radius: 50%;
+        cursor: pointer;
+        
+        &:hover {
+            background-color: var(--background-secondary);
+        }
+    }
+    &.visible {
+        svg {
+            background-color: var(--background-secondary);
+        }
+    }
+}
 .comment {
     margin-bottom: 15px;
+
+    &:hover {
+        &>:first-of-type {
+            .comment-settings {
+                display: block;
+            }
+        }
+    }
 }
 .comment-header {
     a {

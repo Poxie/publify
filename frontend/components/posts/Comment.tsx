@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
+import { OptionsIcon } from '../../icons/OptionsIcon';
 import { useAppSelector } from '../../redux/hooks';
 import { selectCommentAuthor, selectReplyAuthor } from '../../redux/selectors';
 import styles from '../../styles/Post.module.scss';
 import { Avatar } from '../Avatar';
 import { Flex } from '../Flex';
+import { Options } from '../Options';
 import { CommentMain } from './CommentMain';
 import { CommentOptions } from './CommentOptions';
 import { CommentReplies } from './CommentReplies';
+import { CommentSettings } from './CommentSettings';
 
 type Props = {
     id: string;
@@ -31,17 +34,23 @@ export const Comment: React.FC<Props> = ({ id, replyId, type='comment' }) => {
 
     return(
         <div className={styles['comment']}>
-            <Flex>
+            <Flex style={{position: 'relative'}}>
                 <Avatar 
                     avatar={avatar}
                     name={displayName}
                     size={34}
                 />
-                <CommentMain 
-                    commentId={id}
-                    replyId={replyId}
-                    type={type}
-                />
+                <Flex alignItems={'center'}>
+                    <CommentMain 
+                        commentId={id}
+                        replyId={replyId}
+                        type={type}
+                    />
+                    <CommentSettings 
+                        commentId={id}
+                        replyId={replyId}
+                    />
+                </Flex>
             </Flex>
 
             <CommentOptions 
