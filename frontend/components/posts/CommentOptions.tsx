@@ -10,8 +10,9 @@ type Props = {
     toggleReplies: () => void;
     commentId: string;
     replyId?: string;
+    type?: 'reply' | 'comment';
 }
-export const CommentOptions: React.FC<Props> = ({ toggleReplies, commentId, replyId }) => {
+export const CommentOptions: React.FC<Props> = ({ toggleReplies, commentId, replyId, type }) => {
     const { user } = useAuth();
     const userId = user?.id;
     const dispatch = useDispatch();
@@ -28,9 +29,11 @@ export const CommentOptions: React.FC<Props> = ({ toggleReplies, commentId, repl
 
     return(
         <div className={styles['comment-options']}>
-            <span onClick={toggleReplies}>
-                Reply
-            </span>
+            {type === 'comment' && (
+                <span onClick={toggleReplies}>
+                    Reply
+                </span>
+            )}
             <span onClick={toggleLike}>
                 {isLiked ? 'Unlike' : 'Like'}
             </span>

@@ -48,6 +48,7 @@ export const Comment: React.FC<Props> = ({ id, replyId, type='comment' }) => {
                 commentId={id}
                 replyId={replyId}
                 toggleReplies={toggleVisible}
+                type={type}
             />
 
             {type === 'comment' && (
