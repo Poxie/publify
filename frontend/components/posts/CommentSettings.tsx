@@ -16,7 +16,7 @@ export const CommentSettings: React.FC<Props> = ({ commentId, replyId }) => {
     const { user } = useAuth();
     const [settingsVisible, setSetingsVisible] = useState(false);
     const dispatch = useDispatch();
-    const author = useAppSelector(state => selectCommentAuthor(state, commentId)) || useAppSelector(state => selectReplyAuthor(state, commentId, replyId));
+    const author = replyId ? useAppSelector(state => selectReplyAuthor(state, commentId, replyId)) : useAppSelector(state => selectCommentAuthor(state, commentId));
 
     // Deleting comment
     const deleteComment = () => {
