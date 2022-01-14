@@ -11,6 +11,7 @@ export const selectActivePostMedia: (state: RootState) => Media[] = state => sta
 export const selectActivePostId: (state: RootState) => string = state => state.post.id;
 export const selectActivePostDate: (state: RootState) => string = state => state.post.createdAt;
 export const selectActivePostAuthor: (state: RootState) => UserType = state => state.post.author;
+export const selectActivePostContent: (state: RootState) => string = state => state.post.content;
 
 export const selectPosts: (state: RootState) => PostType[] = (state) => state.posts.posts;
 export const selectPostId: (state: RootState, postId: string) => string = (state, postId) => postId;
