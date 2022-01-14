@@ -209,7 +209,7 @@
     }
 }
 .comment {
-    margin-bottom: 25px;
+    margin-bottom: 15px;
 }
 .comment-header {
     a {
@@ -243,6 +243,23 @@
 .comment-content {
     font-size: 16px;
 }
+.comment-options {
+    margin-left: 58px;
+    margin-top: 2px;
+
+    span {
+        font-size: 13px;
+        color: var(--text-muted);
+        font-weight: 600;
+        cursor: pointer;
+        margin-right: 8px;
+
+        &:hover {
+            color: var(--text-primary);
+            opacity: .7;
+        }
+    }
+}
 .add-comment {
     padding: 25px 0;
     border-bottom: 1px solid var(--background-secondary);
@@ -255,8 +272,8 @@
     margin-right: 15px;
 }
 .replies {
-    margin-left: 55px;
-    margin-top: 15px;
+    margin-left: 58px;
+    margin-top: 10px;
 
     .comment {
         margin-bottom: 10px;
@@ -301,10 +318,9 @@
     svg {
         width: 16px;
         height: 16px;
-        margin-top: -5px;
+        margin-top: -4px;
         fill: var(--text-muted);
         margin-right: 7px;
-        transform: scaleX(-1) rotate(-90deg);
     }
     &:hover {
         color: var(--text-primary);

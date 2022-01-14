@@ -8,15 +8,13 @@ import { ShowReplies } from './ShowReplies';
 
 type Props = {
     commentId: string;
+    visible: boolean;
+    toggle: () => void;
 }
-export const CommentReplies: React.FC<Props> = ({ commentId }) => {
+export const CommentReplies: React.FC<Props> = ({ commentId, visible, toggle }) => {
     const replyIds = useAppSelector(state => selectCommentReplyIds(state, commentId));
-    const [visible, setVisible] = useState(false);
-
-    const toggle = () => {
-        setVisible(previous => !previous);
-    }
     
+    const hasReplies = replyIds.length > 0;
     return(
         <div className={styles['replies']}>
             {visible && (
@@ -38,13 +36,13 @@ export const CommentReplies: React.FC<Props> = ({ commentId }) => {
                 </>
             )}
 
-            {!visible && replyIds.length > 0 && (
+            {!visible && hasReplies && (
                 <ShowReplies 
                     replies={replyIds.length}
                     toggle={toggle}
                 />
             )}
-            {visible && (
+            {visible && hasReplies && (
                 <div className={styles['hide-replies']} onClick={toggle}>
                     Hide replies
                 </div>

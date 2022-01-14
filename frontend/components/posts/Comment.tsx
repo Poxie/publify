@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useAppSelector } from '../../redux/hooks';
 import { selectCommentAuthor, selectReplyAuthor } from '../../redux/selectors';
 import styles from '../../styles/Post.module.scss';
 import { Avatar } from '../Avatar';
 import { Flex } from '../Flex';
 import { CommentMain } from './CommentMain';
+import { CommentOptions } from './CommentOptions';
 import { CommentReplies } from './CommentReplies';
 
 type Props = {
@@ -13,6 +14,13 @@ type Props = {
     type?: 'comment' | 'reply';
 }
 export const Comment: React.FC<Props> = ({ id, replyId, type='comment' }) => {
+    const [repliesVisible, setRepliesVisible] = useState(false);
+
+    // Toggling replies visible
+    const toggleVisible = () => {
+        setRepliesVisible(previous => !previous);
+    }
+
     let author;
     if(type === 'comment') {
         author = useAppSelector(state => selectCommentAuthor(state, id));
@@ -35,9 +43,18 @@ export const Comment: React.FC<Props> = ({ id, replyId, type='comment' }) => {
                     type={type}
                 />
             </Flex>
+
+            <CommentOptions 
+                commentId={id}
+                replyId={replyId}
+                toggleReplies={toggleVisible}
+            />
+
             {type === 'comment' && (
                 <CommentReplies 
                     commentId={id}
+                    visible={repliesVisible}
+                    toggle={toggleVisible}
                 />
             )}
         </div>
