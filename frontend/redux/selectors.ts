@@ -6,8 +6,11 @@ type LoadingPost = PostType & {
     loading: boolean;
 }
 
+// Selecting active post data
 export const selectActivePostMedia: (state: RootState) => Media[] = state => state.post.media;
 export const selectActivePostId: (state: RootState) => string = state => state.post.id;
+export const selectActivePostDate: (state: RootState) => string = state => state.post.createdAt;
+export const selectActivePostAuthor: (state: RootState) => UserType = state => state.post.author;
 
 export const selectPosts: (state: RootState) => PostType[] = (state) => state.posts.posts;
 export const selectPostId: (state: RootState, postId: string) => string = (state, postId) => postId;
