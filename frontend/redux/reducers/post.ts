@@ -1,4 +1,4 @@
-import { ADD_ACTIVE_POST_LIKE, ADD_COMMENT, ADD_COMMENT_LIKE, REMOVE_ACTIVE_POST_LIKE, REMOVE_COMMENT_LIKE, RESET_COMMENTS, SET_COMMENTS, SET_POST } from "../actionTypes"
+import { ADD_ACTIVE_POST_LIKE, ADD_COMMENT, ADD_COMMENT_LIKE, REMOVE_ACTIVE_POST_LIKE, REMOVE_COMMENT, REMOVE_COMMENT_LIKE, RESET_COMMENTS, SET_COMMENTS, SET_POST } from "../actionTypes"
 
 const initialState: any = {
     loading: true
@@ -60,6 +60,27 @@ export default (state=initialState, action) => {
                 ...state,
                 comments: newComments,
                 commentCount: state.commentCount + 1
+            }
+        }
+        case REMOVE_COMMENT: {
+            const { commentId, replyId } = action.payload;
+            let newComments = [...state.comments];
+
+            // If is reply, filter out the reply from commentId
+            if(replyId) {
+                for(const comment of newComments) {
+                    if(comment.id === commentId) {
+                        comment.replies = comment.replies.filter(reply => reply.id !== replyId);
+                    }
+                }
+            } else {
+                // Else just filter out the comment
+                newComments = newComments.filter(comment => comment.id !== commentId);
+            }
+
+            return {
+                ...state,
+                comments: newComments
             }
         }
         case ADD_COMMENT_LIKE: {

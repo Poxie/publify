@@ -78,3 +78,9 @@ export const CREATE_COMMENT = gql`
         }
     }
 `
+
+export const DESTROY_COMMENT = gql`
+    mutation($id: String!) {
+        destroyComment(id: $id)
+    }
+`
