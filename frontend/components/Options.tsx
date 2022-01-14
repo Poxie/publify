@@ -9,6 +9,7 @@ type Item = {
 type Props = {
     items: Item[];
     children: any;
+    onChange?: (state: boolean) => void;
 }
 
 const OptionItem: React.FC<Item> = ({ text, onClick, type }) => {
@@ -22,7 +23,7 @@ const OptionItem: React.FC<Item> = ({ text, onClick, type }) => {
         </div>
     )
 }
-export const Options: React.FC<Props> = ({ items, children }) => {
+export const Options: React.FC<Props> = ({ items, children, onChange }) => {
     const [visible, setVisible] = useState(false);
     const ref = useRef<HTMLDivElement>(null);
     
@@ -46,7 +47,12 @@ export const Options: React.FC<Props> = ({ items, children }) => {
 
     // Toggling options menu
     const toggleVisible = () => {
-        setVisible(previous => !previous);
+        setVisible(previous => {
+            if(onChange) {
+                onChange(!previous);
+            }
+            return !previous;
+        });
     }
 
     return(
