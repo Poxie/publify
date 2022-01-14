@@ -10,6 +10,7 @@ import { addActivePostLike, removeActivePostLike } from '../../redux/actions';
 import { CommentButton } from './CommentButton';
 
 export const PostFooter = () => {
+    // It's find to fetch entire post, since it will only re-render on like/comment change, which it should
     const { id: postId, likes, likeCount, commentCount } = useAppSelector(state => selectActivePost(state));
     const dispatch = useDispatch();
     const { user } = useAuth();
