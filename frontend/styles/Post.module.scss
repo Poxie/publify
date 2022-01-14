@@ -293,17 +293,18 @@
     }
 }
 .show-replies {
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 600;
     color: var(--text-muted);
     cursor: pointer;
 
     svg {
-        width: 22px;
-        height: 22px;
-        margin-top: -13px;
+        width: 16px;
+        height: 16px;
+        margin-top: -5px;
         fill: var(--text-muted);
         margin-right: 7px;
+        transform: scaleX(-1) rotate(-90deg);
     }
     &:hover {
         color: var(--text-primary);
