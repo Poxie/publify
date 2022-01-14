@@ -380,6 +380,8 @@
     margin-top: 10px;
     color: var(--text-muted);
     cursor: pointer;
+    border-bottom: 1px solid var(--background-tertiary);
+    padding-bottom: 15px;
 
     &:hover {
         color: var(--text-primary);
