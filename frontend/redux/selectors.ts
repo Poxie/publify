@@ -1,3 +1,4 @@
+import createCachedSelector from "re-reselect";
 import { createSelector } from "reselect";
 import { Comment, Media, PostType, UserType } from "../utils/types";
 import { RootState } from "./store";
@@ -19,35 +20,45 @@ export const selectActivePostContent: (state: RootState) => string = state => st
 
 // Selecting comment data
 export const selectComments: (state: RootState) => Comment[] = (state) => state.post.comments;
+export const selectCommentIds: (state: RootState) => string[] = createCachedSelector(
+    selectComments,
+    (comments) => comments.map(comment => comment.id)
+)(state => state.post.comments?.length)
+
+const commentById: (state: RootState, commentId: string) => Comment = createSelector(
+    [selectComments, selectId],
+    (comments, commentId) => comments.find(comment => comment.id === commentId)
+)
 export const selectCommentById: (state: RootState, commentId: string) => Comment = createSelector(
     [selectComments, selectId],
     (comments, commentId) => comments.find(comment => comment.id === commentId)
 )
 export const selectCommentAuthor: (state: RootState, commentId: string) => UserType = createSelector(
     [selectCommentById],
-    (comment) => comment.author
+    (comment) => comment?.author
+)
+
+// Selecting replies
+export const selectReplyId: (state: RootState, commentId: string, replyId: string) => string = (_, __, replyId) => replyId;
+export const selectReplies: (state: RootState, commentId: string) => Comment[] = createSelector(
+    [selectCommentById],
+    (comment) => comment?.replies
+)
+export const selectReplyIds: (state: RootState, commentId: string) => string[] = createSelector(
+    [selectReplies],
+    (replies) => replies.map(reply => reply.id)
+)
+export const selectReplyById: (state: RootState, commentId: string, replyId: string) => Comment = createSelector(
+    [selectCommentById, selectReplyId],
+    (comment, replyId) => comment?.replies?.find(reply => reply.id === replyId)
+)
+export const selectReplyAuthor: (state: RootState, commentId: string, replyId: string) => UserType = createSelector(
+    [selectReplyById],
+    (reply) => reply?.author
 )
 
 export const selectPosts: (state: RootState) => PostType[] = (state) => state.posts.posts;
 export const selectPostId: (state: RootState, postId: string) => string = (state, postId) => postId;
-export const selectCommentIds: (state: RootState) => string[] | undefined = state => state.post.comments?.map(comment => comment?.id);
-export const selectReplyId: (statet: RootState, commentId: string, replyId: string) => string = (state, commentId, replyId) => replyId;
-export const selectCommentReplies: (state: RootState, commentId: string) => Comment[] = createSelector(
-    [selectCommentById],
-    (comment) => comment.replies
-)
-export const selectCommentReplyIds: (state: RootState, commentId: string) => string[] = createSelector(
-    [selectCommentReplies],
-    (replies) => replies.map(reply => reply.id)
-)
-export const selectReplyById: (state: RootState, commentId: string, replyId: string) => Comment = createSelector(
-    [selectCommentReplies, selectReplyId],
-    (replies, replyId) => replies.find(reply => reply.id === replyId)
-)
-export const selectReplyAuthor: (state: RootState, commentId: string, replyId: string) => UserType = createSelector(
-    [selectReplyById],
-    (reply) => reply.author
-)
 export const selectPostById: (state: RootState, postId: string) => PostType = createSelector(
     [selectPosts, selectPostId],
     (posts, postId) => posts.find(post => post.id === postId) 

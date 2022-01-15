@@ -91,12 +91,14 @@ export default (state=initialState, action) => {
                 if(comment.id === commentId) {
                     // If comment is a reply
                     if(replyId) {
-                        for(const reply of comment.replies) {
+                        // Creating a new reference for the replies, otherwise it won't update
+                        comment.replies = comment.replies.map(reply => {
                             if(reply.id === replyId) {
                                 reply.likeCount++;
                                 reply.likes.push(userId);
                             }
-                        }
+                            return reply;
+                        })
                     } else {
                         comment.likeCount++;
                         comment.likes.push(userId);
@@ -117,12 +119,14 @@ export default (state=initialState, action) => {
                 if(comment.id === commentId) {
                     // If comment is a reply
                     if(replyId) {
-                        for(const reply of comment.replies) {
+                        // Creating a new reference for replies, otherwise it wont re-render
+                        comment.replies = comment.replies.filter(reply => {
                             if(reply.id === replyId) {
                                 reply.likeCount--;
                                 reply.likes = reply.likes.filter(like => like !== userId);
                             }
-                        }
+                            return reply;
+                        })
                     } else {
                         comment.likeCount--;
                         comment.likes = comment.likes.filter(like => like !== userId);
