@@ -5,10 +5,11 @@ import { Avatar } from '../Avatar';
 import { Flex } from '../Flex';
 import styles from '../../styles/Post.module.scss';
 import { useAppSelector } from '../../redux/hooks';
-import { selectActivePost } from '../../redux/selectors';
+import { selectActivePostAuthor, selectActivePostDate } from '../../redux/selectors';
 
 export const HeaderMain = () => {
-    const { author, createdAt } = useAppSelector(state => selectActivePost(state));
+    const createdAt = useAppSelector(state => selectActivePostDate(state));
+    const author = useAppSelector(state => selectActivePostAuthor(state));
     const { avatar, username, displayName, id } = author;
 
     return(

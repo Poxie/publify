@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from '../../styles/Post.module.scss';
 import { useAppSelector } from '../../redux/hooks';
-import { selectCommentReplyIds } from '../../redux/selectors';
+import { selectReplies } from '../../redux/selectors';
 import { Comment } from './Comment';
 import { CommentInput } from './CommentInput';
 import { ShowReplies } from './ShowReplies';
@@ -12,20 +12,21 @@ type Props = {
     toggle: () => void;
 }
 export const CommentReplies: React.FC<Props> = ({ commentId, visible, toggle }) => {
-    const replyIds = useAppSelector(state => selectCommentReplyIds(state, commentId));
+    const replies = useAppSelector(state => selectReplies(state, commentId));
     
-    const hasReplies = replyIds.length > 0;
+    const hasReplies = replies.length > 0;
     return(
         <div className={styles['replies']}>
             {visible && (
                 <>
-                {replyIds.map(replyId => {
+                {replies.map(reply => {
                     return(
                         <Comment 
-                            id={commentId}
-                            replyId={replyId}
+                            {...reply}
+                            id={reply.parentId}
+                            replyId={reply.id}
                             type={'reply'}
-                            key={replyId}
+                            key={reply.id}
                         />
                     )
                 })}
@@ -38,7 +39,7 @@ export const CommentReplies: React.FC<Props> = ({ commentId, visible, toggle }) 
 
             {!visible && hasReplies && (
                 <ShowReplies 
-                    replies={replyIds.length}
+                    replies={replies.length}
                     toggle={toggle}
                 />
             )}

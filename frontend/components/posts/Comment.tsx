@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { OptionsIcon } from '../../icons/OptionsIcon';
 import { useAppSelector } from '../../redux/hooks';
-import { selectCommentAuthor, selectReplyAuthor } from '../../redux/selectors';
+import { selectCommentAuthor, selectCommentById, selectReplyAuthor, selectReplyById } from '../../redux/selectors';
 import styles from '../../styles/Post.module.scss';
+import { Comment as CommentType } from '../../utils/types';
 import { Avatar } from '../Avatar';
 import { Flex } from '../Flex';
 import { Options } from '../Options';
@@ -11,27 +11,21 @@ import { CommentOptions } from './CommentOptions';
 import { CommentReplies } from './CommentReplies';
 import { CommentSettings } from './CommentSettings';
 
-type Props = {
-    id: string;
+type Props = CommentType & {
     replyId?: string;
     type?: 'comment' | 'reply';
 }
-export const Comment: React.FC<Props> = ({ id, replyId, type='comment' }) => {
+export const Comment: React.FC<Props> = React.memo(({ id, replyId, type='comment' }) => {
     const [repliesVisible, setRepliesVisible] = useState(false);
+    const comment = replyId ? useAppSelector(state => selectReplyById(state, id, replyId)) : useAppSelector(state => selectCommentById(state, id));
+    const author = comment.author;
 
     // Toggling replies visible
     const toggleVisible = () => {
         setRepliesVisible(previous => !previous);
     }
 
-    let author;
-    if(type === 'comment') {
-        author = useAppSelector(state => selectCommentAuthor(state, id));
-    } else {
-        author = useAppSelector(state => selectReplyAuthor(state, id, replyId));
-    }
     const { avatar, displayName } = author;
-
     return(
         <div className={styles['comment']}>
             <Flex style={{position: 'relative'}}>
@@ -69,4 +63,4 @@ export const Comment: React.FC<Props> = ({ id, replyId, type='comment' }) => {
             )}
         </div>
     )
-}
+});
