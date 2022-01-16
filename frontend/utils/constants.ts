@@ -1,0 +1,2 @@
+export const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
+export const IMAGE_ENDPOINT = process.env.NEXT_PUBLIC_IMAGE_ENDPOINT;

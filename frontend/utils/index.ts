@@ -2,6 +2,7 @@ import { PostType, UserType } from "./types";
 import { GraphQLClient } from 'graphql-request';
 import { CREATE_COMMENT, CREATE_LIKE, CREATE_POST, DESTROY_COMMENT, DESTROY_LIKE, DESTROY_POST } from "./mutations";
 import { GET_COMMENTS_BY_PARENT_ID, GET_ME, GET_POSTS_BY_AUTHOR_ID, GET_POST_BY_ID, GET_USER_BY_ID, LOGIN } from "./queries";
+import { IMAGE_ENDPOINT } from "./constants";
 const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
 // Getting access token
@@ -106,15 +107,15 @@ export const getMe = async () => {
 
 // Getting user avatar
 export const getUserAvatar = (avatar: string) => {
-    return avatar;
+    return `${IMAGE_ENDPOINT}/avatars/${avatar}.png`;
 }
 // Getting user banner
 export const getUserBanner = (banner: string) => {
-    return `${process.env.NEXT_PUBLIC_IMAGE_ENDPOINT}/media/${banner}.png`;
+    return `${IMAGE_ENDPOINT}/banners/${banner}.png`;
 }
 // Getting post media URL
 export const getMediaURL = (id: string) => {
-    return `${process.env.NEXT_PUBLIC_IMAGE_ENDPOINT}/media/${id}.png`;
+    return `${IMAGE_ENDPOINT}/media/${id}.png`;
 }
 
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
