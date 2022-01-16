@@ -7,6 +7,7 @@ import { Avatar } from '../Avatar';
 import { Button } from '../Button';
 import { Flex } from '../Flex';
 import { FollowButton } from './FollowButton';
+import { ProfileHeaderMain } from './ProfileHeaderMain';
 import { ProfileOptions } from './ProfileOptions';
 import { SettingsButton } from './SettingsButton';
 
@@ -27,26 +28,10 @@ export const ProfileHeader: React.FC<Props> = ({ name, avatar, banner, id }) => 
                 className={styles['header-content']} 
                 justifyContent={'space-between'}
             >
-                <div>
-                    <Avatar 
-                        avatar={avatar}
-                        name={name}
-                        size={110}
-                        className={styles['header-avatar']}
-                    />
-                    <span className={styles['name']}>
-                        {name}
-                    </span>
-                    <div className={styles['user-stats']}>
-                        <span>
-                            42 followers
-                        </span>
-                        •
-                        <span>
-                            76 posts
-                        </span>
-                    </div>
-                </div>
+                <ProfileHeaderMain 
+                    avatar={avatar}
+                    name={name}
+                />
                 <ProfileOptions 
                     userId={id}
                 />
