@@ -1,8 +1,12 @@
+import { PostType } from "../../utils/types";
 import { ADD_ACTIVE_POST_LIKE, ADD_COMMENT, ADD_COMMENT_LIKE, REMOVE_ACTIVE_POST_LIKE, REMOVE_COMMENT, REMOVE_COMMENT_LIKE, RESET_COMMENTS, SET_COMMENTS, SET_POST } from "../actionTypes"
 
+type PostStateType = PostType & {
+    loading: boolean;
+}
 const initialState: any = {
     loading: true
-}
+} as PostStateType;
 
 export default (state=initialState, action) => {
     switch(action.type) {
