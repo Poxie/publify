@@ -313,3 +313,25 @@ export const createMedia: (parentId: string, media: any) => Promise<Media[]> = a
     // Returning created media
     return newMedia;
 }
+
+// Updating user profile
+type Property = {
+    key: string;
+    value: string;
+}
+export const updateProfileProperties: (userId: string, properties: Property[]) => Promise<UserType> = async (userId, properties) => {
+    let query = `UPDATE users SET `;
+
+    // We can use prop.key here without worrying because prop.key cannot be inputted maliciously thanks to GraphQL
+    const options = properties.map(prop => `${prop.key} = ?`).join(' ,');
+    query += options;
+    query += ` WHERE id = ?`;
+    
+    // Getting property values from properties
+    const propertyValues = properties.map(prop => prop.value);
+    await connection.promise().query(query, [...propertyValues, ...[userId]]);
+
+    // Fetching new user
+    const user = await getUserById(userId);
+    return user;
+}
