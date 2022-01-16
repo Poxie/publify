@@ -1,5 +1,7 @@
 import { createtPostLike, destroyPost, createPost, destroyPostLike, generateUserId, getPostById, getUserById, insertUser, createComment, destroyComment, getCommentById, createMedia } from "../logic/db-actions";
+import { Comment, Like } from "../types";
 import { DatabaseUser } from "../types/DatabaseUser";
+import { Post } from "../types/Post";
 import { UserType } from "../types/UserType";
 
 // Checking authorization
@@ -14,6 +16,15 @@ const checkUserExistence: (context: any) => Promise<UserType> = async (context) 
     if(!user) throw new Error('Unauthorized');
 
     return user;
+}
+// Checking extra permissions
+const hasPermissions: (user: UserType, auth: Post | Comment) => boolean = (user, auth) => {
+    let authorId = auth.authorId;
+
+    // If author does not match logged in user
+    if(authorId !== user.id) throw new Error('Unauthorized');
+    
+    return true;
 }
 
 export const Mutation = {
@@ -67,6 +78,9 @@ export const Mutation = {
         const post = await getPostById(postId);
         if(!post) throw new Error('Post does not exist.');
 
+        // Checking if user is allowed to delete post
+        hasPermissions(user, post);
+
         // Deleting post
         const response = await destroyPost(postId);
 
@@ -107,6 +121,9 @@ export const Mutation = {
         // Checking if comment exists
         const comment = await getCommentById(id);
         if(!comment) throw new Error('Comment does not exist.');
+
+        // Checking if user is allowed to delete comment
+        hasPermissions(user, comment);
 
         // Destroying comment
         await destroyComment(id);
