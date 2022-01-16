@@ -33,7 +33,8 @@ export const ProfilePostContainer = () => {
         const userId = getUserId();
 
         // Fetching user posts
-        dispatch(fetchUserPosts(userId, 0, postIds.length || 3));
+        let previousLength = postIds.length;
+        dispatch(fetchUserPosts(userId, 0, (previousLength < 3 ? 3 : previousLength) || 3));
     }, [getUserId]);
 
     // If scroll exceeds threshold, load more posts
