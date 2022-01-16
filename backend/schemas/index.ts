@@ -78,6 +78,6 @@ export const typeDefs = gql`
         destroyComment(id: String!): Boolean!
 
         # Profile stuff
-        updateProfile(username: String, displayName: String, bio: String): User
+        updateProfile(username: String, displayName: String, bio: String, avatar: Upload, banner: Upload): User
     }
 `

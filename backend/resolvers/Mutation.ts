@@ -1,4 +1,4 @@
-import { createtPostLike, destroyPost, createPost, destroyPostLike, generateUserId, getPostById, getUserById, insertUser, createComment, destroyComment, getCommentById, createMedia, updateProfileProperties } from "../logic/db-actions";
+import { createtPostLike, destroyPost, createPost, destroyPostLike, generateUserId, getPostById, getUserById, insertUser, createComment, destroyComment, getCommentById, createMedia, updateProfileProperties, saveUserImage } from "../logic/db-actions";
 import { Comment, Like } from "../types";
 import { DatabaseUser } from "../types/DatabaseUser";
 import { Post } from "../types/Post";
@@ -138,11 +138,17 @@ export const Mutation = {
 
         // Looping through existing keys in args
         for(const key of Object.keys(args)) {
-            // If argument is not allowed, continue loop
-            if(!['username', 'displayName', 'bio'].includes(key)) continue;
+            // Getting value of property
+            let value = args[key];
+
+            // If value is media, upload media and replace value
+            if(['avatar', 'banner'].includes(key)) {
+                const imageId = await saveUserImage(user.id, value, key as 'avatar' | 'banner');
+                value = imageId;
+            }
 
             // Else append to proprties to add
-            propertiesToUpdate.push({ key, value: args[key] });
+            propertiesToUpdate.push({ key, value });
         }
 
         // Updating user profile properties
