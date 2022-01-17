@@ -1,0 +1,44 @@
+.container.open {
+    svg {
+        transform: rotate(180deg);
+    }
+}
+.active-item {
+    background-color: var(--background-secondary);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    border: 1px solid var(--background-tertiary);
+    padding: 12px;
+    cursor: pointer;
+
+    svg {
+        fill: var(--text-muted);
+        width: 14px;
+    }
+}
+.item {
+    cursor: pointer;
+    
+    &:hover {
+        background-color: var(--background-secondary);
+    }
+    &:active {
+        background-color: var(--background-tertiary);
+    }
+}
+.items {
+    background-color: var(--background-primary);
+    border: 1px solid var(--background-tertiary);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: rgb(0 0 0 / 30%) 0px 1px 4px 0px;
+    position: fixed;
+
+    .item {
+        font-size: 14px;
+        padding: 10px 12px;
+    }
+    .item:not(:last-child) {
+        border-bottom: 1px solid var(--background-tertiary);
+    }
+}
