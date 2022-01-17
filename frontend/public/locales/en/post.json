@@ -1,0 +1,13 @@
+{
+    "replyButton": "Reply",
+    "likeButton": "Like",
+    "unlikeButton": "Unlike",
+    "showReplies": "Show {{replyAmount}} replies",
+    "hideReplies": "Hide replies",
+    "inputReplyPlaceholder": "Reply to {{user}}",
+    "inputCommentPlaceholder": "Add comment...",
+    "noCommentsFound": "There are no comments on this post yet.",
+    "reportComment": "Report comment",
+    "deleteComment": "Delete comment",
+    "goBackButton": "Go back"
+}

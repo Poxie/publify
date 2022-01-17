@@ -1,0 +1,13 @@
+{
+    "replyButton": "Svara",
+    "likeButton": "Gilla",
+    "unlikeButton": "Gilla",
+    "showReplies": "Visa {{replyAmount}} svar",
+    "hideReplies": "Göm svar",
+    "inputReplyPlaceholder": "Svara {{user}}",
+    "inputCommentPlaceholder": "Lägg till kommentar...",
+    "noCommentsFound": "Det finns inga kommentarer på detta inlägg än.",
+    "reportComment": "Rapportera kommentar",
+    "deleteComment": "Radera kommentar",
+    "goBackButton": "Gå tillbaka"
+}
