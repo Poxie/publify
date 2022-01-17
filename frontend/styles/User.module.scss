@@ -28,6 +28,36 @@
 .avatar {
     border-radius: calc(var(--border-radius) * 1.2);
     overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.has-hover {
+        cursor: pointer;
+
+        &::after {
+            content: attr(data-hover-text);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,.5);
+            opacity: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            text-align: center;
+            text-transform: uppercase;
+            transition: opacity .2s;
+        }
+        &:hover::after {
+            opacity: 1;
+        }
+    }
 }
 .header-avatar {
     margin-top: -90px;

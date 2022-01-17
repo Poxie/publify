@@ -84,3 +84,16 @@ export const DESTROY_COMMENT = gql`
         destroyComment(id: $id)
     }
 `
+
+export const UPDATE_PROFILE = gql`
+    mutation($username: String, $displayName: String, $bio: String, $avatar: Upload, $banner: Upload) {
+        updateProfile(username: $username, displayName: $displayName, bio: $bio, avatar: $avatar, banner: $banner) {
+            username
+            displayName
+            bio
+            avatar
+            banner
+            id
+        }
+    }
+`

@@ -119,6 +119,8 @@ export const GET_ME = gql`
             avatar
             id
             username
+            banner
+            bio
         }
     }
 `

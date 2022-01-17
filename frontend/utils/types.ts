@@ -4,6 +4,7 @@ export type UserType = {
     id: string;
     avatar?: string;
     banner?: string;
+    bio: string;
 }
 
 export type PostType = {
@@ -44,4 +45,5 @@ export type Comment = {
 export type AuthContext = {
     user: UserType | null;
     login: (username: string, password: string) => Promise<void>;
+    updateUser: (user: UserType) => void;
 }
