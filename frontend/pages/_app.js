@@ -15,7 +15,7 @@ function MyApp({ Component, pageProps }) {
   const getLayout = Component.getLayout ?? (page => page);
 
   useEffect(() => {
-    if(router.locale === window.localStorage.i18nextLng) return;
+    if(!window.localStorage.i18nextLng || router.locale === window.localStorage.i18nextLng) return;
 
     // Changes language to preferred locale from localStorage
     router.replace(router.asPath, undefined, { locale: window.localStorage.i18nextLng, shallow: isMounted.current });
