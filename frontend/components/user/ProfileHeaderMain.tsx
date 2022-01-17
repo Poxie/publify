@@ -1,12 +1,15 @@
 import React from 'react';
 import styles from '../../styles/User.module.scss';
 import { Avatar } from '../Avatar';
+import { useTranslation } from 'next-i18next';
 
 type Props = {
     avatar: string;
     name: string;
 }
 export const ProfileHeaderMain: React.FC<Props> = ({ avatar, name }) => {
+    const { t } = useTranslation('profile');
+
     return(
         <div>
             <Avatar 
@@ -20,11 +23,11 @@ export const ProfileHeaderMain: React.FC<Props> = ({ avatar, name }) => {
             </span>
             <div className={styles['user-stats']}>
                 <span>
-                    42 followers
+                    42 {t('followers')}
                 </span>
                 •
                 <span>
-                    76 posts
+                    76 {t('posts')}
                 </span>
             </div>
         </div>

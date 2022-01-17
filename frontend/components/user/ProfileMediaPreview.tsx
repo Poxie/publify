@@ -5,10 +5,12 @@ import { Flex } from '../Flex';
 import { useAppSelector } from '../../redux/hooks';
 import { selectPostMedia } from '../../redux/selectors';
 import { getMediaURL } from '../../utils';
+import { useTranslation } from 'next-i18next';
 
 const IMAGE_WIDTH = 148;
 const FULL_WIDTH = 300;
 export const ProfileMediaPreview = () => {
+    const { t } = useTranslation('profile');
     // Getting posts media
     const media = useAppSelector(state => selectPostMedia(state));
 
@@ -39,11 +41,11 @@ export const ProfileMediaPreview = () => {
                 alignItems={'center'}
             >
                 <span className={styles['preview-header-text']}>
-                    Images
+                    {t('images')}
                 </span>
                 {hasMedia && (
                     <span className={styles['preview-header-more']}>
-                        View more
+                        {t('viewMore')}
                     </span>
                 )}
             </Flex>
@@ -71,7 +73,7 @@ export const ProfileMediaPreview = () => {
             )}
             {!hasMedia && (
                 <span className={styles['preview-empty']}>
-                    This user hasn't posted any media yet.
+                    {t('noMediaFound')}
                 </span>
             )}
         </div>

@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useAuth } from '../../contexts/AuthProvider';
@@ -13,6 +14,7 @@ type Props = {
     type?: 'reply' | 'comment';
 }
 export const CommentOptions: React.FC<Props> = ({ toggleReplies, commentId, replyId, type }) => {
+    const { t } = useTranslation('post');
     const { user } = useAuth();
     const userId = user?.id;
     const dispatch = useDispatch();
@@ -31,11 +33,11 @@ export const CommentOptions: React.FC<Props> = ({ toggleReplies, commentId, repl
         <div className={styles['comment-options']}>
             {type === 'comment' && (
                 <span onClick={toggleReplies}>
-                    Reply
+                    {t('replyButton')}
                 </span>
             )}
             <span onClick={toggleLike}>
-                {isLiked ? 'Unlike' : 'Like'}
+                {isLiked ? t('unlikeButton') : t('likeButton')}
             </span>
         </div>
     )

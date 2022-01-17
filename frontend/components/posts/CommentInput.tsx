@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addComment } from '../../redux/actions';
@@ -10,6 +11,7 @@ type Props = {
     type: 'post' | 'comment';
 }
 export const CommentInput: React.FC<Props> = ({ parentId, type }) => {
+    const { t } = useTranslation('post');
     const author = type === 'comment' ? useAppSelector(state => selectCommentAuthor(state, parentId)) : null;
     const dispatch = useDispatch();
     const [content, setContent] = useState('');
@@ -21,7 +23,7 @@ export const CommentInput: React.FC<Props> = ({ parentId, type }) => {
 
     return(
         <Input 
-            placeholder={author ? `Reply to ${author.displayName}` : 'Add comment...'}
+            placeholder={author ? t('inputReplyPlaceholder', { user: author.displayName }) : t('inputCommentPlaceholder')}
             onChange={setContent}
             onSubmit={submitComment}
             clearOnSubmit={true}

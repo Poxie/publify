@@ -1,4 +1,5 @@
 import React from 'react';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { GetServerSideProps } from 'next';
 import { getUserAvatar, getUserById } from '../utils';
 import Head from 'next/head';
@@ -58,7 +59,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     return {
         props: {
-            user
+            user,
+            ...(await serverSideTranslations(context.locale, ['profile', 'common']))
         }
     }
 }

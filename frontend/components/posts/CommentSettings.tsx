@@ -7,12 +7,14 @@ import { removeComment } from '../../redux/actions';
 import { useAuth } from '../../contexts/AuthProvider';
 import { useAppSelector } from '../../redux/hooks';
 import { selectCommentAuthor, selectReplyAuthor } from '../../redux/selectors';
+import { useTranslation } from 'next-i18next';
 
 type Props = {
     commentId: string;
     replyId?: string;
 }
 export const CommentSettings: React.FC<Props> = ({ commentId, replyId }) => {
+    const { t } = useTranslation('post');
     const { user } = useAuth();
     const [settingsVisible, setSetingsVisible] = useState(false);
     const dispatch = useDispatch();
@@ -24,9 +26,9 @@ export const CommentSettings: React.FC<Props> = ({ commentId, replyId }) => {
     }
 
     // Creating settings items
-    const items = [{type: 'danger', text: 'Report comment', onClick: () => {}}]
+    const items = [{type: 'danger', text: t('reportComment'), onClick: () => {}}]
     if(author.id === user?.id) {
-        items.push({type: 'danger', text: 'Delete comment', onClick: deleteComment})
+        items.push({type: 'danger', text: t('deleteComment'), onClick: deleteComment})
     }
 
     const className = [styles['comment-settings'], settingsVisible ? styles['visible'] : ''].join(' ');

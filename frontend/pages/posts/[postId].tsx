@@ -1,3 +1,4 @@
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
@@ -40,7 +41,8 @@ export const getServerSideProps = async (context) => {
 
     return {
         props: {
-            post
+            post,
+            ...(await serverSideTranslations(context.locale, ['common', 'post']))
         }
     }
 }

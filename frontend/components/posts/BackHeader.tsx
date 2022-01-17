@@ -3,8 +3,10 @@ import styles from '../../styles/Post.module.scss';
 import { ArrowIcon } from '../../icons/ArrowIcon';
 import { Flex } from '../Flex';
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 
 export const BackHeader = () => {
+    const { t } = useTranslation('post');
     const router = useRouter();
 
     const goBack = () => {
@@ -19,7 +21,7 @@ export const BackHeader = () => {
         >
             <ArrowIcon />
             <span>
-                Go back
+                {t('goBackButton')}
             </span>
         </Flex>
     )

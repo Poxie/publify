@@ -5,6 +5,7 @@ import { selectReplies } from '../../redux/selectors';
 import { Comment } from './Comment';
 import { CommentInput } from './CommentInput';
 import { ShowReplies } from './ShowReplies';
+import { useTranslation } from 'next-i18next';
 
 type Props = {
     commentId: string;
@@ -12,6 +13,7 @@ type Props = {
     toggle: () => void;
 }
 export const CommentReplies: React.FC<Props> = ({ commentId, visible, toggle }) => {
+    const { t } = useTranslation('post');
     const replies = useAppSelector(state => selectReplies(state, commentId));
     
     const hasReplies = replies.length > 0;
@@ -45,7 +47,7 @@ export const CommentReplies: React.FC<Props> = ({ commentId, visible, toggle }) 
             )}
             {visible && hasReplies && (
                 <div className={styles['hide-replies']} onClick={toggle}>
-                    Hide replies
+                    {t('hideReplies')}
                 </div>
             )}
         </div>

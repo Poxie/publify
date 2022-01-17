@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 import { useAuth } from '../../contexts/AuthProvider';
 import { useModal } from '../../contexts/ModalProvider';
@@ -9,6 +10,7 @@ import { Flex } from '../Flex';
 export const CreatePost = () => {
     const { user } = useAuth();
     const { setModal } = useModal();
+    const { t } = useTranslation('profile');
 
     return(
         <Flex 
@@ -23,7 +25,7 @@ export const CreatePost = () => {
                 size={28}
             />
             <span>
-                What is on your mind?
+                {t('openCreatePostModal')}
             </span>
         </Flex>
     )

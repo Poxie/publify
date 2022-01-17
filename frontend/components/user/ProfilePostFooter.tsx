@@ -5,11 +5,13 @@ import { LikeButton } from '../LikeButton';
 import { CommentButton } from './CommentButton';
 import { ArrowIcon } from '../../icons/ArrowIcon';
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 
 type Props = {
     postId: string;
 }
 export const ProfilePostFooter: React.FC<Props> = ({ postId }) => {
+    const { t } = useTranslation('profile');
     const router = useRouter();
 
     return(
@@ -28,7 +30,7 @@ export const ProfilePostFooter: React.FC<Props> = ({ postId }) => {
                 onClick={() => router.push(`/posts/${postId}`)}
             >
                 <span>
-                    Expand
+                    {t('expandPost')}
                 </span> 
                 <ArrowIcon />
             </Flex>

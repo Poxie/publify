@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchComments, resetComments } from '../../redux/actions';
@@ -11,6 +12,7 @@ import { AddComment } from './AddComment';
 import { Comment } from './Comment';
 
 export const PostComments = () => {
+    const { t } = useTranslation('post');
     // Checking if isMounted. If so, display loading comment skeleton (preventing different styles on server and client)
     const [isMounted, setIsMounted] = useState(false);
     const id = useAppSelector(state => selectActivePostId(state));
@@ -45,7 +47,7 @@ export const PostComments = () => {
                     justifyContent={'center'}
                     style={{padding: '10px 0 35px 0'}}
                 >
-                    There are no comments on this post yet.
+                    {t('noCommentsFound')}
                 </Flex>
             )}
             {!comments && isMounted && (

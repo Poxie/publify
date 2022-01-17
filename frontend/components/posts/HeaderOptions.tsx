@@ -7,6 +7,7 @@ import { Options } from '../Options';
 import { useRouter } from 'next/router';
 import { useAppSelector } from '../../redux/hooks';
 import { selectActivePost } from '../../redux/selectors';
+import { useTranslation } from 'next-i18next';
 
 type Item = {
     text: string;
@@ -15,17 +16,18 @@ type Item = {
 }
 
 export const HeaderOptions = () => {
+    const { t } = useTranslation('common');
     const dispatch = useDispatch();
     const { author, id: postId } = useAppSelector(state => selectActivePost(state));
     const { id: authorId } = author;
     const router = useRouter();
     const { user } = useAuth();
-    const [items, setItems] = useState<Item[]>([{text: 'Report pos', type: 'danger', onClick: () => {}}]);
+    const [items, setItems] = useState<Item[]>([{text: t('reportPost'), type: 'danger', onClick: () => {}}]);
 
     useEffect(() => {
         // If user is author, show delete option
         if(user?.id === authorId) {
-            items.unshift({text: 'Delete post', type: 'danger', onClick: deletePost});
+            items.unshift({text: t('deletePost'), type: 'danger', onClick: deletePost});
         }
     }, [user]);
 
