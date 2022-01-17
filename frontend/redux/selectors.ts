@@ -1,4 +1,3 @@
-import createCachedSelector from "re-reselect";
 import { createSelector } from "reselect";
 import { Comment, Media, PostType, UserType } from "../utils/types";
 import { RootState } from "./store";
@@ -23,10 +22,10 @@ export const selectActivePostContent: (state: RootState) => string = state => st
 
 // Selecting comment data
 export const selectComments: (state: RootState) => Comment[] = (state) => state.post.comments;
-export const selectCommentIds: (state: RootState) => string[] = createCachedSelector(
+export const selectCommentIds: (state: RootState) => string[] = createSelector(
     selectComments,
     (comments) => comments.map(comment => comment.id)
-)(state => state.post.comments?.length)
+);
 
 const commentById: (state: RootState, commentId: string) => Comment = createSelector(
     [selectComments, selectId],
