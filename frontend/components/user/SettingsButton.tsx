@@ -1,10 +1,12 @@
+import { useRouter } from 'next/router';
 import React from 'react';
 import { Button } from '../Button';
 
 export const SettingsButton = () => {
-    // Add logic for settings later
+    const router = useRouter();
+
     return(
-        <Button type={'secondary'}>
+        <Button type={'secondary'} onClick={() => router.push('/settings/profile')}>
             Settings
         </Button>
     )
