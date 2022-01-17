@@ -9,14 +9,27 @@ type Props = {
     name: string;
     size?: number;
     rounded?: boolean;
+    onAvatarClick?: () => void;
+    avatarHoverText?: string;
     className?: string;
 }
-export const Avatar: React.FC<Props> = ({ avatar, name, className, rounded=true, size=32 }) => {
-    const newClassName = [styles['avatar'], className ? className : ''].join(' ');
+export const Avatar: React.FC<Props> = ({ avatar, name, className, avatarHoverText, onAvatarClick, rounded=true, size=32 }) => {
+    const newClassName = [
+        styles['avatar'], 
+        className ? className : '',
+        avatarHoverText ? styles['has-hover'] : ''
+    ].join(' ');
     return(
-        <Flex 
+        <div 
             className={newClassName}
-            style={{width: size, minWidth: size, height: size, borderRadius: rounded ? '50%' : 'var(--border-radius)'}}
+            style={{
+                width: size, 
+                minWidth: size, 
+                height: size, 
+                borderRadius: rounded ? '50%' : 'var(--border-radius)'
+            }}
+            data-hover-text={avatarHoverText}
+            onClick={onAvatarClick}
         >
             {avatar && (
                 <Image 
@@ -27,6 +40,6 @@ export const Avatar: React.FC<Props> = ({ avatar, name, className, rounded=true,
                     alt={`${name}'s avatar`}
                 />
             )}
-        </Flex>
+        </div>
     )
 }
