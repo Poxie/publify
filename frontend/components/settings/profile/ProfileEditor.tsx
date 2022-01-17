@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React, { useEffect, useRef, useState } from 'react';
 import { useAuth } from '../../../contexts/AuthProvider';
 import { useChange } from '../../../contexts/ChangeProvider';
@@ -9,6 +10,7 @@ import { UserProfile } from '../../UserProfile';
 import { ProfilePreview } from './ProfilePreview';
 
 export const ProfileEditor = () => {
+    const { t } = useTranslation('settings');
     const { user, updateUser } = useAuth();
     const { setChanges, hasChanges, close } = useChange();
     const [currentProfile, setCurrentProfile] = useState(user);
@@ -83,12 +85,12 @@ export const ProfileEditor = () => {
             <input type="file" ref={bannerInputRef} onChange={e => handleFileChange(e, 'banner')} />
             
             <Input 
-                label={'Display Name'}
+                label={t('displayNameLabel')}
                 onChange={value => updateProperty('displayName', value)}
                 defaultValue={currentProfile?.displayName}
             />
             <Input 
-                label={'Bio'}
+                label={t('bioLabel')}
                 onChange={value => updateProperty('bio', value)}
                 defaultValue={currentProfile?.bio}
                 textArea={true}

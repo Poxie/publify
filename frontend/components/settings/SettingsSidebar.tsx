@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -20,8 +21,15 @@ const SidebarItem: React.FC<Props> = ({ text, path }) => {
     )
 }
 
-const items = [{text: 'Profile', path: '/settings/profile'}, {text: 'Account', path: '/settings/account'}, {text: 'Notifications', path: '/settings/notifications'}, {text: 'Languages', path: '/settings/languages'}]
 export const SettingsSidebar = () => {
+    const { t } = useTranslation('settings');
+    const items = [
+        {text: t('profileTab'), path: '/settings/profile'}, 
+        {text: t('accountTab'), path: '/settings/account'}, 
+        {text: t('notificationsTab'), path: '/settings/notifications'}, 
+        {text: t('languagesTab'), path: '/settings/languages'}
+    ]
+   
     return(
         <div className={styles['sidebar']}>
             {items.map(item => {
