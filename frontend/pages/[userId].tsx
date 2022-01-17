@@ -4,9 +4,9 @@ import { getUserAvatar, getUserById } from '../utils';
 import Head from 'next/head';
 import { UserType } from '../utils/types';
 import { UserPage } from '../components/user/UserPage';
-import Link from 'next/link';
 import { ReactElement } from 'react';
 import { MainLayout } from '../layouts/MainLayout';
+import { WEBSITE_NAME } from '../utils/constants';
 
 type Props = {
     user: UserType;
@@ -18,7 +18,7 @@ export default function User(props: Props) {
         <>
             <Head>
                 <title>
-                    {user.displayName} | {process.env.NEXT_PUBLIC_WEBSITE_NAME}
+                    {user.displayName} | {WEBSITE_NAME}
                 </title>
                 <meta property="og:title" content={`${user.displayName}`} />
 

@@ -8,6 +8,7 @@ export const typeDefs = gql`
         avatar: String
         banner: String
         posts: [Post]!
+        bio: String
     }
     type Post {
         id: String!
@@ -75,5 +76,8 @@ export const typeDefs = gql`
         createPost(content: String!, media: [Upload]): Post!
         createComment(parentId: String!, content: String!): Comment!
         destroyComment(id: String!): Boolean!
+
+        # Profile stuff
+        updateProfile(username: String, displayName: String, bio: String, avatar: Upload, banner: Upload): User
     }
 `

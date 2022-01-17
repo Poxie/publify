@@ -1,0 +1,62 @@
+.banner {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 260px;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    position: relative;
+
+    &.small {
+        height: 120px;
+    }
+    &.has-hover {
+        cursor: pointer;
+
+        &::after {
+            content: attr(data-hover-text);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,.5);
+            opacity: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+            transition: opacity .2s;
+        }
+        &:hover::after {
+            opacity: 1;
+        }
+    }
+}
+.user-profile {
+    background-color: var(--background-secondary);
+    border-radius: var(--border-radius);
+}
+.profile-header {
+    padding: 12px;
+}
+.profile-header {
+    padding: 20px;
+}
+.profile-avatar {
+    margin-top: -75px;
+    border: 4px solid var(--background-secondary);
+}
+.profile-name {
+    font-size: 22px;
+    font-weight: 600;
+}
+.profile-bio {
+    font-size: 14px;
+    margin-top: 5px;
+    color: var(--text-muted);
+    font-weight: 600;
+}

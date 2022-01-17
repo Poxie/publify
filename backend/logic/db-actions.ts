@@ -273,19 +273,27 @@ export const generateMediaId: () => Promise<string> = async () => {
 
     return id;
 }
+
+// Saving images
+const saveImage = async (file: any, filePath: '../imgs/media' | '../imgs/avatars' | '../imgs/banners', id: string) => {
+    // Gettin read stream from file
+    const { createReadStream } = await file;
+
+    // Inserting media into media folder
+    await new Promise(res =>
+        createReadStream()
+            .pipe(createWriteStream(path.join(__dirname, filePath, `${id}.png`)))
+            .on('close', res)
+    );
+}
+
 // Creating media
 export const createMedia: (parentId: string, media: any) => Promise<Media[]> = async (parentId, media) => {
     const newMedia = [];
     for(const mediaItem of media) {
-        const { createReadStream } = await mediaItem;
+        // Saving media
         const id = await generateMediaId();
-
-        // Inserting media into media folder
-        await new Promise(res =>
-            createReadStream()
-                .pipe(createWriteStream(path.join(__dirname, '../imgs/media', `${id}.png`)))
-                .on('close', res)
-        );
+        await saveImage(mediaItem, '../imgs/media', id);
 
         // Getting image dimensions
         const dimensions = await sizeOf(`imgs/media/${id}.png`);
@@ -312,4 +320,33 @@ export const createMedia: (parentId: string, media: any) => Promise<Media[]> = a
 
     // Returning created media
     return newMedia;
+}
+
+// Creating user images
+export const saveUserImage = async (userId: string, file: any, type: 'avatar' | 'banner') => {
+    // Saving image in designated folder
+    await saveImage(file, type === 'avatar' ? '../imgs/avatars' : '../imgs/banners', userId);
+    return userId;
+}
+
+// Updating user profile
+type Property = {
+    key: string;
+    value: string;
+}
+export const updateProfileProperties: (userId: string, properties: Property[]) => Promise<UserType> = async (userId, properties) => {
+    let query = `UPDATE users SET `;
+
+    // We can use prop.key here without worrying because prop.key cannot be inputted maliciously thanks to GraphQL
+    const options = properties.map(prop => `${prop.key} = ?`).join(' ,');
+    query += options;
+    query += ` WHERE id = ?`;
+    
+    // Getting property values from properties
+    const propertyValues = properties.map(prop => prop.value);
+    await connection.promise().query(query, [...propertyValues, ...[userId]]);
+
+    // Fetching new user
+    const user = await getUserById(userId);
+    return user;
 }

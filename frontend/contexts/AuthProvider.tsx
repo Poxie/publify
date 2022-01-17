@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getMe, login } from '../utils';
-import { AuthContext as AuthContextType } from '../utils/types';
+import { AuthContext as AuthContextType, UserType } from '../utils/types';
 
 const AuthContext = React.createContext({} as AuthContextType);
 
@@ -25,8 +25,14 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
         setUser(user);
     }
 
+    // Updating user from outside context
+    const updateUser = (user: UserType) => {
+        setUser(user);
+    }
+
     const value = {
         user,
+        updateUser,
         login: loginUser
     }
     return(

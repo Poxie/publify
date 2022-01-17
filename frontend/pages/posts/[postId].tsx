@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { PostPage } from '../../components/posts/PostPage';
 import { setPost } from '../../redux/actions';
 import { getPostById, getUserAvatar } from '../../utils';
+import { WEBSITE_NAME, WEBSITE_ORIGIN } from '../../utils/constants';
 
 export default function Post(props) {
     const dispatch = useDispatch();
@@ -22,8 +23,8 @@ export default function Post(props) {
             <meta content={content} name="description" />
             <meta content={content} property="og:description" />
             <meta content={getUserAvatar(author.avatar)} property="og:image" />
-            <meta content={`${process.env.NEXT_PUBLIC_WEBSITE_ORIGIN}${pathname}`} property="og:url" />
-            <meta content={process.env.NEXT_PUBLIC_WEBSITE_NAME} property="og:site_name" />
+            <meta content={`${WEBSITE_ORIGIN}${pathname}`} property="og:url" />
+            <meta content={WEBSITE_NAME} property="og:site_name" />
         </Head>
 
         <PostPage {...post} />

@@ -4,4 +4,5 @@ export type UserType = {
     displayName: string;
     avatar?: string;
     banner?: string;
+    bio?: string;
 }
