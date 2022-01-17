@@ -151,3 +151,16 @@ export const getReadableTimeFromUnix = (timestamp: string | number) => {
 
     return time;
 }
+
+// Determining language name by locale
+// Make this better somehow later
+export const getLanguageNameByLocale = (locale: string) => {
+    switch(locale) {
+        case 'se':
+            return 'Svenska';
+            break;
+        case 'en':
+            return 'English';
+            break;
+    }
+}
