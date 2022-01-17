@@ -7,12 +7,18 @@ import { UserPage } from '../components/user/UserPage';
 import { ReactElement } from 'react';
 import { MainLayout } from '../layouts/MainLayout';
 import { WEBSITE_NAME } from '../utils/constants';
+import { useDispatch } from 'react-redux';
+import { setProfile } from '../redux/actions';
 
 type Props = {
     user: UserType;
 }
 export default function User(props: Props) {
     const { user } = props;
+    const dispatch = useDispatch();
+
+    // Updating redux store with user data
+    dispatch(setProfile(user));
 
     return(
         <>
@@ -28,7 +34,7 @@ export default function User(props: Props) {
                 <meta property="og:image" content={getUserAvatar(user.avatar)} />
             </Head>
 
-            <UserPage {...user} />
+            <UserPage />
         </>
     )
 }

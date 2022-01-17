@@ -1,12 +1,14 @@
-import { PostType } from "../../utils/types";
-import { ADD_POST_LIKE, CREATE_POST, LOAD_MORE_POSTS, REMOVE_POST, REMOVE_POST_LIKE, SET_POSTS } from "../actionTypes"
+import { PostType, UserType } from "../../utils/types";
+import { ADD_POST_LIKE, CREATE_POST, LOAD_MORE_POSTS, REMOVE_POST, REMOVE_POST_LIKE, SET_POSTS, SET_PROFILE } from "../actionTypes"
 
 const initialState: {
     posts: PostType[];
+    user: UserType,
     loading: boolean;
 } = {
     posts: [],
-    loading: true
+    loading: true,
+    user: null
 }
 
 export default (state=initialState, action) => {
@@ -66,6 +68,13 @@ export default (state=initialState, action) => {
             return {
                 ...state,
                 posts: [...[post], ...state.posts]
+            }
+        }
+        case SET_PROFILE: {
+            const { user } = action.payload;
+            return {
+                ...state,
+                user
             }
         }
         default:

@@ -1,3 +1,6 @@
+// Profile
+export const SET_PROFILE = 'SET_PROFILE';
+
 // Posts
 export const REMOVE_POST = 'REMOVE_POST';
 export const CREATE_POST = 'CREATE_POST';

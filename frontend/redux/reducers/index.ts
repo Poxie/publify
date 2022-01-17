@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import notifications from "./notifications";
 import post from "./post";
-import posts from "./posts";
+import profile from "./profile";
 
-export default combineReducers({ posts, notifications, post });
+export default combineReducers({ profile, notifications, post });

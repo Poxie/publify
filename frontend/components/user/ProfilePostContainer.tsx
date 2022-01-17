@@ -11,7 +11,7 @@ export const ProfilePostContainer = () => {
     const router = useRouter();
     const dispatch = useDispatch();
     const postIds = useAppSelector(state => selectPostIds(state));
-    const loading = useAppSelector(state => state.posts.loading);
+    const loading = useAppSelector(state => state.profile.loading);
     const loadingMore = useRef(false);
 
     // Checking if isMounted. If so, display loading comment skeleton (preventing different styles on server and client)

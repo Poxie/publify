@@ -10,6 +10,9 @@ type LoadingPost = PostType & {
 // Globals
 export const selectId: (state: RootState, id: string) => string = (state, id) => id;
 
+// Selecting profile data
+export const selectProfileUser: (state: RootState) => UserType | null = state => state.profile.user;
+
 // Selecting active post data
 export const selectActivePost: (state: RootState) => LoadingPost = (state) => state.post;
 export const selectActivePostMedia: (state: RootState) => Media[] = state => state.post.media;
@@ -57,7 +60,7 @@ export const selectReplyAuthor: (state: RootState, commentId: string, replyId: s
     (reply) => reply?.author
 )
 
-export const selectPosts: (state: RootState) => PostType[] = (state) => state.posts.posts;
+export const selectPosts: (state: RootState) => PostType[] = (state) => state.profile.posts;
 export const selectPostId: (state: RootState, postId: string) => string = (state, postId) => postId;
 export const selectPostById: (state: RootState, postId: string) => PostType = createSelector(
     [selectPosts, selectPostId],
