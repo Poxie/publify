@@ -1,5 +1,5 @@
 import mysql from 'mysql';
-import { createWriteStream } from 'fs';
+import { createWriteStream, existsSync } from 'fs';
 import path from 'path';
 import { connection } from "../server"
 import { Post as PostType } from "../types/Post"
@@ -322,11 +322,23 @@ export const createMedia: (parentId: string, media: any) => Promise<Media[]> = a
     return newMedia;
 }
 
+// Generating avatar ID
+const generateUserImageId: (type: 'avatar' | 'banner') => string = (type) => {
+    const id = randomId();
+
+    // Checking if ID already exists
+    if(existsSync(`../imgs/${type}s/${id}.png`)) {
+        return generateUserImageId(type);
+    }
+
+    return id;
+}
 // Creating user images
-export const saveUserImage = async (userId: string, file: any, type: 'avatar' | 'banner') => {
+export const saveUserImage = async (file: any, type: 'avatar' | 'banner') => {
+    const id = generateUserImageId(type);
     // Saving image in designated folder
-    await saveImage(file, type === 'avatar' ? '../imgs/avatars' : '../imgs/banners', userId);
-    return userId;
+    await saveImage(file, type === 'avatar' ? '../imgs/avatars' : '../imgs/banners', id);
+    return id;
 }
 
 // Updating user profile

@@ -143,7 +143,7 @@ export const Mutation = {
 
             // If value is media, upload media and replace value
             if(['avatar', 'banner'].includes(key)) {
-                const imageId = await saveUserImage(user.id, value, key as 'avatar' | 'banner');
+                const imageId = await saveUserImage(value, key as 'avatar' | 'banner');
                 value = imageId;
             }
 
