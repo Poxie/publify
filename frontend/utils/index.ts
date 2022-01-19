@@ -1,6 +1,6 @@
 import { PostType, UserType } from "./types";
 import { GraphQLClient } from 'graphql-request';
-import { CREATE_COMMENT, CREATE_LIKE, CREATE_POST, DESTROY_COMMENT, DESTROY_LIKE, DESTROY_POST, UPDATE_PROFILE } from "./mutations";
+import { CREATE_COMMENT, CREATE_LIKE, CREATE_POST, CREATE_USER, DESTROY_COMMENT, DESTROY_LIKE, DESTROY_POST, UPDATE_PROFILE } from "./mutations";
 import { GET_COMMENTS_BY_PARENT_ID, GET_ME, GET_POSTS_BY_AUTHOR_ID, GET_POST_BY_ID, GET_USER_BY_ID, LOGIN } from "./queries";
 import { API_ENDPOINT, IMAGE_ENDPOINT } from "./constants";
 
@@ -49,13 +49,15 @@ export const getPostById: (postId: string) => Promise<PostType> = async (postId)
     return post;
 }
 // Create like
-export const createLike: (parentId: string) => Promise<void> = async (parentId) => {
+export const createLike: (parentId: string) => Promise<any> = async (parentId) => {
     const response = await request(CREATE_LIKE, { parentId });
     return response;
 }
 // Destroy like
-export const destroyLike: (parentId: string) => Promise<void> = async (parentId) => {
-    const response = await request(DESTROY_LIKE, { parentId });
+export const destroyLike: (parentId: string) => Promise<any> = async (parentId) => {
+    const response = await request(DESTROY_LIKE, { parentId }).catch(error => {
+        throw new Error(error);
+    });
     return response
 }
 // Destroy post
@@ -90,6 +92,11 @@ export const updateProfile: (user: UserType) => Promise<UserType> = async (user)
     return profile
 }
 
+// Register
+export const createUser: (user: any) => Promise<UserType> = async (user) => {
+    const createdUser = await request(CREATE_USER, user);
+    return createdUser;
+}
 // Login
 type LoginType = {
     user: UserType,

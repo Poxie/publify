@@ -85,6 +85,19 @@ export const DESTROY_COMMENT = gql`
     }
 `
 
+export const CREATE_USER = gql`
+    mutation($username: String!, $password: String!, $displayName: String!, $bio: String, $avatar: Upload, $banner: Upload) {
+        register(username: $username, password: $password, displayName: $displayName, bio: $bio, avatar: $avatar, banner: $banner) {
+            id,
+            username,
+            displayName,
+            bio,
+            avatar,
+            banner
+        }
+    }
+`
+
 export const UPDATE_PROFILE = gql`
     mutation($username: String, $displayName: String, $bio: String, $avatar: Upload, $banner: Upload) {
         updateProfile(username: $username, displayName: $displayName, bio: $bio, avatar: $avatar, banner: $banner) {

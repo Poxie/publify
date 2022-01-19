@@ -9,33 +9,21 @@ export const setProfile = (user: UserType) => ({
 })
 
 // Posts
-export const addPostLike = (postId: string, userId: string) => {
-    return async dispatch => {
-        const response = await createLike(postId);
-
-        dispatch({
-            type: ADD_POST_LIKE,
-            payload: {
-                postId,
-                userId
-            }
-        })
+export const addPostLike = (postId: string, userId: string) => ({
+    type: ADD_POST_LIKE,
+    payload: {
+        postId,
+        userId
     }
-};
+})
 
-export const removePostLike = (postId: string, userId: string) => {
-    return async dispatch => {
-        const response = await destroyLike(postId);
-
-        dispatch({
-            type: REMOVE_POST_LIKE,
-            payload: {
-                postId,
-                userId
-            }
-        });
+export const removePostLike = (postId: string, userId: string) => ({
+    type: REMOVE_POST_LIKE,
+    payload: {
+        postId,
+        userId
     }
-}
+});
 
 export const removePost = (postId: string) => {
     return async dispatch => {

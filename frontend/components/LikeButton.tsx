@@ -9,12 +9,17 @@ import { addPostLike, removePostLike } from '../redux/actions';
 import { PostType } from '../utils/types';
 import { useDispatch } from 'react-redux';
 import { selectPostById } from '../redux/selectors';
+import { createLike, destroyLike } from '../utils';
+import { isAuthError } from '../utils/errors';
+import { useModal } from '../contexts/ModalProvider';
+import { LoginModal } from '../modals/login/LoginModal';
 
 type Props = {
     postId: string;
 }
 export const LikeButton: React.FC<Props> = ({ postId }) => {
     const { user } = useAuth();
+    const { setModal } = useModal();
     const post: PostType = useAppSelector(state => selectPostById(state, postId));
     const isLiked = post.likes.includes(user?.id);
     const likeCount = post.likeCount;
@@ -23,9 +28,26 @@ export const LikeButton: React.FC<Props> = ({ postId }) => {
     // Toggling like
     const toggleLiked = async () => {
         if(isLiked) {
-            dispatch(removePostLike(postId, user.id))
+            const response = await destroyLike(postId).catch(error => {
+                // If auth error, open login modal
+                if(isAuthError(error)) {
+                    setModal(<LoginModal />);
+                }
+            })
+
+            // If destruction fail return
+            if(!response) return;
+
+            // Else update store
+            dispatch(removePostLike(postId, user?.id))
         } else {
-            dispatch(addPostLike(postId, user.id));
+            const response = await createLike(postId).catch(error => {
+                if(isAuthError(error)) {
+                    setModal(<LoginModal />);
+                }
+            })
+            if(!response) return;
+            dispatch(addPostLike(postId, user?.id));
         }
     }
 

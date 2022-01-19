@@ -1,0 +1,20 @@
+.login-content {
+    padding: 15px;
+
+    &>*:not(:last-child) {
+        margin-bottom: 15px;
+    }
+}
+.login-button {
+    padding: 10px 0;
+}
+.footer span {
+    padding: 10px;
+    cursor: pointer;
+    color: var(--text-muted);
+
+    &:hover {
+        color: var(--text-primary);
+        opacity: .7;
+    }
+}
