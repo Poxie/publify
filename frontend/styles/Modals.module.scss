@@ -44,6 +44,41 @@
         animation: backdrop-out .4s forwards;
     }
 }
+.animating-new-modal {
+    &.left {
+        .multiple-container {
+            animation: new-modal-left .4s forwards;
+
+            &>div:first-child {
+                order: 1;
+            }
+            &>div:last-child {
+                order: 0;
+            }
+        }
+    }
+    &.right {
+        .multiple-container {
+            animation: new-modal-right .4s forwards;
+        }
+    }
+}
+@keyframes new-modal-right {
+    0% {
+        transform: translate3d(0,0,0);
+    }
+    100% {
+        transform: translate3d(-100%, 0, 0);
+    }
+}
+@keyframes new-modal-left {
+    0% {
+        transform: translate3d(-100%,0,0);
+    }
+    100% {
+        transform: translate3d(0, 0, 0);
+    }
+}
 .modal {
     background-color: var(--background-secondary);
     border-radius: var(--border-radius);
@@ -53,6 +88,17 @@
     pointer-events: all;
     z-index: 2;
     animation: modal-in .4s forwards;
+    transition: max-height .4s;
+
+    &>div {
+        width: 100%;
+    }
+}
+.multiple-container {
+    min-height: 200px;
+    &>div {
+        min-width: 100%;
+    }
 }
 @keyframes modal-in {
     0% {
@@ -113,9 +159,4 @@
 .modal-footer {
     background: var(--background-primary);
     padding: 15px;
-}
-.modal-content {
-    &>* {
-        padding: 15px;
-    }
 }
