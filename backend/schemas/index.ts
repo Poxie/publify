@@ -62,11 +62,12 @@ export const typeDefs = gql`
     # Mutations
     type Mutation {
         register(
-            username: String!, 
+            username: String!
             displayName: String! 
-            password: String!, 
-            avatar: String, 
-            banner: String
+            password: String!
+            bio: String 
+            avatar: Upload
+            banner: Upload
         ): User
         
         # Post stuff

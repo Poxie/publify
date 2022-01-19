@@ -120,23 +120,29 @@ const randomId = () => {
 
 // Generating user ID
 export const generateUserId: () => Promise<string> = async () => {
-    return new Promise(async (resolve, reject) => {
-        // Creating a random ID
-        const id = randomId();
-        
-        // Checking if ID already exists
-        const user = await getUserById(id);
-        if(user) return await generateUserId();
+    const id = randomId();
 
-        // Else return ID
-        return id;
-    });
+    const user = await getUserById(id);
+    if(user) return await generateUserId();
+
+    return id;
 }
 
 // Inserting user
 export const insertUser: (password: string, {}: UserType) => Promise<UserType> = async (password, { id, username, displayName, avatar, banner }) => {
+    let avatarId, bannerId;
+    // Getting user media if exists
+    if(avatar) {
+        avatarId = await saveUserImage(avatar, 'avatar');
+        console.log(avatarId);
+    }
+    if(banner) {
+        bannerId = await saveUserImage(banner, 'banner');
+        console.log(bannerId)
+    }
+
     // Insert user
-    const [rows] = await connection.promise().query(INSERT_USER, [id, username, password, displayName, avatar, banner]);
+    const [rows] = await connection.promise().query(INSERT_USER, [id, username, password, displayName, avatarId, bannerId]);
 
     // Returning user
     const user = await getUserById(id);
