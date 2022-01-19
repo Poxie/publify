@@ -13,8 +13,9 @@ interface Props {
     className?: string;
     clearOnSubmit?: boolean;
     focusOnMount?: boolean;
+    type?: 'primary' | 'secondary';
 }
-export const Input: React.FC<Props> = ({ placeholder, defaultValue, onSubmit, onChange, label, textArea, className, clearOnSubmit, onBlur, focusOnMount }) => {
+export const Input: React.FC<Props> = ({ placeholder, defaultValue, onSubmit, onChange, label, textArea, className, clearOnSubmit, onBlur, focusOnMount, type='primary' }) => {
     const [value, setValue] = useState(defaultValue || '');
     const inputRef = useRef<HTMLInputElement>(null);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -52,6 +53,13 @@ export const Input: React.FC<Props> = ({ placeholder, defaultValue, onSubmit, on
         }
     }
 
+    const inputClassName = [
+        styles['input'], 
+        textArea ? styles['textarea'] : '',
+        className ? className : '',
+        type === 'primary' ? styles['primary'] : '',
+        type === 'secondary' ? styles['secondary'] : ''
+    ].join(' ');
     return(
         <form onSubmit={handleSubmit}>
             <Flex flexDirection={'column'}>
@@ -68,7 +76,7 @@ export const Input: React.FC<Props> = ({ placeholder, defaultValue, onSubmit, on
                         value={value}
                         onChange={handleChange}
                         placeholder={placeholder}
-                        className={styles.input + ' ' + (className ? className : '')}
+                        className={inputClassName}
                         id={label?.toLowerCase()}
                         onBlur={handleBlur}
                         ref={inputRef}
@@ -78,7 +86,7 @@ export const Input: React.FC<Props> = ({ placeholder, defaultValue, onSubmit, on
                         value={value}
                         onChange={handleChange}
                         placeholder={placeholder}
-                        className={styles.input + ' ' + styles.textarea + ' ' + (className ? className : '')}
+                        className={inputClassName}
                         id={label?.toLowerCase()}
                         onBlur={handleBlur}
                         ref={textareaRef}

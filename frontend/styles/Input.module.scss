@@ -2,8 +2,6 @@
 .input {
     padding: 12px;
     border: var(--input-border);
-    background-color: var(--input-background);
-    border: 1px solid var(--background-tertiary);
     border-radius: var(--border-radius);
     font-size: 14px;
     min-width: 250px;
@@ -14,6 +12,16 @@
     &::placeholder {
         color: var(--text-muted);
     }
+
+    &.primary {
+        background-color: var(--input-background);
+        border: 1px solid var(--background-tertiary);
+    }
+    &.secondary {
+        background-color: var(--background-tertiary);
+        border: 1px solid var(--background-primary);
+    }
+    
 }
 .textarea {
     resize: vertical;
