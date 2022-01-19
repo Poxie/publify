@@ -3,10 +3,12 @@ import styles from '../styles/Modals.module.scss';
 
 type Props = {
     children: any;
+    className?: string;
 }
-export const ModalContent: React.FC<Props> = ({ children }) => {
+export const ModalContent: React.FC<Props> = ({ children, className }) => {
+    const newClassName = [styles['modal-content'], className ? className : ''].join(' ');
     return(
-        <div className={styles['modal-content']}>
+        <div className={newClassName}>
             {children}
         </div>
     )
