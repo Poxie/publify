@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button } from '../../components/Button';
 import { Flex } from '../../components/Flex';
 import { MediaIcon } from '../../icons/MediaIcon';
-import styles from '../../styles/Modals.module.scss';
+import styles from '../../styles/PostModal.module.scss';
 import { Media } from './Media';
 
 type Props = {

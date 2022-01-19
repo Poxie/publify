@@ -3,7 +3,7 @@ import { Input } from '../../components/Input';
 import { ModalContent } from '../ModalContent';
 import { ModalHeader } from '../ModalHeader';
 import { PostOptions } from './PostOptions';
-import styles from '../../styles/Modals.module.scss';
+import styles from '../../styles/PostModal.module.scss';
 import { ModalFooter } from '../ModalFooter';
 import { Button } from '../../components/Button';
 import { Flex } from '../../components/Flex';
