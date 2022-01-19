@@ -96,8 +96,9 @@ export const ModalProvider: React.FC<Props> = ({ children }) => {
         }, 400);
     }
 
-    // Closing modal 
+    // Going back to previous modal
     const goBack = () => {
+        if(animatingNewModal) return;
         setModals(previous => {
             // Removing last item of modals
             const newModals = [...previous];
