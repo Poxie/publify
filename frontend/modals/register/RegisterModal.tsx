@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React, { useState } from 'react';
 import { useModal } from '../../contexts/ModalProvider';
 import { ModalFooter } from '../ModalFooter';
@@ -6,6 +7,7 @@ import { RegisterModalContent } from './RegisterModalContent';
 import { RegisterModalFooter } from './RegisterModalFooter';
 
 export const RegisterModal = () => {
+    const { t } = useTranslation();
     const { goBack } = useModal();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -22,7 +24,7 @@ export const RegisterModal = () => {
     return(
         <div>
             <ModalHeader>
-                Create an account
+                {t('createAccountHeader')}
             </ModalHeader>
             <RegisterModalContent updateProperty={updateProperty} />
             <RegisterModalFooter 

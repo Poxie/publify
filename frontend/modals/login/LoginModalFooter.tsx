@@ -4,8 +4,10 @@ import { Flex } from '../../components/Flex';
 import { useModal } from '../../contexts/ModalProvider';
 import { ModalFooter } from '../ModalFooter';
 import { RegisterModal } from '../register/RegisterModal';
+import { useTranslation } from 'next-i18next';
 
 export const LoginModalFooter = () => {
+    const { t } = useTranslation();
     const { setModal } = useModal();
 
     const onClick = () => {
@@ -20,7 +22,7 @@ export const LoginModalFooter = () => {
                 className={styles['footer']}
             >
                 <span>
-                    I don't have an account yet.
+                    {t('noAccountText')}
                 </span>
             </Flex>
         </ModalFooter>

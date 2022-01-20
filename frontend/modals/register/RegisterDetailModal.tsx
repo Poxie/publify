@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import react from 'react';
 import { useReducer } from 'react';
 import { useState } from 'react';
@@ -38,6 +39,7 @@ type Props = {
     password: string;
 }
 export const RegisterDetailModal: React.FC<Props> = ({ username, password }) => {
+    const { t } = useTranslation();
     const { close } = useModal();
     const { login } = useAuth();
     const reduxDispatch = useDispatch();
@@ -62,13 +64,13 @@ export const RegisterDetailModal: React.FC<Props> = ({ username, password }) => 
         // Notice: this doesn't update request object with access headers
         await login(state.username, state.password)
         close();
-        reduxDispatch(createNotification('Successfully created user.', 'success'));
+        reduxDispatch(createNotification(t('createdAccount'), 'success'));
     }
 
     return(
         <div>
             <ModalHeader>
-                Visibility Options
+                {t('visibilityOptionsHeader')}
             </ModalHeader>
             <RegisterDetailsContent 
                 updateProperty={updateProperty}

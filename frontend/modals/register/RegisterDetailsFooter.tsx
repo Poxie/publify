@@ -4,11 +4,13 @@ import { Flex } from '../../components/Flex';
 import { useModal } from '../../contexts/ModalProvider';
 import { ModalFooter } from '../ModalFooter';
 import { Button } from '../../components/Button';
+import { useTranslation } from 'next-i18next';
 
 type Props = {
     onCreate: () => void;
 }
 export const RegisterDetailsFooter: React.FC<Props> = ({ onCreate }) => {
+    const { t } = useTranslation();
     const { goBack } = useModal();
 
     return(
@@ -19,10 +21,10 @@ export const RegisterDetailsFooter: React.FC<Props> = ({ onCreate }) => {
                 className={styles['footer']}
             >
                 <span onClick={goBack}>
-                    Go back
+                    {t('goBack')}
                 </span>
                 <Button onClick={onCreate}>
-                    Create
+                    {t('create')}
                 </Button>
             </Flex>
         </ModalFooter>

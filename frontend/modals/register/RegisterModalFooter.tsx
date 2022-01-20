@@ -12,12 +12,14 @@ import { useAppSelector } from '../../redux/hooks';
 import { selectNotification } from '../../redux/selectors';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { useTranslation } from 'next-i18next';
 
 type Props = {
     username: string;
     password: string;
 }
 export const RegisterModalFooter: React.FC<Props> = ({ username, password }) => {
+    const { t } = useTranslation();
     const { goBack, setModal } = useModal();
     const notification = useAppSelector(state => selectNotification(state));
     const dispatch = useDispatch();
@@ -39,7 +41,7 @@ export const RegisterModalFooter: React.FC<Props> = ({ username, password }) => 
     const goNext = async () => {
         // If fields are empty, throw error
         if(!username || !password) {
-            if(!notification) dispatch(createNotification('Fields may not be empty.', 'error'));
+            if(!notification) dispatch(createNotification(t('fieldsEmpty'), 'error'));
             return;
         }
 
@@ -53,7 +55,7 @@ export const RegisterModalFooter: React.FC<Props> = ({ username, password }) => 
         setLoading(false);
 
         // If user exists, return
-        if(user) return dispatch(createNotification('This username is not available.', 'error'));
+        if(user) return dispatch(createNotification(t('usernameNotAvailable'), 'error'));
 
         // Set showing modal
         setShowRegisterModal(true);
@@ -67,10 +69,10 @@ export const RegisterModalFooter: React.FC<Props> = ({ username, password }) => 
                 className={styles['footer']}
             >
                 <span onClick={goBack}>
-                    Login instead
+                    {t('loginInstead')}
                 </span>
                 <Button onClick={goNext} loading={loading}>
-                    Next
+                    {t('nextText')}
                 </Button>
             </Flex>
         </ModalFooter>

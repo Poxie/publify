@@ -9,8 +9,10 @@ import { createNotification } from '../../redux/actions';
 import { useAuth } from '../../contexts/AuthProvider';
 import { isIncorrectCredentials } from '../../utils/errors';
 import { useModal } from '../../contexts/ModalProvider';
+import { useTranslation } from 'next-i18next';
 
 export const LoginModalContent = () => {
+    const { t } = useTranslation();
     const { close } = useModal();
     const { login } = useAuth();
     const dispatch = useDispatch();
@@ -18,38 +20,38 @@ export const LoginModalContent = () => {
     const [password, setPassword] = useState('');
 
     const onSubmit = async () => {
-        if(!username || !password) return dispatch(createNotification('Fields may not be empty.', 'error'));
+        if(!username || !password) return dispatch(createNotification(t('fieldsEmpty'), 'error'));
 
         // Validating username and password
         const user = await login(username, password).catch(error => {
-            if(isIncorrectCredentials(error)) dispatch(createNotification('Incorrect credentials provided.', 'error'));
+            if(isIncorrectCredentials(error)) dispatch(createNotification(t('incorrectCredentials'), 'error'));
         })
 
         // If incorrect return
         if(!user) return;
         
         // Else closing modal
-        dispatch(createNotification(`Welcome back, ${user.displayName.split(' ')[0]}.`, 'success'));
+        dispatch(createNotification(t('welcomeBackUser', {username: user.displayName.split(' ')[0]}), 'success'));
         close();
     }
 
     return(
         <ModalContent className={styles['login-content']}>
             <Input 
-                placeholder={'Username...'}
-                label={'Username'}
+                placeholder={`${t('username')}...`}
+                label={t('username')}
                 type={'secondary'}
                 onChange={setUsername}
             />
             <Input 
-                placeholder={'Password...'}
-                label={'Password'}
+                placeholder={`${t('password')}...`}
+                label={t('password')}
                 type={'secondary'}
                 onChange={setPassword}
                 onSubmit={onSubmit}
             />
             <Button className={styles['login-button']} onClick={onSubmit}>
-                Login
+                {t('login')}
             </Button>
         </ModalContent>
     )

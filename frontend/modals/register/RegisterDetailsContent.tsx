@@ -5,11 +5,13 @@ import { ModalContent } from '../ModalContent';
 import { Input } from '../../components/Input';
 import { Flex } from '../../components/Flex';
 import { Avatar } from '../../components/Avatar';
+import { useTranslation } from 'next-i18next';
 
 type Props = {
     updateProperty: (property: 'avatar' | 'banner' | 'displayName' | 'bio', value: string | File) => void;
 }
 export const RegisterDetailsContent: React.FC<Props> = ({ updateProperty }) => {
+    const { t } = useTranslation();
     const [displayName, setDisplayName] = useState('');
     const [bio, setBio] = useState('');
     const [avatar, setAvatar] = useState('');
@@ -72,14 +74,14 @@ export const RegisterDetailsContent: React.FC<Props> = ({ updateProperty }) => {
             </Flex>
 
             <Input 
-                label={'Display name'}
-                placeholder={'Display name...'}
+                label={t('displayName')}
+                placeholder={`${t('displayName')}...`}
                 type={'secondary'}
                 onChange={value => inputUpdate('displayName', value)}
             />
             <Input 
-                label={'About me'}
-                placeholder={'About me...'}
+                label={t('aboutMe')}
+                placeholder={`${t('aboutMe')}...`}
                 type={'secondary'}
                 textArea={true}
                 onChange={value => inputUpdate('bio', value)}

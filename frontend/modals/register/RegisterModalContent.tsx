@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 import { Input } from '../../components/Input';
 import styles from '../../styles/RegisterModal.module.scss';
@@ -7,17 +8,18 @@ type Props = {
     updateProperty: (proprty: 'username' | 'password', value: string) => void; 
 }
 export const RegisterModalContent: React.FC<Props> = ({ updateProperty }) => {
+    const { t } = useTranslation();
     return(
         <ModalContent className={styles['modal-content']}>
             <Input 
-                label={'Username'}
-                placeholder={'Username...'}
+                label={t('username')}
+                placeholder={`${t('username')}...`}
                 type={'secondary'}
                 onChange={value => updateProperty('username', value)}
             />
             <Input 
-                label={'Password'}
-                placeholder={'Password...'}
+                label={t('password')}
+                placeholder={`${t('password')}...`}
                 type={'secondary'}
                 onChange={value => updateProperty('password', value)}
             />
