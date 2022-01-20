@@ -39,14 +39,14 @@ export const Query = {
         // Checking if user exists
         const user = await getUserByUsername(username);
         if(!user) {
-            throw new Error('User not found.');
+            throw new Error('Incorrect credentials.');
         }
 
         // Checking if passwords match
         // Remember to hash passwords and match hashed passwords
         const isEqual = user.password === password;
         if(!isEqual) {
-            throw new Error('Password incorrect.');
+            throw new Error('Incorrect credentials.');
         }
 
         // Signing in, creating token

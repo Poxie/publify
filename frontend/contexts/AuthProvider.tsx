@@ -23,6 +23,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     const loginUser = async (username: string, password: string) => {
         const { user } = await login(username, password);
         setUser(user);
+        return user;
     }
 
     // Updating user from outside context

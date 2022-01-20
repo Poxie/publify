@@ -119,9 +119,12 @@ export const LOGIN = gql`
         login(username: $username, password: $password) {
             token
             user {
+                id
                 username
                 displayName
                 avatar
+                banner
+                bio
             }
         }
     }

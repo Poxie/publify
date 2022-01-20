@@ -44,6 +44,6 @@ export type Comment = {
 // Contexts
 export type AuthContext = {
     user: UserType | null;
-    login: (username: string, password: string) => Promise<void>;
+    login: (username: string, password: string) => Promise<UserType | undefined>;
     updateUser: (user: UserType) => void;
 }

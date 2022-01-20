@@ -7,6 +7,7 @@ import { API_ENDPOINT, IMAGE_ENDPOINT } from "./constants";
 // Getting access token
 const getAccessToken = () => {
     if(typeof window === 'undefined') return;
+    console.log(window.localStorage.accessToken);
     return window.localStorage.accessToken;
 }
 
