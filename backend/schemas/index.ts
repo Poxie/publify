@@ -51,6 +51,7 @@ export const typeDefs = gql`
     # Root Query Type
     type Query {
         getMe: User
+        getUserByUsername(username: String!): User
         getUserById(id: String!): User
         getPostById(id: String!): Post
         getPostsByAuthorId(id: String!, startIndex: Int, endIndex: Int): [Post]

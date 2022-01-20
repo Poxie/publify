@@ -8,6 +8,11 @@ export const Query = {
         const user = await getUserById(userId);
         return user;
     },
+    getUserByUsername: async (parent: any, args: any) => {
+        const { username } = args;
+        const user = await getUserByUsername(username);
+        return user;
+    },
     getUserById: async (parent: any, args: any) => {
         const userId = args.id;
         const user = await getUserById(userId);

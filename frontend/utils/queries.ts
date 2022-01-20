@@ -1,5 +1,18 @@
 import { gql } from 'graphql-request';
 
+export const GET_USER_BY_USERNAME = gql`
+    query($username: String!) {
+        getUserByUsername(username: $username) {
+            id
+            username
+            avatar
+            banner 
+            displayName
+            bio
+        }
+    }
+`
+
 export const GET_USER_BY_ID = gql`
     query($id: String!) {
         getUserById(id: $id) {
@@ -8,6 +21,7 @@ export const GET_USER_BY_ID = gql`
             banner
             username
             displayName
+            bio
         }
     }
 `
