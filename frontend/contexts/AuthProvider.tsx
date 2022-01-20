@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getMe, login } from '../utils';
+import { client, getMe, login } from '../utils';
 import { AuthContext as AuthContextType, UserType } from '../utils/types';
 
 const AuthContext = React.createContext({} as AuthContextType);
@@ -21,7 +21,14 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
 
     // Login functionality
     const loginUser = async (username: string, password: string) => {
-        const { user } = await login(username, password);
+        const { user, token } = await login(username, password);
+
+        // Updating request headers
+        client.setHeaders({
+            authorization: `Bearer ${token}`
+        });
+
+        // Setting/returning user
         setUser(user);
         return user;
     }
