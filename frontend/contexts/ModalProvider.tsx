@@ -136,7 +136,7 @@ export const ModalProvider: React.FC<Props> = ({ children }) => {
             <div className={containerStyles}>
                 {modals.length && (
                     <>
-                    <div className={styles['backdrop']} onClick={close} />
+                    <div className={styles['backdrop']} onClick={goBack} />
                     <Flex 
                         className={styles['modal']}
                         style={{ 
