@@ -28,6 +28,7 @@ export const ModalProvider: React.FC<Props> = ({ children }) => {
     const newModalRef = useRef<HTMLDivElement>(null);
     const currentModalRef = useRef<HTMLDivElement>(null);
 
+    // On current modal mount, set new maxHeight
     useEffect(() => {
         if(!currentModalRef.current) return;
         setMaxHeight(currentModalRef.current.offsetHeight)
@@ -62,7 +63,7 @@ export const ModalProvider: React.FC<Props> = ({ children }) => {
         if(!prevModalCount) modalCount.current = 1;
         if(!prevModalCount || prevModalCount === newModalCount) return;
 
-        // Determining if modal is pushed or poped
+        // Determining if modal is pushed or popped
         if(newModalCount < prevModalCount) {
             setAnimatingNewModal('left')
             modalCount.current--;
@@ -73,7 +74,6 @@ export const ModalProvider: React.FC<Props> = ({ children }) => {
 
         // Setting new max height (animating height)
         setMaxHeight(newModalRef.current?.offsetHeight);
-        console.log(newModalRef.current?.offsetHeight);
 
         // Setting new modal as active modal after animation
         setTimeout(() => {
@@ -136,7 +136,7 @@ export const ModalProvider: React.FC<Props> = ({ children }) => {
             <div className={containerStyles}>
                 {modals.length && (
                     <>
-                    <div className={styles['backdrop']} onClick={goBack} />
+                    <div className={styles['backdrop']} onClick={close} />
                     <Flex 
                         className={styles['modal']}
                         style={{ 
