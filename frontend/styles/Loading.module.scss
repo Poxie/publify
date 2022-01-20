@@ -24,3 +24,57 @@
     }
 }
 
+.dot-flashing {
+    --dot-size: 8px;
+    --margin: 11px;
+    --animation-duration: .6s;
+
+    position: relative;
+    width: var(--dot-size);
+    height: var(--dot-size);
+    border-radius: 5px;
+    background-color: #9880ff;
+    color: #9880ff;
+    animation: dotFlashing var(--animation-duration) infinite linear alternate;
+    animation-delay: .3s;
+    margin: 5px auto;
+}
+
+.dot-flashing::before, .dot-flashing::after {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    top: 0;
+}
+
+.dot-flashing::before {
+    left: calc(-1 * var(--margin));
+    width: var(--dot-size);
+    height: var(--dot-size);
+    border-radius: 5px;
+    background-color: #9880ff;
+    color: #9880ff;
+    animation: dotFlashing var(--animation-duration) infinite alternate;
+    animation-delay: 0s;
+}
+
+.dot-flashing::after {
+    left: var(--margin);
+    width: var(--dot-size);
+    height: var(--dot-size);
+    border-radius: 5px;
+    background-color: #9880ff;
+    color: #9880ff;
+    animation: dotFlashing var(--animation-duration) infinite alternate;
+    animation-delay: var(--animation-duration);
+}
+
+@keyframes dotFlashing {
+    0% {
+        background-color: #ebe6ff;
+    }
+    50%,
+    100% {
+        background-color: #9880ff;
+    }
+}

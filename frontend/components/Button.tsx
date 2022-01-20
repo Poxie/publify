@@ -1,4 +1,5 @@
 import styles from '../styles/Button.module.scss';
+import { LoadingDots } from './loading/LoadingDots';
 
 interface Props {
     children: any;
@@ -7,9 +8,10 @@ interface Props {
     className?: any;
     onClick?: () => void;
     disabled?: boolean;
+    loading?: boolean;
 }
 
-export const Button: React.FC<Props> = ({ children, type='primary', style, className, onClick, disabled }) => {
+export const Button: React.FC<Props> = ({ children, type='primary', style, className, onClick, disabled, loading }) => {
     let typeStyle: any;
     switch(type) {
         case 'primary':
@@ -29,7 +31,9 @@ export const Button: React.FC<Props> = ({ children, type='primary', style, class
             style={{...style, ...{pointerEvents: disabled ? 'none' : 'all'}}} 
             onClick={onClick}
         >
-            {children}
+            {loading ? (
+                <LoadingDots />
+            ) : children}
         </div>
     )
 }
