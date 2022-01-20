@@ -134,7 +134,7 @@ export const ModalProvider: React.FC<Props> = ({ children }) => {
         <ModalContext.Provider value={value}>
             {children}
             <div className={containerStyles}>
-                {modals.length && (
+                {modals.length !== 0 && (
                     <>
                     <div className={styles['backdrop']} onClick={goBack} />
                     <Flex 
