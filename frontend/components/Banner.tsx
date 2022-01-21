@@ -6,10 +6,11 @@ type Props = {
     banner: string;
     onBannerClick?: () => void;
     bannerHoverText: string;
+    color: string;
     type?: 'large' | 'small';
     className?: string;
 }
-export const Banner: React.FC<Props> = ({ banner, bannerHoverText, onBannerClick, type='large', className }) => {
+export const Banner: React.FC<Props> = ({ banner, color, bannerHoverText, onBannerClick, type='large', className }) => {
     const newClassName = [
         styles['banner'], 
         type === 'small' ? styles['small'] : '', 
@@ -18,7 +19,7 @@ export const Banner: React.FC<Props> = ({ banner, bannerHoverText, onBannerClick
     ].join(' ');
     return(
         <div 
-            style={{backgroundImage: `url(${getUserBanner(banner)})`}}
+            style={{backgroundImage: `url(${getUserBanner(banner)})`, backgroundColor: color}}
             className={newClassName}
             onClick={onBannerClick}
             data-hover-text={bannerHoverText}
