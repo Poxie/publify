@@ -106,6 +106,7 @@ export const UPDATE_PROFILE = gql`
             bio
             avatar
             banner
+            color
             id
         }
     }
