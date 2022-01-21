@@ -9,13 +9,13 @@ import { ProfileOptions } from './ProfileOptions';
 import { SettingsButton } from './SettingsButton';
 
 export const ProfileHeader = () => {
-    const { id, avatar, displayName, banner } = useAppSelector(state => selectProfileUser(state));
+    const { id, avatar, displayName, banner, color } = useAppSelector(state => selectProfileUser(state));
 
     return(
         <div className={styles['header']}>
             <div 
                 className={styles['banner']} 
-                style={{backgroundImage: `url(${getUserBanner(banner)})`}} 
+                style={{ backgroundImage: banner && `url(${getUserBanner(banner)})`, backgroundColor: color }} 
             />
             <Flex 
                 className={styles['header-content']} 

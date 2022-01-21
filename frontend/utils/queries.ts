@@ -7,6 +7,7 @@ export const GET_USER_BY_USERNAME = gql`
             username
             avatar
             banner 
+            color
             displayName
             bio
         }
@@ -20,6 +21,7 @@ export const GET_USER_BY_ID = gql`
             avatar
             banner
             username
+            color
             displayName
             bio
         }
@@ -124,6 +126,7 @@ export const LOGIN = gql`
                 displayName
                 avatar
                 banner
+                color
                 bio
             }
         }
@@ -137,6 +140,7 @@ export const GET_ME = gql`
             id
             username
             banner
+            color
             bio
         }
     }
