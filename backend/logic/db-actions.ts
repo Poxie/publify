@@ -128,13 +128,17 @@ export const generateUserId: () => Promise<string> = async () => {
     return id;
 }
 
+const getRandomNumber = (min: number, max: number) => {
+    return Math.random() * (max - min) + min;
+}
 // Inserting user
 export const insertUser: (password: string, {}: UserType) => Promise<UserType> = async (password, { id, username, displayName, avatar, banner }) => {
     let avatarId, bannerId;
     // Getting user media if exists
     if(avatar) {
         avatarId = await saveUserImage(avatar, 'avatar');
-        console.log(avatarId);
+    } else {
+        avatarId = `default${getRandomNumber(1,4)}`;
     }
     if(banner) {
         bannerId = await saveUserImage(banner, 'banner');
