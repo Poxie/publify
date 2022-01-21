@@ -134,6 +134,7 @@
     width: 100%;
 }
 .create-post {
+    margin-bottom: 10px;
     padding: 12px 15px;
     background-color: var(--background-tertiary);
     border-radius: 120px;
@@ -148,9 +149,6 @@
 .create-post-avatar {
     margin-right: 15px;
     border-radius: 50%;
-}
-.posts {
-    margin-top: 10px;
 }
 .post {
     background-color: var(--background-secondary);

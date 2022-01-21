@@ -7,7 +7,7 @@ import { selectPostIds, selectProfileUser } from '../../redux/selectors';
 import { LoadingPosts } from '../loading/LoadingPosts';
 import { ProfilePosts } from './ProfilePosts';
 
-export const ProfilePostContainer = () => {
+export const ProfilePostContainer = React.memo(() => {
     const dispatch = useDispatch();
     const profile = useAppSelector(state => selectProfileUser(state));
     const postIds = useAppSelector(state => selectPostIds(state));
@@ -63,4 +63,4 @@ export const ProfilePostContainer = () => {
         )}
         </>
     )
-}
+});
