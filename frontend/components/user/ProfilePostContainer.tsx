@@ -60,7 +60,7 @@ export const ProfilePostContainer = () => {
         {/* Display posts skeleton if loading */}
         {loading && isMounted && (
             <LoadingPosts />
-            )}
+        )}
         </>
     )
 }
