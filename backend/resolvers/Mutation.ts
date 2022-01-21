@@ -1,4 +1,4 @@
-import { createtPostLike, destroyPost, createPost, destroyPostLike, generateUserId, getPostById, getUserById, insertUser, createComment, destroyComment, getCommentById, createMedia, updateProfileProperties, saveUserImage } from "../logic/db-actions";
+import { createtPostLike, destroyPost, createPost, destroyPostLike, generateUserId, getPostById, getUserById, insertUser, createComment, destroyComment, getCommentById, createMedia, updateProfileProperties, saveUserImage, getDominantColor } from "../logic/db-actions";
 import { Comment, Like } from "../types";
 import { DatabaseUser } from "../types/DatabaseUser";
 import { Post } from "../types/Post";
@@ -143,7 +143,20 @@ export const Mutation = {
 
             // If value is media, upload media and replace value
             if(['avatar', 'banner'].includes(key)) {
+                // Saving user image
                 const imageId = await saveUserImage(value, key as 'avatar' | 'banner');
+
+                // If is avatar, save dominant color
+                if(key === 'avatar') {
+                    const color = await getDominantColor(`../imgs/avatars/${imageId}.png`).catch(console.error);
+                    console.log(imageId, color)
+
+                    // Pushing color as one of the properties to update
+                    if(color) {
+                        propertiesToUpdate.push({ key: 'color', value: color });
+                    }
+                }
+
                 value = imageId;
             }
 

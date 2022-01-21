@@ -19,8 +19,10 @@
     "graphql": "^16.2.0",
     "graphql-upload": "^13.0.0",
     "image-size": "^1.0.1",
+    "install": "^0.13.0",
     "jsonwebtoken": "^8.5.1",
-    "mysql2": "^2.3.3"
+    "mysql2": "^2.3.3",
+    "npm": "^8.3.2"
   },
   "devDependencies": {
     "@types/express-graphql": "^0.9.0",

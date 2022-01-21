@@ -131,8 +131,9 @@ export const generateUserId: () => Promise<string> = async () => {
 const rgbToHex = (r: number, g: number, b: number) => '#' + [r, g, b].map(x => {
     const hex = x.toString(16)
     return hex.length === 1 ? '0' + hex : hex
-}).join('')
-const getDominantColor: (imagePAth: string) => Promise<string> = async (imagePath) => {
+}).join('');
+
+export const getDominantColor: (imagePath: string) => Promise<string> = async (imagePath) => {
     const rgb = await useColors.getColor(path.join(__dirname, imagePath));
     const hex = rgbToHex(rgb[0], rgb[1], rgb[2]);
     return hex;
