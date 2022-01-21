@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { useAppSelector } from '../../redux/hooks';
 import { selectProfileUser } from '../../redux/selectors';
 import styles from '../../styles/User.module.scss';
@@ -13,10 +14,14 @@ export const ProfileHeader = () => {
 
     return(
         <div className={styles['header']}>
-            <div 
-                className={styles['banner']} 
-                style={{ backgroundImage: banner && `url(${getUserBanner(banner)})`, backgroundColor: color }} 
-            />
+            <div className={styles['banner']} style={{ backgroundColor: color }}>
+                <Image 
+                    layout={'fill'}
+                    objectFit={'cover'}
+                    src={getUserBanner(banner)}
+                    priority
+                />
+            </div>
             <Flex 
                 className={styles['header-content']} 
                 justifyContent={'space-between'}

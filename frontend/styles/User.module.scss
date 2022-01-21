@@ -13,7 +13,9 @@
     background-position: center;
     background-repeat: no-repeat;
     border-radius: var(--border-radius);
+    overflow: hidden;
     background-color: var(--background-tertiary);
+    position: relative;
 
     &::after {
         content: '';
