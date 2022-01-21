@@ -1,7 +1,7 @@
 import React from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { GetServerSideProps } from 'next';
-import { getUserAvatar, getUserById } from '../utils';
+import { getUserAvatar, getUserByUsername } from '../utils';
 import Head from 'next/head';
 import { UserType } from '../utils/types';
 import { UserPage } from '../components/user/UserPage';
@@ -51,11 +51,11 @@ User.getLayout = (page: ReactElement) => {
 
 // Fetching props
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    let userId = context.params.userId;
-    userId = Array.isArray(userId) ? userId[0] : userId
+    let username = context.params.username;
+    username = Array.isArray(username) ? username[0] : username
 
-    // If is array, just use first index as userId
-    const user = await getUserById(userId);
+    // If is array, just use first index as username
+    const user = await getUserByUsername(username);
 
     return {
         props: {
