@@ -11,7 +11,7 @@ export const SELECT_COMMENTS_BY_PARENT_ID = 'SELECT * FROM `comments` WHERE pare
 export const SELECT_COMMENT_COUNT_BY_PARENT_ID = 'SELECT count(*) AS commentCount FROM `comments` WHERE parentId = ?';
 
 // Insertions
-export const INSERT_USER = 'INSERT INTO `users` (id, username, password, displayName, avatar, banner) VALUES (?, ?, ?, ?, ?, ?)';
+export const INSERT_USER = 'INSERT INTO `users` (id, username, password, displayName, avatar, banner, color) VALUES (?, ?, ?, ?, ?, ?, ?)';
 export const INSERT_LIKE = 'INSERT INTO `likes` (userId, parentId) VALUES (?, ?)';
 export const INSERT_POST = 'INSERT INTO `posts` (id, authorId, content, createdAt) VALUES (?, ?, ?, ?)';
 export const INSERT_COMMENT = 'INSERT INTO `comments` (id, parentId, authorId, content, createdAt) VALUES (?, ?, ?, ?, ?)';

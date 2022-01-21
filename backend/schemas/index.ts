@@ -9,6 +9,7 @@ export const typeDefs = gql`
         banner: String
         posts: [Post]!
         bio: String
+        color: String!
     }
     type Post {
         id: String!

@@ -1,5 +1,4 @@
-import mysql from 'mysql';
-import { createWriteStream, existsSync } from 'fs';
+import { createWriteStream, existsSync, readFile } from 'fs';
 import path from 'path';
 import { connection } from "../server"
 import { Post as PostType } from "../types/Post"
@@ -31,6 +30,7 @@ import { RowDataPacket } from 'mysql2';
 import imageSize from 'image-size';
 import { promisify } from 'util';
 const sizeOf = promisify(imageSize);
+const useColors = require('colorthief');
 
 // MySQL data return types
 type User = DatabaseUser & RowDataPacket;
@@ -128,8 +128,17 @@ export const generateUserId: () => Promise<string> = async () => {
     return id;
 }
 
+const rgbToHex = (r: number, g: number, b: number) => '#' + [r, g, b].map(x => {
+    const hex = x.toString(16)
+    return hex.length === 1 ? '0' + hex : hex
+}).join('')
+const getDominantColor: (imagePAth: string) => Promise<string> = async (imagePath) => {
+    const rgb = await useColors.getColor(path.join(__dirname, imagePath));
+    const hex = rgbToHex(rgb[0], rgb[1], rgb[2]);
+    return hex;
+}
 const getRandomNumber = (min: number, max: number) => {
-    return Math.random() * (max - min) + min;
+    return Math.floor(Math.random() * (max - min) + min);
 }
 // Inserting user
 export const insertUser: (password: string, {}: UserType) => Promise<UserType> = async (password, { id, username, displayName, avatar, banner }) => {
@@ -142,11 +151,13 @@ export const insertUser: (password: string, {}: UserType) => Promise<UserType> =
     }
     if(banner) {
         bannerId = await saveUserImage(banner, 'banner');
-        console.log(bannerId)
     }
 
+    // Getting dominant color of avatar
+    const color = await getDominantColor(`../imgs/avatars/${avatarId}.png`);
+
     // Insert user
-    const [rows] = await connection.promise().query(INSERT_USER, [id, username, password, displayName, avatarId, bannerId]);
+    const rows = await connection.promise().query(INSERT_USER, [id, username, password, displayName, avatarId, bannerId, color]).catch(console.error).then(rows => rows);
 
     // Returning user
     const user = await getUserById(id);
