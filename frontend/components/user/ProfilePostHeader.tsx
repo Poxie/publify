@@ -6,24 +6,18 @@ import { PostOptionsContainer } from './PostOptionsContainer';
 import { ProfilePostHeaderMain } from './ProfilePostHeaderMain';
 
 interface Props {
-    name: string;
-    username: string;
-    avatar: string;
     postId: string;
     authorId: string;
     createdAt: string;
 }
-export const ProfilePostHeader: React.FC<Props> = ({ name, username, avatar, postId, authorId, createdAt }) => {
+export const ProfilePostHeader: React.FC<Props> = ({ postId, authorId, createdAt }) => {
     return(
         <Flex 
             className={styles['post-header']}
             justifyContent={'space-between'}
         >
             <ProfilePostHeaderMain 
-                name={name}
-                avatar={avatar}
                 createdAt={createdAt}
-                username={username}
             />
             <PostOptionsContainer 
                 postId={postId}
