@@ -53,7 +53,7 @@ export default (state=initialState, action) => {
             if(reply) {
                 for(const c of newComments) {
                     if(c.id === reply) {
-                        c.replies.push(comment);
+                        c.replies = [...c.replies, ...[comment]];
                     }
                 }
             } else {
