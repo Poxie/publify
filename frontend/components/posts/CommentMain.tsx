@@ -28,12 +28,7 @@ export const CommentMain: React.FC<Props> = ({ commentId, replyId, type='comment
     }
 
     // Determining comment - either comment or reply
-    let comment;
-    if(type === 'comment') {
-        comment = useAppSelector(state => selectCommentById(state, commentId));
-    } else {
-        comment = useAppSelector(state => selectReplyById(state, commentId, replyId));
-    }
+    const comment = useAppSelector(state => selectCommentById(state, commentId, replyId));
     const { displayName, username } = comment.author;
     const { content, likeCount, likes } = comment;
 

@@ -12,7 +12,7 @@ type Props = {
 }
 export const CommentInput: React.FC<Props> = ({ parentId, type }) => {
     const { t } = useTranslation('post');
-    const author = type === 'comment' ? useAppSelector(state => selectCommentAuthor(state, parentId)) : null;
+    const author = useAppSelector(state => selectCommentAuthor(state, parentId));
     const dispatch = useDispatch();
     const [content, setContent] = useState('');
 

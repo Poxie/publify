@@ -8,6 +8,7 @@ type LoadingPost = PostType & {
 
 // Globals
 export const selectId: (state: RootState, id: string) => string = (state, id) => id;
+export const selectReplyId: (state: RootState, commentId: string, replyId: string) => string = (_, __, replyId) => replyId;
 
 // Selecting profile data
 export const selectProfileUser: (state: RootState) => UserType | null = state => state.profile.user;
@@ -31,17 +32,27 @@ const commentById: (state: RootState, commentId: string) => Comment = createSele
     [selectComments, selectId],
     (comments, commentId) => comments.find(comment => comment.id === commentId)
 )
-export const selectCommentById: (state: RootState, commentId: string) => Comment = createSelector(
-    [selectComments, selectId],
-    (comments, commentId) => comments.find(comment => comment.id === commentId)
+export const selectCommentById: (state: RootState, commentId: string, replyId?: string) => Comment | undefined = createSelector(
+    [selectComments, selectId, selectReplyId],
+    (comments, commentId, replyId) => {
+        const comment = comments?.find(comment => comment.id === commentId);
+        // If not comment, return
+        if(!comment) return;
+
+        // If comment is not reply, return comment
+        if(!replyId) return comment;
+
+        // Else fetch reply comment
+        const reply = comment.replies.find(reply => reply.id === replyId);
+        return reply;
+    }
 )
-export const selectCommentAuthor: (state: RootState, commentId: string) => UserType = createSelector(
+export const selectCommentAuthor: (state: RootState, commentId: string, replyId?: string) => UserType = createSelector(
     [selectCommentById],
     (comment) => comment?.author
 )
 
 // Selecting replies
-export const selectReplyId: (state: RootState, commentId: string, replyId: string) => string = (_, __, replyId) => replyId;
 export const selectReplies: (state: RootState, commentId: string) => Comment[] = createSelector(
     [selectCommentById],
     (comment) => comment?.replies

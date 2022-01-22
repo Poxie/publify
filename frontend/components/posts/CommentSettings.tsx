@@ -9,6 +9,11 @@ import { useAppSelector } from '../../redux/hooks';
 import { selectCommentAuthor, selectReplyAuthor } from '../../redux/selectors';
 import { useTranslation } from 'next-i18next';
 
+type Item = {
+    type: 'danger' | 'default';
+    text: string;
+    onClick: () => void;
+}
 type Props = {
     commentId: string;
     replyId?: string;
@@ -18,7 +23,7 @@ export const CommentSettings: React.FC<Props> = ({ commentId, replyId }) => {
     const { user } = useAuth();
     const [settingsVisible, setSetingsVisible] = useState(false);
     const dispatch = useDispatch();
-    const author = replyId ? useAppSelector(state => selectReplyAuthor(state, commentId, replyId)) : useAppSelector(state => selectCommentAuthor(state, commentId));
+    const author = useAppSelector(state => selectCommentAuthor(state, commentId, replyId));
 
     // Deleting comment
     const deleteComment = () => {
@@ -26,7 +31,7 @@ export const CommentSettings: React.FC<Props> = ({ commentId, replyId }) => {
     }
 
     // Creating settings items
-    const items = [{type: 'danger', text: t('reportComment'), onClick: () => {}}]
+    const items: Item[] = [{type: 'danger', text: t('reportComment'), onClick: () => {}}]
     if(author.id === user?.id) {
         items.push({type: 'danger', text: t('deleteComment'), onClick: deleteComment})
     }

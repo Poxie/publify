@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { useAppSelector } from '../../redux/hooks';
-import { selectCommentAuthor, selectCommentById, selectReplyAuthor, selectReplyById } from '../../redux/selectors';
+import { selectCommentAuthor, selectCommentById} from '../../redux/selectors';
 import styles from '../../styles/Post.module.scss';
 import { Comment as CommentType } from '../../utils/types';
 import { Avatar } from '../Avatar';
 import { Flex } from '../Flex';
-import { Options } from '../Options';
 import { CommentMain } from './CommentMain';
 import { CommentOptions } from './CommentOptions';
 import { CommentReplies } from './CommentReplies';
@@ -17,7 +16,7 @@ type Props = CommentType & {
 }
 export const Comment: React.FC<Props> = React.memo(({ id, replyId, type='comment' }) => {
     const [repliesVisible, setRepliesVisible] = useState(false);
-    const comment = replyId ? useAppSelector(state => selectReplyById(state, id, replyId)) : useAppSelector(state => selectCommentById(state, id));
+    const comment = useAppSelector(state => selectCommentById(state, id, replyId));
     const author = comment.author;
 
     // Toggling replies visible

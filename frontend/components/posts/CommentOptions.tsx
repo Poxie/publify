@@ -18,7 +18,7 @@ export const CommentOptions: React.FC<Props> = ({ toggleReplies, commentId, repl
     const { user } = useAuth();
     const userId = user?.id;
     const dispatch = useDispatch();
-    const { likes } = replyId ? useAppSelector(state => selectReplyById(state, commentId, replyId)) : useAppSelector(state => selectCommentById(state, commentId));
+    const { likes } = useAppSelector(state => selectCommentById(state, commentId, replyId));
     const isLiked = likes.includes(userId);
 
     const toggleLike = () => {
