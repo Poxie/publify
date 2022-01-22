@@ -46,6 +46,7 @@ export const ProfilePostMediaItem: React.FC<Props> = ({ postId, width, height, e
                 layout={'fill'}
                 objectFit={'cover'}
                 objectPosition={'center'}
+                alt=""
             />
 
             {/* If there are more than four images, display how many more there are */}

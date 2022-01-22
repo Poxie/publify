@@ -65,6 +65,7 @@ export const ProfileMediaPreview = () => {
                                     layout="fill"
                                     objectFit={'cover'}
                                     objectPosition={'center'}
+                                    alt=""
                                 />
                             </div>
                         )
