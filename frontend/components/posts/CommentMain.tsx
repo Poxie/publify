@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useAuth } from '../../contexts/AuthProvider';
 import { addCommentLike, removeCommentLike } from '../../redux/actions';
 import { useAppSelector } from '../../redux/hooks';
-import { selectCommentById, selectReplyById } from '../../redux/selectors';
+import { selectCommentById } from '../../redux/selectors';
 import styles from '../../styles/Post.module.scss';
 import { LikeButton } from './LikeButton';
 

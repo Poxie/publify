@@ -27,7 +27,6 @@ export const selectCommentIds: (state: RootState) => string[] = createSelector(
     selectComments,
     (comments) => comments.map(comment => comment.id)
 );
-
 const commentById: (state: RootState, commentId: string) => Comment = createSelector(
     [selectComments, selectId],
     (comments, commentId) => comments.find(comment => comment.id === commentId)
@@ -51,23 +50,9 @@ export const selectCommentAuthor: (state: RootState, commentId: string, replyId?
     [selectCommentById],
     (comment) => comment?.author
 )
-
-// Selecting replies
 export const selectReplies: (state: RootState, commentId: string) => Comment[] = createSelector(
     [selectCommentById],
-    (comment) => comment?.replies
-)
-export const selectReplyIds: (state: RootState, commentId: string) => string[] = createSelector(
-    [selectReplies],
-    (replies) => replies.map(reply => reply.id)
-)
-export const selectReplyById: (state: RootState, commentId: string, replyId: string) => Comment = createSelector(
-    [selectCommentById, selectReplyId],
-    (comment, replyId) => comment?.replies?.find(reply => reply.id === replyId)
-)
-export const selectReplyAuthor: (state: RootState, commentId: string, replyId: string) => UserType = createSelector(
-    [selectReplyById],
-    (reply) => reply?.author
+    (comment) => comment.replies
 )
 
 export const selectPosts: (state: RootState) => PostType[] = (state) => state.profile.posts;

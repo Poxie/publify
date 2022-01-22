@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { removeComment } from '../../redux/actions';
 import { useAuth } from '../../contexts/AuthProvider';
 import { useAppSelector } from '../../redux/hooks';
-import { selectCommentAuthor, selectReplyAuthor } from '../../redux/selectors';
+import { selectCommentAuthor } from '../../redux/selectors';
 import { useTranslation } from 'next-i18next';
 
 type Item = {
