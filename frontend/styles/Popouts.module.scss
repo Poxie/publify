@@ -15,9 +15,12 @@
     opacity: 0;
     padding: 15px;
     margin-top: -15px;
+    transform: scale(.93);
 
     &.mounted {
         pointer-events: all;
+        transition: opacity .4s, transform .3s;
         opacity: 1;
+        transform: scale(1);
     }
 }
