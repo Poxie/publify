@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { useRef } from 'react';
 import { usePopouts } from '../../contexts/PopoutProvider';
+import { HasPopout } from '../../popouts/HasPopout';
 import { UserPopout } from '../../popouts/user-popout/UserPopout';
 import { useAppSelector } from '../../redux/hooks';
 import { selectCommentAuthor, selectCommentById} from '../../redux/selectors';
@@ -20,7 +21,6 @@ type Props = CommentType & {
     type?: 'comment' | 'reply';
 }
 export const Comment: React.FC<Props> = React.memo(({ id, replyId, type='comment' }) => {
-    const { setPopout, hasPopout } = usePopouts();
     const authorLabel = useRef<HTMLAnchorElement>(null);
     const [repliesVisible, setRepliesVisible] = useState(false);
     const comment = useAppSelector(state => selectCommentById(state, id, replyId));
@@ -31,28 +31,25 @@ export const Comment: React.FC<Props> = React.memo(({ id, replyId, type='comment
         setRepliesVisible(previous => !previous);
     }
 
-    // Handling author hover
-    const onAuthorHover = (e: React.MouseEvent<HTMLAnchorElement>) => {
-        if(hasPopout) return;
-        setPopout(
-            <UserPopout 
-                {...author}
-            />,
-            authorLabel
-        )
-    }
-
     const { avatar, displayName } = author;
     return(
         <div className={styles['comment']}>
             <Flex style={{position: 'relative'}}>
                 <Link href={`/${author.username}`}>
-                    <a onMouseEnter={onAuthorHover} ref={authorLabel}>
-                        <Avatar 
-                            avatar={avatar}
-                            name={displayName}
-                            size={34}
-                        />
+                    <a ref={authorLabel}>
+                        <HasPopout
+                            popout={(
+                                <UserPopout 
+                                    {...author}
+                                />
+                            )}
+                        >
+                            <Avatar 
+                                avatar={avatar}
+                                name={displayName}
+                                size={34}
+                            />
+                        </HasPopout>
                     </a>
                 </Link>
                 <Flex alignItems={'center'}>
