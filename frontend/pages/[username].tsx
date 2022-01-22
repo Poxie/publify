@@ -27,10 +27,12 @@ export default function User(props: Props) {
                 <title>
                     {user.displayName} | {WEBSITE_NAME}
                 </title>
+                <meta name="description" content={user.bio} />
+
                 <meta property="og:title" content={`${user.displayName}`} />
 
                 {/* Add this with bio later */}
-                <meta property="og:description" />
+                <meta property="og:description" content={user.bio} />
 
                 <meta property="og:image" content={getUserAvatar(user.avatar)} />
             </Head>
