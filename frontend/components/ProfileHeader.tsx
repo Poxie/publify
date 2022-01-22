@@ -14,15 +14,17 @@ type Props = {
     onAvatarClick?: () => void;
     avatarHoverText?: string;
     hasProfileOptions?: boolean;
+    avatarStyle?: string;
 }
-export const ProfileHeader: React.FC<Props> = ({ id, displayName, avatar, bio, onAvatarClick, avatarHoverText, hasProfileOptions }) => {
+export const ProfileHeader: React.FC<Props> = ({ id, displayName, avatar, avatarStyle, bio, onAvatarClick, avatarHoverText, hasProfileOptions }) => {
+    const avatarClassName = [styles['profile-avatar'], avatarStyle || ''].join(' ');
     return(
         <div className={styles['profile-header']}>
             <Avatar 
                 avatar={avatar}
                 name={displayName}
                 size={110}
-                className={styles['profile-avatar']}
+                className={avatarClassName}
                 onAvatarClick={onAvatarClick}
                 avatarHoverText={avatarHoverText}
             />
