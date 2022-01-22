@@ -102,7 +102,7 @@ export const PopoutProvider: React.FC<Props> = ({ children }) => {
 
         // If left position exceeds window width
         if(newX < 15) {
-            newX = state.popoutOriginRef.current?.offsetWidth + 25;
+            newX = state.popoutOriginRef.current?.offsetWidth + 45;
         }
         
         // Determining top position
