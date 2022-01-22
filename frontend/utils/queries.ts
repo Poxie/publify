@@ -95,6 +95,9 @@ export const GET_COMMENTS_BY_PARENT_ID = gql`
                 avatar
                 username
                 displayName
+                banner
+                color
+                bio
             }
             replies {
                 id
@@ -109,6 +112,9 @@ export const GET_COMMENTS_BY_PARENT_ID = gql`
                     avatar
                     username
                     displayName
+                    banner
+                    color
+                    bio
                 }
             }
         }
