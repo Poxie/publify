@@ -1,7 +1,6 @@
 import React from 'react';
-import { useAuth } from '../../contexts/AuthProvider';
-import styles from '../../styles/User.module.scss';
-import { UserType } from '../../utils/types';
+import { useAuth } from '../contexts/AuthProvider';
+import styles from '../styles/User.module.scss';
 import { FollowButton } from './FollowButton';
 import { SettingsButton } from './SettingsButton';
 

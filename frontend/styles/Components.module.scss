@@ -47,12 +47,14 @@
     padding: 20px;
 }
 .profile-avatar {
-    margin-top: -75px;
+    margin-top: -90px;
     border: 4px solid var(--background-secondary);
+    position: absolute !important;
 }
 .profile-name {
     font-size: 22px;
     font-weight: 600;
+    margin-top: 25px;
 }
 .profile-bio {
     font-size: 14px;

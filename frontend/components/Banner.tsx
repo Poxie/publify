@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React from 'react';
 import styles from '../styles/Components.module.scss';
 import { getUserBanner } from '../utils';
@@ -19,10 +20,20 @@ export const Banner: React.FC<Props> = ({ banner, color, bannerHoverText, onBann
     ].join(' ');
     return(
         <div 
-            style={{backgroundImage: `url(${getUserBanner(banner)})`, backgroundColor: color}}
-            className={newClassName}
+            className={newClassName} 
+            style={{ backgroundColor: color }}
             onClick={onBannerClick}
             data-hover-text={bannerHoverText}
-        />
+        >
+            {banner && (
+                <Image 
+                    alt=""
+                    layout={'fill'}
+                    objectFit={'cover'}
+                    src={getUserBanner(banner)}
+                    priority
+                />
+            )}
+        </div>
     )
 }

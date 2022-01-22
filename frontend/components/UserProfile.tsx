@@ -11,8 +11,9 @@ type Props = UserType & {
     avatarHoverText?: string;
     onBannerClick?: () => void;
     bannerHoverText?: string;
+    hasProfileOptions?: boolean;
 }
-export const UserProfile: React.FC<Props> = ({ bannerStyle, bannerType='large', color, displayName, avatar, banner, bio, onAvatarClick, onBannerClick, avatarHoverText, bannerHoverText }) => {
+export const UserProfile: React.FC<Props> = ({ id, bannerStyle, bannerType='large', color, displayName, avatar, banner, bio, onAvatarClick, onBannerClick, avatarHoverText, bannerHoverText, hasProfileOptions=false }) => {
     return(
         <div className={styles['user-profile']}>
             <Banner 
@@ -24,11 +25,13 @@ export const UserProfile: React.FC<Props> = ({ bannerStyle, bannerType='large', 
                 className={bannerStyle}
             />
             <ProfileHeader 
+                id={id}
                 avatar={avatar}
                 displayName={displayName}
                 bio={bio}
                 avatarHoverText={avatarHoverText}
                 onAvatarClick={onAvatarClick}
+                hasProfileOptions={hasProfileOptions}
             />
         </div>
     )

@@ -1,7 +1,7 @@
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { Button } from '../Button';
+import { Button } from './Button';
 
 export const SettingsButton = () => {
     const router = useRouter();
