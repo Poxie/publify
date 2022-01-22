@@ -6,6 +6,7 @@ import { addCommentLike, removeCommentLike } from '../../redux/actions';
 import { useAppSelector } from '../../redux/hooks';
 import { selectCommentById } from '../../redux/selectors';
 import styles from '../../styles/Post.module.scss';
+import { CommentAuthor } from './CommentAuthor';
 import { LikeButton } from './LikeButton';
 
 type Props = {
@@ -29,18 +30,15 @@ export const CommentMain: React.FC<Props> = ({ commentId, replyId, type='comment
 
     // Determining comment - either comment or reply
     const comment = useAppSelector(state => selectCommentById(state, commentId, replyId));
-    const { displayName, username } = comment.author;
     const { content, likeCount, likes } = comment;
 
     // Determining if user has liked comment
     const isLiked = likes.includes(user?.id);
     return(
         <div className={styles['comment-main']}>
-            <div className={styles['comment-author']}>
-                <Link href={`/${username}`}>
-                    {displayName}
-                </Link>
-            </div>
+            <CommentAuthor 
+                {...comment.author}
+            />
             <div className={styles['comment-content']}>
                 {content}
             </div>
