@@ -75,3 +75,5 @@ export const Options: React.FC<Props> = ({ items, children, onChange }) => {
         </div>
     )
 }
+
+Options.displayName = 'ComponentOptions';

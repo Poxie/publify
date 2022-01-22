@@ -64,3 +64,5 @@ export const ProfilePostContainer = React.memo(() => {
         </>
     )
 });
+
+ProfilePostContainer.displayName = 'ProfilePostContainer';

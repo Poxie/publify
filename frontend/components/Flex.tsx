@@ -30,3 +30,5 @@ export const Flex: React.FC<Props> = forwardRef<HTMLDivElement, Props>(({ childr
         </div>
     )
 })
+
+Flex.displayName = 'Flex';

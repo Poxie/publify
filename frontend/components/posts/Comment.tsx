@@ -63,3 +63,5 @@ export const Comment: React.FC<Props> = React.memo(({ id, replyId, type='comment
         </div>
     )
 });
+
+Comment.displayName = 'Comment';

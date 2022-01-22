@@ -14,3 +14,5 @@ export const PostPage: React.FC<PostType> = React.memo((post) => {
         <Post />
     )
 });
+
+PostPage.displayName = 'PostPage';

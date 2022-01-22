@@ -61,3 +61,5 @@ export const MediaPreviewContainer = React.memo(() => {
         </>
     )
 });
+
+MediaPreviewContainer.displayName = 'MediaPreviewContainer';
