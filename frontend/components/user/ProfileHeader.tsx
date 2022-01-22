@@ -15,13 +15,15 @@ export const ProfileHeader = () => {
     return(
         <div className={styles['header']}>
             <div className={styles['banner']} style={{ backgroundColor: color }}>
-                <Image 
-                    alt={`${displayName}'s banner`}
-                    layout={'fill'}
-                    objectFit={'cover'}
-                    src={getUserBanner(banner)}
-                    priority
-                />
+                {banner && (
+                    <Image 
+                        alt={`${displayName}'s banner`}
+                        layout={'fill'}
+                        objectFit={'cover'}
+                        src={getUserBanner(banner)}
+                        priority
+                    />
+                )}
             </div>
             <Flex 
                 className={styles['header-content']} 
