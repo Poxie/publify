@@ -1,32 +1,3 @@
-.header {
-    background-color: var(--background-secondary);
-    border-radius: var(--border-radius);
-
-    &>div {
-        padding: 25px;
-    }
-}
-.banner {
-    width: 100%;
-    height: 260px;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    border-radius: var(--border-radius);
-    overflow: hidden;
-    background-color: var(--background-tertiary);
-    position: relative;
-
-    &::after {
-        content: '';
-        background-color: red;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 14;
-    }
-}
 .avatar {
     border-radius: calc(var(--border-radius) * 1.2);
     overflow: hidden;
@@ -34,58 +5,39 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
 
-    &.has-hover {
-        cursor: pointer;
+// Profile navigation
+.navigation {
+    border-radius: var(--border-radius);
+    padding: 12px;
+    background-color: var(--background-secondary);
+    margin-top: 10px;
 
-        &::after {
-            content: attr(data-hover-text);
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,.5);
-            opacity: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: 700;
-            text-align: center;
-            text-transform: uppercase;
-            transition: opacity .2s;
-        }
-        &:hover::after {
+    a {
+        text-decoration: none;
+    }
+}
+.navigation-item {
+    margin-right: 5px;
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    transition: background-color .2s;
+
+    a {
+        display: block;
+        padding: 8px 12px;
+        opacity: .7;
+    }
+    &:hover, &.active {
+        font-weight: 600;
+        background-color: var(--background-tertiary);
+
+        a {
             opacity: 1;
         }
     }
 }
-.header-avatar {
-    margin-top: -90px;
-    margin-bottom: 10px;
-    border: 4px solid var(--background-tertiary);
-    background-color: var(--background-secondary);
-}
-.name {
-    font-size: 24px;
-    font-weight: 600;
-}
-.user-stats {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text-muted);
-    margin-top: 5px;
-
-    &>span {
-        margin: 0 4px;
-
-        &:first-of-type {
-            margin-left: 0;
-        }
-    }
-}
-
 // Profile overview
 .profile-overview {
     margin-top: 10px;
