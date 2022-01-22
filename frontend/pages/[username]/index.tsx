@@ -1,15 +1,16 @@
 import React from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { GetServerSideProps } from 'next';
-import { getUserAvatar, getUserByUsername } from '../utils';
 import Head from 'next/head';
-import { UserType } from '../utils/types';
-import { UserPage } from '../components/user/UserPage';
-import { ReactElement } from 'react';
-import { MainLayout } from '../layouts/MainLayout';
-import { WEBSITE_NAME } from '../utils/constants';
+import { UserType } from '../../utils/types';
 import { useDispatch } from 'react-redux';
-import { setProfile } from '../redux/actions';
+import { setProfile } from '../../redux/actions';
+import { WEBSITE_NAME } from '../../utils/constants';
+import { getUserAvatar, getUserByUsername } from '../../utils';
+import { UserPage } from '../../components/user/UserPage';
+import { MainLayout } from '../../layouts/MainLayout';
+import { ReactElement } from 'react';
+import { ProfileLayout } from '../../layouts/ProfileLayout';
 
 type Props = {
     user: UserType;
@@ -46,7 +47,9 @@ export default function User(props: Props) {
 User.getLayout = (page: ReactElement) => {
     return(
         <MainLayout>
-            {page}
+            <ProfileLayout>
+                {page}
+            </ProfileLayout>
         </MainLayout>
     )
 }
