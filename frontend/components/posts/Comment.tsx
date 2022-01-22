@@ -1,17 +1,10 @@
-import Link from 'next/link';
-import { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import { useRef } from 'react';
-import { usePopouts } from '../../contexts/PopoutProvider';
-import { HasPopout } from '../../popouts/HasPopout';
-import { UserPopout } from '../../popouts/user-popout/UserPopout';
 import { useAppSelector } from '../../redux/hooks';
-import { selectCommentAuthor, selectCommentById} from '../../redux/selectors';
+import { selectCommentById} from '../../redux/selectors';
 import styles from '../../styles/Post.module.scss';
 import { Comment as CommentType } from '../../utils/types';
-import { Avatar } from '../Avatar';
 import { Flex } from '../Flex';
-import { CommentAvatar } from './CommentAvatar';
+import { PopoutAvatar } from '../PopoutAvatar';
 import { CommentMain } from './CommentMain';
 import { CommentOptions } from './CommentOptions';
 import { CommentReplies } from './CommentReplies';
@@ -35,8 +28,9 @@ export const Comment: React.FC<Props> = React.memo(({ id, replyId, type='comment
     return(
         <div className={styles['comment']}>
             <Flex style={{position: 'relative'}}>
-                <CommentAvatar 
-                    {...author} 
+                <PopoutAvatar 
+                    {...author}
+                    size={34}
                 />
                 <Flex alignItems={'center'}>
                     <CommentMain 

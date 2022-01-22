@@ -6,36 +6,28 @@ import { Flex } from '../Flex';
 import styles from '../../styles/Post.module.scss';
 import { useAppSelector } from '../../redux/hooks';
 import { selectActivePostAuthor, selectActivePostDate } from '../../redux/selectors';
+import { PopoutAvatar } from '../PopoutAvatar';
+import { PopoutUsername } from '../PopoutUsername';
 
 export const HeaderMain = () => {
     const createdAt = useAppSelector(state => selectActivePostDate(state));
     const author = useAppSelector(state => selectActivePostAuthor(state));
-    const { avatar, username, displayName, id } = author;
 
     return(
         <Flex alignItems={'center'}>
-            <Avatar 
-                avatar={avatar}
-                name={displayName}
-                size={46}
+            <PopoutAvatar 
+                {...author}
                 className={styles['author-avatar']}
+                size={42}
             />
             <Flex 
                 className="author-text"
                 flexDirection={'column'}
             >
-                <Flex alignItems={'center'}>
-                    <span className={styles['author-name']}>
-                        <Link href={`/${username}`}>
-                            {displayName}
-                        </Link>
-                        <span className={styles['author-username']}>
-                            <Link href={`/${username}`}>
-                                {`@${username}`}
-                            </Link>
-                        </span>
-                    </span>
-                </Flex>
+                <PopoutUsername 
+                    {...author}
+                    className={styles['author-name']}
+                />
                 <span className={styles['post-timestamp']}>
                     {getReadableTimeFromUnix(createdAt)}
                 </span>

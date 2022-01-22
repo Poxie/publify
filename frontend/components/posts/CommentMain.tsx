@@ -6,7 +6,7 @@ import { addCommentLike, removeCommentLike } from '../../redux/actions';
 import { useAppSelector } from '../../redux/hooks';
 import { selectCommentById } from '../../redux/selectors';
 import styles from '../../styles/Post.module.scss';
-import { CommentAuthor } from './CommentAuthor';
+import { PopoutUsername } from '../PopoutUsername';
 import { LikeButton } from './LikeButton';
 
 type Props = {
@@ -36,8 +36,9 @@ export const CommentMain: React.FC<Props> = ({ commentId, replyId, type='comment
     const isLiked = likes.includes(user?.id);
     return(
         <div className={styles['comment-main']}>
-            <CommentAuthor 
+            <PopoutUsername 
                 {...comment.author}
+                className={styles['comment-author']}
             />
             <div className={styles['comment-content']}>
                 {content}

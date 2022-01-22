@@ -1,15 +1,19 @@
 import { gql } from 'graphql-request';
 
+const USER_PROPERTIES = `
+    id
+    username
+    displayName
+    avatar
+    banner
+    color
+    bio
+`
+
 export const GET_USER_BY_USERNAME = gql`
     query($username: String!) {
         getUserByUsername(username: $username) {
-            id
-            username
-            avatar
-            banner 
-            color
-            displayName
-            bio
+            ${USER_PROPERTIES}
         }
     }
 `
@@ -17,13 +21,7 @@ export const GET_USER_BY_USERNAME = gql`
 export const GET_USER_BY_ID = gql`
     query($id: String!) {
         getUserById(id: $id) {
-            id
-            avatar
-            banner
-            username
-            color
-            displayName
-            bio
+            ${USER_PROPERTIES}
         }
     }
 `
@@ -38,10 +36,7 @@ export const GET_POSTS_BY_AUTHOR_ID = gql`
             commentCount
             createdAt
             author {
-                id
-                avatar
-                username
-                displayName
+                ${USER_PROPERTIES}
             }
             media {
                 id
@@ -64,10 +59,7 @@ export const GET_POST_BY_ID = gql`
             commentCount
             createdAt
             author {
-                id
-                avatar
-                username
-                displayName
+                ${USER_PROPERTIES}
             }
             media {
                 id
@@ -91,13 +83,7 @@ export const GET_COMMENTS_BY_PARENT_ID = gql`
             likes
             likeCount
             author {
-                id
-                avatar
-                username
-                displayName
-                banner
-                color
-                bio
+                ${USER_PROPERTIES}
             }
             replies {
                 id
@@ -127,13 +113,7 @@ export const LOGIN = gql`
         login(username: $username, password: $password) {
             token
             user {
-                id
-                username
-                displayName
-                avatar
-                banner
-                color
-                bio
+                ${USER_PROPERTIES}
             }
         }
     }
@@ -141,13 +121,7 @@ export const LOGIN = gql`
 export const GET_ME = gql`
     query {
         getMe {
-            displayName
-            avatar
-            id
-            username
-            banner
-            color
-            bio
+            ${USER_PROPERTIES}
         }
     }
 `
