@@ -97,13 +97,21 @@ export const PopoutProvider: React.FC<Props> = ({ children }) => {
         window.addEventListener('mousemove', shouldClose);
 
         // Determining position
-        const { top: currentTop, left: currentLeft, width } = popoutRef.current.getBoundingClientRect();
+        const { top: currentTop, left: currentLeft, width, height } = popoutRef.current.getBoundingClientRect();
         const newX = currentLeft - width;
+        
+        // Determining top position
+        let newY = currentTop;
+
+        // If top position exceeds window height
+        if(newY + height > window.innerHeight) {
+            newY = window.innerHeight - height - 10;
+        }
         
         // Dispatching new position
         dispatch({
             type: 'position',
-            payload: { x: newX, y: currentTop },
+            payload: { x: newX, y: newY },
         })
         dispatch({
             type: 'isMounted',
