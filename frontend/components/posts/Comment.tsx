@@ -1,3 +1,5 @@
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { useAppSelector } from '../../redux/hooks';
 import { selectCommentAuthor, selectCommentById} from '../../redux/selectors';
@@ -28,11 +30,15 @@ export const Comment: React.FC<Props> = React.memo(({ id, replyId, type='comment
     return(
         <div className={styles['comment']}>
             <Flex style={{position: 'relative'}}>
-                <Avatar 
-                    avatar={avatar}
-                    name={displayName}
-                    size={34}
-                />
+                <Link href={`/${author.username}`}>
+                    <a>
+                        <Avatar 
+                            avatar={avatar}
+                            name={displayName}
+                            size={34}
+                        />
+                    </a>
+                </Link>
                 <Flex alignItems={'center'}>
                     <CommentMain 
                         commentId={id}
