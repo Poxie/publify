@@ -55,7 +55,7 @@ export const MediaPreviewContainer = React.memo(() => {
         )}
         {!hasMedia && (
             <span className={styles['preview-empty']}>
-                This user hasn't posted any media yet.
+                This user hasn&apos;t posted any media yet.
             </span>
         )}
         </>
