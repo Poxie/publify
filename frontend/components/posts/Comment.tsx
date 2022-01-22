@@ -11,6 +11,7 @@ import styles from '../../styles/Post.module.scss';
 import { Comment as CommentType } from '../../utils/types';
 import { Avatar } from '../Avatar';
 import { Flex } from '../Flex';
+import { CommentAvatar } from './CommentAvatar';
 import { CommentMain } from './CommentMain';
 import { CommentOptions } from './CommentOptions';
 import { CommentReplies } from './CommentReplies';
@@ -21,7 +22,6 @@ type Props = CommentType & {
     type?: 'comment' | 'reply';
 }
 export const Comment: React.FC<Props> = React.memo(({ id, replyId, type='comment' }) => {
-    const authorLabel = useRef<HTMLAnchorElement>(null);
     const [repliesVisible, setRepliesVisible] = useState(false);
     const comment = useAppSelector(state => selectCommentById(state, id, replyId));
     const author = comment.author;
@@ -35,23 +35,9 @@ export const Comment: React.FC<Props> = React.memo(({ id, replyId, type='comment
     return(
         <div className={styles['comment']}>
             <Flex style={{position: 'relative'}}>
-                <Link href={`/${author.username}`}>
-                    <a ref={authorLabel}>
-                        <HasPopout
-                            popout={(
-                                <UserPopout 
-                                    {...author}
-                                />
-                            )}
-                        >
-                            <Avatar 
-                                avatar={avatar}
-                                name={displayName}
-                                size={34}
-                            />
-                        </HasPopout>
-                    </a>
-                </Link>
+                <CommentAvatar 
+                    {...author} 
+                />
                 <Flex alignItems={'center'}>
                     <CommentMain 
                         commentId={id}
