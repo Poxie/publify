@@ -6,6 +6,7 @@ import styles from '../styles/Popouts.module.scss';
 type Context = {
     setPopout: (popout: any, popoutOriginRef: RefObject<HTMLElement>) => void;
     close: () => void;
+    hasPopout: boolean;
 }
 
 const PopoutContext = React.createContext({} as Context);
