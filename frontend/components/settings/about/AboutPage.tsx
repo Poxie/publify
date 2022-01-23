@@ -122,14 +122,16 @@ export const AboutPage = () => {
         newProfile.education = newProfile.education || null;
         newProfile.location = newProfile.location || null;
 
-        updateProfile(newProfile).then(profile => {
-            updateUser(profile);
-            
-            // If current saved profile is same
-            if(profile.id === storedUser?.id) {
-                reduxDispatch(setProfile(profile));
-            }
-        })
+        // Updating database
+        await updateProfile(newProfile);
+
+        // Updating view
+        updateUser(newProfile);
+
+        // If current saved profile is same
+        if(newProfile.id === storedUser?.id) {
+            reduxDispatch(setProfile(newProfile));
+        }
 
         // Updating custom abouts
         if(JSON.stringify(newProfile.customAbouts) !== JSON.stringify(user.customAbouts)) {
@@ -146,12 +148,15 @@ export const AboutPage = () => {
                     // Else update about
                     updateCustomAbout(about);
                 }
+                console.log(about);
                 foundAbouts.push(about.id);
             }
             // If should destroy about
             if(foundAbouts.length < user.customAbouts.length) {
-                const about = user.customAbouts.find(about => !foundAbouts.includes(about.id));
-                await destroyCustomAbout(about.id);
+                const abouts = user.customAbouts.filter(about => !foundAbouts.includes(about.id));
+                for(const about of abouts) {
+                    await destroyCustomAbout(about.id);
+                }
             }
         }
     }
