@@ -23,5 +23,11 @@
     "usernameNotAvailable": "Detta användarnamn är inte tillgängligt.",
     "incorrectCredentials": "Användarnamn och lösenord stämmer inte överens.",
     "welcomeBackUser": "Välkommen tillbaka, {{ username }}.",
-    "createdAccount": "Skapade kontot och loggade in."
+    "createdAccount": "Skapade kontot och loggade in.",
+    "relationshipLabel": "Förhållande",
+    "educationLabel": "Utbildning",
+    "locationLabel": "Plats",
+    "single": "Single",
+    "inRelationship": "I ett förhållande",
+    "complicated": "Komplicerat"
 }

@@ -23,5 +23,11 @@
     "usernameNotAvailable": "This username is not available.",
     "incorrectCredentials": "Incorrect credentials provided.",
     "welcomeBackÚser": "Welcome back, {{ username }}.",
-    "createdAccount": "Created and logged into account."
+    "createdAccount": "Created and logged into account.",
+    "relationshipLabel": "Relationship",
+    "educationLabel": "Education",
+    "locationLabel": "Location",
+    "single": "Single",
+    "inRelationship": "In a relationship",
+    "complicated": "Complicated"
 }

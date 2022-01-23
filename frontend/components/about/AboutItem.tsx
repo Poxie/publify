@@ -32,7 +32,7 @@ export const AboutItem: React.FC<Props> = ({ type, label, value, unicode }) => {
     return(
         <div className={styles['about-item']}>
             <span className={styles['about-item-header']}>
-                {type}
+                {label}
             </span>
             <Flex alignItems={'center'}>
                 <Flex 
