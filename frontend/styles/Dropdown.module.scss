@@ -16,6 +16,11 @@
         width: 14px;
     }
 }
+.transparent {
+    .active-item {
+        background-color: transparent;
+    }
+}
 .item {
     cursor: pointer;
     
