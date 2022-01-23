@@ -13,6 +13,7 @@ export const selectReplyId: (state: RootState, commentId: string, replyId: strin
 // Selecting profile data
 export const selectProfileUser: (state: RootState) => UserType | null = state => state.profile.user;
 export const selectProfileImages: (state: RootState) => Media[] | null = state => state.profile.images;
+export const selectProfilePreview: (state: RootState) => Media[] | null = state => state.profile.previewImages;
 
 // Selecting active post data
 export const selectActivePost: (state: RootState) => LoadingPost = (state) => state.post;

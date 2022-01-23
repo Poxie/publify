@@ -1,6 +1,7 @@
 // Profile
 export const SET_PROFILE = 'SET_PROFILE';
 export const SET_PROFILE_IMAGES = 'SET_PROFILE_IMAGES';
+export const SET_PREVIEW_IMAGES = 'SET_PREVIEW_IMAGES';
 
 // Posts
 export const REMOVE_POST = 'REMOVE_POST';
