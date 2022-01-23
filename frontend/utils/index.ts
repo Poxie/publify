@@ -143,6 +143,16 @@ export const getUserBanner = (banner: string) => {
 export const getMediaURL = (id: string) => {
     return `${IMAGE_ENDPOINT}/media/${id}.png`;
 }
+// Getting svg URL
+export const getEmojiURL = (id: string) => {
+    return `${IMAGE_ENDPOINT}/assets/emojis/${id}.svg`;
+}
+
+// First letter uppercase
+export const getFirstLetterUppercase = (text: string) => {
+    if(!text) return text;
+    return text.slice(0,1).toUpperCase() + text.slice(1);
+}
 
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 // Getting readable time from unix

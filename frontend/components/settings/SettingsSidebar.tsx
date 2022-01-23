@@ -24,7 +24,8 @@ const SidebarItem: React.FC<Props> = ({ text, path }) => {
 export const SettingsSidebar = () => {
     const { t } = useTranslation('settings');
     const items = [
-        {text: t('profileTab'), path: '/settings/profile'}, 
+        {text: t('profileTab'), path: '/settings/profile'},
+        {text: t('aboutTab'), path: '/settings/about'},
         {text: t('accountTab'), path: '/settings/account'}, 
         {text: t('notificationsTab'), path: '/settings/notifications'}, 
         {text: t('languagesTab'), path: '/settings/languages'}

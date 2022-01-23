@@ -57,3 +57,23 @@
 .profile-input {
     margin-top: 15px;
 }
+
+// About
+.about-input {
+    &:not(:last-child) {
+        margin-bottom: 15px;
+    }
+}
+.about-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+    display: block;
+}
+.about-icon {
+    margin-right: 15px;
+    position: relative;
+    min-width: 32px;
+    cursor: pointer;
+}
