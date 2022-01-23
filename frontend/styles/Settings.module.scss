@@ -66,6 +66,14 @@
     form {
         width: 100%;
     }
+    &.customizable {
+        padding: 15px;
+        background-color: var(--background-secondary);
+        border-radius: var(--border-radius);
+    }
+}
+.custom-label {
+    margin-bottom: 15px;
 }
 .dropdown {
     width: 100%;

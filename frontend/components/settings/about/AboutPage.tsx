@@ -10,7 +10,7 @@ import { useChange } from '../../../contexts/ChangeProvider';
 import { setProfile } from '../../../redux/actions';
 import { useAppSelector } from '../../../redux/hooks';
 import { selectProfileUser } from '../../../redux/selectors';
-import { updateProfile } from '../../../utils';
+import { updateCustomAbout, updateProfile } from '../../../utils';
 import { DropdownItem } from '../../Dropdown';
 import { SettingsMain } from '../SettingsMain';
 import { AboutInput } from './AboutInput';
@@ -19,14 +19,16 @@ import { AddAboutItem } from './AddAboutItem';
 const initialState = {
     relationship: undefined,
     education: undefined,
-    location: undefined
+    location: undefined,
+    customAbouts: undefined
 } as {
     relationship: string;
     education: string;
     location: string;
+    customAbouts: any[];
 }
 type Action = {
-    type: 'update' | 'set';
+    type: 'update' | 'set' | 'updateCustom';
     payload: any;
 }
 const reducer = (state=initialState, action: Action) => {
@@ -39,6 +41,21 @@ const reducer = (state=initialState, action: Action) => {
         }
         case 'set': {
             return action.payload;
+        }
+        case 'updateCustom': {
+            const id = action.payload.id;
+
+            const newCustomAbouts = state.customAbouts.map(about => {
+                if(about.id === id) {
+                    console.log(action.payload);
+                    return action.payload;
+                }
+                return about;
+            })
+            return {
+                ...state,
+                customAbouts: newCustomAbouts
+            }
         }
     }
 }
@@ -58,8 +75,8 @@ export const AboutPage = () => {
     // Mounting user inputs
     useEffect(() => {
         if(!user) return;
-        const { relationship, education, location } = user;
-        const about = { relationship, education, location };
+        const { relationship, education, location, customAbouts } = user;
+        const about = { relationship, education, location, customAbouts };
         dispatch({
             type: 'set',
             payload: about
@@ -94,10 +111,17 @@ export const AboutPage = () => {
                 reduxDispatch(setProfile(profile));
             }
         })
+
+        // Updating custom abouts
+        if(JSON.stringify(newProfile.customAbouts) !== JSON.stringify(user.customAbouts)) {
+            for(const about of newProfile.customAbouts) {
+                updateCustomAbout(about);
+            }
+        }
     }
     const onReset = () => {
-        const { relationship, education, location } = user;
-        const about = { relationship, education, location };
+        const { relationship, education, location, customAbouts } = user;
+        const about = { relationship, education, location, customAbouts };
         dispatch({ type: 'set', payload: about });
         close();
     }
@@ -106,7 +130,7 @@ export const AboutPage = () => {
         let isSame = true;
         for(const key of Object.keys(state)) {
             if(state[key] === undefined) continue;
-            if(state[key] !== user[key]) {
+            if(JSON.stringify(state[key]) !== JSON.stringify(user[key])) {
                 isSame = false;
                 break;
             }
@@ -119,15 +143,15 @@ export const AboutPage = () => {
         }
     }
 
-    // Adding items
-    const addItem = (type: 'location' | 'education' | 'custom') => {
-        let newProfile = {...user};
-        newProfile[type] = '';
-        updateUser(newProfile);
-        dispatch({ type: 'set', payload: newProfile })
+    // Customized abouts
+    const onCustomizedUpdate = async ({ id, label, value, emoji }) => {
+        dispatch({
+            type: 'updateCustom',
+            payload: { id, label, value, emoji }
+        })
     }
 
-    const { relationship, education, location } = state;
+    const { relationship, education, location, customAbouts } = state;
     const hasLocation = user?.location !== null && user;
     const hasEducation = user?.education !== null && user;
     return(
@@ -143,7 +167,7 @@ export const AboutPage = () => {
             {!hasLocation && (
                 <AddAboutItem 
                     type={'location'}
-                    onClick={() => addItem('location')}
+                    onClick={() => {}}
                 />
             )}
             {hasEducation && (
@@ -157,9 +181,10 @@ export const AboutPage = () => {
             {!hasEducation && (
                 <AddAboutItem 
                     type={'education'}
-                    onClick={() => addItem('education')}
+                    onClick={() => {}}
                 />
             )}
+            
             <AboutInput 
                 type={'relationship'}
                 label={t('relationshipLabel')}
@@ -167,6 +192,20 @@ export const AboutPage = () => {
                 dropdownItems={relationShipItems}
                 activeDropdownItem={relationship || relationShipItems[0].text}
             />
+            {customAbouts?.map(customAbout => {
+                const { id, label, type, emoji, value } = customAbout;
+                return(
+                    <AboutInput 
+                        label={label}
+                        type={type}
+                        defaultValue={value}
+                        emoji={emoji}
+                        isCustomizable={true}
+                        customizedUpdate={onCustomizedUpdate}
+                        id={id}
+                    />
+                )
+            })}
         </SettingsMain>
     )
 }

@@ -10,7 +10,10 @@ import { Dropdown, DropdownItem } from '../../Dropdown';
 import { useEffect } from 'react';
 import { EDUCATION_UNICODE, LOCATION_UNICODE, RELATIONSHIP_UNICODE } from '../../../utils/constants';
 
-const determineDefaultEmoji = (type: Props['type']) => {
+const determineDefaultEmoji = (type: Props['type'], emoji: string) => {
+    if(emoji) {
+        return emoji;
+    }
     switch(type) {
         case 'location':
             return LOCATION_UNICODE;
@@ -30,15 +33,19 @@ const determineDefaultEmoji = (type: Props['type']) => {
 type Props = {
     type: 'location' | 'education' | 'relationship' | 'custom';
     label: string;
+    emoji?: string;
     defaultValue?: string;
     inputType?: 'input' | 'dropdown';
     dropdownItems?: DropdownItem[];
     activeDropdownItem?: string;
     onChange?: (text: string) => void;
+    isCustomizable?: boolean;
+    customizedUpdate?: ({ id, label, emoji, value }) => void;
+    id?: string;
 }
-export const AboutInput: React.FC<Props> = ({ type, label, defaultValue, inputType='input', dropdownItems, activeDropdownItem, onChange }) => {
+export const AboutInput: React.FC<Props> = ({ type, label, defaultValue, inputType='input', dropdownItems, activeDropdownItem, onChange, isCustomizable, customizedUpdate, emoji, id }) => {
     const [value, setValue] = useState(defaultValue || '');
-    const [activeEmoji, setActiveEmoji] = useState<string>(determineDefaultEmoji(type));
+    const [activeEmoji, setActiveEmoji] = useState<string>(determineDefaultEmoji(type, emoji));
     const [emojiPickerOpen, setEmojiPickerOpen] = useState(false);
 
     // On default value change
@@ -50,17 +57,41 @@ export const AboutInput: React.FC<Props> = ({ type, label, defaultValue, inputTy
     const togglEmojiPicker = () => {
         setEmojiPickerOpen(previous => !previous);
     }
+
+    // Hamdle change
+    const handleChange = (value: string) => {
+        if(onChange) {
+            onChange(value);
+        }
+        if(customizedUpdate) {
+            customizedUpdate({ id, label, value, emoji });
+        }
+    }
+
     // Updating emoji
     const updateEmoji = (emoji: PartialEmoji) => {
+        customizedUpdate({ id, label, emoji: emoji.unified, value });
         setActiveEmoji(emoji.unified);
         setEmojiPickerOpen(false);
     }
 
+    const className = [styles['about-input'], isCustomizable && styles['customizable']].join(' ');
     return(
-        <div className={styles['about-input']}>
-            <span className={styles['about-label']}>
-                {label}
-            </span>
+        <div className={className}>
+            {!isCustomizable && (
+                <span className={styles['about-label']}>
+                    {label}
+                </span>
+            )}
+            {isCustomizable && (
+                <Input 
+                    label={'Label'}
+                    placeholder={'Label... e.g. Relationship'}
+                    className={styles['custom-label']}
+                    defaultValue={label}
+                    onChange={label => customizedUpdate({ id, label, emoji, value })}
+                />
+            )}
             <Flex>
                 {emojiPickerOpen && (
                     <EmojiPicker 
@@ -71,7 +102,7 @@ export const AboutInput: React.FC<Props> = ({ type, label, defaultValue, inputTy
                     className={styles['about-icon']}
                     alignItems={'center'}
                     justifyContent={'center'}
-                    onClick={togglEmojiPicker}
+                    onClick={isCustomizable ? togglEmojiPicker : null}
                 >
                     <Image 
                         width={32}
@@ -83,7 +114,7 @@ export const AboutInput: React.FC<Props> = ({ type, label, defaultValue, inputTy
                     <Input 
                         placeholder={type}
                         type={'transparent'}
-                        onChange={onChange}
+                        onChange={handleChange}
                         defaultValue={value}
                     />
                 )}
