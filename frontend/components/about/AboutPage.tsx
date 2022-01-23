@@ -4,10 +4,11 @@ import { useTranslation } from 'next-i18next';
 import { useAppSelector } from '../../redux/hooks';
 import { selectProfileUser } from '../../redux/selectors';
 import { AboutItem } from './AboutItem';
+import { CustomAbouts } from './CustomAbouts';
 
 export const AboutPage = () => {
     const { t } = useTranslation();
-    const { relationship, education, location } = useAppSelector(state => selectProfileUser(state));
+    const { relationship, education, location, customAbouts } = useAppSelector(state => selectProfileUser(state));
 
     const noItems = (!relationship || relationship === 'relationshipN/A') && !education && !location;
     return(
@@ -39,6 +40,11 @@ export const AboutPage = () => {
                         {t('aboutMeEmpty')}
                     </span>
                 </div>
+            )}
+            {customAbouts.length && (
+                <CustomAbouts 
+                    customAbouts={customAbouts}
+                />
             )}
         </div>
     )
