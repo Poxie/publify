@@ -13,11 +13,10 @@ const NavigationItem: React.FC<Props> = ({ text, path }) => {
     const { username } = query;
 
     const href = `/${username}${path}`;
-    console.log(href, asPath)
     const className = [styles['navigation-item'], href === asPath ? styles['active'] : ''].join(' ');
     return(
         <div className={className}>
-            <Link href={`/${username}/${path}`}>
+            <Link href={`/${username}${path}`}>
                 {text}
             </Link>
         </div>
@@ -25,8 +24,6 @@ const NavigationItem: React.FC<Props> = ({ text, path }) => {
 }
 
 export const ProfileNavigation = () => {
-    const router = useRouter();
-    const { username } = router.query;
     return(
         <Flex className={styles['navigation']}>
             <NavigationItem 
