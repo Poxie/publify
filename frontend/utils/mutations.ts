@@ -125,3 +125,9 @@ export const ADD_CUSTOM_ABOUT = gql`
         }
     }
 `
+
+export const DESTROY_CUSTOM_ABOUT = gql`
+    mutation($id: String!) {
+        destroyCustomAbout(id: $id)
+    }
+`

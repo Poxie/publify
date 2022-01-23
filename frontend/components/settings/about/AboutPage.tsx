@@ -10,7 +10,7 @@ import { useChange } from '../../../contexts/ChangeProvider';
 import { setProfile } from '../../../redux/actions';
 import { useAppSelector } from '../../../redux/hooks';
 import { selectProfileUser } from '../../../redux/selectors';
-import { createCustomAbout, updateCustomAbout, updateProfile } from '../../../utils';
+import { createCustomAbout, destroyCustomAbout, updateCustomAbout, updateProfile } from '../../../utils';
 import { DropdownItem } from '../../Dropdown';
 import { SettingsMain } from '../SettingsMain';
 import { AboutInput } from './AboutInput';
@@ -28,7 +28,7 @@ const initialState = {
     customAbouts: any[];
 }
 type Action = {
-    type: 'update' | 'set' | 'updateCustom' | 'addCustom';
+    type: 'update' | 'set' | 'updateCustom' | 'addCustom' | 'removeCustom';
     payload?: any;
 }
 const reducer = (state=initialState, action: Action) => {
@@ -67,6 +67,13 @@ const reducer = (state=initialState, action: Action) => {
             return {
                 ...state,
                 customAbouts: [...state.customAbouts, ...[newCustom]]
+            }
+        }
+        case 'removeCustom': {
+            const newCustoms = state.customAbouts.filter(custom => custom.id !== action.payload);
+            return {
+                ...state,
+                customAbouts: newCustoms
             }
         }
     }
@@ -126,6 +133,7 @@ export const AboutPage = () => {
 
         // Updating custom abouts
         if(JSON.stringify(newProfile.customAbouts) !== JSON.stringify(user.customAbouts)) {
+            let foundAbouts = [];
             for(let about of newProfile.customAbouts) {
                 // If has no id, create new about
                 if(!about.id) {
@@ -135,6 +143,12 @@ export const AboutPage = () => {
                     // Else update about
                     updateCustomAbout(about);
                 }
+                foundAbouts.push(about.id);
+            }
+            // If should destroy about
+            if(foundAbouts.length < user.customAbouts.length) {
+                const about = user.customAbouts.find(about => !foundAbouts.includes(about.id));
+                await destroyCustomAbout(about.id);
             }
         }
     }
@@ -172,6 +186,12 @@ export const AboutPage = () => {
     const addCustomAbout = () => {
         dispatch({
             type: 'addCustom'
+        })
+    }
+    const removeAbout = (id: string) => {
+        dispatch({
+            type: 'removeCustom',
+            payload: id
         })
     }
 
@@ -227,6 +247,7 @@ export const AboutPage = () => {
                         isCustomizable={true}
                         customizedUpdate={onCustomizedUpdate}
                         id={id}
+                        onRemove={() => removeAbout(id)}
                     />
                 )
             })}

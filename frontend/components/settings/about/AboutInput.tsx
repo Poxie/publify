@@ -9,6 +9,7 @@ import { Input } from '../../Input';
 import { Dropdown, DropdownItem } from '../../Dropdown';
 import { useEffect } from 'react';
 import { EDUCATION_UNICODE, LOCATION_UNICODE, RELATIONSHIP_UNICODE } from '../../../utils/constants';
+import { CloseIcon } from '../../../icons/CloseIcon';
 
 const determineDefaultEmoji = (type: Props['type'], emoji: string) => {
     if(emoji) {
@@ -42,8 +43,9 @@ type Props = {
     isCustomizable?: boolean;
     customizedUpdate?: ({ id, label, emoji, value }) => void;
     id?: string;
+    onRemove?: () => void;
 }
-export const AboutInput: React.FC<Props> = ({ type, label, defaultValue, inputType='input', dropdownItems, activeDropdownItem, onChange, isCustomizable, customizedUpdate, emoji, id }) => {
+export const AboutInput: React.FC<Props> = ({ type, label, defaultValue, inputType='input', dropdownItems, activeDropdownItem, onChange, isCustomizable, customizedUpdate, emoji, onRemove, id }) => {
     const [value, setValue] = useState(defaultValue || '');
     const [activeEmoji, setActiveEmoji] = useState<string>(determineDefaultEmoji(type, emoji));
     const [emojiPickerOpen, setEmojiPickerOpen] = useState(false);
@@ -78,6 +80,11 @@ export const AboutInput: React.FC<Props> = ({ type, label, defaultValue, inputTy
     const className = [styles['about-input'], isCustomizable && styles['customizable']].join(' ');
     return(
         <div className={className}>
+            {onRemove && (
+                <div className={styles['remove-about']} onClick={onRemove}>
+                    <CloseIcon />
+                </div>
+            )}
             {!isCustomizable && (
                 <span className={styles['about-label']}>
                     {label}

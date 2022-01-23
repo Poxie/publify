@@ -60,6 +60,7 @@
 
 // About
 .about-input {
+    position: relative;
     &:not(:last-child) {
         margin-bottom: 15px;
     }
@@ -70,6 +71,17 @@
         padding: 15px;
         background-color: var(--background-secondary);
         border-radius: var(--border-radius);
+    }
+}
+.remove-about {
+    position: absolute;
+    right: 15px;
+    top: 5px;
+
+    svg {
+        fill: var(--icon-color);
+        width: 14px;
+        cursor: pointer;
     }
 }
 .custom-label {
