@@ -1,7 +1,7 @@
 import { PostType, UserType } from "./types";
 import { GraphQLClient } from 'graphql-request';
 import { CREATE_COMMENT, CREATE_LIKE, CREATE_POST, CREATE_USER, DESTROY_COMMENT, DESTROY_LIKE, DESTROY_POST, UPDATE_PROFILE } from "./mutations";
-import { GET_COMMENTS_BY_PARENT_ID, GET_ME, GET_POSTS_BY_AUTHOR_ID, GET_POST_BY_ID, GET_USER_BY_ID, GET_USER_BY_USERNAME, LOGIN } from "./queries";
+import { GET_COMMENTS_BY_PARENT_ID, GET_ME, GET_MEDIA_BY_AUTHOR_ID, GET_POSTS_BY_AUTHOR_ID, GET_POST_BY_ID, GET_USER_BY_ID, GET_USER_BY_USERNAME, LOGIN } from "./queries";
 import { API_ENDPOINT, IMAGE_ENDPOINT } from "./constants";
 
 // Getting access token
@@ -42,6 +42,11 @@ export const getUserByUsername = async (username: string) => {
 export const getUserById = async (id: string) => {
     const user = await request(GET_USER_BY_ID, { id });
     return user
+}
+// Getting media by author ID
+export const getMediaByAuthorId = async (id: string) => {
+    const media = await request(GET_MEDIA_BY_AUTHOR_ID, { id });
+    return media;
 }
 // Getting posts by author ID
 export const getPostsByAuthorId: (userId: string, startIndex?: number, endIndex?: number) => Promise<PostType[]> = async (userId, startIndex, endIndex ) => {

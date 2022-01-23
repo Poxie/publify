@@ -13,6 +13,7 @@
     padding: 12px;
     background-color: var(--background-secondary);
     margin-top: 10px;
+    margin-bottom: 10px;
 
     a {
         text-decoration: none;
@@ -39,9 +40,6 @@
     }
 }
 // Profile overview
-.profile-overview {
-    margin-top: 10px;
-}
 .profile-sidebar {
     min-width: 300px;
     margin-right: 10px;
@@ -275,6 +273,22 @@
     &:hover {
         background-color: var(--background-tertiary);
     }
+}
+
+// Profile images
+.image-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    padding: 15px;
+    background-color: var(--background-secondary);
+    border-radius: var(--border-radius);
+}
+.image-item {
+    position: relative;
+    height: 160px;
+    border-radius: var(--border-radius);
+    overflow: hidden;
 }
 
 @media only screen and (max-width: 700px) {

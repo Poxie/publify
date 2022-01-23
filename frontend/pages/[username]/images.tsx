@@ -3,6 +3,7 @@ import Head from 'next/head';
 import React from 'react';
 import { ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
+import { ProfileImages } from '../../components/user/images/ProfileImages';
 import { MainLayout } from '../../layouts/MainLayout';
 import { ProfileLayout } from '../../layouts/ProfileLayout';
 import { setProfile } from '../../redux/actions';
@@ -27,6 +28,8 @@ export default function Images({ user }: Props) {
             <meta name="title" content={`${user.displayName} | Images`} />
             <meta name="description" content={`View all of the images ${user.displayName} has posted.`} />
         </Head>
+        
+        <ProfileImages />
         </>
     )
 }

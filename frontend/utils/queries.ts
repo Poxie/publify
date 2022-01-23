@@ -26,6 +26,18 @@ export const GET_USER_BY_ID = gql`
     }
 `
 
+export const GET_MEDIA_BY_AUTHOR_ID = gql`
+    query($id: String!) {
+        getUserMedia(id: $id) {
+            id
+            parentId
+            width
+            height
+            ratio
+        }
+    }
+`
+
 export const GET_POSTS_BY_AUTHOR_ID = gql`
     query($id: String!, $startIndex: Int, $endIndex: Int) {
         getPostsByAuthorId(id: $id, startIndex: $startIndex, endIndex: $endIndex) {
