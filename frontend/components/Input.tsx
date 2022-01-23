@@ -13,7 +13,7 @@ interface Props {
     className?: string;
     clearOnSubmit?: boolean;
     focusOnMount?: boolean;
-    type?: 'primary' | 'secondary';
+    type?: 'primary' | 'secondary' | 'transparent';
 }
 export const Input: React.FC<Props> = ({ placeholder, defaultValue, onSubmit, onChange, label, textArea, className, clearOnSubmit, onBlur, focusOnMount, type='primary' }) => {
     const [value, setValue] = useState(defaultValue || '');
@@ -58,7 +58,8 @@ export const Input: React.FC<Props> = ({ placeholder, defaultValue, onSubmit, on
         textArea ? styles['textarea'] : '',
         className ? className : '',
         type === 'primary' ? styles['primary'] : '',
-        type === 'secondary' ? styles['secondary'] : ''
+        type === 'secondary' ? styles['secondary'] : '',
+        type === 'transparent' && styles['transparent']
     ].join(' ');
     return(
         <form onSubmit={handleSubmit}>

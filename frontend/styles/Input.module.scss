@@ -21,7 +21,10 @@
         background-color: var(--background-tertiary);
         border: 1px solid var(--background-primary);
     }
-    
+    &.transparent {
+        background-color: transparent;
+        border: 1px solid var(--background-tertiary);
+    }
 }
 .textarea {
     resize: vertical;
