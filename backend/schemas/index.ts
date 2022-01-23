@@ -111,5 +111,10 @@ export const typeDefs = gql`
             emoji: String
             value: String
         ): Boolean
+        createCustomAbout(
+            label: String!
+            emoji: String!
+            value: String!
+        ): CustomAbout
     }
 `

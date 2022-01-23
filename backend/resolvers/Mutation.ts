@@ -1,4 +1,4 @@
-import { createtPostLike, destroyPost, createPost, destroyPostLike, generateUserId, getPostById, getUserById, insertUser, createComment, destroyComment, getCommentById, createMedia, updateProfileProperties, saveUserImage, getDominantColor, updateCustomAbout } from "../logic/db-actions";
+import { createtPostLike, destroyPost, createPost, destroyPostLike, generateUserId, getPostById, getUserById, insertUser, createComment, destroyComment, getCommentById, createMedia, updateProfileProperties, saveUserImage, getDominantColor, updateCustomAbout, insertCustomAbout } from "../logic/db-actions";
 import { Comment, Like } from "../types";
 import { DatabaseUser } from "../types/DatabaseUser";
 import { Post } from "../types/Post";
@@ -186,5 +186,12 @@ export const Mutation = {
 
         await updateCustomAbout(args.id, propertiesToUpdate);
         return true;
+    },
+    createCustomAbout: async (parent: any, args: any, context: any) => {
+        const user = await checkUserExistence(context);
+        args.userId = user.id;
+
+        const customAbout = await insertCustomAbout(args);
+        return customAbout;
     }
 }

@@ -11,6 +11,7 @@ import {
     DELETE_LIKE, 
     DELETE_POST, 
     INSERT_COMMENT, 
+    INSERT_CUSTOM_ABOUT, 
     INSERT_LIKE, 
     INSERT_MEDIA, 
     INSERT_POST, 
@@ -414,4 +415,25 @@ export const updateCustomAbout: (id: string, propertiesToUpdate: Property[]) => 
     await connection.promise().query(query, [...propertyValues, ...[id]]);
 
     return true;
+}
+type InitialCustomAbout = {
+    label: string;
+    emoji: string;
+    value: string;
+    userId: string;
+}
+type CustomAboutPacket = CustomAbout & RowDataPacket;
+const generateAboutId: () => Promise<string> = async () => {
+    const id = randomId();
+
+    // Checking if ID exists
+    const [about] = await connection.promise().query<CustomAboutPacket[]>(`SELECT * FROM about WHERE id = ?`, [id]);
+    if(about.length) return await generateAboutId();
+
+    return id;
+}
+export const insertCustomAbout: ({ label, emoji, value }: InitialCustomAbout) => Promise<CustomAbout> = async ({ userId, label, emoji, value }) => {
+    const id = await generateAboutId();
+    const [about] = await connection.promise().query<CustomAboutPacket[]>(INSERT_CUSTOM_ABOUT, [id, userId, label, value, emoji]);
+    return about[0];
 }

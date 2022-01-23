@@ -18,6 +18,7 @@ export const INSERT_LIKE = 'INSERT INTO `likes` (userId, parentId) VALUES (?, ?)
 export const INSERT_POST = 'INSERT INTO `posts` (id, authorId, content, createdAt) VALUES (?, ?, ?, ?)';
 export const INSERT_COMMENT = 'INSERT INTO `comments` (id, parentId, authorId, content, createdAt) VALUES (?, ?, ?, ?, ?)';
 export const INSERT_MEDIA = 'INSERT INTO `media` (id, parentId, width, height, ratio) VALUES (?, ?, ?, ?, ?)';
+export const INSERT_CUSTOM_ABOUT = 'INSERT INTO about (id, userId, label, value, emoji) VALUES (?, ?, ?, ?, ?)';
 
 // Deleteions
 export const DELETE_LIKE = 'DELETE FROM `likes` WHERE parentId = ? AND userId = ?';
