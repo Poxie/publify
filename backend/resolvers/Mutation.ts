@@ -1,4 +1,4 @@
-import { createtPostLike, destroyPost, createPost, destroyPostLike, generateUserId, getPostById, getUserById, insertUser, createComment, destroyComment, getCommentById, createMedia, updateProfileProperties, saveUserImage, getDominantColor } from "../logic/db-actions";
+import { createtPostLike, destroyPost, createPost, destroyPostLike, generateUserId, getPostById, getUserById, insertUser, createComment, destroyComment, getCommentById, createMedia, updateProfileProperties, saveUserImage, getDominantColor, updateCustomAbout } from "../logic/db-actions";
 import { Comment, Like } from "../types";
 import { DatabaseUser } from "../types/DatabaseUser";
 import { Post } from "../types/Post";
@@ -167,5 +167,24 @@ export const Mutation = {
         // Updating user profile properties
         const newUser = await updateProfileProperties(user.id, propertiesToUpdate);
         return newUser;
+    },
+    updateCustomAbout: async (parent: any, args: any, context: any) => {
+        const user = await checkUserExistence(context);
+
+        // Defining what properties to update
+        const propertiesToUpdate = [];
+
+        // Looping through existing keys in args
+        for(const key of Object.keys(args)) {
+            if(key === 'id') continue;
+            // Getting value of property
+            let value = args[key];
+
+            // Else append to proprties to add
+            propertiesToUpdate.push({ key, value });
+        }
+
+        await updateCustomAbout(args.id, propertiesToUpdate);
+        return true;
     }
 }

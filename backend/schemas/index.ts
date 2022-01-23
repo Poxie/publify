@@ -1,6 +1,14 @@
 import { gql } from "apollo-server";
 
 export const typeDefs = gql`
+    type CustomAbout {
+        userId: String!
+        emoji: String!
+        label: String!
+        value: String!
+        type: String!
+        id: String!
+    }
     type User {
         id: String!
         username: String!
@@ -13,6 +21,7 @@ export const typeDefs = gql`
         location: String
         education: String
         relationship: String
+        customAbouts: [CustomAbout]
     }
     type Post {
         id: String!
@@ -96,5 +105,11 @@ export const typeDefs = gql`
             education: String
             relationship: String
         ): User
+        updateCustomAbout(
+            id: String!
+            label: String
+            emoji: String
+            value: String
+        ): Boolean
     }
 `

@@ -1,6 +1,6 @@
-import { PostType, UserType } from "./types";
+import { CustomAbout, PostType, UserType } from "./types";
 import { GraphQLClient } from 'graphql-request';
-import { CREATE_COMMENT, CREATE_LIKE, CREATE_POST, CREATE_USER, DESTROY_COMMENT, DESTROY_LIKE, DESTROY_POST, UPDATE_PROFILE } from "./mutations";
+import { CREATE_COMMENT, CREATE_LIKE, CREATE_POST, CREATE_USER, DESTROY_COMMENT, DESTROY_LIKE, DESTROY_POST, UPDATE_CUSTOM_ABOUT, UPDATE_PROFILE } from "./mutations";
 import { GET_COMMENTS_BY_PARENT_ID, GET_ME, GET_MEDIA_BY_AUTHOR_ID, GET_POSTS_BY_AUTHOR_ID, GET_POST_BY_ID, GET_USER_BY_ID, GET_USER_BY_USERNAME, LOGIN } from "./queries";
 import { API_ENDPOINT, IMAGE_ENDPOINT } from "./constants";
 
@@ -100,6 +100,17 @@ export const destroyComment: (id: string) => Promise<boolean> = async (id) => {
 export const updateProfile: (user: UserType) => Promise<UserType> = async (user) => {
     const profile = await request(UPDATE_PROFILE, user);
     return profile
+}
+
+// Update custom about
+type PartialCustomAbout = {
+    id: string;
+    label: string;
+    emoji: string;
+    value: string;
+};
+export const updateCustomAbout: (about: PartialCustomAbout) => Promise<void> = async (about) => {
+    await request(UPDATE_CUSTOM_ABOUT, about)
 }
 
 // Register

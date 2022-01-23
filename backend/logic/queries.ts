@@ -10,6 +10,7 @@ export const SELECT_LIKES_BT_PARENT_ID = 'SELECT * FROM `likes` WHERE parentId =
 export const SELECT_COMMENT_BY_ID = 'SELECT * FROM `comments` WHERE id = ?';
 export const SELECT_COMMENTS_BY_PARENT_ID = 'SELECT * FROM `comments` WHERE parentId = ?';
 export const SELECT_COMMENT_COUNT_BY_PARENT_ID = 'SELECT count(*) AS commentCount FROM `comments` WHERE parentId = ?';
+export const SELECT_CUSTOM_ABOUTS = 'SELECT * FROM about WHERE userId = ?';
 
 // Insertions
 export const INSERT_USER = 'INSERT INTO `users` (id, username, password, displayName, avatar, banner, color) VALUES (?, ?, ?, ?, ?, ?, ?)';

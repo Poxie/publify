@@ -11,6 +11,14 @@ export const USER_PROPERTIES = `
     location
     education
     relationship
+    customAbouts {
+        label
+        type
+        emoji
+        value
+        userId
+        id
+    }
 `
 
 export const GET_USER_BY_USERNAME = gql`

@@ -2,7 +2,7 @@ import { createWriteStream, existsSync, readFile } from 'fs';
 import path from 'path';
 import { connection } from "../server"
 import { Post as PostType } from "../types/Post"
-import { UserType } from "../types/UserType"
+import { CustomAbout as CustomAboutType, UserType } from "../types/UserType"
 import { Media as MediaType } from "../types/Media";
 import { DatabaseUser } from "../types/DatabaseUser";
 import { Comment as CommentType, Like as LikeType } from "../types";
@@ -18,6 +18,7 @@ import {
     SELECT_COMMENTS_BY_PARENT_ID, 
     SELECT_COMMENT_BY_ID, 
     SELECT_COMMENT_COUNT_BY_PARENT_ID, 
+    SELECT_CUSTOM_ABOUTS, 
     SELECT_LIKES_BT_PARENT_ID, 
     SELECT_MEDIA_BY_AUTHOR_ID, 
     SELECT_MEDIA_BY_ID, 
@@ -39,16 +40,26 @@ type Post = PostType & RowDataPacket;
 type Media = MediaType & RowDataPacket;
 type Like = LikeType & RowDataPacket;
 type Comment = CommentType & RowDataPacket;
+type CustomAbout = CustomAboutType & RowDataPacket;
 
+// Getting custom abouts
+export const getCustomAboutsByUserId = async (userId: string) => {
+    const [abouts] = await connection.promise().query<CustomAbout[]>(SELECT_CUSTOM_ABOUTS, [userId]);
+    return abouts;
+}
 // Getting user by ID
 export const getUserById: (id: string) => Promise<DatabaseUser> = async (id) => {
     const [rows] = await connection.promise().query<User[]>(SELECT_USER_BY_ID, [id]);
-    return rows[0];
+    const user = rows[0];
+    user.customAbouts = await getCustomAboutsByUserId(user.id);
+    return user;
 }
 // Getting user by username
 export const getUserByUsername: (username: string) => Promise<DatabaseUser | undefined> = async (username) => {
     const [rows] = await connection.promise().query<User[]>(SELECT_USER_BY_USERNAME, [username])
-    return rows[0];
+    const user = rows[0];
+    user.customAbouts = await getCustomAboutsByUserId(user.id);
+    return user;
 }
 
 // Getting post by ID
@@ -389,4 +400,18 @@ export const updateProfileProperties: (userId: string, properties: Property[]) =
     // Fetching new user
     const user = await getUserById(userId);
     return user;
+}
+export const updateCustomAbout: (id: string, propertiesToUpdate: Property[]) => Promise<boolean> = async (id, properties) => {
+    let query = `UPDATE about SET `;
+
+    // We can use prop.key here without worrying because prop.key cannot be inputted maliciously thanks to GraphQL
+    const options = properties.map(prop => `${prop.key} = ?`).join(' ,');
+    query += options;
+    query += ` WHERE id = ?`;
+    
+    // Getting property values from properties
+    const propertyValues = properties.map(prop => prop.value);
+    await connection.promise().query(query, [...propertyValues, ...[id]]);
+
+    return true;
 }

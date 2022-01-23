@@ -1,3 +1,11 @@
+export type CustomAbout = {
+    userId: string;
+    emoji: string;
+    label: string;
+    value: string;
+    type: 'custom';
+    id: string;
+}
 export type UserType = {
     username: string;
     displayName: string;
@@ -9,6 +17,7 @@ export type UserType = {
     location?: string;
     education?: string;
     relationship?: string;
+    customAbouts?: CustomAbout[];
 }
 
 export type PostType = {

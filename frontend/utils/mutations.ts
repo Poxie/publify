@@ -106,3 +106,9 @@ export const UPDATE_PROFILE = gql`
         }
     }
 `
+
+export const UPDATE_CUSTOM_ABOUT = gql`
+    mutation($id: String!, $emoji: String, $label: String, $value: String) {
+        updateCustomAbout(id: $id, emoji: $emoji, label: $label, value: $value)
+    }
+`
