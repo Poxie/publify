@@ -137,8 +137,11 @@ export const AboutPage = () => {
             for(let about of newProfile.customAbouts) {
                 // If has no id, create new about
                 if(!about.id) {
-                    const newAbout = await createCustomAbout(about);
-                    about = newAbout;
+                    // Makes sure all required values are present
+                    if(about.label && about.value) {
+                        const newAbout = await createCustomAbout(about);
+                        about = newAbout;
+                    }
                 } else {
                     // Else update about
                     updateCustomAbout(about);
