@@ -10,7 +10,8 @@ export const SELECT_LIKES_BT_PARENT_ID = 'SELECT * FROM `likes` WHERE parentId =
 export const SELECT_COMMENT_BY_ID = 'SELECT * FROM `comments` WHERE id = ?';
 export const SELECT_COMMENTS_BY_PARENT_ID = 'SELECT * FROM `comments` WHERE parentId = ?';
 export const SELECT_COMMENT_COUNT_BY_PARENT_ID = 'SELECT count(*) AS commentCount FROM `comments` WHERE parentId = ?';
-export const SELECT_CUSTOM_ABOUTS = 'SELECT * FROM about WHERE userId = ?';
+export const SELECT_CUSTOM_ABOUTS = 'SELECT * FROM `about` WHERE userId = ?';
+export const GET_CUSTOM_ABOUT_BY_ID = 'SELECT * FROM `about` WHERE id = ?';
 
 // Insertions
 export const INSERT_USER = 'INSERT INTO `users` (id, username, password, displayName, avatar, banner, color) VALUES (?, ?, ?, ?, ?, ?, ?)';
@@ -18,7 +19,7 @@ export const INSERT_LIKE = 'INSERT INTO `likes` (userId, parentId) VALUES (?, ?)
 export const INSERT_POST = 'INSERT INTO `posts` (id, authorId, content, createdAt) VALUES (?, ?, ?, ?)';
 export const INSERT_COMMENT = 'INSERT INTO `comments` (id, parentId, authorId, content, createdAt) VALUES (?, ?, ?, ?, ?)';
 export const INSERT_MEDIA = 'INSERT INTO `media` (id, parentId, width, height, ratio) VALUES (?, ?, ?, ?, ?)';
-export const INSERT_CUSTOM_ABOUT = 'INSERT INTO about (id, userId, label, value, emoji) VALUES (?, ?, ?, ?, ?)';
+export const INSERT_CUSTOM_ABOUT = 'INSERT INTO `about` (id, userId, label, value, emoji) VALUES (?, ?, ?, ?, ?)';
 
 // Deleteions
 export const DELETE_LIKE = 'DELETE FROM `likes` WHERE parentId = ? AND userId = ?';

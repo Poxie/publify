@@ -11,6 +11,7 @@ import {
     DELETE_CUSTOM_ABOUT,
     DELETE_LIKE, 
     DELETE_POST, 
+    GET_CUSTOM_ABOUT_BY_ID, 
     INSERT_COMMENT, 
     INSERT_CUSTOM_ABOUT, 
     INSERT_LIKE, 
@@ -435,10 +436,15 @@ const generateAboutId: () => Promise<string> = async () => {
 }
 export const insertCustomAbout: ({ label, emoji, value }: InitialCustomAbout) => Promise<CustomAbout> = async ({ userId, label, emoji, value }) => {
     const id = await generateAboutId();
-    const [about] = await connection.promise().query<CustomAboutPacket[]>(INSERT_CUSTOM_ABOUT, [id, userId, label, value, emoji]);
-    return about[0];
+    await connection.promise().query<CustomAboutPacket[]>(INSERT_CUSTOM_ABOUT, [id, userId, label, value, emoji]);
+    const about = await getCustomAboutById(id);
+    return about;
 }
 export const destroyCustomAbout: (id: string) => Promise<boolean> = async (id) => {
     await connection.promise().query(DELETE_CUSTOM_ABOUT, [id]);
     return true;
+}
+export const getCustomAboutById: (id: string) => Promise<CustomAbout> = async (id) => {
+    const [abouts] = await connection.promise().query<CustomAbout[]>(GET_CUSTOM_ABOUT_BY_ID, [id]);
+    return abouts[0];
 }
