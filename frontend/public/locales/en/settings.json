@@ -5,5 +5,8 @@
     "notificationsTab": "Notifications",
     "languagesTab": "Languages",
     "displayNameLabel": "Display Name",
-    "bioLabel": "Bio"
+    "bioLabel": "Bio",
+    "single": "Single",
+    "inRelationship": "In a relationship",
+    "complicated": "Complicated"
 }

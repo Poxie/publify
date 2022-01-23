@@ -5,5 +5,8 @@
     "notificationsTab": "Notifikationer",
     "languagesTab": "Språk",
     "displayNameLabel": "Visningsnamn",
-    "bioLabel": "Om mig"
+    "bioLabel": "Om mig",
+    "single": "Single",
+    "inRelationship": "I ett förhållande",
+    "complicated": "Komplicerat"
 }
