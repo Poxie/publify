@@ -6,6 +6,9 @@
     "languagesTab": "Languages",
     "displayNameLabel": "Display Name",
     "bioLabel": "Bio",
+    "relationshipLabel": "Relationship",
+    "educationLabel": "Education",
+    "locationLabel": "Location",
     "single": "Single",
     "inRelationship": "In a relationship",
     "complicated": "Complicated"

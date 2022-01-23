@@ -107,19 +107,19 @@ export const AboutPage = () => {
         <SettingsMain title={'About'}>
             <AboutInput 
                 type={'location'}
-                label={'Location'}
+                label={t('locationLabel')}
                 onChange={value => dispatch(updateUserProperty('location', value))}
                 defaultValue={location}
             />
             <AboutInput 
-                label={'Education'}
                 type={'education'}
+                label={t('educationLabel')}
                 onChange={value => dispatch(updateUserProperty('education', value))}
                 defaultValue={education}
             />
             <AboutInput 
-                label={'Relationship'}
                 type={'relationship'}
+                label={t('relationshipLabel')}
                 inputType={'dropdown'}
                 dropdownItems={relationShipItems}
                 activeDropdownItem={relationship || relationShipItems[0].text}
