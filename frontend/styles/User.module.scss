@@ -7,6 +7,50 @@
     justify-content: center;
 }
 
+// Profile header
+.profile-header {
+    width: inherit;
+}
+.sticky-header {
+    position: fixed;
+    top: -120px;
+    transition: top .3s;
+    background-color: var(--background-secondary);
+    border-bottom: 1px solid var(--background-tertiary);
+    width: inherit;
+    z-index: 20;
+    padding: 15px;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+
+    .avatar {
+        margin-right: 10px;
+    }
+    .sticky-username, .sticky-options, .avatar {
+        opacity: 0;
+        transform: translateY(-5px);
+        transition: opacity .3s, transform .3s;
+    }
+
+    &.visible {
+        top: 0;
+
+        .avatar, .sticky-username, .sticky-options {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .avatar {
+            transition-delay: .3s;
+        }
+        .sticky-username {
+            transition-delay: .4s;
+        }
+        .sticky-options {
+            transition-delay: .5s;
+        }
+    }
+}
+
 // Profile navigation
 .navigation {
     border-radius: var(--border-radius);
