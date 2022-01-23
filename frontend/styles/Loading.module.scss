@@ -23,6 +23,15 @@
         background-color: var(--background-secondary);
     }
 }
+.loading-images {
+    .loading-image {
+        margin-bottom: 10px;
+    }
+}
+.loading-image {
+    background-color: var(--background-secondary);
+    border-radius: var(--border-radius);
+}
 
 .dot-flashing {
     --dot-size: 8px;
