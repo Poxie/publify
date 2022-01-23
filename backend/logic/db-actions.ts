@@ -19,6 +19,7 @@ import {
     SELECT_COMMENT_BY_ID, 
     SELECT_COMMENT_COUNT_BY_PARENT_ID, 
     SELECT_LIKES_BT_PARENT_ID, 
+    SELECT_MEDIA_BY_AUTHOR_ID, 
     SELECT_MEDIA_BY_ID, 
     SELECT_MEDIA_BY_POST_ID, 
     SELECT_POSTS_BY_AUTHOR_ID, 
@@ -294,6 +295,11 @@ export const generateMediaId: () => Promise<string> = async () => {
     if(media) return await generateMediaId();
 
     return id;
+}
+// Getitng media by authorId
+export const getMediaByAuthorId: (authorId: string) => Promise<Media[]> = async (authorId) => {
+    const [media] = await connection.promise().query<Media[]>(SELECT_MEDIA_BY_AUTHOR_ID, [authorId]);
+    return media;
 }
 
 // Saving images

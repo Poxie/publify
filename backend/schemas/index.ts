@@ -55,6 +55,7 @@ export const typeDefs = gql`
         getUserByUsername(username: String!): User
         getUserById(id: String!): User
         getPostById(id: String!): Post
+        getUserMedia(id: String!, startIndex: Int, endIndex: Int): [Media]
         getPostsByAuthorId(id: String!, startIndex: Int, endIndex: Int): [Post]
         getCommentsByParentId(parentId: String!): [Comment]!
         login(username: String!, password: String!): AuthData!

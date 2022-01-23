@@ -5,6 +5,7 @@ export const SELECT_POST_BY_ID = 'SELECT * FROM `posts` WHERE id = ?';
 export const SELECT_POSTS_BY_AUTHOR_ID = 'SELECT * FROM `posts` WHERE authorId = ? ORDER BY createdAt DESC LIMIT ?, ?';
 export const SELECT_MEDIA_BY_POST_ID = 'SELECT * FROM `media` WHERE parentId = ?';
 export const SELECT_MEDIA_BY_ID = 'SELECT * FROM `media` WHERE id = ?';
+export const SELECT_MEDIA_BY_AUTHOR_ID = 'SELECT * FROM `media` WHERE authorId = ?'
 export const SELECT_LIKES_BT_PARENT_ID = 'SELECT * FROM `likes` WHERE parentId = ?';
 export const SELECT_COMMENT_BY_ID = 'SELECT * FROM `comments` WHERE id = ?';
 export const SELECT_COMMENTS_BY_PARENT_ID = 'SELECT * FROM `comments` WHERE parentId = ?';
