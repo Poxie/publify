@@ -9,12 +9,13 @@ import { useTranslation } from 'next-i18next';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setPreviewImages } from '../../redux/actions';
+import Link from 'next/link';
 
 const IMAGE_WIDTH = 148;
 const FULL_WIDTH = 300;
 export const ProfileMediaPreview = () => {
     const { t } = useTranslation('profile');
-    const { id } = useAppSelector(state => selectProfileUser(state));
+    const { id, username } = useAppSelector(state => selectProfileUser(state));
     const dispatch = useDispatch();
     
     // Getting posts media
@@ -71,9 +72,11 @@ export const ProfileMediaPreview = () => {
                     {t('images')}
                 </span>
                 {media && (
-                    <span className={styles['preview-header-more']}>
-                        {t('viewMore')}
-                    </span>
+                    <Link href={`/${username}/images`}>
+                        <span className={styles['preview-header-more']}>
+                            {t('viewMore')}
+                        </span>
+                    </Link>
                 )}
             </Flex>
             {media && (
