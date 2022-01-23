@@ -1,11 +1,15 @@
 import { createComment, createLike, destroyPost, destroyLike, getCommentsByParentId, getPostsByAuthorId, publishPost, destroyComment } from "../../utils"
-import { PostType, UserType } from "../../utils/types";
-import { ADD_ACTIVE_POST_LIKE, ADD_COMMENT, ADD_COMMENT_LIKE, ADD_POST_LIKE, CREATE_NOTIFICATION, CREATE_POST, DESTROY_NOTIFICATION, LOAD_MORE_POSTS, REMOVE_ACTIVE_POST_LIKE, REMOVE_COMMENT, REMOVE_COMMENT_LIKE, REMOVE_POST, REMOVE_POST_LIKE, RESET_COMMENTS, RESET_NOTIFICATION, SET_COMMENTS, SET_POST, SET_POSTS, SET_PROFILE } from "../actionTypes"
+import { Media, PostType, UserType } from "../../utils/types";
+import { ADD_ACTIVE_POST_LIKE, ADD_COMMENT, ADD_COMMENT_LIKE, ADD_POST_LIKE, CREATE_NOTIFICATION, CREATE_POST, DESTROY_NOTIFICATION, LOAD_MORE_POSTS, REMOVE_ACTIVE_POST_LIKE, REMOVE_COMMENT, REMOVE_COMMENT_LIKE, REMOVE_POST, REMOVE_POST_LIKE, RESET_COMMENTS, RESET_NOTIFICATION, SET_COMMENTS, SET_POST, SET_POSTS, SET_PROFILE, SET_PROFILE_IMAGES } from "../actionTypes"
 
 // Profle
 export const setProfile = (user: UserType) => ({
     type: SET_PROFILE,
     payload: { user }
+})
+export const setProfileImages = (images: Media[]) => ({
+    type: SET_PROFILE_IMAGES,
+    payload: { images }
 })
 
 // Posts
