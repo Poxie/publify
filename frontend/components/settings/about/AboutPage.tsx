@@ -47,7 +47,7 @@ const updateUserProperty: (property: string, value: any) => Action = (property, 
     payload: { property, value }
 })
 export const AboutPage = () => {
-    const { t } = useTranslation('settings');
+    const { t } = useTranslation();
     const { user, updateUser } = useAuth();
     const { setChanges, hasChanges, close } = useChange();
     const [state, dispatch]: [typeof initialState, Dispatch<Action>] = useReducer(reducer, initialState);
@@ -62,7 +62,7 @@ export const AboutPage = () => {
         dispatch({
             type: 'set',
             payload: about
-        })
+            })
     }, [user]);
     
     const updateRelationShip = (status: string) => {
