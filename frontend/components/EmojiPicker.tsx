@@ -7,7 +7,6 @@ import { Flex } from './Flex';
 import { useState } from 'react';
 import { useMemo } from 'react';
 import { useEffect } from 'react';
-import { useRef } from 'react';
 
 export type Item = typeof sections['Objects']['items'][0];
 export type PartialEmoji = {
@@ -50,17 +49,27 @@ const EmojiSection: React.FC<Section & Methods> = React.memo(({ title, items, on
 
 const EmojiItem: React.FC<Item & Methods> = ({ name, unified, onMouseEnter, onClick }) => {
     const partialItem = { name, unified };
+    const [isVisible, setIsVisible] = useState(false);
+
+    useEffect(() => {
+        setIsVisible(true);
+    }, []);
+
     return(
         <div 
             className={styles['emoji-item']}
             onMouseEnter={() => onMouseEnter(partialItem)}
             onClick={() => onClick(partialItem)}
+            style={{ width: 39.34, height: 39.34 }}
         >
-            <Image 
-                width={29.3}
-                height={29.3}
-                src={getEmojiURL(unified)}
-            />
+            {isVisible && (
+                <Image 
+                    width={29.3}
+                    height={29.3}
+                    src={getEmojiURL(unified)}
+                    alt=""
+                />
+            )}
         </div>
     )
 }
