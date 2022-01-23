@@ -10,7 +10,7 @@ import { useChange } from '../../../contexts/ChangeProvider';
 import { setProfile } from '../../../redux/actions';
 import { useAppSelector } from '../../../redux/hooks';
 import { selectProfileUser } from '../../../redux/selectors';
-import { updateCustomAbout, updateProfile } from '../../../utils';
+import { createCustomAbout, updateCustomAbout, updateProfile } from '../../../utils';
 import { DropdownItem } from '../../Dropdown';
 import { SettingsMain } from '../SettingsMain';
 import { AboutInput } from './AboutInput';
@@ -28,8 +28,8 @@ const initialState = {
     customAbouts: any[];
 }
 type Action = {
-    type: 'update' | 'set' | 'updateCustom';
-    payload: any;
+    type: 'update' | 'set' | 'updateCustom' | 'addCustom';
+    payload?: any;
 }
 const reducer = (state=initialState, action: Action) => {
     switch(action.type) {
@@ -55,6 +55,18 @@ const reducer = (state=initialState, action: Action) => {
             return {
                 ...state,
                 customAbouts: newCustomAbouts
+            }
+        }
+        case 'addCustom': {
+            const newCustom = {
+                type: 'custom',
+                label: '',
+                value: '',
+                emoji: '2754'
+            }
+            return {
+                ...state,
+                customAbouts: [...state.customAbouts, ...[newCustom]]
             }
         }
     }
@@ -94,7 +106,7 @@ export const AboutPage = () => {
         { id: 'complicated', text: t('complicated'), onClick: () => updateRelationShip('complicated') }
     ];
 
-    const onChange = () => {
+    const onChange = async () => {
         const newProfile = {...user, ...state};
         delete newProfile.avatar;
         delete newProfile.banner;
@@ -114,8 +126,15 @@ export const AboutPage = () => {
 
         // Updating custom abouts
         if(JSON.stringify(newProfile.customAbouts) !== JSON.stringify(user.customAbouts)) {
-            for(const about of newProfile.customAbouts) {
-                updateCustomAbout(about);
+            for(let about of newProfile.customAbouts) {
+                // If has no id, create new about
+                if(!about.id) {
+                    const newAbout = await createCustomAbout(about);
+                    about = newAbout;
+                } else {
+                    // Else update about
+                    updateCustomAbout(about);
+                }
             }
         }
     }
@@ -148,6 +167,11 @@ export const AboutPage = () => {
         dispatch({
             type: 'updateCustom',
             payload: { id, label, value, emoji }
+        })
+    }
+    const addCustomAbout = () => {
+        dispatch({
+            type: 'addCustom'
         })
     }
 
@@ -206,6 +230,10 @@ export const AboutPage = () => {
                     />
                 )
             })}
+            <AddAboutItem 
+                onClick={addCustomAbout}
+                type={'custom'}
+            />
         </SettingsMain>
     )
 }

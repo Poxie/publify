@@ -112,3 +112,16 @@ export const UPDATE_CUSTOM_ABOUT = gql`
         updateCustomAbout(id: $id, emoji: $emoji, label: $label, value: $value)
     }
 `
+
+export const ADD_CUSTOM_ABOUT = gql`
+    mutation($emoji: String!, $label: String!, $value: String!) {
+        createCustomAbout(emoji: $emoji, label: $label, value: $value) {
+            id
+            emoji
+            label
+            value
+            type
+            userId
+        }
+    }
+`
