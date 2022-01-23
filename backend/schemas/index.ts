@@ -10,6 +10,9 @@ export const typeDefs = gql`
         posts: [Post]!
         bio: String
         color: String!
+        location: String
+        education: String
+        relationship: String
     }
     type Post {
         id: String!
@@ -83,6 +86,15 @@ export const typeDefs = gql`
         destroyComment(id: String!): Boolean!
 
         # Profile stuff
-        updateProfile(username: String, displayName: String, bio: String, avatar: Upload, banner: Upload): User
+        updateProfile(
+            username: String
+            displayName: String
+            bio: String
+            avatar: Upload
+            banner: Upload
+            location: String
+            education: String
+            relationship: String
+        ): User
     }
 `

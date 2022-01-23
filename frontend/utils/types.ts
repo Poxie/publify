@@ -6,6 +6,9 @@ export type UserType = {
     banner?: string;
     bio: string;
     color: string;
+    location?: string;
+    education?: string;
+    relationship?: string;
 }
 
 export type PostType = {

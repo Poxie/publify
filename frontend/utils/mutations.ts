@@ -1,4 +1,5 @@
 import { gql } from "graphql-request";
+import { USER_PROPERTIES } from "./queries";
 
 export const CREATE_POST = gql`
     mutation($content: String!, $media: [Upload]) {
@@ -99,15 +100,9 @@ export const CREATE_USER = gql`
 `
 
 export const UPDATE_PROFILE = gql`
-    mutation($username: String, $displayName: String, $bio: String, $avatar: Upload, $banner: Upload) {
-        updateProfile(username: $username, displayName: $displayName, bio: $bio, avatar: $avatar, banner: $banner) {
-            username
-            displayName
-            bio
-            avatar
-            banner
-            color
-            id
+    mutation($username: String, $displayName: String, $bio: String, $avatar: Upload, $banner: Upload, $relationship: String, $education: String, $location: String) {
+        updateProfile(username: $username, displayName: $displayName, bio: $bio, avatar: $avatar, banner: $banner, relationship: $relationship, education: $education, location: $location) {
+            ${USER_PROPERTIES}
         }
     }
 `

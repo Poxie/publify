@@ -1,6 +1,6 @@
 import { gql } from 'graphql-request';
 
-const USER_PROPERTIES = `
+export const USER_PROPERTIES = `
     id
     username
     displayName
@@ -8,6 +8,9 @@ const USER_PROPERTIES = `
     banner
     color
     bio
+    location
+    education
+    relationship
 `
 
 export const GET_USER_BY_USERNAME = gql`

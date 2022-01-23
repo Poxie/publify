@@ -63,6 +63,17 @@
     &:not(:last-child) {
         margin-bottom: 15px;
     }
+    form {
+        width: 100%;
+    }
+}
+.dropdown {
+    width: 100%;
+
+    &>div:first-of-type {
+        font-size: 13px;
+        padding: 8px 12px;
+    }
 }
 .about-label {
     font-size: 13px;
