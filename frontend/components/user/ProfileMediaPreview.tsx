@@ -3,21 +3,46 @@ import React from 'react';
 import styles from '../../styles/User.module.scss';
 import { Flex } from '../Flex';
 import { useAppSelector } from '../../redux/hooks';
-import { selectPostMedia } from '../../redux/selectors';
-import { getMediaURL } from '../../utils';
+import { selectProfileImages, selectProfilePreview, selectProfileUser } from '../../redux/selectors';
+import { getMediaByAuthorId, getMediaURL } from '../../utils';
 import { useTranslation } from 'next-i18next';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { setPreviewImages } from '../../redux/actions';
 
 const IMAGE_WIDTH = 148;
 const FULL_WIDTH = 300;
 export const ProfileMediaPreview = () => {
     const { t } = useTranslation('profile');
+    const { id } = useAppSelector(state => selectProfileUser(state));
+    const dispatch = useDispatch();
+    
     // Getting posts media
-    const media = useAppSelector(state => selectPostMedia(state));
+    let media = useAppSelector(state => selectProfilePreview(state));
+    const allMedia = useAppSelector(state => selectProfileImages(state));
 
-    const hasMedia = media.length > 0;
-    const visibleMedia = media.slice(0, 4);
+    // Fetching media if isn't in redux store
+    useEffect(() => {
+        if(media && media[0]?.authorId === id) return;
+        if(allMedia?.length && allMedia[0]?.authorId === id) {
+            const newPreview = allMedia.slice(0, 4);
+            dispatch(setPreviewImages(newPreview));
+            return
+        }
+
+        // Fetching media
+        getMediaByAuthorId(id).then(media => {
+            // Updating media
+            dispatch(setPreviewImages(media));
+        })
+    }, []);
+
+    const visibleMedia = media?.slice(0, 4);
     let height;
-    switch(media.length) {
+    switch(media?.length) {
+        case 0:
+            height = 'unset';
+            break;
         case 1:
             height = 280;
             break;
@@ -33,8 +58,10 @@ export const ProfileMediaPreview = () => {
         default:
             height = 320
     }
+
+    console.log(media);
     return(
-        <div style={hasMedia ? { height } : {height: 'unset'}}>
+        <div style={media ? { height } : {height: 'unset'}}>
             <Flex 
                 className={styles['preview-header']}
                 justifyContent={'space-between'}
@@ -43,13 +70,13 @@ export const ProfileMediaPreview = () => {
                 <span className={styles['preview-header-text']}>
                     {t('images')}
                 </span>
-                {hasMedia && (
+                {media && (
                     <span className={styles['preview-header-more']}>
                         {t('viewMore')}
                     </span>
                 )}
             </Flex>
-            {hasMedia && (
+            {media && (
                 <div 
                     className={styles['preview-container']}
                     style={{gridTemplateColumns: `repeat(${media.length === 1 ? 1 : 2}, 1fr)`}}
@@ -72,7 +99,7 @@ export const ProfileMediaPreview = () => {
                     })}
                 </div>
             )}
-            {!hasMedia && (
+            {media !== null && !media.length && (
                 <span className={styles['preview-empty']}>
                     {t('noMediaFound')}
                 </span>
