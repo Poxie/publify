@@ -7,6 +7,8 @@ import { ProfileImages } from '../../components/user/images/ProfileImages';
 import { MainLayout } from '../../layouts/MainLayout';
 import { ProfileLayout } from '../../layouts/ProfileLayout';
 import { setProfile } from '../../redux/actions';
+import { useAppSelector } from '../../redux/hooks';
+import { selectProfileUser } from '../../redux/selectors';
 import { getUserByUsername } from '../../utils';
 import { UserType } from '../../utils/types';
 
@@ -15,9 +17,12 @@ type Props = {
 }
 export default function Images({ user }: Props) {
     const dispatch = useDispatch();
+    const profile = useAppSelector(state => selectProfileUser(state));
 
     // Updating redux store with user data
-    dispatch(setProfile(user));
+    if(!profile || profile.id !== user.id) {
+        dispatch(setProfile(user));
+    }
 
     return(
         <>

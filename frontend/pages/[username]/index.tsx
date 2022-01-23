@@ -11,6 +11,8 @@ import { UserPage } from '../../components/user/UserPage';
 import { MainLayout } from '../../layouts/MainLayout';
 import { ReactElement } from 'react';
 import { ProfileLayout } from '../../layouts/ProfileLayout';
+import { useAppSelector } from '../../redux/hooks';
+import { selectProfileUser } from '../../redux/selectors';
 
 type Props = {
     user: UserType;
@@ -18,9 +20,12 @@ type Props = {
 export default function User(props: Props) {
     const { user } = props;
     const dispatch = useDispatch();
+    const profile = useAppSelector(state => selectProfileUser(state));
 
     // Updating redux store with user data
-    dispatch(setProfile(user));
+    if(!profile || profile.id !== user.id) {
+        dispatch(setProfile(user));
+    }
 
     return(
         <>
