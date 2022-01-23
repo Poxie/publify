@@ -62,7 +62,7 @@ export const AboutPage = () => {
         dispatch({
             type: 'set',
             payload: about
-            })
+        })
     }, [user]);
     
     const updateRelationShip = (status: string) => {
@@ -70,6 +70,7 @@ export const AboutPage = () => {
     }
 
     const relationShipItems: DropdownItem[] = [
+        { id: 'relationshipN/A', text: t('relationshipN/A'), onClick: () => updateRelationShip('relationshipN/A') },
         { id: 'single', text: t('single'), onClick: () => updateRelationShip('single') },
         { id: 'inRelationship', text: t('inRelationship'), onClick: () => updateRelationShip('inRelationship') },
         { id: 'complicated', text: t('complicated'), onClick: () => updateRelationShip('complicated') }

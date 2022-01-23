@@ -29,5 +29,6 @@
     "locationLabel": "Location",
     "single": "Single",
     "inRelationship": "In a relationship",
-    "complicated": "Complicated"
+    "complicated": "Complicated",
+    "relationshipN/A": "I don't wish to share"
 }

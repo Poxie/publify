@@ -29,5 +29,6 @@
     "locationLabel": "Plats",
     "single": "Single",
     "inRelationship": "I ett förhållande",
-    "complicated": "Komplicerat"
+    "complicated": "Komplicerat",
+    "relationshipN/A": "Jag vill inte dela med mig"
 }
