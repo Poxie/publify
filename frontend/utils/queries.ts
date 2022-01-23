@@ -31,6 +31,7 @@ export const GET_MEDIA_BY_AUTHOR_ID = gql`
         getUserMedia(id: $id) {
             id
             parentId
+            authorId
             width
             height
             ratio

@@ -26,6 +26,7 @@ export const typeDefs = gql`
     type Media {
         id: String!
         parentId: String!
+        authorId: String!
         width: Int
         height: Int
         ratio: Float
