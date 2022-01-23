@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -24,15 +25,21 @@ const NavigationItem: React.FC<Props> = ({ text, path }) => {
 }
 
 export const ProfileNavigation = () => {
+    const { t } = useTranslation('profile');
+
     return(
         <Flex className={styles['navigation']}>
             <NavigationItem 
-                text={'Overview'}
+                text={t('overviewTab')}
                 path={''}
             />
             <NavigationItem 
-                text={'Images'}
+                text={t('imagesTab')}
                 path={'/images'}
+            />
+            <NavigationItem 
+                text={t('aboutTab')}
+                path={'/about'}
             />
         </Flex>
     )

@@ -6,5 +6,8 @@
     "noMediaFound": "This user hasn't posted any media yet.",
     "noPostsFound":" This user hasn't posted anything yet.",
     "openCreatePostModal": "What is on your mind?",
-    "expandPost": "Expand"
+    "expandPost": "Expand",
+    "overviewTab": "Overview",
+    "imagesTab": "Images",
+    "aboutTab": "About"
 }

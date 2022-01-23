@@ -6,5 +6,8 @@
     "noMediaFound": "Denna användare har inte lagt upp några bilder än.",
     "noPostsFound": "Denna användare har inte lagt upp några inlägg än.",
     "openCreatePostModal": "Vad vill du ha sagt?",
-    "expandPost": "Expandera"
+    "expandPost": "Expandera",
+    "overviewTab": "Översikt",
+    "imagesTab": "Bilder",
+    "aboutTab": "Om mig"
 }
