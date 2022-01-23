@@ -14,6 +14,7 @@ import { updateProfile } from '../../../utils';
 import { DropdownItem } from '../../Dropdown';
 import { SettingsMain } from '../SettingsMain';
 import { AboutInput } from './AboutInput';
+import { AddAboutItem } from './AddAboutItem';
 
 const initialState = {
     relationship: undefined,
@@ -80,6 +81,11 @@ export const AboutPage = () => {
         const newProfile = {...user, ...state};
         delete newProfile.avatar;
         delete newProfile.banner;
+
+        // Makes sure it show sthe add item component
+        newProfile.education = newProfile.education || null;
+        newProfile.location = newProfile.location || null;
+
         updateProfile(newProfile).then(profile => {
             updateUser(profile);
             
@@ -113,21 +119,47 @@ export const AboutPage = () => {
         }
     }
 
+    // Adding items
+    const addItem = (type: 'location' | 'education' | 'custom') => {
+        let newProfile = {...user};
+        newProfile[type] = '';
+        updateUser(newProfile);
+        dispatch({ type: 'set', payload: newProfile })
+    }
+
     const { relationship, education, location } = state;
+    const hasLocation = user?.location !== null && user;
+    const hasEducation = user?.education !== null && user;
     return(
         <SettingsMain title={'About'}>
-            <AboutInput 
-                type={'location'}
-                label={t('locationLabel')}
-                onChange={value => dispatch(updateUserProperty('location', value))}
-                defaultValue={location}
-            />
-            <AboutInput 
-                type={'education'}
-                label={t('educationLabel')}
-                onChange={value => dispatch(updateUserProperty('education', value))}
-                defaultValue={education}
-            />
+            {hasLocation && (
+                <AboutInput 
+                    type={'location'}
+                    label={t('locationLabel')}
+                    onChange={value => dispatch(updateUserProperty('location', value))}
+                    defaultValue={location}
+                />
+            )}
+            {!hasLocation && (
+                <AddAboutItem 
+                    type={'location'}
+                    onClick={() => addItem('location')}
+                />
+            )}
+            {hasEducation && (
+                <AboutInput 
+                    type={'education'}
+                    label={t('educationLabel')}
+                    onChange={value => dispatch(updateUserProperty('education', value))}
+                    defaultValue={education}
+                />
+            )}
+            {!hasEducation && (
+                <AddAboutItem 
+                    type={'education'}
+                    onClick={() => addItem('education')}
+                />
+            )}
             <AboutInput 
                 type={'relationship'}
                 label={t('relationshipLabel')}

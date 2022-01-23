@@ -30,5 +30,6 @@
     "single": "Single",
     "inRelationship": "I ett förhållande",
     "complicated": "Komplicerat",
-    "relationshipN/A": "Jag vill inte dela med mig"
+    "relationshipN/A": "Jag vill inte dela med mig",
+    "aboutMeEmpty": "Denna användare har inte delat något ännu."
 }
