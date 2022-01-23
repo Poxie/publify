@@ -109,9 +109,11 @@
     cursor: pointer;
 }
 .add-about-item {
-    margin-bottom: 15px;
     cursor: pointer;
     
+    &:not(:last-child) {
+        margin-bottom: 15px;
+    }
     svg {
         fill: var(--text-muted);
         margin-right: 10px;
