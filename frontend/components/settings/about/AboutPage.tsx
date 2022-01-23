@@ -4,8 +4,12 @@ import { useReducer } from 'react';
 import { useEffect } from 'react';
 import { Dispatch } from 'react';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useAuth } from '../../../contexts/AuthProvider';
 import { useChange } from '../../../contexts/ChangeProvider';
+import { setProfile } from '../../../redux/actions';
+import { useAppSelector } from '../../../redux/hooks';
+import { selectProfileUser } from '../../../redux/selectors';
 import { updateProfile } from '../../../utils';
 import { DropdownItem } from '../../Dropdown';
 import { SettingsMain } from '../SettingsMain';
@@ -47,6 +51,8 @@ export const AboutPage = () => {
     const { user, updateUser } = useAuth();
     const { setChanges, hasChanges, close } = useChange();
     const [state, dispatch]: [typeof initialState, Dispatch<Action>] = useReducer(reducer, initialState);
+    const storedUser = useAppSelector(state => selectProfileUser(state));
+    const reduxDispatch = useDispatch();
 
     // Mounting user inputs
     useEffect(() => {
@@ -60,7 +66,6 @@ export const AboutPage = () => {
     }, [user]);
     
     const updateRelationShip = (status: string) => {
-        const profileUser = user;
         dispatch(updateUserProperty('relationship', status));
     }
 
@@ -76,6 +81,11 @@ export const AboutPage = () => {
         delete newProfile.banner;
         updateProfile(newProfile).then(profile => {
             updateUser(profile);
+            
+            // If current saved profile is same
+            if(profile.id === storedUser?.id) {
+                reduxDispatch(setProfile(profile));
+            }
         })
     }
     const onReset = () => {
