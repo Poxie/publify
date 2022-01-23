@@ -116,5 +116,8 @@ export const typeDefs = gql`
             emoji: String!
             value: String!
         ): CustomAbout
+        destroyCustomAbout(
+            id: String!
+        ): Boolean
     }
 `

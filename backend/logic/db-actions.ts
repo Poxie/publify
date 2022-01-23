@@ -8,6 +8,7 @@ import { DatabaseUser } from "../types/DatabaseUser";
 import { Comment as CommentType, Like as LikeType } from "../types";
 import { 
     DELETE_COMMENT,
+    DELETE_CUSTOM_ABOUT,
     DELETE_LIKE, 
     DELETE_POST, 
     INSERT_COMMENT, 
@@ -436,4 +437,8 @@ export const insertCustomAbout: ({ label, emoji, value }: InitialCustomAbout) =>
     const id = await generateAboutId();
     const [about] = await connection.promise().query<CustomAboutPacket[]>(INSERT_CUSTOM_ABOUT, [id, userId, label, value, emoji]);
     return about[0];
+}
+export const destroyCustomAbout: (id: string) => Promise<boolean> = async (id) => {
+    await connection.promise().query(DELETE_CUSTOM_ABOUT, [id]);
+    return true;
 }
