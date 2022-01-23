@@ -2,3 +2,7 @@ export const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
 export const IMAGE_ENDPOINT = process.env.NEXT_PUBLIC_IMAGE_ENDPOINT;
 export const WEBSITE_ORIGIN = process.env.NEXT_PUBLIC_WEBSITE_ORIGIN;
 export const WEBSITE_NAME = process.env.NEXT_PUBLIC_WEBSITE_NAME;
+
+export const EDUCATION_UNICODE = '1F4BC';
+export const LOCATION_UNICODE = '1F3E0';
+export const RELATIONSHIP_UNICODE = '1F49C';

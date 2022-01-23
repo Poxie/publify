@@ -8,17 +8,18 @@ import { Flex } from '../../Flex';
 import { Input } from '../../Input';
 import { Dropdown, DropdownItem } from '../../Dropdown';
 import { useEffect } from 'react';
+import { EDUCATION_UNICODE, LOCATION_UNICODE, RELATIONSHIP_UNICODE } from '../../../utils/constants';
 
 const determineDefaultEmoji = (type: Props['type']) => {
     switch(type) {
         case 'location':
-            return '1F3E0';
+            return LOCATION_UNICODE;
             break;
         case 'education':
-            return '1F4BC';
+            return EDUCATION_UNICODE;
             break;
         case 'relationship':
-            return '1F49C';
+            return RELATIONSHIP_UNICODE;
             break;
         case 'custom':
             return '2754';
