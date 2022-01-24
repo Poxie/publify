@@ -115,6 +115,8 @@ export const AboutPage = () => {
 
     const onChange = async () => {
         const newProfile = {...user, ...state};
+        let avatar = newProfile.avatar;
+        let banner = newProfile.banner;
         delete newProfile.avatar;
         delete newProfile.banner;
 
@@ -126,6 +128,8 @@ export const AboutPage = () => {
         await updateProfile(newProfile);
 
         // Updating view
+        newProfile.avatar = avatar;
+        newProfile.banner = banner;
         updateUser(newProfile);
 
         // If current saved profile is same
