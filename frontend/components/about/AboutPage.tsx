@@ -41,7 +41,7 @@ export const AboutPage = () => {
                     </span>
                 </div>
             )}
-            {customAbouts.length && (
+            {customAbouts.length !== 0 && (
                 <CustomAbouts 
                     customAbouts={customAbouts}
                 />
