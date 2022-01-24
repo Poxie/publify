@@ -5,6 +5,8 @@ import { AuthRequest } from "../types/AuthRequest";
 export const Query = {
     getMe: async (parent: any, args: any, context: any) => {
         const { userId } = context;
+        if(!userId) return;
+        
         const user = await getUserById(userId);
         return user;
     },
