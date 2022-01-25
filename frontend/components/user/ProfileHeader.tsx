@@ -33,7 +33,7 @@ export const ProfileHeader = () => {
 
 // Sticky header - when user scrolls down
 const StickyHeader: React.FC<UserType & {containerRef: RefObject<HTMLDivElement>}> = (user) => {
-    const { id, displayName, avatar, containerRef } = user;
+    const { id, displayName, avatar, containerRef, isFollowing } = user;
     const [shouldShow, setShouldShow] = useState(false);
 
     useEffect(() => {
@@ -75,6 +75,7 @@ const StickyHeader: React.FC<UserType & {containerRef: RefObject<HTMLDivElement>
             <div className={styles['sticky-options']}>
                 <ProfileOptions 
                     userId={id}
+                    isFollowing={isFollowing}
                 />
             </div>
         </Flex>
