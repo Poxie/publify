@@ -4,7 +4,7 @@ import { PlusIcon } from '../../../icons/PlusIcon';
 import { Flex } from '../../Flex';
 
 type Props = {
-    type: 'education' | 'location' | 'custom';
+    type: 'education' | 'location' | 'relationship' | 'custom';
     onClick: () => void;
 }
 export const AddAboutItem: React.FC<Props> = ({ type, onClick }) => {

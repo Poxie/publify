@@ -150,7 +150,8 @@ export const AboutPage = () => {
         for(const key of Object.keys(state)) {
             if(key === 'customAbouts') continue;
 
-            const value = state[key];
+            let value = state[key];
+            if(value === '') value = null;
             const prevValue = user[key];
             if(value !== prevValue) {
                 propsToUpdate[key] = value;
@@ -247,6 +248,7 @@ export const AboutPage = () => {
     return(
         <SettingsMain title={'About'}>
             {items.map(item => {
+                if(item.value === null) return <AddAboutItem type={item.type} onClick={() => dispatch(updateUserProperty(item.type, ''))} />
                 return(
                     <AboutInput 
                         {...item}
