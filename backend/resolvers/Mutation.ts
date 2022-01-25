@@ -140,6 +140,7 @@ export const Mutation = {
         for(const key of Object.keys(args)) {
             // Getting value of property
             let value = args[key];
+            if(!value) value = null;
 
             // If value is media, upload media and replace value
             if(['avatar', 'banner'].includes(key)) {
