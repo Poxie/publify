@@ -3,7 +3,6 @@ import React from 'react';
 import { useReducer } from 'react';
 import { useEffect } from 'react';
 import { Dispatch } from 'react';
-import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useAuth } from '../../../contexts/AuthProvider';
 import { useChange } from '../../../contexts/ChangeProvider';
@@ -15,6 +14,18 @@ import { DropdownItem } from '../../Dropdown';
 import { SettingsMain } from '../SettingsMain';
 import { AboutInput } from './AboutInput';
 import { AddAboutItem } from './AddAboutItem';
+import { CustomAbouts } from './CustomAbouts';
+
+export type MapItem = {
+    type: 'location' | 'education' | 'relationship' | 'custom';
+    value: string;
+    label: string;
+    emoji?: string;
+    id?: string;
+    inputType?: 'dropdown' | 'input';
+    dropdownItems?: DropdownItem[];
+    activeDropdownItem?: string;
+}
 
 const initialState = {
     relationship: undefined,
@@ -62,7 +73,8 @@ const reducer = (state=initialState, action: Action) => {
                 type: 'custom',
                 label: '',
                 value: '',
-                emoji: '2754'
+                emoji: '2754',
+                id: Math.random()
             }
             return {
                 ...state,
@@ -101,67 +113,73 @@ export const AboutPage = () => {
             payload: about
         })
     }, [user]);
-    
-    const updateRelationShip = (status: string) => {
-        dispatch(updateUserProperty('relationship', status));
-    }
-
-    const relationShipItems: DropdownItem[] = [
-        { id: 'relationshipN/A', text: t('relationshipN/A'), onClick: () => updateRelationShip('relationshipN/A') },
-        { id: 'single', text: t('single'), onClick: () => updateRelationShip('single') },
-        { id: 'inRelationship', text: t('inRelationship'), onClick: () => updateRelationShip('inRelationship') },
-        { id: 'complicated', text: t('complicated'), onClick: () => updateRelationShip('complicated') }
-    ];
 
     const onChange = async () => {
-        const newProfile = {...user, ...state};
-        let avatar = newProfile.avatar;
-        let banner = newProfile.banner;
-        delete newProfile.avatar;
-        delete newProfile.banner;
+        let newCustomAbouts = [];
+        for(let item of state.customAbouts) {
+            const { value, label, emoji, id } = item;
 
-        // Makes sure it show sthe add item component
-        newProfile.education = newProfile.education || null;
-        newProfile.location = newProfile.location || null;
+            // If item has been created
+            if(typeof item.id === 'number') {
+                delete item.id;
+                let createdAbout = await createCustomAbout(item);
+                newCustomAbouts.push(createdAbout);
+                continue;
+            }
 
-        // Updating database
-        await updateProfile(newProfile);
+            // Getting previous item values
+            let prevItem = user.customAbouts.find(item => item.id === id);
+            const prevValues = { value: prevItem.value, label: prevItem.label, emoji: prevItem.emoji };
 
-        // Updating view
-        newProfile.avatar = avatar;
-        newProfile.banner = banner;
-        updateUser(newProfile);
+            // If item has been updated
+            if(JSON.stringify({ value, label, emoji }) !== JSON.stringify(prevValues)) {
+                await updateCustomAbout(item);
+            }
 
-        // If current saved profile is same
-        if(newProfile.id === storedUser?.id) {
-            reduxDispatch(setProfile(newProfile));
+            newCustomAbouts.push(item);
+        }
+        // Checking if item has been deleted
+        for(const item of user.customAbouts) {
+            if(!newCustomAbouts.map(i => i.id).includes(item.id)) {
+                await destroyCustomAbout(item.id);
+            }
         }
 
-        // Updating custom abouts
-        if(JSON.stringify(newProfile.customAbouts) !== JSON.stringify(user.customAbouts)) {
-            let foundAbouts = [];
-            for(let about of newProfile.customAbouts) {
-                // If has no id, create new about
-                if(!about.id) {
-                    // Makes sure all required values are present
-                    if(about.label && about.value) {
-                        const newAbout = await createCustomAbout(about);
-                        about = newAbout;
-                    }
-                } else {
-                    // Else update about
-                    updateCustomAbout(about);
-                }
-                console.log(about);
-                foundAbouts.push(about.id);
+        // Checking for updates with static abouts
+        let propsToUpdate = {};
+        for(const key of Object.keys(state)) {
+            if(key === 'customAbouts') continue;
+
+            const value = state[key];
+            const prevValue = user[key];
+            if(value !== prevValue) {
+                propsToUpdate[key] = value;
             }
-            // If should destroy about
-            if(foundAbouts.length < user.customAbouts.length) {
-                const abouts = user.customAbouts.filter(about => !foundAbouts.includes(about.id));
-                for(const about of abouts) {
-                    await destroyCustomAbout(about.id);
-                }
-            }
+        }
+
+        // Creating new user object
+        let newUser = {...user, ...propsToUpdate, ...{
+            customAbouts: newCustomAbouts
+        }};
+
+        // If static abouts updated
+        if(Object.keys(propsToUpdate).length) {
+            let profileUser = {...newUser};
+
+            // These are of type IDs here, update require type of Upload
+            delete profileUser.avatar;
+            delete profileUser.banner;
+
+            // Updasting
+            await updateProfile(profileUser);
+        }
+
+        // Updating view
+        updateUser(newUser);
+
+        // If current profile is stored in redux, update redux store
+        if(newUser.id === storedUser?.id) {
+            reduxDispatch(setProfile(newUser));
         }
     }
     const onReset = () => {
@@ -189,83 +207,64 @@ export const AboutPage = () => {
     }
 
     // Customized abouts
-    const onCustomizedUpdate = async ({ id, label, value, emoji }) => {
-        dispatch({
-            type: 'updateCustom',
-            payload: { id, label, value, emoji }
-        })
-    }
-    const addCustomAbout = () => {
+    const addItem = () => {
         dispatch({
             type: 'addCustom'
         })
     }
-    const removeAbout = (id: string) => {
+    const removeItem = (id: string) => {
         dispatch({
             type: 'removeCustom',
             payload: id
         })
     }
+    const updateItem = (item: MapItem) => {
+        dispatch({
+            type: 'updateCustom',
+            payload: item
+        })
+    }
 
-    const { relationship, education, location, customAbouts } = state;
-    const hasLocation = user?.location !== null && user;
-    const hasEducation = user?.education !== null && user;
+    // Default about items
+    const { location, education, relationship, customAbouts } = state;
+    const items: MapItem[] = [
+        { type: 'location', label: t('locationLabel'), value: location },
+        { type: 'education', label: t('educationLabel'), value: education },
+        { 
+            type: 'relationship', 
+            label: t('relationshipLabel'), 
+            value: t(relationship), 
+            inputType: 'dropdown', 
+            dropdownItems: [
+                { text: t('relationshipN/A'), id: 'relationshipN/A', onClick: () => dispatch(updateUserProperty('relationship', 'relationshipN/A')) },
+                { text: t('single'), id: 'single', onClick: () => dispatch(updateUserProperty('relationship', 'single')) },
+                { text: t('inRelationship'), id: 'inRelationship', onClick: () => dispatch(updateUserProperty('relationship', 'inRelationship')) },
+                { text: t('complicated'), id: 'complicated', onClick: () => dispatch(updateUserProperty('relationship', 'complicated')) }
+            ],
+            activeDropdownItem: relationship
+        }
+    ]
     return(
         <SettingsMain title={'About'}>
-            {hasLocation && (
-                <AboutInput 
-                    type={'location'}
-                    label={t('locationLabel')}
-                    onChange={value => dispatch(updateUserProperty('location', value))}
-                    defaultValue={location}
-                />
-            )}
-            {!hasLocation && (
-                <AddAboutItem 
-                    type={'location'}
-                    onClick={() => {}}
-                />
-            )}
-            {hasEducation && (
-                <AboutInput 
-                    type={'education'}
-                    label={t('educationLabel')}
-                    onChange={value => dispatch(updateUserProperty('education', value))}
-                    defaultValue={education}
-                />
-            )}
-            {!hasEducation && (
-                <AddAboutItem 
-                    type={'education'}
-                    onClick={() => {}}
-                />
-            )}
-            
-            <AboutInput 
-                type={'relationship'}
-                label={t('relationshipLabel')}
-                inputType={'dropdown'}
-                dropdownItems={relationShipItems}
-                activeDropdownItem={relationship || relationShipItems[0].text}
-            />
-            {customAbouts?.map(customAbout => {
-                const { id, label, type, emoji, value } = customAbout;
+            {items.map(item => {
                 return(
                     <AboutInput 
-                        label={label}
-                        type={type}
-                        defaultValue={value}
-                        emoji={emoji}
-                        isCustomizable={true}
-                        customizedUpdate={onCustomizedUpdate}
-                        id={id}
-                        onRemove={() => removeAbout(id)}
+                        {...item}
+                        onChange={value => dispatch(updateUserProperty(item.type, value))}
+                        key={item.type}
                     />
                 )
             })}
+            {customAbouts && customAbouts?.length !== 0 && (
+                <CustomAbouts 
+                    items={customAbouts}
+                    removeItem={removeItem}
+                    updateItem={updateItem}
+                />
+            )}
             <AddAboutItem 
-                onClick={addCustomAbout}
                 type={'custom'}
+                onClick={addItem}
             />
         </SettingsMain>
     )

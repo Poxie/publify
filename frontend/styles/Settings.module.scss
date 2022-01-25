@@ -61,9 +61,8 @@
 // About
 .about-input {
     position: relative;
-    &:not(:last-child) {
-        margin-bottom: 15px;
-    }
+    margin-bottom: 15px;
+    
     form {
         width: 100%;
     }

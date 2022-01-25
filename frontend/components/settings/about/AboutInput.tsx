@@ -35,7 +35,7 @@ type Props = {
     type: 'location' | 'education' | 'relationship' | 'custom';
     label: string;
     emoji?: string;
-    defaultValue?: string;
+    value?: string;
     inputType?: 'input' | 'dropdown';
     dropdownItems?: DropdownItem[];
     activeDropdownItem?: string;
@@ -45,7 +45,7 @@ type Props = {
     id?: string;
     onRemove?: () => void;
 }
-export const AboutInput: React.FC<Props> = ({ type, label, defaultValue, inputType='input', dropdownItems, activeDropdownItem, onChange, isCustomizable, customizedUpdate, emoji, onRemove, id }) => {
+export const AboutInput: React.FC<Props> = ({ type, label, value: defaultValue, inputType='input', dropdownItems, activeDropdownItem, onChange, isCustomizable, customizedUpdate, emoji, onRemove, id }) => {
     const [value, setValue] = useState(defaultValue || '');
     const [activeEmoji, setActiveEmoji] = useState<string>(determineDefaultEmoji(type, emoji));
     const [emojiPickerOpen, setEmojiPickerOpen] = useState(false);
