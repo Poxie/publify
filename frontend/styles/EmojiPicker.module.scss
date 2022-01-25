@@ -1,12 +1,13 @@
 .emoji-picker {
     --padding: 10px;
 
-    position: absolute;
+    position: fixed;
     z-index: 5;
     width: 265px;
     border-radius: var(--border-radius);
     background-color: var(--background-secondary);
     overflow: hidden;
+    box-shadow: 0 -2px 6px rgba(0,0,0,.1);
 }
 .section-container {
     height: 350px;
