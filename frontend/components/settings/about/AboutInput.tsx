@@ -103,6 +103,7 @@ export const AboutInput: React.FC<Props> = ({ type, label, value: defaultValue, 
                 {emojiPickerOpen && (
                     <EmojiPicker 
                         onEmojiSelected={updateEmoji}
+                        onClose={() => setEmojiPickerOpen(false)}
                     />
                 )}
                 <Flex 

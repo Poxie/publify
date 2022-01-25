@@ -7,6 +7,7 @@ import { Flex } from './Flex';
 import { useState } from 'react';
 import { useMemo } from 'react';
 import { useEffect } from 'react';
+import { useRef } from 'react';
 
 export type Item = typeof sections['Objects']['items'][0];
 export type PartialEmoji = {
@@ -97,9 +98,22 @@ const EmojiSections: React.FC<SectionsProps> = React.memo(({ onMouseEnter, onCli
 
 type Props = {
     onEmojiSelected: (emoji: PartialEmoji) => void;
+    onClose?: () => void;
 }
-export const EmojiPicker: React.FC<Props> = ({ onEmojiSelected }) => {
+export const EmojiPicker: React.FC<Props> = ({ onEmojiSelected, onClose }) => {
     const [activeEmoji, setActiveEmoji] = useState<null | PartialEmoji>(null);
+    const ref = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const handleClick = (e: MouseEvent) => {
+            // @ts-ignore
+            if(ref.current && !ref.current.contains(e.target) && onClose) {
+                onClose();
+            }
+        }
+        window.addEventListener('click', handleClick);
+        return () => window.removeEventListener('click', handleClick);
+    }, []);
     
     const onMouseEnter = useMemo(() => (emoji: PartialEmoji) => {
         setActiveEmoji(emoji);
@@ -110,7 +124,7 @@ export const EmojiPicker: React.FC<Props> = ({ onEmojiSelected }) => {
 
     const order = ['Smileys & Emotion', 'People & Body', 'Food & Drink', 'Travel & Places', 'Objects', 'Symbols', 'Flags'];
     return(
-        <div className={styles['emoji-picker']}>
+        <div className={styles['emoji-picker']} ref={ref}>
             <EmojiSections 
                 sections={sections}
                 order={order}
