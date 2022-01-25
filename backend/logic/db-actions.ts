@@ -25,6 +25,7 @@ import {
     SELECT_COMMENT_COUNT_BY_PARENT_ID, 
     SELECT_CUSTOM_ABOUTS, 
     SELECT_FOLLOWER, 
+    SELECT_FOLLOWERS_COUNT, 
     SELECT_LIKES_BT_PARENT_ID, 
     SELECT_MEDIA_BY_AUTHOR_ID, 
     SELECT_MEDIA_BY_ID, 
@@ -59,6 +60,7 @@ export const getUserById: (id: string) => Promise<DatabaseUser> = async (id) => 
     const [rows] = await connection.promise().query<User[]>(SELECT_USER_BY_ID, [id]);
     const user = rows[0];
     user.customAbouts = await getCustomAboutsByUserId(user.id);
+    user.followersCount = await getFollowersCount(user.id);
     return user;
 }
 // Getting user by username
@@ -66,6 +68,7 @@ export const getUserByUsername: (username: string) => Promise<DatabaseUser | und
     const [rows] = await connection.promise().query<User[]>(SELECT_USER_BY_USERNAME, [username])
     const user = rows[0];
     user.customAbouts = await getCustomAboutsByUserId(user.id);
+    user.followersCount = await getFollowersCount(user.id);
     return user;
 }
 
@@ -161,7 +164,15 @@ const getRandomNumber = (min: number, max: number) => {
     return Math.floor(Math.random() * (max - min) + min);
 }
 // Inserting user
-export const insertUser: (password: string, {}: UserType) => Promise<UserType> = async (password, { id, username, displayName, avatar, banner }) => {
+type PartialUser = {
+    id: string;
+    username: string;
+    displayName: string;
+    bio?: string;
+    avatar?: string;
+    banner?: string;
+}
+export const insertUser: (password: string, {}: PartialUser) => Promise<UserType> = async (password, { id, username, displayName, avatar, banner }) => {
     let avatarId, bannerId;
     // Getting user media if exists
     if(avatar) {
@@ -453,6 +464,10 @@ export const getCustomAboutById: (id: string) => Promise<CustomAbout> = async (i
     return abouts[0];
 }
 
+export const getFollowersCount: (userId: string) => Promise<number> = async (userId) => {
+    const [rows]: any = await connection.promise().query(SELECT_FOLLOWERS_COUNT, [userId]);
+    return rows[0].followersCount;
+}
 export const getFollow: (userId: string, selfId: string) => Promise<Follow | undefined> = async (userId, selfId) => {
     const [followers] = await connection.promise().query<Follow[]>(SELECT_FOLLOWER, [userId, selfId]);
     return followers[0];

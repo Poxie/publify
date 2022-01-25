@@ -13,6 +13,7 @@ export const SELECT_COMMENT_COUNT_BY_PARENT_ID = 'SELECT count(*) AS commentCoun
 export const SELECT_CUSTOM_ABOUTS = 'SELECT * FROM `about` WHERE userId = ?';
 export const GET_CUSTOM_ABOUT_BY_ID = 'SELECT * FROM `about` WHERE id = ?';
 export const SELECT_FOLLOWER = 'SELECT * FROM `followers` WHERE userId = ? AND followerId = ?';
+export const SELECT_FOLLOWERS_COUNT = 'SELECT count(*) AS followersCount FROM `followers` WHERE userId = ?';
 
 // Insertions
 export const INSERT_USER = 'INSERT INTO `users` (id, username, password, displayName, avatar, banner, color) VALUES (?, ?, ?, ?, ?, ?, ?)';

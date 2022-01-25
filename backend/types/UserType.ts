@@ -13,6 +13,7 @@ export type UserType = {
     color?: string;
     banner?: string;
     bio?: string;
+    followersCount: number;
     location?: string;
     education?: string;
     relationship?: string;
