@@ -16,7 +16,7 @@ export const CustomAbouts: React.FC<Props> = ({ customAbouts }) => {
                         label={label}
                         type={type}
                         value={value}
-                        unicode={emoji}
+                        emoji={emoji}
                     />
                 )
             })}

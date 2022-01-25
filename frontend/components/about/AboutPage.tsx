@@ -6,46 +6,34 @@ import { selectProfileUser } from '../../redux/selectors';
 import { AboutItem } from './AboutItem';
 import { CustomAbouts } from './CustomAbouts';
 
+type AboutItem = {
+    type: string;
+    label: string;
+    value: string;
+    emoji?: string;
+}
 export const AboutPage = () => {
     const { t } = useTranslation();
     const { relationship, education, location, customAbouts } = useAppSelector(state => selectProfileUser(state));
 
-    const noItems = (!relationship || relationship === 'relationshipN/A') && !education && !location;
+    const items: AboutItem[] = [
+        {type: 'relationship', value: t(relationship), label: t('relationshipLabel')}, 
+        {type: 'education', value: education, label: t('educationLabel')}, 
+        {type: 'location', value: location, label: t('locationLabel')}, 
+        ...customAbouts
+    ];
     return(
-        <div>
-            {location && (
-                <AboutItem 
-                    label={t('locationLabel')}
-                    type={'location'}
-                    value={location}
-                />
-            )}
-            {education && (
-                <AboutItem 
-                    label={t('educationLabel')}
-                    type={'education'}
-                    value={education}
-                />
-            )}
-            {relationship && relationship !== 'relationshipN/A' && (
-                <AboutItem 
-                    label={t('relationshipLabel')}
-                    type={'relationship'}
-                    value={t(relationship)}
-                />
-            )}
-            {noItems && (
-                <div className={styles['empty']}>
-                    <span>
-                        {t('aboutMeEmpty')}
-                    </span>
-                </div>
-            )}
-            {customAbouts.length !== 0 && (
-                <CustomAbouts 
-                    customAbouts={customAbouts}
-                />
-            )}
-        </div>
+        <>
+            {items.map(item => {
+                if(!item.value) return null;
+
+                return(
+                    <AboutItem 
+                        {...item}
+                        key={item.type}
+                    />
+                )
+            })}
+        </>
     )
 }

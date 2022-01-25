@@ -16,17 +16,19 @@ const getUnicodeByType = (type: string) => {
         case 'location':
             return LOCATION_UNICODE;
             break;
+        default:
+            return '2754';
     }
 }
 type Props = {
     type: string;
     label: string;
     value: string;
-    unicode?: string;
+    emoji?: string;
 }
-export const AboutItem: React.FC<Props> = ({ type, label, value, unicode }) => {
-    if(!unicode) {
-        unicode = getUnicodeByType(type);
+export const AboutItem: React.FC<Props> = ({ type, label, value, emoji }) => {
+    if(!emoji) {
+        emoji = getUnicodeByType(type);
     }
 
     return(
@@ -41,7 +43,7 @@ export const AboutItem: React.FC<Props> = ({ type, label, value, unicode }) => {
                     justifyContent={'center'}
                 >
                     <Image 
-                        src={getEmojiURL(unicode)}
+                        src={getEmojiURL(emoji)}
                         width={36}
                         height={36}
                     />
