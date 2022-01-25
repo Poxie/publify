@@ -9,6 +9,7 @@ export const USER_PROPERTIES = `
     color
     bio
     followersCount
+    isFollowing
     postCount
     location
     education

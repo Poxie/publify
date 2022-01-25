@@ -13,6 +13,7 @@ import { ReactElement } from 'react';
 import { ProfileLayout } from '../../layouts/ProfileLayout';
 import { useAppSelector } from '../../redux/hooks';
 import { selectProfileUser } from '../../redux/selectors';
+import { useEffect } from 'react';
 
 type Props = {
     user: UserType;
@@ -21,6 +22,14 @@ export default function User(props: Props) {
     const { user } = props;
     const dispatch = useDispatch();
     const profile = useAppSelector(state => selectProfileUser(state));
+
+    // Updating view with properties based on client authorization token
+    useEffect(() => {
+        getUserByUsername(user.username)
+            .then(user => {
+                dispatch(setProfile(user));
+            })
+    }, []);
 
     // Updating redux store with user data
     if(!profile || profile.id !== user.id) {

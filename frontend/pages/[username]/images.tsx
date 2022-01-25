@@ -1,6 +1,6 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 import { ProfileImages } from '../../components/user/images/ProfileImages';
@@ -18,6 +18,14 @@ type Props = {
 export default function Images({ user }: Props) {
     const dispatch = useDispatch();
     const profile = useAppSelector(state => selectProfileUser(state));
+
+    // Updating view with properties based on client authorization token
+    useEffect(() => {
+        getUserByUsername(user.username)
+            .then(user => {
+                dispatch(setProfile(user));
+            })
+    }, []);
 
     // Updating redux store with user data
     if(!profile || profile.id !== user.id) {

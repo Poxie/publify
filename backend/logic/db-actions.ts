@@ -57,21 +57,23 @@ export const getCustomAboutsByUserId = async (userId: string) => {
     return abouts;
 }
 // Getting user by ID
-export const getUserById: (id: string) => Promise<DatabaseUser> = async (id) => {
+export const getUserById: (id: string, selfId?: string) => Promise<DatabaseUser> = async (id, selfId) => {
     const [rows] = await connection.promise().query<User[]>(SELECT_USER_BY_ID, [id]);
     const user = rows[0];
     user.customAbouts = await getCustomAboutsByUserId(user.id);
     user.followersCount = await getFollowersCount(user.id);
     user.postCount = await getPostCount(user.id);
+    user.isFollowing = (await getFollow(user.id, selfId)) !== undefined;
     return user;
 }
 // Getting user by username
-export const getUserByUsername: (username: string) => Promise<DatabaseUser | undefined> = async (username) => {
+export const getUserByUsername: (username: string, selfId?: string) => Promise<DatabaseUser | undefined> = async (username, selfId) => {
     const [rows] = await connection.promise().query<User[]>(SELECT_USER_BY_USERNAME, [username])
     const user = rows[0];
     user.customAbouts = await getCustomAboutsByUserId(user.id);
     user.followersCount = await getFollowersCount(user.id);
     user.postCount = await getPostCount(user.id);
+    user.isFollowing = (await getFollow(user.id, selfId)) !== undefined;
     return user;
 }
 
@@ -475,7 +477,7 @@ export const getFollowersCount: (userId: string) => Promise<number> = async (use
     const [rows]: any = await connection.promise().query(SELECT_FOLLOWERS_COUNT, [userId]);
     return rows[0].followersCount;
 }
-export const getFollow: (userId: string, selfId: string) => Promise<Follow | undefined> = async (userId, selfId) => {
+export const getFollow: (userId: string, selfId?: string) => Promise<Follow | undefined> = async (userId, selfId) => {
     const [followers] = await connection.promise().query<Follow[]>(SELECT_FOLLOWER, [userId, selfId]);
     return followers[0];
 }

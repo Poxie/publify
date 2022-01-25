@@ -19,6 +19,7 @@ export const typeDefs = gql`
         bio: String
         color: String!
         followersCount: Int!
+        isFollowing: Boolean
         postCount: Int!
         location: String
         education: String

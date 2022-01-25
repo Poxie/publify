@@ -6,18 +6,18 @@ export const Query = {
     getMe: async (parent: any, args: any, context: any) => {
         const { userId } = context;
         if(!userId) return;
-        
+
         const user = await getUserById(userId);
         return user;
     },
-    getUserByUsername: async (parent: any, args: any) => {
+    getUserByUsername: async (parent: any, args: any, context: any) => {
         const { username } = args;
-        const user = await getUserByUsername(username);
+        const user = await getUserByUsername(username, context.userId);
         return user;
     },
-    getUserById: async (parent: any, args: any) => {
+    getUserById: async (parent: any, args: any, context: any) => {
         const userId = args.id;
-        const user = await getUserById(userId);
+        const user = await getUserById(userId, context.userId);
         return user;
     },
     getPostById: async (parent: any, args: any) => {
