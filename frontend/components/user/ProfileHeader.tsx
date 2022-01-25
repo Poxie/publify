@@ -51,6 +51,7 @@ const StickyHeader: React.FC<UserType & {containerRef: RefObject<HTMLDivElement>
                 setShouldShow(false);
             }
         }
+        checkShouldShow();
 
         window.addEventListener('scroll', checkShouldShow);
 
