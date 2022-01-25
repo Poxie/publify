@@ -15,6 +15,7 @@ export type UserType = {
     bio: string;
     color: string;
     followersCount: number;
+    isFollowing: boolean;
     postCount: number;
     location?: string;
     education?: string;

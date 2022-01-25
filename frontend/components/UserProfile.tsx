@@ -15,7 +15,7 @@ type Props = UserType & {
     hasProfileOptions?: boolean;
     hasProfileStats?: boolean;
 }
-export const UserProfile: React.FC<Props> = ({ id, hasProfileStats=false, followersCount, postCount, bannerStyle, bannerType='large', color, displayName, avatar, avatarStyle, banner, bio, onAvatarClick, onBannerClick, avatarHoverText, bannerHoverText, hasProfileOptions=false }) => {
+export const UserProfile: React.FC<Props> = ({ id, hasProfileStats=false, followersCount, isFollowing, postCount, bannerStyle, bannerType='large', color, displayName, avatar, avatarStyle, banner, bio, onAvatarClick, onBannerClick, avatarHoverText, bannerHoverText, hasProfileOptions=false }) => {
     return(
         <div className={styles['user-profile']}>
             <Banner 
@@ -32,6 +32,7 @@ export const UserProfile: React.FC<Props> = ({ id, hasProfileStats=false, follow
                 displayName={displayName}
                 bio={bio}
                 followersCount={followersCount}
+                isFollowing={isFollowing}
                 postCount={postCount}
                 hasProfileStats={hasProfileStats}
                 avatarHoverText={avatarHoverText}

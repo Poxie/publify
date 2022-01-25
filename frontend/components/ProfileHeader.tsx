@@ -11,7 +11,8 @@ type Props = {
     avatar: string;
     displayName: string;
     bio: string;
-    followersCount?: number;
+    followersCount: number;
+    isFollowing: boolean;
     postCount: number;
     hasProfileStats?: boolean;
     onAvatarClick?: () => void;
@@ -19,7 +20,7 @@ type Props = {
     hasProfileOptions?: boolean;
     avatarStyle?: string;
 }
-export const ProfileHeader: React.FC<Props> = ({ id, displayName, avatar, avatarStyle, bio, hasProfileStats, followersCount, postCount, onAvatarClick, avatarHoverText, hasProfileOptions }) => {
+export const ProfileHeader: React.FC<Props> = ({ id, displayName, avatar, avatarStyle, bio, hasProfileStats, followersCount, isFollowing, postCount, onAvatarClick, avatarHoverText, hasProfileOptions }) => {
     const avatarClassName = [styles['profile-avatar'], avatarStyle || ''].join(' ');
     return(
         <div className={styles['profile-header']}>
@@ -53,6 +54,7 @@ export const ProfileHeader: React.FC<Props> = ({ id, displayName, avatar, avatar
                 {hasProfileOptions && (
                     <ProfileOptions 
                         userId={id}
+                        isFollowing={isFollowing}
                     />
                 )}
             </Flex>

@@ -2,6 +2,8 @@
 export const SET_PROFILE = 'SET_PROFILE';
 export const SET_PROFILE_IMAGES = 'SET_PROFILE_IMAGES';
 export const SET_PREVIEW_IMAGES = 'SET_PREVIEW_IMAGES';
+export const CREATE_FOLLOW = 'CREATE_FOLLOW';
+export const DESTROY_FOLLOW = 'DESTROY_FOLLOW';
 
 // Posts
 export const REMOVE_POST = 'REMOVE_POST';

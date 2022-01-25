@@ -1,7 +1,7 @@
 import { CustomAbout, PostType, UserType } from "./types";
 import { GraphQLClient } from 'graphql-request';
 import { CREATE_CUSTOM_ABOUT, CREATE_COMMENT, CREATE_LIKE, CREATE_POST, CREATE_USER, DESTROY_COMMENT, DESTROY_CUSTOM_ABOUT, DESTROY_LIKE, DESTROY_POST, UPDATE_CUSTOM_ABOUT, UPDATE_PROFILE } from "./mutations";
-import { GET_COMMENTS_BY_PARENT_ID, GET_ME, GET_MEDIA_BY_AUTHOR_ID, GET_POSTS_BY_AUTHOR_ID, GET_POST_BY_ID, GET_USER_BY_ID, GET_USER_BY_USERNAME, LOGIN } from "./queries";
+import { CREATE_FOLLOW, DESTROY_FOLLOW, GET_COMMENTS_BY_PARENT_ID, GET_ME, GET_MEDIA_BY_AUTHOR_ID, GET_POSTS_BY_AUTHOR_ID, GET_POST_BY_ID, GET_USER_BY_ID, GET_USER_BY_USERNAME, LOGIN } from "./queries";
 import { API_ENDPOINT, IMAGE_ENDPOINT } from "./constants";
 
 // Getting access token
@@ -142,6 +142,16 @@ export const login: (username: string, password: string) => Promise<LoginType> =
 // Get logged in user (Get me)
 export const getMe = async () => {
     const response = await request(GET_ME);
+    return response;
+}
+
+// Follow stuff
+export const destroyFollow = async (userId: string) => {
+    const response = await request(DESTROY_FOLLOW, { userId });
+    return response;
+}
+export const createFollow = async (userId: string) => {
+    const response = await request(CREATE_FOLLOW, { userId });
     return response;
 }
 

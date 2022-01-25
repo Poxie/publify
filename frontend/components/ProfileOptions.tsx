@@ -6,8 +6,9 @@ import { SettingsButton } from './SettingsButton';
 
 type Props = {
     userId: string;
+    isFollowing: boolean;
 }
-export const ProfileOptions: React.FC<Props> = ({ userId }) => {
+export const ProfileOptions: React.FC<Props> = ({ userId, isFollowing }) => {
     const { user } = useAuth();
     
     const isSelf = user?.id === userId;
@@ -16,6 +17,7 @@ export const ProfileOptions: React.FC<Props> = ({ userId }) => {
             {!isSelf && (
                 <FollowButton 
                     userId={userId}
+                    isFollowing={isFollowing}
                 />
             )}
             {isSelf && (

@@ -134,6 +134,17 @@ export const GET_COMMENTS_BY_PARENT_ID = gql`
     }
 `
 
+export const DESTROY_FOLLOW = gql`
+    mutation($userId: String!) {
+        destroyFollow(userId: $userId)
+    }
+`
+export const CREATE_FOLLOW = gql`
+    mutation($userId: String!) {
+        createFollow(userId: $userId)
+    }
+`
+
 // Auth stuff
 export const LOGIN = gql`
     query($username: String!, $password: String!) {
