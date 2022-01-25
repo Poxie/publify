@@ -3,7 +3,7 @@
     "posts": "inlägg",
     "images": "Bilder",
     "viewMore": "Visa fler",
-    "noMediaFound": "Denna användare har inte lagt upp några bilder än.",
+    "noImagesFound": "Denna användare har inte lagt upp några bilder än.",
     "noPostsFound": "Denna användare har inte lagt upp några inlägg än.",
     "openCreatePostModal": "Vad vill du ha sagt?",
     "expandPost": "Expandera",

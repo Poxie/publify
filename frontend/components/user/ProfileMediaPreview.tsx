@@ -73,7 +73,7 @@ export const ProfileMediaPreview = () => {
                 </span>
                 {media && (
                     <Link href={`/${username}/images`}>
-                        <span className={styles['preview-header-more']}>
+                            <span className={styles['preview-header-more']}>
                             {t('viewMore')}
                         </span>
                     </Link>
@@ -104,7 +104,7 @@ export const ProfileMediaPreview = () => {
             )}
             {media !== null && !media.length && (
                 <span className={styles['preview-empty']}>
-                    {t('noMediaFound')}
+                    {t('noImagesFound')}
                 </span>
             )}
         </div>

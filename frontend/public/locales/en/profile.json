@@ -3,7 +3,7 @@
     "posts": "posts",
     "images": "Images",
     "viewMore": "View more",
-    "noMediaFound": "This user hasn't posted any media yet.",
+    "noImagesFound": "This user hasn't posted any media yet.",
     "noPostsFound":" This user hasn't posted anything yet.",
     "openCreatePostModal": "What is on your mind?",
     "expandPost": "Expand",

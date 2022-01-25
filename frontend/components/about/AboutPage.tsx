@@ -22,11 +22,15 @@ export const AboutPage = () => {
         {type: 'location', value: location, label: t('locationLabel')}, 
         ...customAbouts
     ];
+    const itemsToMap = items.filter(item => {
+        if(!item.value || item.type === 'relationship' && item.value === t('relationshipN/A')) {
+            return null;
+        }
+        return item;
+    })
     return(
         <>
-            {items.map(item => {
-                if(!item.value) return null;
-
+            {itemsToMap.map(item => {
                 return(
                     <AboutItem 
                         {...item}
@@ -34,6 +38,13 @@ export const AboutPage = () => {
                     />
                 )
             })}
+            {!itemsToMap.length && (
+                <div className={styles['empty']}>
+                    <span>
+                        {t('aboutMeEmpty')}
+                    </span>
+                </div>
+            )}
         </>
     )
 }
