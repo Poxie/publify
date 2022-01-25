@@ -8,6 +8,8 @@ export const USER_PROPERTIES = `
     banner
     color
     bio
+    followersCount
+    postCount
     location
     education
     relationship

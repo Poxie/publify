@@ -32,6 +32,7 @@ import {
     SELECT_MEDIA_BY_POST_ID, 
     SELECT_POSTS_BY_AUTHOR_ID, 
     SELECT_POST_BY_ID, 
+    SELECT_POST_COUNT, 
     SELECT_USER_BY_ID, 
     SELECT_USER_BY_USERNAME 
 } from './queries';
@@ -61,6 +62,7 @@ export const getUserById: (id: string) => Promise<DatabaseUser> = async (id) => 
     const user = rows[0];
     user.customAbouts = await getCustomAboutsByUserId(user.id);
     user.followersCount = await getFollowersCount(user.id);
+    user.postCount = await getPostCount(user.id);
     return user;
 }
 // Getting user by username
@@ -69,6 +71,7 @@ export const getUserByUsername: (username: string) => Promise<DatabaseUser | und
     const user = rows[0];
     user.customAbouts = await getCustomAboutsByUserId(user.id);
     user.followersCount = await getFollowersCount(user.id);
+    user.postCount = await getPostCount(user.id);
     return user;
 }
 
@@ -114,6 +117,10 @@ export const getPostsByAuthorId: (id: string, startIndex?: number, endIndex?: nu
 
     // Return posts
     return posts;
+}
+export const getPostCount: (userId: string) => Promise<number> = async (userId) => {
+    const [rows]: any = await connection.promise().query(SELECT_POST_COUNT, [userId]);
+    return rows[0].postCount;
 }
 
 // Get media by post ID

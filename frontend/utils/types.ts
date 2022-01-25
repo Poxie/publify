@@ -14,6 +14,8 @@ export type UserType = {
     banner?: string;
     bio: string;
     color: string;
+    followersCount: number;
+    postCount: number;
     location?: string;
     education?: string;
     relationship?: string;

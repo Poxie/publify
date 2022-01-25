@@ -21,6 +21,7 @@ export const ProfileHeader = () => {
             <UserProfile 
                 {...user}
                 hasProfileOptions={true}
+                hasProfileStats={true}
             />
             <StickyHeader 
                 {...user}

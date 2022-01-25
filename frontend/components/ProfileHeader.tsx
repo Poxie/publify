@@ -11,12 +11,15 @@ type Props = {
     avatar: string;
     displayName: string;
     bio: string;
+    followersCount?: number;
+    postCount: number;
+    hasProfileStats?: boolean;
     onAvatarClick?: () => void;
     avatarHoverText?: string;
     hasProfileOptions?: boolean;
     avatarStyle?: string;
 }
-export const ProfileHeader: React.FC<Props> = ({ id, displayName, avatar, avatarStyle, bio, onAvatarClick, avatarHoverText, hasProfileOptions }) => {
+export const ProfileHeader: React.FC<Props> = ({ id, displayName, avatar, avatarStyle, bio, hasProfileStats, followersCount, postCount, onAvatarClick, avatarHoverText, hasProfileOptions }) => {
     const avatarClassName = [styles['profile-avatar'], avatarStyle || ''].join(' ');
     return(
         <div className={styles['profile-header']}>
@@ -36,6 +39,16 @@ export const ProfileHeader: React.FC<Props> = ({ id, displayName, avatar, avatar
                     <ProfileBio 
                         bio={bio}
                     />
+                    {hasProfileStats && (
+                        <div className={styles['profile-stats']}>
+                            <span>
+                                {followersCount} followers
+                            </span>
+                            <span>
+                                {postCount} posts
+                            </span>
+                        </div>
+                    )}
                 </Flex>
                 {hasProfileOptions && (
                     <ProfileOptions 

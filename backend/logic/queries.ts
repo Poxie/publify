@@ -14,6 +14,7 @@ export const SELECT_CUSTOM_ABOUTS = 'SELECT * FROM `about` WHERE userId = ?';
 export const GET_CUSTOM_ABOUT_BY_ID = 'SELECT * FROM `about` WHERE id = ?';
 export const SELECT_FOLLOWER = 'SELECT * FROM `followers` WHERE userId = ? AND followerId = ?';
 export const SELECT_FOLLOWERS_COUNT = 'SELECT count(*) AS followersCount FROM `followers` WHERE userId = ?';
+export const SELECT_POST_COUNT = 'SELECT count(*) AS postCount FROM `posts` WHERE authorId = ?'
 
 // Insertions
 export const INSERT_USER = 'INSERT INTO `users` (id, username, password, displayName, avatar, banner, color) VALUES (?, ?, ?, ?, ?, ?, ?)';

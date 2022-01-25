@@ -41,9 +41,6 @@
     border-radius: var(--border-radius);
 }
 .profile-header {
-    padding: 12px;
-}
-.profile-header {
     padding: 20px;
 }
 .profile-avatar {
@@ -61,4 +58,14 @@
     margin-top: 5px;
     color: var(--text-muted);
     font-weight: 600;
+}
+.profile-stats {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 15px;
+    font-weight: 600;
+
+    span {
+        margin-right: 10px;
+    }
 }
