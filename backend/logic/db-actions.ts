@@ -9,6 +9,7 @@ import { Comment as CommentType, Follow as FollowType, Like as LikeType } from "
 import { 
     DELETE_COMMENT,
     DELETE_CUSTOM_ABOUT,
+    DELETE_FOLLOW,
     DELETE_LIKE, 
     DELETE_POST, 
     GET_CUSTOM_ABOUT_BY_ID, 
@@ -458,5 +459,9 @@ export const getFollow: (userId: string, selfId: string) => Promise<Follow | und
 }
 export const createFollow: (userId: string, selfId: string) => Promise<boolean> = async (userId, selfId) => {
     await connection.promise().query(INSERT_FOLLOW, [userId, selfId, JSON.stringify(Date.now())]);
+    return true;
+}
+export const destroyFollow: (userId: string, selfId: string) => Promise<boolean> = async (userId, selfId) => {
+    await connection.promise().query(DELETE_FOLLOW, [userId, selfId]);
     return true;
 }

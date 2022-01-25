@@ -122,5 +122,8 @@ export const typeDefs = gql`
         createFollow(
             userId: String!
         ): Boolean
+        destroyFollow(
+            userId: String!
+        ): Boolean
     }
 `

@@ -28,3 +28,4 @@ export const DELETE_LIKE = 'DELETE FROM `likes` WHERE parentId = ? AND userId = 
 export const DELETE_POST = 'DELETE FROM `posts` WHERE id = ?';
 export const DELETE_COMMENT = 'DELETE FROM `comments` WHERE id = ?';
 export const DELETE_CUSTOM_ABOUT = 'DELETE FROM `about` WHERE id = ?';
+export const DELETE_FOLLOW = 'DELETE FROM `followers` WHERE userId = ? AND followerId = ?';
