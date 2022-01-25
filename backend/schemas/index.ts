@@ -119,5 +119,8 @@ export const typeDefs = gql`
         destroyCustomAbout(
             id: String!
         ): Boolean
+        createFollow(
+            userId: String!
+        ): Boolean
     }
 `

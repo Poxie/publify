@@ -5,7 +5,7 @@ import { Post as PostType } from "../types/Post"
 import { CustomAbout as CustomAboutType, UserType } from "../types/UserType"
 import { Media as MediaType } from "../types/Media";
 import { DatabaseUser } from "../types/DatabaseUser";
-import { Comment as CommentType, Like as LikeType } from "../types";
+import { Comment as CommentType, Follow as FollowType, Like as LikeType } from "../types";
 import { 
     DELETE_COMMENT,
     DELETE_CUSTOM_ABOUT,
@@ -14,6 +14,7 @@ import {
     GET_CUSTOM_ABOUT_BY_ID, 
     INSERT_COMMENT, 
     INSERT_CUSTOM_ABOUT, 
+    INSERT_FOLLOW, 
     INSERT_LIKE, 
     INSERT_MEDIA, 
     INSERT_POST, 
@@ -22,6 +23,7 @@ import {
     SELECT_COMMENT_BY_ID, 
     SELECT_COMMENT_COUNT_BY_PARENT_ID, 
     SELECT_CUSTOM_ABOUTS, 
+    SELECT_FOLLOWER, 
     SELECT_LIKES_BT_PARENT_ID, 
     SELECT_MEDIA_BY_AUTHOR_ID, 
     SELECT_MEDIA_BY_ID, 
@@ -44,6 +46,7 @@ type Media = MediaType & RowDataPacket;
 type Like = LikeType & RowDataPacket;
 type Comment = CommentType & RowDataPacket;
 type CustomAbout = CustomAboutType & RowDataPacket;
+type Follow = FollowType & RowDataPacket;
 
 // Getting custom abouts
 export const getCustomAboutsByUserId = async (userId: string) => {
@@ -447,4 +450,13 @@ export const destroyCustomAbout: (id: string) => Promise<boolean> = async (id) =
 export const getCustomAboutById: (id: string) => Promise<CustomAbout> = async (id) => {
     const [abouts] = await connection.promise().query<CustomAbout[]>(GET_CUSTOM_ABOUT_BY_ID, [id]);
     return abouts[0];
+}
+
+export const getFollow: (userId: string, selfId: string) => Promise<Follow | undefined> = async (userId, selfId) => {
+    const [followers] = await connection.promise().query<Follow[]>(SELECT_FOLLOWER, [userId, selfId]);
+    return followers[0];
+}
+export const createFollow: (userId: string, selfId: string) => Promise<boolean> = async (userId, selfId) => {
+    await connection.promise().query(INSERT_FOLLOW, [userId, selfId, JSON.stringify(Date.now())]);
+    return true;
 }

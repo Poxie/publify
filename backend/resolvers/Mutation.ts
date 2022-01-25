@@ -1,4 +1,4 @@
-import { createtPostLike, destroyPost, createPost, destroyPostLike, generateUserId, getPostById, getUserById, insertUser, createComment, destroyComment, getCommentById, createMedia, updateProfileProperties, saveUserImage, getDominantColor, updateCustomAbout, insertCustomAbout, destroyCustomAbout } from "../logic/db-actions";
+import { createtPostLike, destroyPost, createPost, destroyPostLike, generateUserId, getPostById, getUserById, insertUser, createComment, destroyComment, getCommentById, createMedia, updateProfileProperties, saveUserImage, getDominantColor, updateCustomAbout, insertCustomAbout, destroyCustomAbout, createFollow, getFollow } from "../logic/db-actions";
 import { Comment, Like } from "../types";
 import { DatabaseUser } from "../types/DatabaseUser";
 import { Post } from "../types/Post";
@@ -200,6 +200,18 @@ export const Mutation = {
         const id = args.id;
 
         await destroyCustomAbout(id);
+        return true;
+    },
+    createFollow: async (parent: any, args: any, context: any) => {
+        const self = await checkUserExistence(context);
+        const userId = args.userId;
+
+        // Checking if follow exists
+        const follow = await getFollow(userId, self.id);
+        if(follow) throw new Error('User is already following.');
+
+        // Create follow
+        await createFollow(userId, self.id);
         return true;
     }
 }

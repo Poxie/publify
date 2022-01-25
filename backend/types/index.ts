@@ -16,3 +16,11 @@ export type Comment = {
     likes: string[];
     likeCount: number;
 }
+export type Follow = {
+    // The user that is followed
+    userId: string;
+    // The user that is following
+    followerId: string;
+    // The date the user started following (in unix)
+    createdAt: number;
+}

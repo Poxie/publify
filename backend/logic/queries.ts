@@ -12,6 +12,7 @@ export const SELECT_COMMENTS_BY_PARENT_ID = 'SELECT * FROM `comments` WHERE pare
 export const SELECT_COMMENT_COUNT_BY_PARENT_ID = 'SELECT count(*) AS commentCount FROM `comments` WHERE parentId = ?';
 export const SELECT_CUSTOM_ABOUTS = 'SELECT * FROM `about` WHERE userId = ?';
 export const GET_CUSTOM_ABOUT_BY_ID = 'SELECT * FROM `about` WHERE id = ?';
+export const SELECT_FOLLOWER = 'SELECT * FROM `followers` WHERE userId = ? AND followerId = ?';
 
 // Insertions
 export const INSERT_USER = 'INSERT INTO `users` (id, username, password, displayName, avatar, banner, color) VALUES (?, ?, ?, ?, ?, ?, ?)';
@@ -20,6 +21,7 @@ export const INSERT_POST = 'INSERT INTO `posts` (id, authorId, content, createdA
 export const INSERT_COMMENT = 'INSERT INTO `comments` (id, parentId, authorId, content, createdAt) VALUES (?, ?, ?, ?, ?)';
 export const INSERT_MEDIA = 'INSERT INTO `media` (id, parentId, width, height, ratio) VALUES (?, ?, ?, ?, ?)';
 export const INSERT_CUSTOM_ABOUT = 'INSERT INTO `about` (id, userId, label, value, emoji) VALUES (?, ?, ?, ?, ?)';
+export const INSERT_FOLLOW = 'INSERT INTO `followers` (userId, followerId, createdAt) VALUES (?, ?, ?)';
 
 // Deleteions
 export const DELETE_LIKE = 'DELETE FROM `likes` WHERE parentId = ? AND userId = ?';
