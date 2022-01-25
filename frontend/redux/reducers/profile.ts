@@ -97,14 +97,14 @@ export default (state=initialState, action: AnyAction) => {
             }
         }
         case CREATE_FOLLOW: {
-            const user = {...state.user, ...{isFollowing: true}};
+            const user = {...state.user, ...{isFollowing: true, followersCount: state.user.followersCount + 1}};
             return {
                 ...state,
                 user
             }
         }
         case DESTROY_FOLLOW: {
-            const user = {...state.user, ...{isFollowing: false}};
+            const user = {...state.user, ...{isFollowing: false, followersCount: state.user.followersCount - 1}};
             return {
                 ...state,
                 user
