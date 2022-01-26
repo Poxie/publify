@@ -5,7 +5,7 @@ import { Post as PostType } from "../types/Post"
 import { CustomAbout as CustomAboutType, UserType } from "../types/UserType"
 import { Media as MediaType } from "../types/Media";
 import { DatabaseUser } from "../types/DatabaseUser";
-import { Comment as CommentType, Follow as FollowType, Like as LikeType } from "../types";
+import { Comment as CommentType, Follow as FollowType, Like as LikeType, Notification as NotificationType } from "../types";
 import { 
     DELETE_COMMENT,
     DELETE_CUSTOM_ABOUT,
@@ -18,6 +18,7 @@ import {
     INSERT_FOLLOW, 
     INSERT_LIKE, 
     INSERT_MEDIA, 
+    INSERT_NOTIFICATION, 
     INSERT_POST, 
     INSERT_USER, 
     SELECT_COMMENTS_BY_PARENT_ID, 
@@ -26,10 +27,12 @@ import {
     SELECT_CUSTOM_ABOUTS, 
     SELECT_FOLLOWER, 
     SELECT_FOLLOWERS_COUNT, 
+    SELECT_FOLLOWERS_IDS, 
     SELECT_LIKES_BT_PARENT_ID, 
     SELECT_MEDIA_BY_AUTHOR_ID, 
     SELECT_MEDIA_BY_ID, 
     SELECT_MEDIA_BY_POST_ID, 
+    SELECT_NOTIFICATION, 
     SELECT_POSTS_BY_AUTHOR_ID, 
     SELECT_POST_BY_ID, 
     SELECT_POST_COUNT, 
@@ -50,6 +53,7 @@ type Like = LikeType & RowDataPacket;
 type Comment = CommentType & RowDataPacket;
 type CustomAbout = CustomAboutType & RowDataPacket;
 type Follow = FollowType & RowDataPacket;
+type Notification = NotificationType & RowDataPacket;
 
 // Getting custom abouts
 export const getCustomAboutsByUserId = async (userId: string) => {
@@ -244,6 +248,9 @@ export const createPost: (authorId: string, content: string) => Promise<Post> = 
     
     // Getting created post
     const post = await getPostById(id);
+
+    // Notifiying users following
+    notifyUsers('post', post.id);
 
     // Returning post
     return post;
@@ -473,6 +480,11 @@ export const getCustomAboutById: (id: string) => Promise<CustomAbout> = async (i
     return abouts[0];
 }
 
+export const getFollowersIds: (userId: string) => Promise<string[]> = async (userId) => {
+    const [rows] = await connection.promise().query<any>(SELECT_FOLLOWERS_IDS, [userId]);
+    const ids = rows.map((row: any) => row.followerId);
+    return ids;
+}
 export const getFollowersCount: (userId: string) => Promise<number> = async (userId) => {
     const [rows]: any = await connection.promise().query(SELECT_FOLLOWERS_COUNT, [userId]);
     return rows[0].followersCount;
@@ -488,4 +500,52 @@ export const createFollow: (userId: string, selfId: string) => Promise<boolean> 
 export const destroyFollow: (userId: string, selfId: string) => Promise<boolean> = async (userId, selfId) => {
     await connection.promise().query(DELETE_FOLLOW, [userId, selfId]);
     return true;
+}
+
+// Notifications
+const generateNotificationId: () => Promise<string> = async () => {
+    const id = randomId();
+    
+    // Checking if exists
+    const notif = await getNotification(id);
+    if(notif) return await generateNotificationId();
+
+    return id;
+}
+export const getNotification: (id: string) => Promise<Notification> = async (id) => {
+    const [notifications] = await connection.promise().query<Notification[]>(SELECT_NOTIFICATION, [id]);
+    return notifications[0];
+}
+type PartialNotification = {
+    userId: string;
+    type: string;
+    content: string;
+    image: string | null;
+    targetId?: string;
+}
+export const createNotification: (notification: PartialNotification) => Promise<Notification> = async ({ type, userId, content, image, targetId }) => {
+    const id = await generateNotificationId();
+    const createdAt = Date.now();
+
+    await connection.promise().query(INSERT_NOTIFICATION, [id, userId, type, content, createdAt, image, targetId]);
+    const notification = await getNotification(id);
+    return notification;
+}
+
+export const notifyUsers: (type: 'post', targetId: string) => Promise<void> = async (type, targetId) => {
+    if(type === 'post') {
+        const post = await getPostById(targetId);
+        const authorId = post.authorId;
+        const followersIds = await getFollowersIds(authorId);
+        
+        for(const followerId of followersIds) {
+            await createNotification({
+                type: 'post',
+                content: post.content,
+                userId: followerId,
+                image: post.media[0]?.id || null,
+                targetId: post.id
+            })
+        }
+    }
 }

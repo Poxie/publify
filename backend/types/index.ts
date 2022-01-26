@@ -24,3 +24,12 @@ export type Follow = {
     // The date the user started following (in unix)
     createdAt: number;
 }
+export type Notification = {
+    id: string;
+    userId: string;
+    type: string;
+    content: string;
+    createdAt: string;
+    image: string | null;
+    targetId?: string;
+}
