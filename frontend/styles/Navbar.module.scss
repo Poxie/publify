@@ -1,9 +1,39 @@
 .container {
-    padding: 14px 20px;
+    padding: 14px;
     background-color: var(--background-secondary);
 }
 .main {
     width: 900px;
     max-width: 100%;
     margin: 0 auto;
+
+    svg {
+        fill: var(--text-primary);
+        width: 25px;
+        opacity: .4;
+    }
+}
+.button {
+    width: 40px;
+    height: 40px;
+    padding: 6px;
+    border-radius: var(--border-radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+
+    &:hover {
+        background-color: var(--background-tertiary);
+    }
+}
+.notification-container {
+    background-color: var(--background-tertiary);
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 340px;
+    padding: 15px;
+    border-radius: var(--border-radius);
 }
