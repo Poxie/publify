@@ -1,7 +1,7 @@
-import { CustomAbout, PostType, UserType } from "./types";
+import { CustomAbout, Notification, PostType, UserType } from "./types";
 import { GraphQLClient } from 'graphql-request';
 import { CREATE_CUSTOM_ABOUT, CREATE_COMMENT, CREATE_LIKE, CREATE_POST, CREATE_USER, DESTROY_COMMENT, DESTROY_CUSTOM_ABOUT, DESTROY_LIKE, DESTROY_POST, UPDATE_CUSTOM_ABOUT, UPDATE_PROFILE } from "./mutations";
-import { CREATE_FOLLOW, DESTROY_FOLLOW, GET_COMMENTS_BY_PARENT_ID, GET_ME, GET_MEDIA_BY_AUTHOR_ID, GET_POSTS_BY_AUTHOR_ID, GET_POST_BY_ID, GET_USER_BY_ID, GET_USER_BY_USERNAME, LOGIN } from "./queries";
+import { CREATE_FOLLOW, DESTROY_FOLLOW, GET_COMMENTS_BY_PARENT_ID, GET_ME, GET_MEDIA_BY_AUTHOR_ID, GET_MY_NOTIFICATIONS, GET_MY_NOTIFICATION_COUNT, GET_POSTS_BY_AUTHOR_ID, GET_POST_BY_ID, GET_USER_BY_ID, GET_USER_BY_USERNAME, LOGIN } from "./queries";
 import { API_ENDPOINT, IMAGE_ENDPOINT } from "./constants";
 
 // Getting access token
@@ -12,7 +12,7 @@ const getAccessToken = () => {
 
 // Returning pure data from GraphQL response
 const sanitizeData = (data: string, query: string) => {
-    const rootQuery = query.split('{')[1].split('(')[0].trim();
+    const rootQuery = query.split('{')[1].split('(')[0].trim().replaceAll('}', '').trim();
     return data[rootQuery];
 }
 
@@ -152,6 +152,16 @@ export const destroyFollow = async (userId: string) => {
 }
 export const createFollow = async (userId: string) => {
     const response = await request(CREATE_FOLLOW, { userId });
+    return response;
+}
+
+// Notification stuff
+export const getMyNotificationCount = async () => {
+    const response = await request(GET_MY_NOTIFICATION_COUNT);
+    return response;
+}
+export const getMyNotifications: () => Promise<Notification[]> = async () => {
+    const response = await request(GET_MY_NOTIFICATIONS);
     return response;
 }
 

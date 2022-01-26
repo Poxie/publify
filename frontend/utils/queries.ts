@@ -145,6 +145,28 @@ export const CREATE_FOLLOW = gql`
     }
 `
 
+export const GET_MY_NOTIFICATION_COUNT = gql`
+    query {
+        getMyNotificationCount
+    }
+`
+
+export const GET_MY_NOTIFICATIONS = gql`
+    query {
+        getMyNotifications {
+            id
+            type
+            image
+            author {
+                ${USER_PROPERTIES}
+            }
+            content
+            targetId
+            createdAt
+        }
+    }
+`
+
 // Auth stuff
 export const LOGIN = gql`
     query($username: String!, $password: String!) {

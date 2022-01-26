@@ -24,16 +24,47 @@
     cursor: pointer;
     position: relative;
 
-    &:hover {
+    &:hover, &.active-button {
         background-color: var(--background-tertiary);
     }
 }
 .notification-container {
     background-color: var(--background-tertiary);
     position: absolute;
-    top: 100%;
+    z-index: 14;
+    top: calc(100% + 15px);
     right: 0;
-    width: 340px;
-    padding: 15px;
+    width: 400px;
     border-radius: var(--border-radius);
+    overflow: hidden;
+}
+.notification {
+    padding: 15px;
+
+    a {
+        text-decoration: none;
+    }
+    &:hover {
+        background-color: var(--background-hover);
+    }
+}
+.notification-header {
+    font-size: 14px;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+.timestamp {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+.notification-content {
+    span {
+        margin-left: 10px;
+    }
+}
+.notification-author {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-top: 4px;
 }

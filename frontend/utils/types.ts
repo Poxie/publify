@@ -57,6 +57,17 @@ export type Comment = {
     likeCount: number;
 }
 
+export type Notification = {
+    id: string;
+    userId: string;
+    author: UserType;
+    type: string;
+    content: string;
+    createdAt: string;
+    image?: string;
+    targetId?: string;
+}
+
 
 // Contexts
 export type AuthContext = {
