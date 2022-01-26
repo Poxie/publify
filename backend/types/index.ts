@@ -27,6 +27,7 @@ export type Follow = {
 export type Notification = {
     id: string;
     userId: string;
+    authorid: string;
     type: string;
     content: string;
     createdAt: string;

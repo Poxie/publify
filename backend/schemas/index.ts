@@ -58,7 +58,18 @@ export const typeDefs = gql`
         likes: [String]!
         likeCount: Int!
     }
-    
+    type Notification {
+        id: String!
+        userId: String!
+        authorId: String!
+        author: User!
+        type: String!
+        content: String!
+        createdAt: String!
+        isRead: Boolean!
+        targetId: String
+        image: String
+    }
 
     type AuthData {
         token: String!
@@ -74,6 +85,8 @@ export const typeDefs = gql`
         getUserMedia(id: String!, startIndex: Int, endIndex: Int): [Media]
         getPostsByAuthorId(id: String!, startIndex: Int, endIndex: Int): [Post]
         getCommentsByParentId(parentId: String!): [Comment]!
+        getMyNotifications: [Notification]!
+        getMyNotificationCount: Int!
         login(username: String!, password: String!): AuthData!
     }
 

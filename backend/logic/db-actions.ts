@@ -37,7 +37,9 @@ import {
     SELECT_POST_BY_ID, 
     SELECT_POST_COUNT, 
     SELECT_USER_BY_ID, 
-    SELECT_USER_BY_USERNAME 
+    SELECT_USER_BY_USERNAME, 
+    SELECT_USER_NOTIFICATIONS,
+    SELECT_USER_NOTIFICATION_COUNT
 } from './queries';
 import { RowDataPacket } from 'mysql2';
 import imageSize from 'image-size';
@@ -516,18 +518,27 @@ export const getNotification: (id: string) => Promise<Notification> = async (id)
     const [notifications] = await connection.promise().query<Notification[]>(SELECT_NOTIFICATION, [id]);
     return notifications[0];
 }
+export const getUserNotifications: (id: string) => Promise<Notification[]> = async (id) => {
+    const [notifications] = await connection.promise().query<Notification[]>(SELECT_USER_NOTIFICATIONS, [id]);
+    return notifications;
+}
+export const getUserNotificationCount: (id: string) => Promise<number> = async (id) => {
+    const [rows] = await connection.promise().query<any>(SELECT_USER_NOTIFICATION_COUNT, [id]);
+    return rows[0].notificationCount;
+}
 type PartialNotification = {
     userId: string;
+    authorId: string;
     type: string;
     content: string;
     image: string | null;
     targetId?: string;
 }
-export const createNotification: (notification: PartialNotification) => Promise<Notification> = async ({ type, userId, content, image, targetId }) => {
+export const createNotification: (notification: PartialNotification) => Promise<Notification> = async ({ type, userId, authorId, content, image, targetId }) => {
     const id = await generateNotificationId();
     const createdAt = Date.now();
 
-    await connection.promise().query(INSERT_NOTIFICATION, [id, userId, type, content, createdAt, image, targetId]);
+    await connection.promise().query(INSERT_NOTIFICATION, [id, userId, authorId, type, content, createdAt, image, targetId]);
     const notification = await getNotification(id);
     return notification;
 }
@@ -543,6 +554,7 @@ export const notifyUsers: (type: 'post', targetId: string) => Promise<void> = as
                 type: 'post',
                 content: post.content,
                 userId: followerId,
+                authorId: authorId,
                 image: post.media[0]?.id || null,
                 targetId: post.id
             })
