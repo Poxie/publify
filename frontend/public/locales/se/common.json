@@ -31,5 +31,7 @@
     "inRelationship": "I ett förhållande",
     "complicated": "Komplicerat",
     "relationshipN/A": "Jag vill inte dela med mig",
-    "aboutMeEmpty": "Denna användare har inte delat något ännu."
+    "aboutMeEmpty": "Denna användare har inte delat något ännu.",
+    "navbarSearch": "Sök efter användare...",
+    "notificationHeader": "{{ username }} la upp ett inlägg"
 }

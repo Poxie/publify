@@ -31,5 +31,7 @@
     "inRelationship": "In a relationship",
     "complicated": "Complicated",
     "relationshipN/A": "I don't wish to share",
-    "aboutMeEmpty": "This user is not sharing anything at this time."
+    "aboutMeEmpty": "This user is not sharing anything at this time.",
+    "navbarSearch": "Search for user...",
+    "notificationHeader": "{{ username }} published a post"
 }

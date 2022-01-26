@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 import styles from '../../../styles/Navbar.module.scss';
 import { getReadableTimeFromUnix } from '../../../utils';
@@ -10,10 +11,12 @@ type Props = {
     author: UserType;
 }
 export const NotificationHeader: React.FC<Props> = ({ author, type, createdAt }) => {
+    const { t } = useTranslation();
+
     let title;
     switch(type) {
         case 'post':
-            title = `${author.displayName} published a post`
+            title = t('notificationHeader', { username: author.displayName })
     }
     return(
         <Flex 
