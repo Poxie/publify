@@ -162,8 +162,15 @@ export const GET_MY_NOTIFICATIONS = gql`
             }
             content
             targetId
-            createdAt
+                createdAt
+            read
         }
+    }
+`
+
+export const READ_MY_NOTIFICATIONS = gql`
+    mutation {
+        readMyNotifications
     }
 `
 

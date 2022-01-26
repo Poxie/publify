@@ -44,7 +44,7 @@ export const Notifications = () => {
         <div className={className} onClick={toggle} ref={ref}>
             <NotificationIcon />
             {count !== 0 && (
-                <span>
+                <span className={styles['notification-count']}>
                     {count}
                 </span>
             )}

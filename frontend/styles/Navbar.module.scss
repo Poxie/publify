@@ -28,6 +28,20 @@
         background-color: var(--background-tertiary);
     }
 }
+.notification-count {
+    position: absolute;
+    bottom: 0px;
+    right: 2px;
+    font-weight: 600;
+    background-color: var(--background-tertiary);
+    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+}
 .notification-container {
     background-color: var(--background-tertiary);
     position: absolute;

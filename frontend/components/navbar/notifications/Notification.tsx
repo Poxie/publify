@@ -14,6 +14,7 @@ export const Notification: React.FC<NotificationType> = ({ type, author, content
                 <a>
                     <NotificationHeader 
                         type={type}
+                        author={author}
                         createdAt={createdAt}
                     />
                     <NotificationContent 

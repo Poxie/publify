@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import styles from '../../../styles/Navbar.module.scss';
-import { getMyNotifications } from '../../../utils';
+import { getMyNotifications, readMyNotifications } from '../../../utils';
 import { Notification as NotificationType } from '../../../utils/types';
 import { Notification } from './Notification';
 
@@ -13,6 +13,7 @@ export const NotificationContainer = () => {
         getMyNotifications()
             .then(notifs => {
                 setNotifications(notifs);
+                readMyNotifications();
             })
     }, []);
 
