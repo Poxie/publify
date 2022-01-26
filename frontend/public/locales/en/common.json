@@ -6,6 +6,8 @@
     "unfollow": "Unfollow",
     "likes": "likes",
     "comments": "comments",
+    "followers": "followers",
+    "posts": "posts",
     "loginHeader": "Login to use these features!",
     "username": "Username",
     "displayName": "Display name",

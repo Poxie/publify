@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 import styles from '../styles/Components.module.scss';
 import { Avatar } from './Avatar';
@@ -21,6 +22,7 @@ type Props = {
     avatarStyle?: string;
 }
 export const ProfileHeader: React.FC<Props> = ({ id, displayName, avatar, avatarStyle, bio, hasProfileStats, followersCount, isFollowing, postCount, onAvatarClick, avatarHoverText, hasProfileOptions }) => {
+    const { t } = useTranslation();
     const avatarClassName = [styles['profile-avatar'], avatarStyle || ''].join(' ');
     return(
         <div className={styles['profile-header']}>
@@ -43,10 +45,10 @@ export const ProfileHeader: React.FC<Props> = ({ id, displayName, avatar, avatar
                     {hasProfileStats && (
                         <div className={styles['profile-stats']}>
                             <span>
-                                {followersCount} followers
+                                {followersCount} {t('followers')}
                             </span>
                             <span>
-                                {postCount} posts
+                                {postCount} {t('posts')}
                             </span>
                         </div>
                     )}
