@@ -39,7 +39,8 @@ import {
     SELECT_USER_BY_ID, 
     SELECT_USER_BY_USERNAME, 
     SELECT_USER_NOTIFICATIONS,
-    SELECT_USER_NOTIFICATION_COUNT
+    SELECT_USER_NOTIFICATION_COUNT,
+    UPDATE_NOTIFICATION_STATUS
 } from './queries';
 import { RowDataPacket } from 'mysql2';
 import imageSize from 'image-size';
@@ -541,6 +542,10 @@ export const createNotification: (notification: PartialNotification) => Promise<
     await connection.promise().query(INSERT_NOTIFICATION, [id, userId, authorId, type, content, createdAt, image, targetId]);
     const notification = await getNotification(id);
     return notification;
+}
+export const readUserNotifications: (userId: string) => Promise<boolean> = async (userId: string) => {
+    await connection.promise().query(UPDATE_NOTIFICATION_STATUS, [1, userId]);
+    return true;
 }
 
 export const notifyUsers: (type: 'post', targetId: string) => Promise<void> = async (type, targetId) => {

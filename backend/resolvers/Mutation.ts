@@ -1,4 +1,4 @@
-import { createtPostLike, destroyPost, createPost, destroyPostLike, generateUserId, getPostById, getUserById, insertUser, createComment, destroyComment, getCommentById, createMedia, updateProfileProperties, saveUserImage, getDominantColor, updateCustomAbout, insertCustomAbout, destroyCustomAbout, createFollow, getFollow, destroyFollow } from "../logic/db-actions";
+import { createtPostLike, destroyPost, createPost, destroyPostLike, generateUserId, getPostById, getUserById, insertUser, createComment, destroyComment, getCommentById, createMedia, updateProfileProperties, saveUserImage, getDominantColor, updateCustomAbout, insertCustomAbout, destroyCustomAbout, createFollow, getFollow, destroyFollow, readUserNotifications } from "../logic/db-actions";
 import { Comment, Like } from "../types";
 import { DatabaseUser } from "../types/DatabaseUser";
 import { Post } from "../types/Post";
@@ -225,5 +225,12 @@ export const Mutation = {
         // Destroy follow
         const status = await destroyFollow(userId, self.id);
         return status;
+    },
+    readMyNotifications: async (parent: any, args: any, context: any) => {
+        const user = await checkUserExistence(context);
+    
+        await readUserNotifications(user.id);
+
+        return true;
     }
 }

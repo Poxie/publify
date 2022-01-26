@@ -66,7 +66,7 @@ export const typeDefs = gql`
         type: String!
         content: String!
         createdAt: String!
-        isRead: Boolean!
+        read: Boolean!
         targetId: String
         image: String
     }
@@ -141,5 +141,8 @@ export const typeDefs = gql`
         destroyFollow(
             userId: String!
         ): Boolean
+
+        # Notifications stuff
+        readMyNotifications: Boolean
     }
 `

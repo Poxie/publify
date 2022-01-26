@@ -18,7 +18,7 @@ export const SELECT_FOLLOWERS_IDS = 'SELECT followerId FROM `followers` WHERE us
 export const SELECT_POST_COUNT = 'SELECT count(*) AS postCount FROM `posts` WHERE authorId = ?';
 export const SELECT_NOTIFICATION = 'SELECT * FROM notifications WHERE id = ?';
 export const SELECT_USER_NOTIFICATIONS = 'SELECT * FROM notifications WHERE userId = ?';
-export const SELECT_USER_NOTIFICATION_COUNT = 'SELECT count(*) AS notificationCount FROM `notifications` WHERE userId = ?';
+export const SELECT_USER_NOTIFICATION_COUNT = 'SELECT count(*) AS notificationCount FROM `notifications` WHERE userId = ? AND `read` = 0';
 
 // Insertions
 export const INSERT_USER = 'INSERT INTO `users` (id, username, password, displayName, avatar, banner, color) VALUES (?, ?, ?, ?, ?, ?, ?)';
@@ -36,3 +36,6 @@ export const DELETE_POST = 'DELETE FROM `posts` WHERE id = ?';
 export const DELETE_COMMENT = 'DELETE FROM `comments` WHERE id = ?';
 export const DELETE_CUSTOM_ABOUT = 'DELETE FROM `about` WHERE id = ?';
 export const DELETE_FOLLOW = 'DELETE FROM `followers` WHERE userId = ? AND followerId = ?';
+
+// Updates
+export const UPDATE_NOTIFICATION_STATUS = 'UPDATE notifications SET `read` = ? WHERE userId = ?';
