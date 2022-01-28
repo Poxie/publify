@@ -154,6 +154,7 @@
     border-radius: var(--border-radius);
     margin-bottom: var(--spacing); 
     padding: 15px;
+    animation: var(--loaded-animation);
 
     svg {
         fill: var(--icon-color);

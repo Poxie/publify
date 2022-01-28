@@ -244,6 +244,7 @@
 }
 .comment {
     margin-bottom: 15px;
+    animation: var(--loaded-animation);
 
     &:hover {
         &>:first-of-type {

@@ -19,9 +19,23 @@ export const LoadingPost = () => {
             </Flex>
             <LoadingText 
                 maxWidth={350}
-                style={{marginTop: 15}}
+                style={{marginTop: 'var(--spacing)'}}
                 height={22}
             />
+            <Flex style={{marginTop: 'var(--spacing)', borderTop: '1px solid var(--background-tertiary)'}}>
+                <LoadingText 
+                    maxWidth={50}
+                    minWidth={40}
+                    height={25}
+                    style={{marginTop: 'var(--spacing)', marginRight: 'var(--spacing)'}}
+                />
+                <LoadingText 
+                    maxWidth={50}
+                    minWidth={50}
+                    height={25}
+                    style={{marginTop: 'var(--spacing)'}}
+                />
+            </Flex>
         </div>
     )
 }

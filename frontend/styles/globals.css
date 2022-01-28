@@ -11,6 +11,7 @@
   --color-primary-hover: #0956ff;
   --border-radius: 8px;
   --spacing: 15px;
+  --loaded-animation: on-loaded .4s forwards;
 }
 
 html,
@@ -33,4 +34,13 @@ a:hover {
 
 * {
   box-sizing: border-box;
+}
+
+@keyframes on-loaded {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

@@ -10,12 +10,56 @@ export const LoadingComment = () => {
             <LoadingAvatar 
                 size={36}
             />
-            <LoadingText 
-                minWidth={280}
-                maxWidth={400}
-                minHeight={60}
-                maxHeight={90}
-            />
+            <Flex flexWrap={'wrap'}>
+                <LoadingText 
+                    minWidth={50}
+                    maxWidth={110}
+                    minHeight={25}
+                    maxHeight={25}
+                />
+                <LoadingText 
+                    minWidth={50}
+                    maxWidth={110}
+                    minHeight={25}
+                    maxHeight={25}
+                />
+                <LoadingText 
+                    minWidth={50}
+                    maxWidth={110}
+                    minHeight={25}
+                    maxHeight={25}
+                />
+                <LoadingText 
+                    minWidth={50}
+                    maxWidth={110}
+                    minHeight={25}
+                    maxHeight={25}
+                />
+                <LoadingText 
+                    minWidth={50}
+                    maxWidth={110}
+                    minHeight={25}
+                    maxHeight={25}
+                />
+                <LoadingText 
+                    minWidth={50}
+                    maxWidth={110}
+                    minHeight={25}
+                    maxHeight={25}
+                />
+                <LoadingText 
+                    minWidth={50}
+                    maxWidth={110}
+                    minHeight={25}
+                    maxHeight={25}
+                />
+                <LoadingText 
+                    minWidth={50}
+                    maxWidth={110}
+                    minHeight={25}
+                    maxHeight={25}
+                />
+            </Flex>
         </Flex>
     )
 }
