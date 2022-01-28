@@ -56,8 +56,8 @@
     border-radius: var(--border-radius);
     padding: 12px;
     background-color: var(--background-secondary);
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: var(--spacing);
+    margin-bottom: var(--spacing);
 
     a {
         text-decoration: none;
@@ -89,7 +89,7 @@
 // Profile overview
 .profile-sidebar {
     min-width: 300px;
-    margin-right: 10px;
+    margin-right: var(--spacing);
     
     &>div {
         background-color: var(--background-secondary);
@@ -152,7 +152,7 @@
 .post {
     background-color: var(--background-secondary);
     border-radius: var(--border-radius);
-    margin-bottom: 15px; 
+    margin-bottom: var(--spacing); 
     padding: 15px;
 
     svg {

@@ -10,6 +10,7 @@
   --color-primary: #2168ff;
   --color-primary-hover: #0956ff;
   --border-radius: 8px;
+  --spacing: 15px;
 }
 
 html,
