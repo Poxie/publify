@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { Flex } from '../../components/Flex';
-import styles from '../../styles/Modals.module.scss';
+import styles from '../../styles/PostModal.module.scss';
 
 type Props = {
     tempFile: File;
