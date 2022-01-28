@@ -87,6 +87,7 @@ export const typeDefs = gql`
         getCommentsByParentId(parentId: String!): [Comment]!
         getMyNotifications: [Notification]!
         getMyNotificationCount: Int!
+        getMyFeed: [Post]!
         login(username: String!, password: String!): AuthData!
     }
 

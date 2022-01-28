@@ -1,4 +1,4 @@
-import { getCommentsByParentId, getMediaByAuthorId, getPostById, getPostsByAuthorId, getUserById, getUserByUsername, getUserNotificationCount, getUserNotifications } from "../logic/db-actions";
+import { getCommentsByParentId, getMediaByAuthorId, getPostById, getPostsByAuthorId, getUserById, getUserByUsername, getUserFeed, getUserNotificationCount, getUserNotifications } from "../logic/db-actions";
 import jwt from 'jsonwebtoken';
 import { AuthRequest } from "../types/AuthRequest";
 
@@ -49,6 +49,11 @@ export const Query = {
         const id = context.userId;
         const notifications = await getUserNotifications(id);
         return notifications;
+    },
+    getMyFeed: async (parent: any, args: any, context: any) => {
+        const id = context.userId;
+        const feed = await getUserFeed(id);
+        return feed;
     },
     login: async (parent: any, args: any, req: AuthRequest) => {
         const { username, password } = args;

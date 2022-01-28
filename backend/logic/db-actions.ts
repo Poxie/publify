@@ -566,3 +566,21 @@ export const notifyUsers: (type: 'post', targetId: string) => Promise<void> = as
         }
     }
 }
+
+// Feed
+export const getUserFeed: (id: string) => Promise<Post[]> = async (id) => {
+    // Fetching user notifications
+    const notifications = await getUserNotifications(id);
+
+    // Getting posts from notifications
+    const posts: Post[] = [];
+    for(const notification of notifications) {
+        // If notification is not post, continue loop
+        if(notification.type !== 'post' || !notification.targetId) continue;
+
+        // Else fetch post and push to posts array
+        const post = await getPostById(notification.targetId);
+        posts.push(post);
+    }
+    return posts;
+}
