@@ -119,26 +119,14 @@ export const setPost = (post: PostType) => ({
     type: SET_POST,
     payload: { post }
 })
-export const addActivePostLike = (postId: string, userId: string) => {
-    return async dispatch => {
-        await createLike(postId);
-
-        dispatch({
-            type: ADD_ACTIVE_POST_LIKE,
-            payload: { userId }
-        })
-    }
-}
-export const removeActivePostLike = (postId: string, userId: string) => {
-    return async dispatch => {
-        await destroyLike(postId);
-
-        dispatch({
-            type: REMOVE_ACTIVE_POST_LIKE,
-            payload: { userId }
-        })
-    }
-}
+export const addActivePostLike = (postId: string, userId: string) => ({
+    type: ADD_ACTIVE_POST_LIKE,
+    payload: { userId }
+})
+export const removeActivePostLike = (postId: string, userId: string) => ({
+    type: REMOVE_ACTIVE_POST_LIKE,
+    payload: { userId }
+})
 export const fetchComments = (postId: string) => {
     return async dispatch => {
         const comments = await getCommentsByParentId(postId);
@@ -176,23 +164,11 @@ export const removeComment = (commentId: string, replyId?: string) => {
         dispatch(createNotification('Successfully deleted comment.', 'success'));
     }
 }
-export const addCommentLike = (userId: string, commentId: string, replyId?: string) => {
-    return async dispatch => {
-        const comment = replyId ? await createLike(replyId) : await createLike(commentId);
-
-        dispatch({
-            type: ADD_COMMENT_LIKE,
-            payload: { userId, commentId, replyId }
-        })
-    }
-}
-export const removeCommentLike = (userId: string, commentId: string, replyId?: string) => {
-    return async dispatch => {
-        const comment = replyId ? await destroyLike(replyId) : await destroyLike(commentId);
-
-        dispatch({
-            type: REMOVE_COMMENT_LIKE,
-            payload: { userId, commentId, replyId }
-        })
-    }
-}
+export const addCommentLike = (userId: string, commentId: string, replyId?: string) => ({
+    type: ADD_COMMENT_LIKE,
+    payload: { userId, commentId, replyId }
+})
+export const removeCommentLike = (userId: string, commentId: string, replyId?: string) => ({
+    type: REMOVE_COMMENT_LIKE,
+    payload: { userId, commentId, replyId }
+})

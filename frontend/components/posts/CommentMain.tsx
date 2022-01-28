@@ -2,10 +2,14 @@ import Link from 'next/link';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useAuth } from '../../contexts/AuthProvider';
+import { useModal } from '../../contexts/ModalProvider';
+import { LoginModal } from '../../modals/login/LoginModal';
 import { addCommentLike, removeCommentLike } from '../../redux/actions';
 import { useAppSelector } from '../../redux/hooks';
 import { selectCommentById } from '../../redux/selectors';
 import styles from '../../styles/Post.module.scss';
+import { createLike, destroyLike } from '../../utils';
+import { isAuthError } from '../../utils/errors';
 import { PopoutUsername } from '../PopoutUsername';
 import { LikeButton } from './LikeButton';
 
@@ -16,14 +20,23 @@ type Props = {
 }
 export const CommentMain: React.FC<Props> = ({ commentId, replyId, type='comment' }) => {
     const { user } = useAuth();
+    const { setModal } = useModal();
     const dispatch = useDispatch();
 
     // Toggling like
-    const toggleLike = (state: boolean) => {
+    const toggleLike = async (state: boolean) => {
         const userId = user?.id;
         if(state) {
-            dispatch(addCommentLike(userId, commentId, replyId));
+            const response = await createLike(replyId ? replyId : commentId).catch(error => {
+                if(isAuthError(error)) {
+                    setModal(<LoginModal />);
+                }
+            })
+            if(response) {
+                dispatch(addCommentLike(userId, commentId, replyId));
+            }
         } else {
+            await destroyLike(replyId ? replyId : commentId);
             dispatch(removeCommentLike(userId, commentId, replyId));
         }
     }

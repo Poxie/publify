@@ -8,19 +8,32 @@ import { useAuth } from '../../contexts/AuthProvider';
 import { useDispatch } from 'react-redux';
 import { addActivePostLike, removeActivePostLike } from '../../redux/actions';
 import { CommentButton } from './CommentButton';
+import { useModal } from '../../contexts/ModalProvider';
+import { createLike, destroyLike } from '../../utils';
+import { isAuthError } from '../../utils/errors';
+import { LoginModal } from '../../modals/login/LoginModal';
 
 export const PostFooter = () => {
     // It's find to fetch entire post, since it will only re-render on like/comment change, which it should
     const { id: postId, likes, likeCount, commentCount } = useAppSelector(state => selectActivePost(state));
     const dispatch = useDispatch();
+    const { setModal } = useModal();
     const { user } = useAuth();
     const userId = user?.id;
 
     // Toggling liked
-    const toggleLiked = (state: boolean) => {
+    const toggleLiked = async (state: boolean) => {
         if(state) {
-            dispatch(addActivePostLike(postId, userId));
+            const response = await createLike(postId).catch(error => {
+                if(isAuthError(error)) {
+                    setModal(<LoginModal />);
+                }
+            })
+            if(response) {
+                dispatch(addActivePostLike(postId, userId));
+            }
         } else {
+            await destroyLike(postId);
             dispatch(removeActivePostLike(postId, userId));
         }
     }
