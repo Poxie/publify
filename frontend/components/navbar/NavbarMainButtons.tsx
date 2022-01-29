@@ -21,8 +21,9 @@ export const NavbarMainButtons = () => {
 
 const MainButton: React.FC<{path: string}> = ({ path, children }) => {
     const { asPath } = useRouter();
+    const activePath = path.split('/')[1] || '/';
 
-    const isActive = asPath.includes(path) && (path !== '/' || asPath === '/');
+    const isActive = asPath.includes(activePath) && (path !== '/' || asPath === '/');
     const className = [styles['main-button'], isActive && styles['active']].join(' ');
     return(
         <Link href={path}>
