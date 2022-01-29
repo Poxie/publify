@@ -12,7 +12,7 @@ export const NavbarMainButtons = () => {
             <MainButton path={'/'}>
                 <HomeIcon />
             </MainButton>
-            <MainButton path={'/explore'}>
+            <MainButton path={'/explore/users'}>
                 <ExploreIcon />
             </MainButton>
         </Flex>
