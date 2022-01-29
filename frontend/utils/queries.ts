@@ -174,6 +174,28 @@ export const READ_MY_NOTIFICATIONS = gql`
     }
 `
 
+export const GET_MY_FEED = gql`
+    query {
+        getMyFeed {
+            id
+            content
+            createdAt
+            commentCount
+            likeCount
+            isLiked
+            media {
+                id
+                width
+                height
+                ratio
+            }
+            author {
+                ${USER_PROPERTIES}
+            }
+        }
+    }
+`
+
 // Auth stuff
 export const LOGIN = gql`
     query($username: String!, $password: String!) {

@@ -30,6 +30,7 @@ export type PostType = {
     media: Media[];
     likes: string[];
     likeCount: number;
+    isLiked: boolean;
     createdAt: string;
     commentCount: number;
     comments?: Comment[];
