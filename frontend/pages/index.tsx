@@ -1,3 +1,4 @@
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { Home } from '../components/home/Home';
 import { HomeLayout } from '../layouts/HomeLayout';
 
@@ -13,4 +14,12 @@ Index.getLayout = page => {
       {page}
     </HomeLayout>
   )
+}
+
+export const getStaticProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale))
+    }
+  }
 }

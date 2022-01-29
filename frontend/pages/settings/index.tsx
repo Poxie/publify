@@ -1,3 +1,4 @@
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router"
 import { useEffect } from "react";
 
@@ -13,3 +14,11 @@ export default function Settings() {
         <></>
     )
 }
+
+export const getStaticProps = async ({ locale }) => {
+    return {
+        props: {
+            ...(await serverSideTranslations(locale, ['common', 'settings']))
+        }
+    }
+} 
