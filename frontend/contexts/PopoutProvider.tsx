@@ -71,6 +71,7 @@ export const PopoutProvider: React.FC<Props> = ({ children }) => {
 
     // Setting popout
     const setPopoutFunction = (popout: any, popoutOriginRef: RefObject<HTMLElement>) => {
+        if(!popoutOriginRef.current) return;
         // Getting initial popout position
         const { left, top } = popoutOriginRef.current.getBoundingClientRect();
 
