@@ -6,15 +6,9 @@ import { NavbarInput } from './NavbarInput';
 
 export const Navbar = () => {
     return(
-        <div className={styles['container']}>
-            <Flex 
-                className={styles['main']} 
-                justifyContent={'space-between'}
-                alignItems={'center'}
-            >
-                <NavbarInput />
-                <NavbarButtons />
-            </Flex>
-        </div>
+        <Flex className={styles['container']} justifyContent={'space-between'}>
+            <NavbarInput />
+            <NavbarButtons />
+        </Flex>
     )
 }

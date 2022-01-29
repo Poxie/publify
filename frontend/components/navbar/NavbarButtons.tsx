@@ -13,7 +13,7 @@ export const NavbarButtons = () => {
         {user && (
             <Flex>
                 <Notifications />
-                <NavbarButton path={'settings'}>
+                <NavbarButton path={'settings/profile'}>
                     <SettingsIcon />
                 </NavbarButton>
             </Flex>

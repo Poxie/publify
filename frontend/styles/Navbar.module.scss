@@ -1,12 +1,7 @@
 .container {
     padding: 14px;
     background-color: var(--background-secondary);
-}
-.main {
-    width: 900px;
-    max-width: 100%;
-    margin: 0 auto;
-
+    
     svg {
         fill: var(--text-primary);
         width: 25px;
