@@ -3,10 +3,13 @@
   --background-secondary: #192734;
   --background-tertiary: #253341;
   --background-hover: #2b3b4b;
+  --border-primary: #253341;
   --input-background: #192734;
   --icon-color: #3e566e;
   --text-primary: #fff;
   --text-muted: #8E9297;
+  --text-muted-font-weight: 500;
+  --timestamp-font-size: 13px;
   --color-primary: #2168ff;
   --color-primary-hover: #0956ff;
   --border-radius: 8px;
