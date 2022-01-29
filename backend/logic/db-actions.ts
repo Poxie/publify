@@ -34,6 +34,7 @@ import {
     SELECT_MEDIA_BY_ID, 
     SELECT_MEDIA_BY_POST_ID, 
     SELECT_MOST_FOLLOWERS, 
+    SELECT_MOST_LIKES, 
     SELECT_NOTIFICATION, 
     SELECT_POSTS_BY_AUTHOR_ID, 
     SELECT_POST_BY_ID, 
@@ -616,4 +617,19 @@ export const getExploreUsers: () => Promise<UserType[]> = async () => {
 
     // Returning fethed users
     return users;
+}
+export const getExplorePosts: () => Promise<PostType[]> = async () => {
+    // Fetching post IDs for the posts with the most likes
+    const [likedPosts] = await connection.promise().query<({parentId: string, magnitude: number} & RowDataPacket)[]>(SELECT_MOST_LIKES);
+    const postIds = likedPosts.map(post => post.parentId);
+
+    // Fetching post data
+    const posts = [];
+    for(const postId of postIds) {
+        const post = await getPostById(postId);
+        posts.push(post);
+    }
+    
+    // Returning fetched posts
+    return posts;
 }

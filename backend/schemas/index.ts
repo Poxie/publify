@@ -90,6 +90,7 @@ export const typeDefs = gql`
         getMyNotificationCount: Int!
         getMyFeed: [Post]!
         getExploreUsers: [User]!
+        getExplorePosts: [Post]!
         login(username: String!, password: String!): AuthData!
     }
 

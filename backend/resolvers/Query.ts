@@ -1,4 +1,4 @@
-import { getCommentsByParentId, getExploreUsers, getMediaByAuthorId, getPostById, getPostsByAuthorId, getUserById, getUserByUsername, getUserFeed, getUserNotificationCount, getUserNotifications } from "../logic/db-actions";
+import { getCommentsByParentId, getExplorePosts, getExploreUsers, getMediaByAuthorId, getPostById, getPostsByAuthorId, getUserById, getUserByUsername, getUserFeed, getUserNotificationCount, getUserNotifications } from "../logic/db-actions";
 import jwt from 'jsonwebtoken';
 import { AuthRequest } from "../types/AuthRequest";
 
@@ -57,6 +57,10 @@ export const Query = {
     getExploreUsers: async (parent: any, args: any) => {
         const users = await getExploreUsers();
         return users;
+    },
+    getExplorePosts: async (parent: any, args: any) => {
+        const posts = await getExplorePosts();
+        return posts;
     },
     login: async (parent: any, args: any, req: AuthRequest) => {
         const { username, password } = args;
