@@ -15,6 +15,7 @@
   --border-radius: 8px;
   --spacing: 15px;
   --loaded-animation: on-loaded .4s forwards;
+  --navbar-height: 70px;
 }
 
 html,
