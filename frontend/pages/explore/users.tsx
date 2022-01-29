@@ -12,9 +12,12 @@ import { useAppSelector } from '../../redux/hooks';
 import { selectPopularUsers } from '../../redux/selectors';
 import { useDispatch } from 'react-redux';
 import { setPopularUsers } from '../../redux/actions';
+import { usePortal } from '../../contexts/PortalProvider';
+import { UserProfilePortal } from '../../portals/UserProfilePortal';
 
 export default function Users() {
     const dispatch = useDispatch();
+    const { setPortal } = usePortal();
     const users = useAppSelector(state => selectPopularUsers(state));
 
     useEffect(() => {
@@ -33,6 +36,7 @@ export default function Users() {
                         return(
                             <div 
                                 className={styles['profile']}
+                                onClick={() => setPortal(<UserProfilePortal {...user} />, `${user.displayName}'s profile`)}
                                 key={user.id}
                             >
                                 <UserProfile 
