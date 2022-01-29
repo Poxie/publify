@@ -1,0 +1,41 @@
+.container {
+    height: 100vh;
+    border-left: 10px solid var(--background-secondary);
+    padding: var(--spacing);
+    width: 500px;
+    display: none;
+    overflow: auto;
+    position: sticky;
+    top: 0;
+
+    &.has-portal {
+        display: block;
+    }
+    &::-webkit-scrollbar {
+        width: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--background-secondary);
+        border-radius: 120px;
+    }
+}
+.header {
+    padding: var(--spacing);
+    background-color: var(--background-secondary);
+    border-radius: var(--border-radius);
+    margin-bottom: var(--spacing);
+    font-weight: 600;
+
+    svg {
+        fill: var(--icon-color);
+        width: 25px;
+        height: 25px;
+        border-radius: var(--border-radius);
+        padding: 5px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: var(--background-tertiary);
+        }
+    }
+}

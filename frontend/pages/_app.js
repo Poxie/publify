@@ -1,5 +1,6 @@
 import '../styles/globals.css'
 import { AuthProvider } from '../contexts/AuthProvider';
+import { PortalProvider } from '../contexts/PortalProvider';
 import { ModalProvider } from '../contexts/ModalProvider';
 import { ChangeProvider } from '../contexts/ChangeProvider';
 import { PopoutProvider } from '../contexts/PopoutProvider';
@@ -31,8 +32,10 @@ function MyApp({ Component, pageProps }) {
           <ModalProvider>
             <NotificationLayout>
               <PopoutProvider>
-                <Navbar />
-                {getLayout(<Component {...pageProps} />)}
+                <PortalProvider>
+                  <Navbar />
+                  {getLayout(<Component {...pageProps} />)}
+                </PortalProvider>
               </PopoutProvider>
             </NotificationLayout>
           </ModalProvider>
