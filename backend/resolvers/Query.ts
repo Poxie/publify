@@ -58,8 +58,8 @@ export const Query = {
         const users = await getExploreUsers();
         return users;
     },
-    getExplorePosts: async (parent: any, args: any) => {
-        const posts = await getExplorePosts();
+    getExplorePosts: async (parent: any, args: any, context: any) => {
+        const posts = await getExplorePosts(context.userId);
         return posts;
     },
     login: async (parent: any, args: any, req: AuthRequest) => {

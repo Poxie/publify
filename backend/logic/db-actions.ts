@@ -618,7 +618,7 @@ export const getExploreUsers: () => Promise<UserType[]> = async () => {
     // Returning fethed users
     return users;
 }
-export const getExplorePosts: () => Promise<PostType[]> = async () => {
+export const getExplorePosts: (selfId?: string) => Promise<PostType[]> = async (selfId) => {
     // Fetching post IDs for the posts with the most likes
     const [likedPosts] = await connection.promise().query<({parentId: string, magnitude: number} & RowDataPacket)[]>(SELECT_MOST_LIKES);
     const postIds = likedPosts.map(post => post.parentId);
@@ -626,10 +626,10 @@ export const getExplorePosts: () => Promise<PostType[]> = async () => {
     // Fetching post data
     const posts = [];
     for(const postId of postIds) {
-        const post = await getPostById(postId);
+        const post = await getPostById(postId, selfId);
         posts.push(post);
     }
-    
+
     // Returning fetched posts
     return posts;
 }
