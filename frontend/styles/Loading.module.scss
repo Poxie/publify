@@ -75,6 +75,11 @@
     &>*:not(.loading-banner) {
         margin: var(--spacing);
     }
+    div {
+        div {
+            margin-top: 0 !important;
+        }
+    }
 }
 
 .dot-flashing {
