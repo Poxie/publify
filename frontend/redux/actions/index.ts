@@ -1,6 +1,6 @@
 import { createComment, createLike, destroyPost, destroyLike, getCommentsByParentId, getPostsByAuthorId, publishPost, destroyComment } from "../../utils"
 import { Media, PostType, UserType } from "../../utils/types";
-import { ADD_ACTIVE_POST_LIKE, ADD_COMMENT, ADD_COMMENT_LIKE, ADD_POST_LIKE, CREATE_FOLLOW, CREATE_NOTIFICATION, CREATE_POST, DESTROY_FOLLOW, DESTROY_NOTIFICATION, LOAD_MORE_POSTS, REMOVE_ACTIVE_POST_LIKE, REMOVE_COMMENT, REMOVE_COMMENT_LIKE, REMOVE_POST, REMOVE_POST_LIKE, RESET_COMMENTS, RESET_NOTIFICATION, SET_COMMENTS, SET_POST, SET_POSTS, SET_PREVIEW_IMAGES, SET_PROFILE, SET_PROFILE_IMAGES } from "../actionTypes"
+import { ADD_ACTIVE_POST_LIKE, ADD_COMMENT, ADD_COMMENT_LIKE, ADD_POST_LIKE, CREATE_FOLLOW, CREATE_NOTIFICATION, CREATE_POST, DESTROY_FOLLOW, DESTROY_NOTIFICATION, LOAD_MORE_POSTS, REMOVE_ACTIVE_POST_LIKE, REMOVE_COMMENT, REMOVE_COMMENT_LIKE, REMOVE_POST, REMOVE_POST_LIKE, RESET_COMMENTS, RESET_NOTIFICATION, SET_COMMENTS, SET_POPULAR_USERS, SET_POST, SET_POSTS, SET_PREVIEW_IMAGES, SET_PROFILE, SET_PROFILE_IMAGES } from "../actionTypes"
 
 // Profle
 export const setProfile = (user: UserType) => ({
@@ -171,4 +171,10 @@ export const addCommentLike = (userId: string, commentId: string, replyId?: stri
 export const removeCommentLike = (userId: string, commentId: string, replyId?: string) => ({
     type: REMOVE_COMMENT_LIKE,
     payload: { userId, commentId, replyId }
+})
+
+// Explore
+export const setPopularUsers = (users: UserType[]) => ({
+    type: SET_POPULAR_USERS,
+    payload: users
 })

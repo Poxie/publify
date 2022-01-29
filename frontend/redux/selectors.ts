@@ -78,6 +78,9 @@ export const selectPostMedia: (state: RootState) => Media[] = createSelector(
     }
 )
 
+// Explore
+export const selectPopularPosts: (state: RootState) => UserType[] = state => state.explore.popularUsers;
+
 // Notifications
 export const selectNotification = (state: RootState) => state.notifications.notification;
 export const selectNotificationStatus = (state: RootState) => state.notifications.notificationStatus;
