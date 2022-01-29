@@ -33,6 +33,7 @@ import {
     SELECT_MEDIA_BY_AUTHOR_ID, 
     SELECT_MEDIA_BY_ID, 
     SELECT_MEDIA_BY_POST_ID, 
+    SELECT_MOST_FOLLOWERS, 
     SELECT_NOTIFICATION, 
     SELECT_POSTS_BY_AUTHOR_ID, 
     SELECT_POST_BY_ID, 
@@ -599,4 +600,20 @@ export const getUserFeed: (id: string) => Promise<Post[]> = async (id) => {
         posts.push(post);
     }
     return posts;
+}
+
+export const getExploreUsers: () => Promise<UserType[]> = async () => {
+    // Fetching user IDs for the users with the most followers
+    const [followedUsers] = await connection.promise().query<({userId: string, magnitude: number} & RowDataPacket)[]>(SELECT_MOST_FOLLOWERS);
+    const userIds = followedUsers.map(user => user.userId);
+
+    // Fetching user data
+    const users = [];
+    for(const userId of userIds) {
+        const user = await getUserById(userId);
+        users.push(user);
+    }
+
+    // Returning fethed users
+    return users;
 }

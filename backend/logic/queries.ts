@@ -20,6 +20,7 @@ export const SELECT_POST_COUNT = 'SELECT count(*) AS postCount FROM `posts` WHER
 export const SELECT_NOTIFICATION = 'SELECT * FROM notifications WHERE id = ?';
 export const SELECT_USER_NOTIFICATIONS = 'SELECT * FROM notifications WHERE userId = ?';
 export const SELECT_USER_NOTIFICATION_COUNT = 'SELECT count(*) AS notificationCount FROM `notifications` WHERE userId = ? AND `read` = 0';
+export const SELECT_MOST_FOLLOWERS = 'SELECT userId, COUNT(*) AS magnitude FROM followers GROUP BY userId ORDER BY magnitude DESC LIMIT 10';
 
 // Insertions
 export const INSERT_USER = 'INSERT INTO `users` (id, username, password, displayName, avatar, banner, color) VALUES (?, ?, ?, ?, ?, ?, ?)';
