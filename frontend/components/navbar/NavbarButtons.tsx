@@ -11,7 +11,7 @@ export const NavbarButtons = () => {
     return(
         <>
         {user && (
-            <Flex>
+            <Flex justifyContent={'flex-end'}>
                 <Notifications />
                 <NavbarButton path={'settings/profile'}>
                     <SettingsIcon />
