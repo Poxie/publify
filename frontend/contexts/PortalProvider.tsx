@@ -42,7 +42,9 @@ export const PortalProvider: React.FC = ({ children }) => {
                     {portal && (
                         <>
                         <Flex className={styles['header']} justifyContent={'space-between'} alignItems={'center'}>
-                            {header}
+                            <div>
+                                {header}
+                            </div>
                             
                             <Flex onClick={close} alignItems={'center'}>
                                 <CloseIcon />
