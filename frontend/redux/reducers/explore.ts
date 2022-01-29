@@ -1,5 +1,5 @@
 import { AnyAction } from "redux"
-import { SET_POPULAR_USERS } from "../actionTypes"
+import { SET_POPULAR_POSTS, SET_POPULAR_USERS } from "../actionTypes"
 
 const initialState = {
     popularPosts: [],
@@ -12,6 +12,11 @@ export default (state=initialState, action: AnyAction) => {
             return {
                 ...state,
                 popularUsers: action.payload
+            }
+        case SET_POPULAR_POSTS:
+            return {
+                ...state,
+                popularPosts: action.payload
             }
         default:
             return state;
