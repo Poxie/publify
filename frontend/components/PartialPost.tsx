@@ -6,15 +6,16 @@ import { PartialPostFooter } from './PartialPostFooter';
 import { PartialPostHeader } from './PartialPostHeader';
 import { PartialPostMedia } from './PartialPostMedia';
 
-export const PartialPost: React.FC<PostType> = ({ id, isLiked, likeCount, commentCount, author, createdAt, content, media }) => {
+export const PartialPost: React.FC<PostType & {displayMedia?: boolean, className?: string}> = ({ className: _className, displayMedia=true, id, isLiked, likeCount, commentCount, author, createdAt, content, media }) => {
+    const className = [styles['container'], _className].join(' ');
     return(
-        <div className={styles['container']}>
+        <div className={className}>
             <PartialPostHeader 
                 author={author}
                 createdAt={createdAt}
             />
             <PartialPostContent content={content} />
-            {media?.length !== 0 && (
+            {media?.length !== 0 && displayMedia && (
                 <PartialPostMedia media={media} postId={id} />
             )}
             <PartialPostFooter
