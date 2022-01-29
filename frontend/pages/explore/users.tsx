@@ -9,13 +9,13 @@ import { ExploreLayout } from '../../layouts/ExploreLayout';
 import { MainLayout } from '../../layouts/MainLayout';
 import { getExploreUsers } from '../../utils';
 import { useAppSelector } from '../../redux/hooks';
-import { selectPopularPosts } from '../../redux/selectors';
+import { selectPopularUsers } from '../../redux/selectors';
 import { useDispatch } from 'react-redux';
 import { setPopularUsers } from '../../redux/actions';
 
 export default function Users() {
     const dispatch = useDispatch();
-    const users = useAppSelector(state => selectPopularPosts(state));
+    const users = useAppSelector(state => selectPopularUsers(state));
 
     useEffect(() => {
         if(!users.length) {

@@ -62,3 +62,17 @@
         height: 100% !important;
     }
 }
+.post {
+    margin-bottom: 0 !important;
+}
+.loading-posts {
+    gap: var(--spacing);
+    &>div {
+        flex: 1 calc(50% - var(--spacing));
+        margin-bottom: 0 !important;
+        
+        div {
+            max-width: 310px;
+        }
+    }
+}
