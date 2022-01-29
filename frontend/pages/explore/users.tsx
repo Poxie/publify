@@ -31,12 +31,17 @@ export default function Users() {
                 <Flex className={styles['item-container']} flexWrap={'wrap'}>
                     {users.map(user => {
                         return(
-                            <UserProfile 
-                                {...user}
-                                bannerStyle={styles['profile-banner']}
-                                avatarStyle={styles['profile-avatar']}
-                                hasProfileStats={true}
-                            />
+                            <div 
+                                className={styles['profile']}
+                                key={user.id}
+                            >
+                                <UserProfile 
+                                    {...user}
+                                    bannerStyle={styles['profile-banner']}
+                                    avatarStyle={styles['profile-avatar']}
+                                    hasProfileStats={true}
+                                />
+                            </div>
                         )
                     })}
                 </Flex>

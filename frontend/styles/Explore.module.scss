@@ -43,7 +43,6 @@
 
     &>div {
         flex: 1 calc(50% - var(--spacing));
-        max-width: calc(50% - var(--spacing));
     }
 }
 .profile-banner {
@@ -60,6 +59,14 @@
     span {
         width: 100% !important;
         height: 100% !important;
+    }
+}
+.profile {
+    transition: transform .2s;
+    cursor: pointer;
+
+    &:hover {
+        transform: translateY(-3px);
     }
 }
 .post {
