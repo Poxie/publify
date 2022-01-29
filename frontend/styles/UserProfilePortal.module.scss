@@ -1,0 +1,44 @@
+.banner {
+    height: 150px;
+}
+.tabs {
+    background-color: var(--background-secondary);
+    border-radius: var(--border-radius);
+    margin: var(--spacing) 0;
+    overflow: hidden;
+}
+.tab {
+    padding: var(--spacing) 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    text-align: center;
+    flex: 1;
+    position: relative;
+
+    &:hover, &.active {
+        color: var(--text-primary);
+        
+        &::after {
+            background-color: var(--text-primary);
+            height: 2px;
+            width: 100%;
+            left: 0;
+            bottom: 0;
+            position: absolute;
+            content: '';
+        }
+    }
+}
+.full-profile {
+    padding: var(--spacing);
+    text-align: center;
+    background-color: var(--background-secondary);
+    border-radius: var(--border-radius);
+    transition: background-color .2s;
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--background-tertiary);
+    }
+}
