@@ -43,6 +43,7 @@
 
     &>div {
         flex: 1 calc(50% - var(--spacing));
+        max-width: calc(50% - var(--spacing) / 2);
     }
 }
 .profile-banner {
