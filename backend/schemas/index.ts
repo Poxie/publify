@@ -33,6 +33,7 @@ export const typeDefs = gql`
         author: User!
         createdAt: String!
         likes: [String]!
+        isLiked: Boolean!
         likeCount: Int!
         media: [Media]!
         comments: [Comment]!

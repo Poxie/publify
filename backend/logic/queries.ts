@@ -7,6 +7,7 @@ export const SELECT_MEDIA_BY_POST_ID = 'SELECT * FROM `media` WHERE parentId = ?
 export const SELECT_MEDIA_BY_ID = 'SELECT * FROM `media` WHERE id = ?';
 export const SELECT_MEDIA_BY_AUTHOR_ID = 'SELECT * FROM `media` WHERE authorId = ?'
 export const SELECT_LIKES_BT_PARENT_ID = 'SELECT * FROM `likes` WHERE parentId = ?';
+export const SELECT_LIKE_BY_ID = 'SELECT * FROM `likes` WHERE userId = ? AND parentId = ?';
 export const SELECT_COMMENT_BY_ID = 'SELECT * FROM `comments` WHERE id = ?';
 export const SELECT_COMMENTS_BY_PARENT_ID = 'SELECT * FROM `comments` WHERE parentId = ?';
 export const SELECT_COMMENT_COUNT_BY_PARENT_ID = 'SELECT count(*) AS commentCount FROM `comments` WHERE parentId = ?';

@@ -20,9 +20,8 @@ export const Query = {
         const user = await getUserById(userId, context.userId);
         return user;
     },
-    getPostById: async (parent: any, args: any) => {
-        const id = args.id;
-        const post = await getPostById(id);
+    getPostById: async (parent: any, args: any, context: any) => {
+        const post = await getPostById(args.id, context.userId);
         return post;
     },
     getPostsByAuthorId: async (parent: any, args: any, context: any) => {

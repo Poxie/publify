@@ -29,6 +29,7 @@ import {
     SELECT_FOLLOWERS_COUNT, 
     SELECT_FOLLOWERS_IDS, 
     SELECT_LIKES_BT_PARENT_ID, 
+    SELECT_LIKE_BY_ID, 
     SELECT_MEDIA_BY_AUTHOR_ID, 
     SELECT_MEDIA_BY_ID, 
     SELECT_MEDIA_BY_POST_ID, 
@@ -85,7 +86,7 @@ export const getUserByUsername: (username: string, selfId?: string) => Promise<D
 }
 
 // Getting post by ID
-export const getPostById: (id: string) => Promise<Post> = async (id) => {
+export const getPostById: (id: string, userId?: string) => Promise<Post> = async (id, userId) => {
     const [rows] = await connection.promise().query<Post[]>(SELECT_POST_BY_ID, [id]);
     const post = rows[0];
     if(!post) return post;
@@ -93,6 +94,15 @@ export const getPostById: (id: string) => Promise<Post> = async (id) => {
     // Fetching likes
     post.likes = await getLikesByParentId(id);
     post.likeCount = post.likes.length;
+
+    // Determining if post has been liked by user
+    post.isLiked = false;
+    if(userId) {
+        const like = await getLike(userId, id);
+        if(like) {
+            post.isLiked = true;
+        }
+    }
 
     // Fetching comments
     post.commentCount = await getCommentCountByPostId(id);
@@ -143,6 +153,12 @@ export const getLikesByParentId: (parentId: string) => Promise<string[]> = async
     const [likes] = await connection.promise().query<Like[]>(SELECT_LIKES_BT_PARENT_ID, [parentId]);
     const likeUserIds = likes.map(like => like.userId);
     return likeUserIds;
+}
+
+// Get like by IDs
+export const getLike: (userId: string, parentId: string) => Promise<Like> = async (userId, parentId) => {
+    const [likes] = await connection.promise().query<Like[]>(SELECT_LIKE_BY_ID, [userId, parentId]);
+    return likes[0];
 }
 
 
@@ -579,7 +595,7 @@ export const getUserFeed: (id: string) => Promise<Post[]> = async (id) => {
         if(notification.type !== 'post' || !notification.targetId) continue;
 
         // Else fetch post and push to posts array
-        const post = await getPostById(notification.targetId);
+        const post = await getPostById(notification.targetId, id);
         posts.push(post);
     }
     return posts;
