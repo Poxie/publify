@@ -1,6 +1,5 @@
 import React from 'react';
-import { Flex } from './Flex';
-import styles from '../styles/User.module.scss';
+import styles from '../styles/Components.module.scss';
 import Image from 'next/image';
 import { getUserAvatar } from '../utils';
 

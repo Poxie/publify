@@ -11,6 +11,12 @@
     &.small {
         height: 120px;
     }
+}
+.avatar {
+    border-radius: 50%;
+    overflow: hidden;
+}
+.avatar, .banner {
     &.has-hover {
         cursor: pointer;
 
@@ -26,7 +32,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 15px;
+            text-align: center;
+            font-size: 13px;
             font-weight: 700;
             text-transform: uppercase;
             transition: opacity .2s;
