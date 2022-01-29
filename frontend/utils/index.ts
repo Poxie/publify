@@ -1,7 +1,7 @@
 import { CustomAbout, Notification, PostType, UserType } from "./types";
 import { GraphQLClient } from 'graphql-request';
 import { CREATE_CUSTOM_ABOUT, CREATE_COMMENT, CREATE_LIKE, CREATE_POST, CREATE_USER, DESTROY_COMMENT, DESTROY_CUSTOM_ABOUT, DESTROY_LIKE, DESTROY_POST, UPDATE_CUSTOM_ABOUT, UPDATE_PROFILE } from "./mutations";
-import { CREATE_FOLLOW, DESTROY_FOLLOW, GET_COMMENTS_BY_PARENT_ID, GET_ME, GET_MEDIA_BY_AUTHOR_ID, GET_MY_FEED, GET_MY_NOTIFICATIONS, GET_MY_NOTIFICATION_COUNT, GET_POSTS_BY_AUTHOR_ID, GET_POST_BY_ID, GET_USER_BY_ID, GET_USER_BY_USERNAME, LOGIN, READ_MY_NOTIFICATIONS } from "./queries";
+import { CREATE_FOLLOW, DESTROY_FOLLOW, GET_COMMENTS_BY_PARENT_ID, GET_EXPLORE_USERS, GET_ME, GET_MEDIA_BY_AUTHOR_ID, GET_MY_FEED, GET_MY_NOTIFICATIONS, GET_MY_NOTIFICATION_COUNT, GET_POSTS_BY_AUTHOR_ID, GET_POST_BY_ID, GET_USER_BY_ID, GET_USER_BY_USERNAME, LOGIN, READ_MY_NOTIFICATIONS } from "./queries";
 import { API_ENDPOINT, IMAGE_ENDPOINT } from "./constants";
 
 // Getting access token
@@ -172,6 +172,10 @@ export const readMyNotifications: () => Promise<boolean> = async () => {
 // Feed stuff
 export const getMyFeed = async () => {
     const response = await request(GET_MY_FEED);
+    return response;
+}
+export const getExploreUsers: () => Promise<UserType[]> = async () => {
+    const response = await request(GET_EXPLORE_USERS);
     return response;
 }
 

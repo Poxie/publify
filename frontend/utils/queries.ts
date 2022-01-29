@@ -196,6 +196,14 @@ export const GET_MY_FEED = gql`
     }
 `
 
+export const GET_EXPLORE_USERS = gql`
+    query {
+        getExploreUsers {
+            ${USER_PROPERTIES}
+        }
+    }
+`
+
 // Auth stuff
 export const LOGIN = gql`
     query($username: String!, $password: String!) {
