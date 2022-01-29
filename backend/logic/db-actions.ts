@@ -117,7 +117,7 @@ export const getPostById: (id: string, userId?: string) => Promise<Post> = async
 }
 
 // Getting posts by author ID
-export const getPostsByAuthorId: (id: string, startIndex?: number, endIndex?: number) => Promise<Post[]> = async (authorId, startIndex=0, endIndex=3) => {
+export const getPostsByAuthorId: (id: string, startIndex?: number, endIndex?: number, selfId?: string) => Promise<Post[]> = async (authorId, startIndex=0, endIndex=3, selfId) => {
     const [posts] = await connection.promise().query<Post[]>(SELECT_POSTS_BY_AUTHOR_ID, [authorId, startIndex, endIndex])
     
     // If no posts found, return empty array
@@ -128,6 +128,7 @@ export const getPostsByAuthorId: (id: string, startIndex?: number, endIndex?: nu
         // Fetch likes
         post.likes = await getLikesByParentId(post.id);
         post.likeCount = post.likes.length;
+        post.isLiked = (await getLike(selfId || '', post.id)) !== undefined;
 
         // Fetch comments
         post.commentCount = await getCommentCountByPostId(post.id);

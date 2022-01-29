@@ -59,6 +59,7 @@ export const GET_POSTS_BY_AUTHOR_ID = gql`
             id
             content
             likes
+            isLiked
             likeCount
             commentCount
             createdAt
