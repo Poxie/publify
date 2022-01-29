@@ -204,6 +204,28 @@ export const GET_EXPLORE_USERS = gql`
     }
 `
 
+export const GET_EXPLORE_POSTS = gql`
+    query {
+        getExplorePosts {
+            id
+            content
+            createdAt
+            commentCount
+            likeCount
+            isLiked
+            media {
+                id
+                width
+                height
+                ratio
+            }
+            author {
+                ${USER_PROPERTIES}
+            }
+        }
+    }
+`
+
 // Auth stuff
 export const LOGIN = gql`
     query($username: String!, $password: String!) {
