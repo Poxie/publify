@@ -33,6 +33,7 @@ export default function Posts() {
                         <PartialPost
                             displayMedia={false}
                             className={styles['post']}
+                            key={post.id}
                             {...post}
                         />
                     )
