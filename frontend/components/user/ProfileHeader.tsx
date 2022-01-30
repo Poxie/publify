@@ -11,6 +11,7 @@ import { Avatar } from '../Avatar';
 import { Flex } from '../Flex';
 import { UserProfile } from '../UserProfile';
 import { ProfileOptions } from '../ProfileOptions';
+import { useDimensions } from '../../hooks/useDimensions';
 
 export const ProfileHeader = () => {
     const user = useAppSelector(state => selectProfileUser(state));
@@ -34,8 +35,10 @@ export const ProfileHeader = () => {
 
 // Sticky header - when user scrolls down
 const StickyHeader: React.FC<UserType & {containerRef: RefObject<HTMLDivElement>}> = (user) => {
+    const { width } = useDimensions();
     const { id, displayName, avatar, containerRef, isFollowing } = user;
     const [shouldShow, setShouldShow] = useState(false);
+    const stickyRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         if(!containerRef.current) return;
@@ -60,14 +63,22 @@ const StickyHeader: React.FC<UserType & {containerRef: RefObject<HTMLDivElement>
         return () => window.removeEventListener('scroll', checkShouldShow);
     }, [containerRef.current, setShouldShow, shouldShow]);
 
+    // Updating sticky header width on reisze
+    useEffect(() => {
+        if(!stickyRef.current || !containerRef.current) return;
+
+        stickyRef.current.style.width = `${containerRef.current.offsetWidth}px`;
+    }, [width]);
+
     const className = [styles['sticky-header'], shouldShow && styles['visible']].join(' ');
     return(
-        <Flex className={className} justifyContent={'space-between'} alignItems={'center'}>
+        <Flex ref={stickyRef} className={className} justifyContent={'space-between'} alignItems={'center'}>
             <Flex alignItems={'center'}>
                 <Avatar 
                     size={34}
                     avatar={avatar}
                     name={displayName}
+                    className={styles['avatar']}
                 />
                 <span className={styles['sticky-username']}>
                     {displayName}
