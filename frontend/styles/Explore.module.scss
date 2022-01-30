@@ -92,6 +92,8 @@
     .sidebar {
         margin-right: 0;
         margin-bottom: var(--spacing);
+        position: relative;
+        top: 0;
     }
     .item-container, .loading-posts {
         &>div {

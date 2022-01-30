@@ -62,7 +62,7 @@
 .about-input {
     position: relative;
     margin-bottom: 15px;
-    
+
     form {
         width: 100%;
     }
@@ -129,5 +129,15 @@
         span {
             color: var(--text-primary);
         }
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .layout {
+        flex-direction: column;
+    }
+    .sidebar {
+        width: 100%;
+        margin-bottom: var(--spacing);
     }
 }
