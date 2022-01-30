@@ -82,6 +82,13 @@ export const selectPostMedia: (state: RootState) => Media[] = createSelector(
 export const selectPopularUsers: (state: RootState) => UserType[] = state => state.explore.popularUsers;
 export const selectPopularPosts: (state: RootState) => PostType[] = state => state.explore.popularPosts;
 
+// Users
+export const selectCachedUsers: (state: RootState) => UserType[] = state => state.users;
+export const selectCachedUser: (state: RootState, userId: string) => UserType | undefined = createSelector(
+    [selectCachedUsers, selectId],
+    (users, userId) => users.find(user => user.id === userId)
+);
+
 // Notifications
 export const selectNotification = (state: RootState) => state.notifications.notification;
 export const selectNotificationStatus = (state: RootState) => state.notifications.notificationStatus;

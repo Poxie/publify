@@ -32,3 +32,6 @@ export const REMOVE_COMMENT_LIKE = 'REMOVE_COMMENT_LIKE';
 // Explore
 export const SET_POPULAR_USERS = 'SET_POPULAR_USERS';
 export const SET_POPULAR_POSTS = 'SET_POPULAR_POSTS';
+
+// Users
+export const PUSH_USER = 'PUSH_USER';
