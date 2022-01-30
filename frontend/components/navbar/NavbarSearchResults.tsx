@@ -77,7 +77,7 @@ const SearchResult: React.FC<{user: UserType, close: () => void}> = ({ user, clo
                 />
                 <div className={styles['search-result-text']}>
                     {displayName}
-                    <Flex>
+                    <Flex className={styles['result-stats']}>
                         {followersCount} followers
                     </Flex>
                 </div>
