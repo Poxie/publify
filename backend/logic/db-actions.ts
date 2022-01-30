@@ -79,6 +79,8 @@ export const getUserById: (id: string, selfId?: string) => Promise<DatabaseUser>
 export const getUserByUsername: (username: string, selfId?: string) => Promise<DatabaseUser | undefined> = async (username, selfId) => {
     const [rows] = await connection.promise().query<User[]>(SELECT_USER_BY_USERNAME, [username])
     const user = rows[0];
+    if(!user) return user;
+
     user.customAbouts = await getCustomAboutsByUserId(user.id);
     user.isFollowing = (await getFollow(user.id, selfId)) !== undefined;
     return user;
