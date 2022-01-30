@@ -72,8 +72,6 @@ export const getUserById: (id: string, selfId?: string) => Promise<DatabaseUser>
     const [rows] = await connection.promise().query<User[]>(SELECT_USER_BY_ID, [id]);
     const user = rows[0];
     user.customAbouts = await getCustomAboutsByUserId(user.id);
-    user.followersCount = await getFollowersCount(user.id);
-    user.postCount = await getPostCount(user.id);
     user.isFollowing = (await getFollow(user.id, selfId)) !== undefined;
     return user;
 }
@@ -82,8 +80,6 @@ export const getUserByUsername: (username: string, selfId?: string) => Promise<D
     const [rows] = await connection.promise().query<User[]>(SELECT_USER_BY_USERNAME, [username])
     const user = rows[0];
     user.customAbouts = await getCustomAboutsByUserId(user.id);
-    user.followersCount = await getFollowersCount(user.id);
-    user.postCount = await getPostCount(user.id);
     user.isFollowing = (await getFollow(user.id, selfId)) !== undefined;
     return user;
 }
