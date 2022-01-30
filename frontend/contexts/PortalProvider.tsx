@@ -35,7 +35,7 @@ export const PortalProvider: React.FC = ({ children }) => {
     return(
         <PortalContext.Provider value={value}>
             <Flex>
-                <div style={{flex: 1}}>
+                <div style={{flex: 1, width: '100%'}}>
                     {children}
                 </div>
                 <div className={className}>

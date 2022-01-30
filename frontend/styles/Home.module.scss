@@ -27,3 +27,17 @@
     color: var(--text-muted);
     font-weight: var(--text-muted-font-weight);
 }
+@media only screen and (max-width: 600px) {
+    .input-container {
+        flex-direction: column;
+        align-items: unset !important;
+
+        span {
+            margin-left: var(--spacing);
+        }
+    }
+    .input {
+        margin-left: 0;
+        margin-top: var(--spacing);
+    }
+}
