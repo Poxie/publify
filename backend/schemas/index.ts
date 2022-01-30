@@ -91,6 +91,7 @@ export const typeDefs = gql`
         getMyFeed: [Post]!
         getExploreUsers: [User]!
         getExplorePosts: [Post]!
+        getAutoCompletedUsers(query: String!): [User]!
         login(username: String!, password: String!): AuthData!
     }
 

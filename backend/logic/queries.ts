@@ -22,6 +22,7 @@ export const SELECT_USER_NOTIFICATIONS = 'SELECT * FROM notifications WHERE user
 export const SELECT_USER_NOTIFICATION_COUNT = 'SELECT count(*) AS notificationCount FROM `notifications` WHERE userId = ? AND `read` = 0';
 export const SELECT_MOST_FOLLOWERS = 'SELECT userId, COUNT(*) AS magnitude FROM followers GROUP BY userId ORDER BY magnitude DESC LIMIT 10';
 export const SELECT_MOST_LIKES = 'SELECT parentId, COUNT(*) AS magnitude FROM likes GROUP BY parentId ORDER BY magnitude DESC LIMIT 10';
+export const SELECT_LIKE_USERS = 'SELECT * FROM users WHERE displayName LIKE ? OR username LIKE ? LIMIT 6'
 
 // Insertions
 export const INSERT_USER = 'INSERT INTO `users` (id, username, password, displayName, avatar, banner, color) VALUES (?, ?, ?, ?, ?, ?, ?)';

@@ -30,6 +30,7 @@ import {
     SELECT_FOLLOWERS_IDS, 
     SELECT_LIKES_BT_PARENT_ID, 
     SELECT_LIKE_BY_ID, 
+    SELECT_LIKE_USERS, 
     SELECT_MEDIA_BY_AUTHOR_ID, 
     SELECT_MEDIA_BY_ID, 
     SELECT_MEDIA_BY_POST_ID, 
@@ -633,4 +634,10 @@ export const getExplorePosts: (selfId?: string) => Promise<PostType[]> = async (
 
     // Returning fetched posts
     return posts;
+}
+
+export const getAutoCompletedUsers: (query: string) => Promise<UserType[]> = async (query) => {
+    query = `%${query}%`;
+    const [users] = await connection.promise().query<User[]>(SELECT_LIKE_USERS, [query, query]);
+    return users;
 }
