@@ -21,11 +21,13 @@ export default function Images({ user }: Props) {
 
     // Updating view with properties based on client authorization token
     useEffect(() => {
+        if(profile) return;
+        
         getUserByUsername(user.username)
             .then(user => {
                 dispatch(setProfile(user));
             })
-    }, []);
+    }, [profile]);
 
     // Updating redux store with user data
     if(!profile || profile.id !== user.id) {

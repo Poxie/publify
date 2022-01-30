@@ -4,7 +4,7 @@ import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { UserType } from '../../utils/types';
 import { useDispatch } from 'react-redux';
-import { setProfile } from '../../redux/actions';
+import { pushUser, setProfile } from '../../redux/actions';
 import { WEBSITE_NAME } from '../../utils/constants';
 import { getUserAvatar, getUserByUsername } from '../../utils';
 import { UserPage } from '../../components/user/UserPage';
@@ -12,7 +12,7 @@ import { MainLayout } from '../../layouts/MainLayout';
 import { ReactElement } from 'react';
 import { ProfileLayout } from '../../layouts/ProfileLayout';
 import { useAppSelector } from '../../redux/hooks';
-import { selectProfileUser } from '../../redux/selectors';
+import { selectCachedUser, selectProfileUser } from '../../redux/selectors';
 import { useEffect } from 'react';
 
 type Props = {
@@ -22,14 +22,20 @@ export default function User(props: Props) {
     const { user } = props;
     const dispatch = useDispatch();
     const profile = useAppSelector(state => selectProfileUser(state));
+    const cached = useAppSelector(state => selectCachedUser(state, user.id));
+    if(!cached && profile) {
+        dispatch(pushUser(profile));
+    }
 
     // Updating view with properties based on client authorization token
     useEffect(() => {
+        if(profile) return;
+
         getUserByUsername(user.username)
             .then(user => {
                 dispatch(setProfile(user));
             })
-    }, []);
+    }, [profile]);
 
     // Updating redux store with user data
     if(!profile || profile.id !== user.id) {

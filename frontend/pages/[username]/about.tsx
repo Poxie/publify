@@ -20,6 +20,8 @@ export default function About({ user }: Props) {
 
     // Updating view with properties based on client authorization token
     useEffect(() => {
+        if(profile) return;
+
         getUserByUsername(user.username)
             .then(user => {
                 dispatch(setProfile(user));
