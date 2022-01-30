@@ -14,8 +14,10 @@ import { useDispatch } from 'react-redux';
 import { setPopularUsers } from '../../redux/actions';
 import { usePortal } from '../../contexts/PortalProvider';
 import { UserProfilePortal } from '../../portals/UserProfilePortal';
+import { useTranslation } from 'next-i18next';
 
 export default function Users() {
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     const { setPortal } = usePortal();
     const users = useAppSelector(state => selectPopularUsers(state));
@@ -36,7 +38,7 @@ export default function Users() {
                         return(
                             <div 
                                 className={styles['profile']}
-                                onClick={() => setPortal(<UserProfilePortal {...user} />, `${user.displayName}'s profile`)}
+                                onClick={() => setPortal(<UserProfilePortal {...user} />, t('portalProfileHeader', { username: user.displayName }))}
                                 key={user.id}
                             >
                                 <UserProfile 
@@ -67,7 +69,7 @@ Users.getLayout = page => {
 export const getStaticProps = async ({ locale }) => {
     return{
         props: {
-            ...(await serverSideTranslations(locale))
+            ...(await serverSideTranslations(locale, ['common', 'explore']))
         }
     }
 }

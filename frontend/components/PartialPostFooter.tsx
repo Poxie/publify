@@ -10,6 +10,7 @@ import { useAuth } from '../contexts/AuthProvider';
 import { useModal } from '../contexts/ModalProvider';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { useTranslation } from 'next-i18next';
 
 type Props = {
     id: string;
@@ -41,6 +42,7 @@ export const PartialPostFooter: React.FC<Props> = ({ id, isLiked, likeCount, com
 }
 
 const ExpandButton: React.FC<{postId: string, mediaCount: number}> = ({ postId, mediaCount }) => {
+    const { t } = useTranslation();
     const className = [styles['footer-item'], styles['expand-button']].join(' ');
     const href = `/posts/${postId}` + (mediaCount && '?media=0');
     return(
@@ -48,7 +50,7 @@ const ExpandButton: React.FC<{postId: string, mediaCount: number}> = ({ postId, 
             <a>
                 <Flex className={className} alignItems={'center'}>
                     <span>
-                        Expand
+                        {t('expand')}
                     </span>
                     <ArrowIcon />
                 </Flex>

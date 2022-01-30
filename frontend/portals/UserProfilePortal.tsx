@@ -14,7 +14,7 @@ import { useRouter } from 'next/router';
 
 export const UserProfilePortal: React.FC<UserType> = (user) => {
     const [data, setData] = useState({posts: null});
-    const [activeTab, setActiveTab] = useState('posts');
+    const [activeTab, setActiveTab] = useState('postsTab');
 
     useEffect(() => {
         getPostsByAuthorId(user.id).then(posts => {
@@ -24,10 +24,10 @@ export const UserProfilePortal: React.FC<UserType> = (user) => {
 
     let extraTab = null;
     switch(activeTab) {
-        case 'posts':
+        case 'postsTab':
             extraTab = <ProfilePosts posts={data.posts} username={user.username} />;
             break;
-        case 'about':
+        case 'aboutTab':
             extraTab = (
                 <ProfileAbout 
                     location={user.location}
@@ -53,16 +53,17 @@ export const UserProfilePortal: React.FC<UserType> = (user) => {
 const ProfileTabs: React.FC<{active: string, setActive: (tab: string) => void}> = ({ active, setActive }) => {
     return(
         <Flex className={styles['tabs']}>
-            <Tab tab={'posts'} active={active} onClick={setActive} />
-            <Tab tab={'about'} active={active} onClick={setActive} />
+            <Tab tab={'postsTab'} active={active} onClick={setActive} />
+            <Tab tab={'aboutTab'} active={active} onClick={setActive} />
         </Flex>
     )
 }
 const Tab: React.FC<{tab: string, active: string, onClick: (tab: string) => void;}> = ({ tab, active, onClick }) => {
+    const { t } = useTranslation();
     const className = [styles['tab'], active === tab && styles['active']].join(' ');
     return(
         <div className={className} onClick={() => onClick(tab)}>
-            {getFirstLetterUppercase(tab)}
+            {t(tab)}
         </div>
     )
 }

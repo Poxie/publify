@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React, { createRef, useEffect, useRef, useState } from 'react';
 import { Button } from '../../components/Button';
 import { Flex } from '../../components/Flex';
@@ -11,6 +12,7 @@ type Props = {
     clearMedia: () => void;
 }
 export const MediaContainer: React.FC<Props> = ({ media, addMedia, clearMedia }) => {
+    const { t } = useTranslation();
     const [height, setHeight] = useState(200); 
     const mediaCount = media.length;
     
@@ -40,10 +42,10 @@ export const MediaContainer: React.FC<Props> = ({ media, addMedia, clearMedia })
             {mediaCount !== 0 && (
                 <Flex className={styles['media-options']}>
                     <Button type={'secondary'} onClick={addMedia}>
-                        Add Media
+                        {t('addMedia')}
                     </Button>
                     <Button type={'secondary'} onClick={clearMedia}>
-                        Clear Media
+                        {t('clearMedia')}
                     </Button>
                 </Flex>
             )}

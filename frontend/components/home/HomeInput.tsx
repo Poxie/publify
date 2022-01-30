@@ -7,8 +7,10 @@ import { useModal } from '../../contexts/ModalProvider';
 import { CreatePostModal } from '../../modals/create-post/CreatePostModal';
 import Link from 'next/link';
 import { useDeviceType } from '../../hooks/useDeviceType';
+import { useTranslation } from 'next-i18next';
 
 export const HomeInput = () => {
+    const { t } = useTranslation();
     const { user } = useAuth();
     const { setModal } = useModal();
     const deviceType = useDeviceType();
@@ -36,7 +38,7 @@ export const HomeInput = () => {
                 </a>
             </Link>
             <div className={styles['input']} onClick={openPostModal}>
-                What would you like to share, {user.displayName}?
+                {t('createPostInput', { username: user.displayName })}
             </div>
         </Flex>
     )

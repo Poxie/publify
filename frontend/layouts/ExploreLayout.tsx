@@ -3,15 +3,17 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Flex } from '../components/Flex';
 import styles from '../styles/Explore.module.scss';
+import { useTranslation } from 'next-i18next';
 
 export const ExploreLayout: React.FC = ({ children }) => {
+    const { t } = useTranslation();
     const { asPath } = useRouter();
 
     const type = asPath.split('/')[2];
     return(
         <Flex className={styles['explore']} flexDirection={'column'}>
             <div className={styles['header']}>
-                Explore popular {type}
+                {t('explore:header', { type: t(`${type}Tab`) })}
             </div>
             <Flex className={styles['main']}>
                 <ExploreSidebar />
@@ -22,13 +24,15 @@ export const ExploreLayout: React.FC = ({ children }) => {
 }
 
 const ExploreSidebar: React.FC = () => {
+    const { t } = useTranslation();
+
     return(
         <div className={styles['sidebar']}>
             <ExploreSidebarItem path={'users'}>
-                Users
+                {t('usersTab')}
             </ExploreSidebarItem>
             <ExploreSidebarItem path={'posts'}>
-                Posts
+                {t('postsTab')}
             </ExploreSidebarItem>
         </div>
     )

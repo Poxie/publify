@@ -35,5 +35,17 @@
     "relationshipN/A": "Jag vill inte dela med mig",
     "aboutMeEmpty": "Denna användare har inte delat något ännu.",
     "navbarSearch": "Sök efter användare...",
-    "notificationHeader": "{{ username }} la upp ett inlägg"
+    "notificationHeader": "{{ username }} la upp ett inlägg",
+    "expand": "Expandera",
+    "aboutTab": "Om mig",
+    "postsTab": "Inlägg",
+    "usersTab": "Användare",
+    "portalProfileHeader": "{{ username }}s profil",
+    "createPostInput": "Vad vill du dela med dig, {{ username }}?",
+    "createPostHeader": "Skapa Inlägg",
+    "createPostPublish": "Lägg upp",
+    "postErrorEmpty": "Du kan inte lägga upp ett tomt inlägg.",
+    "createPostAddMedia": "Lägg till media",
+    "addMedia": "Lägg till media",
+    "clearMedia": "Ta bort media"
 }

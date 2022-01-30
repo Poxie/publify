@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React, { useEffect, useRef } from 'react';
 import { Flex } from '../../components/Flex';
 import { MediaIcon } from '../../icons/MediaIcon';
@@ -9,6 +10,7 @@ type Props = {
     media: File[];
 }
 export const Media: React.FC<Props> = ({ updateParent, media }) => {
+    const { t } = useTranslation();
     const inputRef = useRef<HTMLInputElement | null>(null);
 
     // Opening file input
@@ -54,7 +56,7 @@ export const Media: React.FC<Props> = ({ updateParent, media }) => {
                 >
                     <MediaIcon />
                     <div>
-                        Add media to post
+                        {t('createPostAddMedia')}
                     </div>
                     <input 
                         ref={inputRef} 

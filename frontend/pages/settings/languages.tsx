@@ -1,5 +1,6 @@
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useRouter } from "next/router";
 import { LanguagePage } from "../../components/settings/languages/LanguagePage";
 import { SettingsMain } from "../../components/settings/SettingsMain";
 import { MainLayout } from "../../layouts/MainLayout";
@@ -26,9 +27,10 @@ Languages.getLayout = page => {
 }
 
 export const getStaticProps = async ({ locale }) => {
+    console.log(locale);
     return{
         props: {
-            ...(await serverSideTranslations(locale, ['settings']))
+            ...(await serverSideTranslations(locale, ['common', 'settings']))
         }
     }
 }

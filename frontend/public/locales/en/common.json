@@ -35,5 +35,17 @@
     "relationshipN/A": "I don't wish to share",
     "aboutMeEmpty": "This user is not sharing anything at this time.",
     "navbarSearch": "Search for user...",
-    "notificationHeader": "{{ username }} published a post"
+    "notificationHeader": "{{ username }} published a post",
+    "expand": "Expand",
+    "aboutTab": "About",
+    "postsTab": "Posts",
+    "usersTab": "Users",
+    "portalProfileHeader": "{{ username }}'s profile",
+    "createPostInput": "What would you like to share, {{ username }}?",
+    "createPostHeader": "Create Post",
+    "createPostPublish": "Publish",
+    "postErrorEmpty": "You cannot publish an empty post.",
+    "createPostAddMedia": "Add media to post",
+    "addMedia": "Add media",
+    "clearMedia": "Clear media"
 }

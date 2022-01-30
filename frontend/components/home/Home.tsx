@@ -8,9 +8,9 @@ export const Home = () => {
     if(!user) return null;
 
     return(
-        <div>
+        <>
             <HomeInput />
             <Feed />
-        </div>
+        </>
     )
 }
