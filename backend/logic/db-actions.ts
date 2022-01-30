@@ -382,7 +382,7 @@ const saveImage = async (file: any, filePath: '../imgs/media' | '../imgs/avatars
 }
 
 // Creating media
-export const createMedia: (parentId: string, media: any) => Promise<Media[]> = async (parentId, media) => {
+export const createMedia: (parentId: string, media: any, authorId: string) => Promise<Media[]> = async (parentId, media, authorId) => {
     const newMedia = [];
     for(const mediaItem of media) {
         // Saving media
@@ -403,7 +403,7 @@ export const createMedia: (parentId: string, media: any) => Promise<Media[]> = a
         }
 
         // Inserting media into database
-        await connection.promise().query(INSERT_MEDIA, [id, parentId, width, height, ratio]);
+        await connection.promise().query(INSERT_MEDIA, [id, parentId, authorId, width, height, ratio]);
         
         // Getting media
         const newMediaItem = await getMediaById(id);
