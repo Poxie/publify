@@ -18,6 +18,8 @@ export const ProfilePostContainer = React.memo(() => {
     const [isMounted, setIsMounted] = useState(false);
 
     useEffect(() => {
+        if(postIds.length) return;
+
         let isMounted = true;
         setIsMounted(true);
         const userId = profile.id;
