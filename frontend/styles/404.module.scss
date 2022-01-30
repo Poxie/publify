@@ -1,0 +1,31 @@
+.container {
+    height: calc(100vh - var(--navbar-height));
+    color: var(--text-muted);
+    font-weight: var(--text-muted-font-weight);
+
+    &>* {
+        margin: 15px 0;
+    }
+}
+.header {
+    font-size: 30px;
+    margin: 0;
+}
+.description {
+    width: 600px;
+    text-align: center;
+}
+.buttons {
+    &>div {
+        color: var(--text-primary);
+        margin: 0 10px;
+
+        svg {
+            fill: var(--text-primary);
+            transform: rotate(180deg);
+            width: 15px;
+            height: 15px;
+            margin-right: 10px;
+        }
+    }
+}

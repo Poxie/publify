@@ -14,6 +14,7 @@ import { ProfileLayout } from '../../layouts/ProfileLayout';
 import { useAppSelector } from '../../redux/hooks';
 import { selectCachedUser, selectProfileUser } from '../../redux/selectors';
 import { useEffect } from 'react';
+import { UserNotFound } from '../../components/user/UserNotFound';
 
 type Props = {
     user: UserType;
@@ -77,6 +78,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     // If is array, just use first index as username
     const user = await getUserByUsername(username);
+    if(!user) {
+        return {
+            notFound: true
+        }
+    }
 
     return {
         props: {
