@@ -9,7 +9,7 @@
 
 // Profile header
 .profile-header {
-    width: inherit;
+    width: 100%;
 }
 .sticky-header {
     position: fixed;
@@ -367,7 +367,8 @@
         flex-direction: column;
     }
     .profile-sidebar {
-        margin-bottom: 25px;
+        margin-bottom: var(--spacing);
+        margin-right: 0;
     }
     .banner {
         height: 140px;

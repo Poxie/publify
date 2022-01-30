@@ -22,6 +22,7 @@ export const ProfileHeader = () => {
                 {...user}
                 hasProfileOptions={true}
                 hasProfileStats={true}
+                bannerStyle={styles['banner']}
             />
             <StickyHeader 
                 {...user}
