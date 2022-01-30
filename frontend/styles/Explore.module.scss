@@ -84,3 +84,19 @@
         }
     }
 }
+
+@media only screen and (max-width: 650px) {
+    .main {
+        flex-direction: column;
+    }
+    .sidebar {
+        margin-right: 0;
+        margin-bottom: var(--spacing);
+    }
+    .item-container, .loading-posts {
+        &>div {
+            flex: 1 100%;
+            max-width: unset;
+        }
+    }
+}

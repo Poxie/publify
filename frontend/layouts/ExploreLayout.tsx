@@ -13,7 +13,7 @@ export const ExploreLayout: React.FC = ({ children }) => {
             <div className={styles['header']}>
                 Explore popular {type}
             </div>
-            <Flex>
+            <Flex className={styles['main']}>
                 <ExploreSidebar />
                 {children}
             </Flex>
