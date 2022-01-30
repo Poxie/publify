@@ -6,9 +6,9 @@ import { useDispatch } from 'react-redux';
 import { ProfileImages } from '../../components/user/images/ProfileImages';
 import { MainLayout } from '../../layouts/MainLayout';
 import { ProfileLayout } from '../../layouts/ProfileLayout';
-import { setProfile } from '../../redux/actions';
+import { pushUser, setProfile } from '../../redux/actions';
 import { useAppSelector } from '../../redux/hooks';
-import { selectProfileUser } from '../../redux/selectors';
+import { selectCachedUser, selectProfileUser } from '../../redux/selectors';
 import { getUserByUsername } from '../../utils';
 import { UserType } from '../../utils/types';
 
@@ -22,7 +22,7 @@ export default function Images({ user }: Props) {
     // Updating view with properties based on client authorization token
     useEffect(() => {
         if(profile) return;
-        
+
         getUserByUsername(user.username)
             .then(user => {
                 dispatch(setProfile(user));

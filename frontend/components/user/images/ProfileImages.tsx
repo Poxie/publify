@@ -18,6 +18,8 @@ export const ProfileImages = () => {
     
     // Fetching user images
     useEffect(() => {
+        if(images ) return;
+        
         getMediaByAuthorId(id)
             .then(media => {
                 dispatch(setProfileImages(media));

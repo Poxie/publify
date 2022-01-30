@@ -78,7 +78,7 @@ export default (state=initialState, action: AnyAction) => {
         case SET_PROFILE: {
             const { user } = action.payload;
             return {
-                ...state,
+                ...initialState,
                 user
             }
         }

@@ -22,10 +22,6 @@ export default function User(props: Props) {
     const { user } = props;
     const dispatch = useDispatch();
     const profile = useAppSelector(state => selectProfileUser(state));
-    const cached = useAppSelector(state => selectCachedUser(state, user.id));
-    if(!cached && profile) {
-        dispatch(pushUser(profile));
-    }
 
     // Updating view with properties based on client authorization token
     useEffect(() => {

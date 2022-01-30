@@ -30,6 +30,7 @@ export default function About({ user }: Props) {
 
     // Updating redux store with user data
     if(!profile || profile.id !== user.id) {
+        console.log('hey');
         dispatch(setProfile(user));
     }
 
