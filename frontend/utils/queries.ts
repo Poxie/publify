@@ -227,6 +227,14 @@ export const GET_EXPLORE_POSTS = gql`
     }
 `
 
+export const GET_AUTO_COMPLETED_USERS = gql`
+    query($query: String!) {
+        getAutoCompletedUsers(query: $query) {
+            ${USER_PROPERTIES}
+        }
+    }
+`
+
 // Auth stuff
 export const LOGIN = gql`
     query($username: String!, $password: String!) {
