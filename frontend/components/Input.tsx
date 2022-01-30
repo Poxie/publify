@@ -8,6 +8,7 @@ interface Props {
     onSubmit?: (value: string) => void;
     onChange?: (value: string) => void;
     onBlur?: (value: string) => void;
+    onFocus?: (value: string) => void;
     label?: string;
     textArea?: boolean
     className?: string;
@@ -15,7 +16,7 @@ interface Props {
     focusOnMount?: boolean;
     type?: 'primary' | 'secondary' | 'transparent';
 }
-export const Input: React.FC<Props> = ({ placeholder, defaultValue, onSubmit, onChange, label, textArea, className, clearOnSubmit, onBlur, focusOnMount, type='primary' }) => {
+export const Input: React.FC<Props> = ({ placeholder, defaultValue, onSubmit, onChange, label, textArea, className, clearOnSubmit, onBlur, onFocus, focusOnMount, type='primary' }) => {
     const [value, setValue] = useState(defaultValue || '');
     const inputRef = useRef<HTMLInputElement>(null);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -52,6 +53,11 @@ export const Input: React.FC<Props> = ({ placeholder, defaultValue, onSubmit, on
             onBlur(value);
         }
     }
+    const handleFocus = () => {
+        if(onFocus) {
+            onFocus(value);
+        }
+    }
 
     const inputClassName = [
         styles['input'], 
@@ -80,6 +86,7 @@ export const Input: React.FC<Props> = ({ placeholder, defaultValue, onSubmit, on
                         className={inputClassName}
                         id={label?.toLowerCase()}
                         onBlur={handleBlur}
+                        onFocus={handleFocus}
                         ref={inputRef}
                     />
                 ) : (
@@ -90,6 +97,7 @@ export const Input: React.FC<Props> = ({ placeholder, defaultValue, onSubmit, on
                         className={inputClassName}
                         id={label?.toLowerCase()}
                         onBlur={handleBlur}
+                        onFocus={handleFocus}
                         ref={textareaRef}
                     />
                 )}
