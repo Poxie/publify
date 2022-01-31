@@ -69,6 +69,7 @@ const Tab: React.FC<{tab: string, active: string, onClick: (tab: string) => void
 }
 
 const ProfilePosts: React.FC<{posts: PostType[] | null, username: string}> = ({ posts, username }) => {
+    const { t } = useTranslation();
     const router = useRouter();
     return(
         <>
@@ -76,7 +77,7 @@ const ProfilePosts: React.FC<{posts: PostType[] | null, username: string}> = ({ 
             <>
             {posts.map(post => <PartialPost {...post} displayMedia={false} />)}
             <div className={styles['full-profile']} onClick={() => router.push(`/${username}`)}>
-                Click to view more.
+                {t('viewFullProfile')}
             </div>
             </>
         ) : (

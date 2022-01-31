@@ -41,6 +41,7 @@
     "postsTab": "Posts",
     "usersTab": "Users",
     "portalProfileHeader": "{{ username }}'s profile",
+    "viewFullProfile": "Click to view more.",
     "createPostInput": "What would you like to share, {{ username }}?",
     "createPostHeader": "Create Post",
     "createPostPublish": "Publish",

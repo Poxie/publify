@@ -41,6 +41,7 @@
     "postsTab": "Inlägg",
     "usersTab": "Användare",
     "portalProfileHeader": "{{ username }}s profil",
+    "viewFullProfile": "Klicka för att visa mer.",
     "createPostInput": "Vad vill du dela med dig, {{ username }}?",
     "createPostHeader": "Skapa Inlägg",
     "createPostPublish": "Lägg upp",
