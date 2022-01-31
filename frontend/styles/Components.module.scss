@@ -75,3 +75,16 @@
         margin-right: 10px;
     }
 }
+
+// Media grid
+.media-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+.media-item {
+    position: relative;
+    max-width: 100%;
+}

@@ -4,35 +4,20 @@ import styles from '../styles/PartialPost.module.scss';
 import { getMediaURL } from '../utils';
 import { Media } from '../utils/types';
 import Link from 'next/link';
+import { MediaGrid } from './MediaGrid';
 
 type Props = {
     media: Media[];
     postId: string;
 }
 export const PartialPostMedia: React.FC<Props> = ({ media, postId }) => {
+    const mediaToMap = media.slice(0, 4);
     return(
         <div className={styles['media']}>
-            {media.map((item, key) => {
-                const { id, width, height } = item;
-
-                return(
-                    <Link href={`/posts/${postId}?media=${key}`}>
-                        <a>
-                            <div 
-                                className={styles['media-item']}
-                                style={{ width, height }}
-                                key={id}
-                            >
-                                <Image 
-                                    src={getMediaURL(id)}
-                                    layout={'fill'}
-                                    objectFit={'cover'}
-                                />
-                            </div>
-                        </a>
-                    </Link>
-                )
-            })}
+            <MediaGrid 
+                media={mediaToMap}
+                postId={postId}
+            />
         </div>
     )
 }
