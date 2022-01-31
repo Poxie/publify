@@ -8,7 +8,7 @@ import { MainLayout } from '../../layouts/MainLayout';
 import { ProfileLayout } from '../../layouts/ProfileLayout';
 import { pushUser, setProfile } from '../../redux/actions';
 import { useAppSelector } from '../../redux/hooks';
-import { selectCachedUser, selectProfileUser } from '../../redux/selectors';
+import { selectCachedUser, selectProfileIsSSR, selectProfileUser } from '../../redux/selectors';
 import { getUserByUsername } from '../../utils';
 import { UserType } from '../../utils/types';
 
@@ -18,20 +18,21 @@ type Props = {
 export default function Images({ user }: Props) {
     const dispatch = useDispatch();
     const profile = useAppSelector(state => selectProfileUser(state));
+    const isSSR = useAppSelector(state => selectProfileIsSSR(state));
 
     // Updating view with properties based on client authorization token
     useEffect(() => {
-        if(profile) return;
+        if(!isSSR) return;
 
         getUserByUsername(user.username)
             .then(user => {
-                dispatch(setProfile(user));
+                dispatch(setProfile({ user, ssr: false }));
             })
-    }, [profile]);
+    }, [isSSR]);
 
     // Updating redux store with user data
     if(!profile || profile.id !== user.id) {
-        dispatch(setProfile(user));
+        dispatch(setProfile({ user, override: true }));
     }
 
     return(

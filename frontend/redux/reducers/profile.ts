@@ -8,12 +8,14 @@ const initialState: {
     loading: boolean;
     images: null | Media[];
     previewImages: null | Media[];
+    ssr: boolean;
 } = {
     posts: [],
     loading: true,
     user: null,
     images: null,
-    previewImages: null
+    previewImages: null,
+    ssr: true
 }
 
 export default (state=initialState, action: AnyAction) => {
@@ -76,10 +78,11 @@ export default (state=initialState, action: AnyAction) => {
             }
         }
         case SET_PROFILE: {
-            const { user } = action.payload;
+            const { user, ssr, override } = action.payload;
             return {
-                ...initialState,
-                user
+                ...(override ? initialState : state),
+                user,
+                ssr
             }
         }
         case SET_PROFILE_IMAGES: {

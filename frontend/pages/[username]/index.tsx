@@ -12,7 +12,7 @@ import { MainLayout } from '../../layouts/MainLayout';
 import { ReactElement } from 'react';
 import { ProfileLayout } from '../../layouts/ProfileLayout';
 import { useAppSelector } from '../../redux/hooks';
-import { selectCachedUser, selectProfileUser } from '../../redux/selectors';
+import { selectCachedUser, selectProfileIsSSR, selectProfileUser } from '../../redux/selectors';
 import { useEffect } from 'react';
 import { UserNotFound } from '../../components/user/UserNotFound';
 
@@ -23,20 +23,21 @@ export default function User(props: Props) {
     const { user } = props;
     const dispatch = useDispatch();
     const profile = useAppSelector(state => selectProfileUser(state));
+    const isSSR = useAppSelector(state => selectProfileIsSSR(state));
 
     // Updating view with properties based on client authorization token
     useEffect(() => {
-        if(profile) return;
+        if(!isSSR) return;
 
         getUserByUsername(user.username)
             .then(user => {
-                dispatch(setProfile(user));
+                dispatch(setProfile({ user, ssr: false }));
             })
-    }, [profile]);
+    }, [isSSR]);
 
     // Updating redux store with user data
     if(!profile || profile.id !== user.id) {
-        dispatch(setProfile(user));
+        dispatch(setProfile({ user, override: true }));
     }
 
     return(
