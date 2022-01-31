@@ -76,11 +76,6 @@ const determineHeight = ({ mediaCount, index }) => {
     } else if(index >= 2 && mediaCount > 1) {
         return 300;
     }
-    if(index > 1) {
-        return 350;
-    } else {
-        return 250;
-    }
 }
 const MediaGridItem: React.FC<Media & {postId: string, index: number, mediaCount: number, containerSize: {width: number, height: number}}> = ({ id, width, height, postId, index, mediaCount, containerSize }) => {
     const { width: containerWidth } = containerSize;
