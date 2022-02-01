@@ -36,6 +36,11 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     const logout = () => {
         window.localStorage.removeItem('accessToken');
         setUser(null);
+
+        // Updating request headers
+        client.setHeaders({
+            authorization: ''
+        })
     }
 
     // Updating user from outside context
