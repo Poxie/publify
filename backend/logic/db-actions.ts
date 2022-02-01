@@ -49,8 +49,18 @@ import {
 import { RowDataPacket } from 'mysql2';
 import imageSize from 'image-size';
 import { promisify } from 'util';
+import dotenv from 'dotenv';
+dotenv.config();
 const sizeOf = promisify(imageSize);
 const useColors = require('colorthief');
+import nodemailer from 'nodemailer';
+const transporter = nodemailer.createTransport({
+    service: process.env.EMAILER_SERVICE,
+    auth: {
+        user: process.env.EMAILER_EMAIL,
+        pass: process.env.EMAILER_PASSWORD
+    }
+})
 
 // MySQL data return types
 type User = DatabaseUser & RowDataPacket;
@@ -567,9 +577,38 @@ type PartialNotification = {
     image: string | null;
     targetId?: string;
 }
+type EmailNotification = {
+    email: string;
+    content: string;
+    authorId: string;
+    type: string;
+}
+export const sendEmailNotification: (props: EmailNotification) => Promise<void> = async ({ email, content, authorId, type }) => {
+    const author = await getUserById(authorId);
+    const subject = `${author.displayName} published a new post`;
+
+    const options = {
+        from: process.env.EMAILER_EMAIL,
+        to: email,
+        subject,
+        text: content
+    }
+    transporter.sendMail(options).catch(console.error);
+}
 export const createNotification: (notification: PartialNotification) => Promise<Notification> = async ({ type, userId, authorId, content, image, targetId }) => {
     const id = await generateNotificationId();
     const createdAt = Date.now();
+
+    // Fetching user
+    const user = await getUserById(userId);
+    if(user.email) {
+        sendEmailNotification({
+            email: user.email,
+            content: content,
+            authorId,
+            type
+        })
+    }
 
     await connection.promise().query(INSERT_NOTIFICATION, [id, userId, authorId, type, content, createdAt, image, targetId]);
     const notification = await getNotification(id);
