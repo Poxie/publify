@@ -4,6 +4,7 @@
     margin-bottom: var(--spacing);
     border-radius: var(--border-radius);
     animation: var(--loaded-animation);
+    position: relative;
 }
 .avatar {
     margin-right: var(--spacing);
@@ -12,6 +13,34 @@
     color: var(--text-muted);
     font-weight: var(--text-muted-font-weight);
     font-size: var(--timestamp-font-size);
+}
+.options-container {
+    position: absolute;
+    right: var(--spacing);
+    top: var(--spacing);
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 14;
+    
+    svg {
+        width: 32px;
+        height: 32px;
+        fill: var(--icon-color);
+        padding: 5px;
+        border-radius: 50%;
+
+        &:hover {
+            background-color: var(--background-tertiary);
+        }
+    }
+    &.settings-open {
+        svg {
+            background-color: var(--background-tertiary);
+        }
+    }
 }
 .content {
     margin-top: var(--spacing);
