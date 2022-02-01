@@ -6,7 +6,7 @@ import { useAuth } from '../../../contexts/AuthProvider';
 import { useChange } from '../../../contexts/ChangeProvider';
 import { createNotification } from '../../../redux/actions';
 import { updateProfile } from '../../../utils';
-import { isAuthError } from '../../../utils/errors';
+import { isAuthError, isBadRequest } from '../../../utils/errors';
 import { Input } from '../../Input';
 import { SettingsMain } from '../SettingsMain';
 import { AccountSection } from './AccountSection';
@@ -35,6 +35,9 @@ export const AccountPage = () => {
         const updatedUser = await updateProfile(newUser).catch(error => {
             if(isAuthError(error)) {
                 dispatch(createNotification('Wrong previous password inputted.', 'error'));
+            }
+            if(isBadRequest(error)) {
+                dispatch(createNotification('Field may not be empty.', 'error'));
             }
         })
         if(!updatedUser) return;
