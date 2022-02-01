@@ -10,20 +10,26 @@ type Props = {
     items: OptionsItem[];
     children: any;
     onChange?: (state: boolean) => void;
+    closeOnClick?: boolean;
 }
 
-const OptionItem: React.FC<OptionsItem> = ({ text, onClick, type='default' }) => {
+const OptionItem: React.FC<OptionsItem & {onItemClick: () => void}> = ({ text, onClick, type='default', onItemClick }) => {
+    const handleClick = () => {
+        onClick();
+        onItemClick();
+    }
+
     const className = [styles['item'], type === 'danger' ? styles['danger'] : ''].join(' ');
     return(
         <div 
             className={className}
-            onClick={onClick}
+            onClick={handleClick}
         >
             {text}
         </div>
     )
 }
-export const Options: React.FC<Props> = ({ items, children, onChange }) => {
+export const Options: React.FC<Props> = ({ items, children, onChange, closeOnClick }) => {
     const [visible, setVisible] = useState(false);
     const ref = useRef<HTMLDivElement>(null);
     
@@ -55,6 +61,12 @@ export const Options: React.FC<Props> = ({ items, children, onChange }) => {
         });
     }
 
+    // Extra functionality on item click
+    const onItemClick = () => {
+        if(!closeOnClick) return;
+        toggleVisible();
+    }
+
     return(
         <div ref={ref}>
             <div onClick={toggleVisible}>
@@ -66,6 +78,7 @@ export const Options: React.FC<Props> = ({ items, children, onChange }) => {
                         return(
                             <OptionItem 
                                 {...item}
+                                onItemClick={onItemClick}
                                 key={item.text}
                             />
                         )
