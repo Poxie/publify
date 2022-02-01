@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../styles/Home.module.scss';
+import styles from '../styles/Components.module.scss';
 import { useAuth } from '../contexts/AuthProvider';
 import { Avatar } from './Avatar';
 import { Flex } from './Flex';
