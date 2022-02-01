@@ -1,18 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from '../styles/Options.module.scss';
 
-type Item = {
+export type OptionsItem = {
     text: string;
     onClick: () => void;
-    type: 'default' | 'danger';
+    type?: 'default' | 'danger';
 }
 type Props = {
-    items: Item[];
+    items: OptionsItem[];
     children: any;
     onChange?: (state: boolean) => void;
 }
 
-const OptionItem: React.FC<Item> = ({ text, onClick, type }) => {
+const OptionItem: React.FC<OptionsItem> = ({ text, onClick, type='default' }) => {
     const className = [styles['item'], type === 'danger' ? styles['danger'] : ''].join(' ');
     return(
         <div 
