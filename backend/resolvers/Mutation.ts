@@ -140,6 +140,11 @@ export const Mutation = {
         for(const key of Object.keys(args)) {
             // Getting value of property
             let value = args[key];
+
+            // These values may not be empty
+            if(['displayName', 'username'].includes(key) && value === '') throw new Error(`Bad request: ${key} may not be empty.`);
+
+            // Else just override value as null
             if(!value) value = null;
 
             // If value is password
