@@ -15,6 +15,7 @@ export const PartialPost: React.FC<PostType & {displayMedia?: boolean, className
                 <PartialPostHeader 
                     author={author}
                     createdAt={createdAt}
+                    postId={id}
                 />
                 <PartialPostContent content={content} />
                 {media?.length !== 0 && displayMedia && (
