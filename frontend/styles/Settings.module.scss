@@ -132,6 +132,43 @@
     }
 }
 
+// Account
+.account-section {
+    form:not(:last-child) {
+        margin-bottom: 10px;
+    }
+}
+.account-section-header {
+    position: relative;
+    padding: var(--spacing) 0;
+
+    span {
+        background-color: var(--background-primary);
+        position: relative;
+        z-index: 1;
+        padding-right: var(--spacing);
+        text-transform: uppercase;
+        color: var(--text-muted);
+        font-size: 14px;
+        font-weight: bold;
+    }
+    &::after {
+        content: '';
+        background-color: var(--background-tertiary);
+        height: 1px;
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}
+.password-error {
+    color: red;
+    font-size: 14px;
+    font-weight: 600;
+}
+
 @media only screen and (max-width: 600px) {
     .layout {
         flex-direction: column;
