@@ -180,7 +180,7 @@ export const AboutPage = () => {
 
         // If current profile is stored in redux, update redux store
         if(newUser.id === storedUser?.id) {
-            reduxDispatch(setProfile(newUser));
+            reduxDispatch(setProfile({ user: newUser }));
         }
     }
     const onReset = () => {
