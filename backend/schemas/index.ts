@@ -118,6 +118,8 @@ export const typeDefs = gql`
         # Profile stuff
         updateProfile(
             username: String
+            currentPassword: String
+            password: String
             displayName: String
             bio: String
             avatar: Upload

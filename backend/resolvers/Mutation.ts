@@ -1,4 +1,4 @@
-import { createtPostLike, destroyPost, createPost, destroyPostLike, generateUserId, getPostById, getUserById, insertUser, createComment, destroyComment, getCommentById, createMedia, updateProfileProperties, saveUserImage, getDominantColor, updateCustomAbout, insertCustomAbout, destroyCustomAbout, createFollow, getFollow, destroyFollow, readUserNotifications } from "../logic/db-actions";
+import { createtPostLike, destroyPost, createPost, destroyPostLike, generateUserId, getPostById, getUserById, insertUser, createComment, destroyComment, getCommentById, createMedia, updateProfileProperties, saveUserImage, getDominantColor, updateCustomAbout, insertCustomAbout, destroyCustomAbout, createFollow, getFollow, destroyFollow, readUserNotifications, comparePasswords } from "../logic/db-actions";
 import { Comment, Like } from "../types";
 import { DatabaseUser } from "../types/DatabaseUser";
 import { Post } from "../types/Post";
@@ -141,6 +141,25 @@ export const Mutation = {
             // Getting value of property
             let value = args[key];
             if(!value) value = null;
+
+            // If value is password
+            if(key === 'currentPassword') continue;
+            if(key === 'password') {
+                // If current password is not found
+                const currentPassword = args['currentPassword'];
+                if(!currentPassword) throw new Error('Unauthorized.');
+
+                // Chekcing if current password is correct
+                const isAuthorized = await comparePasswords(user.id, currentPassword);
+                if(!isAuthorized) throw new Error('Unauthorized.');
+
+                // If password does not match requirements
+                if(args[key].length < 6) throw new Error('Bad request; password should be at least 6 characters long.');
+
+                // Adding password to properties to update
+                propertiesToUpdate.push({ key: 'password', value: args[key] });
+                continue;
+            }
 
             // If value is media, upload media and replace value
             if(['avatar', 'banner'].includes(key)) {

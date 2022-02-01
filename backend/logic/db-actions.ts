@@ -62,6 +62,20 @@ type CustomAbout = CustomAboutType & RowDataPacket;
 type Follow = FollowType & RowDataPacket;
 type Notification = NotificationType & RowDataPacket;
 
+/**
+    ** User ID of the user to check password for
+    ** Password that should match password stored in database
+**/
+export const comparePasswords: (userId: string, password: string) => Promise<boolean> = async (userId, password) => {
+    const user = await getUserById(userId);
+    if(!user) return false;
+
+    if(user.password === password) {
+        return true;
+    }
+    return false;
+}
+
 // Getting custom abouts
 export const getCustomAboutsByUserId = async (userId: string) => {
     const [abouts] = await connection.promise().query<CustomAbout[]>(SELECT_CUSTOM_ABOUTS, [userId]);
