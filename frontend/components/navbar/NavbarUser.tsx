@@ -6,8 +6,10 @@ import { Flex } from '../Flex';
 import { Options, OptionsItem } from '../Options';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { useTranslation } from 'next-i18next';
 
 export const NavbarUser = () => {
+    const { t } = useTranslation();
     const router = useRouter();
     const [open, setOpen] = useState(false);
     const { user, logout } = useAuth();
@@ -15,8 +17,8 @@ export const NavbarUser = () => {
 
     // Defining user options
     const items: OptionsItem[] = [
-        { text: 'My Profile', onClick: () => router.push(`/${user.username}`) },
-        { text: 'Log out', type: 'danger', onClick: logout }
+        { text: t('myProfile'), onClick: () => router.push(`/${user.username}`) },
+        { text: t('logout'), type: 'danger', onClick: logout }
     ];
 
     const className = [styles['button'], styles['user'], open && styles['active-button']].join(' ');

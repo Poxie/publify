@@ -48,5 +48,7 @@
     "postErrorEmpty": "Du kan inte lägga upp ett tomt inlägg.",
     "createPostAddMedia": "Lägg till media",
     "addMedia": "Lägg till media",
-    "clearMedia": "Ta bort media"
+    "clearMedia": "Ta bort media",
+    "myProfile": "Min profil",
+    "logout": "Logga ut"
 }

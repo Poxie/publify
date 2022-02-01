@@ -48,5 +48,7 @@
     "postErrorEmpty": "You cannot publish an empty post.",
     "createPostAddMedia": "Add media to post",
     "addMedia": "Add media",
-    "clearMedia": "Clear media"
+    "clearMedia": "Clear media",
+    "myProfile": "My profile",
+    "logout": "Log out"
 }
