@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAuth } from '../../contexts/AuthProvider';
 import { Feed } from './Feed';
-import { HomeInput } from './HomeInput';
+import { CreatePostInput } from '../CreatePostInput';
 
 export const Home = () => {
     const { user } = useAuth();
@@ -9,7 +9,7 @@ export const Home = () => {
 
     return(
         <>
-            <HomeInput />
+            <CreatePostInput />
             <Feed />
         </>
     )

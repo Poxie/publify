@@ -3,6 +3,7 @@ import { useAuth } from '../../contexts/AuthProvider';
 import { useAppSelector } from '../../redux/hooks';
 import { selectProfileUser } from '../../redux/selectors';
 import styles from '../../styles/User.module.scss';
+import { CreatePostInput } from '../CreatePostInput';
 import { CreatePost } from './CreatePost';
 import { ProfilePostContainer } from './ProfilePostContainer';
 
@@ -14,7 +15,7 @@ export const ProfileMain = () => {
     return(
         <div className={styles['profile-main']}>
             {isSelfProfile && (
-                <CreatePost />
+                <CreatePostInput />
             )}
             <ProfilePostContainer />
         </div>
