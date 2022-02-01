@@ -5,5 +5,13 @@
     "notificationsTab": "Notifications",
     "languagesTab": "Languages",
     "displayNameLabel": "Display Name",
-    "bioLabel": "Bio"
+    "bioLabel": "Bio",
+    "usernameLabel": "Username",
+    "passwordLabel": "Password",
+    "currentPasswordLabel": "Current password",
+    "newPasswordLabel": "New password",
+    "accountUpdateSuccessful": "Updated account successfully.",
+    "wrongPreviousPassword": "Wrong previous password inputted.",
+    "fieldEmpty": "Field may not be empty.",
+    "passwordLengthRequirement": "Password must be at least 6 characters."
 }

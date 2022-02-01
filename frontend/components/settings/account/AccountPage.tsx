@@ -10,8 +10,10 @@ import { isAuthError, isBadRequest } from '../../../utils/errors';
 import { Input } from '../../Input';
 import { SettingsMain } from '../SettingsMain';
 import { AccountSection } from './AccountSection';
+import { useTranslation } from 'next-i18next';
 
 export const AccountPage = () => {
+    const { t } = useTranslation('settings');
     const dispatch = useDispatch();
     const { setChanges, close } = useChange();
     const { user, updateUser } = useAuth();
@@ -34,10 +36,10 @@ export const AccountPage = () => {
         // Updating user
         const updatedUser = await updateProfile(newUser).catch(error => {
             if(isAuthError(error)) {
-                dispatch(createNotification('Wrong previous password inputted.', 'error'));
+                dispatch(createNotification(t('wrongPreviousPassword'), 'error'));
             }
             if(isBadRequest(error)) {
-                dispatch(createNotification('Field may not be empty.', 'error'));
+                dispatch(createNotification(t('fieldEmpty'), 'error'));
             }
         })
         if(!updatedUser) return;
@@ -48,7 +50,7 @@ export const AccountPage = () => {
         setPassword('');
 
         // Sending notification
-        dispatch(createNotification('Updated account successfully.', 'success'));
+        dispatch(createNotification(t('accountUpdateSuccessful'), 'success'));
     }
     const onReset = () => {
         // Resetting values
@@ -63,29 +65,29 @@ export const AccountPage = () => {
     }
 
     return(
-        <SettingsMain title={'Account'}>
+        <SettingsMain title={t('accountTab')}>
             <Input 
                 defaultValue={username}
                 onChange={setUsername}
-                label={'Username'}
-                placeholder={'Username...'}
+                label={t('usernameLabel')}
+                placeholder={`${t('usernameLabel')}...`}
             />
-            <AccountSection header={'Password'}>
+            <AccountSection header={t('passwordLabel')}>
                 <Input 
                     defaultValue={currentPassword}
                     onChange={setCurrentPassword}
-                    label={'Current password'}
-                    placeholder={'Current password...'}
+                    label={t('currentPasswordLabel')}
+                    placeholder={`${t('currentPasswordLabel')}...`}
                 />
                 <Input 
                     defaultValue={password}
                     onChange={setPassword}
-                    label={'New password'}
-                    placeholder={'New password...'}
+                    label={t('newPasswordLabel')}
+                    placeholder={`${t('newPasswordLabel')}...`}
                 />
                 {password && password.length < 6 && (
                     <span className={styles['password-error']}>
-                        Password must be at least 6 characters.
+                        {t('passwordLengthRequirement')}
                     </span>
                 )}
             </AccountSection>

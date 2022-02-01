@@ -5,5 +5,13 @@
     "notificationsTab": "Notifikationer",
     "languagesTab": "Språk",
     "displayNameLabel": "Visningsnamn",
-    "bioLabel": "Om mig"
+    "bioLabel": "Om mig",
+    "usernameLabel": "Användarnamn",
+    "passwordLabel": "Lösenord",
+    "currentPasswordLabel": "Nuvarande lösenord",
+    "newPasswordLabel": "Nytt lösenord",
+    "accountUpdateSuccessful": "Kontot har uppdaterats.",
+    "wrongPreviousPassword": "Nuvarande lösenord var felaktigt.",
+    "fieldEmpty": "Fältet får inte vara tomt.",
+    "passwordLengthRequirement": "Lösenordet måste vara minst 6 karaktärer."
 }
