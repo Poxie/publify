@@ -27,6 +27,13 @@
     border-radius: var(--border-radius);
     overflow: hidden;
 }
+.has-media-hidden {
+    font-style: italic;
+    color: var(--text-muted);
+    margin-top: var(--spacing);
+    display: block;
+    font-size: 14px;
+}
 .footer {
     padding-top: calc(var(--spacing) / 2);
     margin-top: calc(var(--spacing));

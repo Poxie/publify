@@ -18,6 +18,11 @@ export const PartialPost: React.FC<PostType & {displayMedia?: boolean, className
             {media?.length !== 0 && displayMedia && (
                 <PartialPostMedia media={media} postId={id} />
             )}
+            {media?.length !== 0 && !displayMedia && (
+                <span className={styles['has-media-hidden']}>
+                    Has media attached
+                </span>
+            )}
             <PartialPostFooter
                 id={id}
                 isLiked={isLiked}
