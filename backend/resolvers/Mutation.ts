@@ -144,7 +144,7 @@ export const Mutation = {
 
             // If value is password
             if(key === 'currentPassword') continue;
-            if(key === 'password') {
+            if(key === 'password' && args[key]) {
                 // If current password is not found
                 const currentPassword = args['currentPassword'];
                 if(!currentPassword) throw new Error('Unauthorized.');
