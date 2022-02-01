@@ -246,7 +246,7 @@ export const AboutPage = () => {
         }
     ]
     return(
-        <SettingsMain title={'About'}>
+        <SettingsMain title={t('aboutTab')}>
             {items.map(item => {
                 if(item.value === null) return <AddAboutItem key={item.type} type={item.type} onClick={() => dispatch(updateUserProperty(item.type, ''))} />
                 return(
