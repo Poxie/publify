@@ -32,6 +32,11 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
         setUser(user);
         return user;
     }
+    // Logout functionality
+    const logout = () => {
+        window.localStorage.removeItem('accessToken');
+        setUser(null);
+    }
 
     // Updating user from outside context
     const updateUser = (user: UserType) => {
@@ -41,7 +46,8 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     const value = {
         user,
         updateUser,
-        login: loginUser
+        login: loginUser,
+        logout
     }
     return(
         <AuthContext.Provider value={value}>

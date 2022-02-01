@@ -74,5 +74,6 @@ export type Notification = {
 export type AuthContext = {
     user: UserType | null;
     login: (username: string, password: string) => Promise<UserType | undefined>;
+    logout: () => void;
     updateUser: (user: UserType) => void;
 }
