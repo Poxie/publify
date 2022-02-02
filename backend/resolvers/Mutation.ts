@@ -144,6 +144,9 @@ export const Mutation = {
             // Getting value of property
             let value = args[key];
 
+            // @ts-ignore: If value is same as previously
+            if(value === user[key]) continue;
+
             // These values may not be empty
             if(['displayName', 'username'].includes(key) && value === '') throw new Error(`Bad request: ${key} may not be empty.`);
 
