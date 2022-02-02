@@ -55,7 +55,7 @@ const sizeOf = promisify(imageSize);
 const useColors = require('colorthief');
 import ejs from 'ejs';
 import nodemailer from 'nodemailer';
-const transporter = nodemailer.createTransport({
+export const transporter = nodemailer.createTransport({
     service: process.env.EMAILER_SERVICE,
     auth: {
         user: process.env.EMAILER_EMAIL,
@@ -463,7 +463,7 @@ export const saveUserImage = async (file: any, type: 'avatar' | 'banner') => {
 // Updating user profile
 type Property = {
     key: string;
-    value: string;
+    value: string | number | boolean;
 }
 export const updateProfileProperties: (userId: string, properties: Property[]) => Promise<UserType> = async (userId, properties) => {
     let query = `UPDATE users SET `;
