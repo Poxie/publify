@@ -54,5 +54,6 @@
     "searchFor": "Sök efter",
     "emptyQuery": "Skriv för att hitta en användare.",
     "noUsersFound": "Inga användare hittades.",
-    "feedEndMessage": "Ser ut som att du har nått slutet. Följ folk för att få dne här sidan mer aktiv!"
+    "feedEndMessage": "Ser ut som att du har nått slutet. Följ fler användare för att få den här sidan att vara mer aktiv!",
+    "exploreUsersButton": "Utforska Användare"
 }

@@ -170,8 +170,8 @@ export const readMyNotifications: () => Promise<boolean> = async () => {
 }
 
 // Feed stuff
-export const getMyFeed = async () => {
-    const response = await request(GET_MY_FEED);
+export const getMyFeed = async (startIndex?: number, endIndex?: number) => {
+    const response = await request(GET_MY_FEED, { startIndex, endIndex });
     return response;
 }
 export const getExploreUsers: () => Promise<UserType[]> = async () => {

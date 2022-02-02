@@ -176,8 +176,8 @@ export const READ_MY_NOTIFICATIONS = gql`
 `
 
 export const GET_MY_FEED = gql`
-    query {
-        getMyFeed {
+    query($startIndex: Int, $endIndex: Int) {
+        getMyFeed(startIndex: $startIndex, endIndex: $endIndex) {
             id
             content
             createdAt
