@@ -153,8 +153,8 @@ export const GET_MY_NOTIFICATION_COUNT = gql`
 `
 
 export const GET_MY_NOTIFICATIONS = gql`
-    query {
-        getMyNotifications {
+    query($startIndex: Int, $endIndex: Int) {
+        getMyNotifications(startIndex: $startIndex, endIndex: $endIndex) {
             id
             type
             image

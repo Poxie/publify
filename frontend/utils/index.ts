@@ -160,8 +160,8 @@ export const getMyNotificationCount = async () => {
     const response = await request(GET_MY_NOTIFICATION_COUNT);
     return response;
 }
-export const getMyNotifications: () => Promise<Notification[]> = async () => {
-    const response = await request(GET_MY_NOTIFICATIONS);
+export const getMyNotifications: (startIndex?: number, endIndex?: number) => Promise<Notification[]> = async (startIndex, endIndex) => {
+    const response = await request(GET_MY_NOTIFICATIONS, { startIndex, endIndex });
     return response;
 }
 export const readMyNotifications: () => Promise<boolean> = async () => {
