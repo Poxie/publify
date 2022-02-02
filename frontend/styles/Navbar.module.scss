@@ -94,6 +94,17 @@
     width: 400px;
     border-radius: var(--border-radius);
     overflow: hidden;
+    max-height: 440px;
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+        width: 8px;
+        background-color: var(--background-hover);
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--background-secondary);
+        border-radius: 120px;
+    }
 }
 .notification {
     padding: 15px;
