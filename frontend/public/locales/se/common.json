@@ -53,5 +53,6 @@
     "logout": "Logga ut",
     "searchFor": "Sök efter",
     "emptyQuery": "Skriv för att hitta en användare.",
-    "noUsersFound": "Inga användare hittades."
+    "noUsersFound": "Inga användare hittades.",
+    "feedEndMessage": "Ser ut som att du har nått slutet. Följ folk för att få dne här sidan mer aktiv!"
 }

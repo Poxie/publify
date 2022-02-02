@@ -53,5 +53,6 @@
     "logout": "Log out",
     "searchFor": "Search for",
     "emptyQuery": "Start typing to find a user.",
-    "noUsersFound": "There were no users found."
+    "noUsersFound": "There were no users found.",
+    "feedEndMessage": "Seems like you have hit the end. Follow people to get this page more active."
 }

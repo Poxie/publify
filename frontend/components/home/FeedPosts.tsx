@@ -1,9 +1,11 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 import styles from '../../styles/Home.module.scss';
 import { PostType } from '../../utils/types';
 import { PartialPost } from '../PartialPost';
 
 export const FeedPosts: React.FC<{posts: PostType[]}> = ({ posts }) => {
+    const { t } = useTranslation();
     return(
         <>
             {posts.map(post => {
@@ -17,7 +19,7 @@ export const FeedPosts: React.FC<{posts: PostType[]}> = ({ posts }) => {
             
             <div className={styles['empty']}>
                 <span>
-                    Seems like you have hit the end.
+                    {t('feedEndMessage')}
                 </span>
             </div>
         </>
