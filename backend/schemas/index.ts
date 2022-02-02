@@ -13,6 +13,7 @@ export const typeDefs = gql`
         id: String!
         username: String!
         email: String
+        emailVerified: Boolean
         displayName: String!
         avatar: String
         banner: String
