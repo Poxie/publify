@@ -47,6 +47,7 @@ const EmojiSection: React.FC<Section & Methods> = React.memo(({ title, items, on
         </>
     )
 });
+EmojiSection.displayName = 'EmojiSection';
 
 const EmojiItem: React.FC<Item & Methods> = ({ name, unified, onMouseEnter, onClick }) => {
     const partialItem = { name, unified };
@@ -74,6 +75,7 @@ const EmojiItem: React.FC<Item & Methods> = ({ name, unified, onMouseEnter, onCl
         </div>
     )
 }
+EmojiItem.displayName = 'EmojiItem';
 
 type SectionsProps = Methods & {
     sections: Sections;
@@ -95,6 +97,7 @@ const EmojiSections: React.FC<SectionsProps> = React.memo(({ onMouseEnter, onCli
         </div>
     )
 });
+EmojiSections.displayName = 'EmojiSections';
 
 type Props = {
     onEmojiSelected: (emoji: PartialEmoji) => void;
@@ -149,3 +152,5 @@ export const EmojiPicker: React.FC<Props> = ({ onEmojiSelected, onClose }) => {
         </div>
     )
 }
+
+EmojiPicker.displayName = 'EmojiPicker';
