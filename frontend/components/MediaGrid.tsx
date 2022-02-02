@@ -44,6 +44,7 @@ export const MediaGrid: React.FC<{media: Media[], postId: string}> = ({ media, p
                         mediaCount={media.length}
                         index={key}
                         containerSize={containerSize}
+                        key={item.id}
                     />
                 )
             })}
