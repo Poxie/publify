@@ -13,8 +13,8 @@ export const LanguagePage = () => {
         window.localStorage.i18nextLng = locale;
     }
     const languages = [
-        {text: 'English', onClick: () => onLocaleChange('en')},
-        {text: 'Svenska', onClick: () => onLocaleChange('se')}
+        {text: 'English', onClick: () => onLocaleChange('en'), id: 'english'},
+        {text: 'Svenska', onClick: () => onLocaleChange('se'), id: 'swedish'}
     ]
     const active = getLanguageNameByLocale(currentLocale);
 
@@ -22,7 +22,6 @@ export const LanguagePage = () => {
         <div>
             <Dropdown 
                 items={languages}
-                activeItemText={active}
             />
         </div>
     )
