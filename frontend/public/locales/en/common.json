@@ -55,5 +55,7 @@
     "emptyQuery": "Start typing to find a user.",
     "noUsersFound": "There were no users found.",
     "feedEndMessage": "Seems like you have hit the end. Follow more users to get this page more active and fun!",
-    "exploreUsersButton": "Explore Users"
+    "exploreUsersButton": "Explore Users",
+    "notLoggedInTitle": "You are not logged in.",
+    "notLoggedInSubtitle": "You may still explore explore the platform and what's within, but some features may be limited."
 }
