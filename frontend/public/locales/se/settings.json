@@ -7,11 +7,13 @@
     "displayNameLabel": "Visningsnamn",
     "bioLabel": "Om mig",
     "usernameLabel": "Användarnamn",
+    "emailLabel": "Email",
     "passwordLabel": "Lösenord",
     "currentPasswordLabel": "Nuvarande lösenord",
     "newPasswordLabel": "Nytt lösenord",
     "accountUpdateSuccessful": "Kontot har uppdaterats.",
     "wrongPreviousPassword": "Nuvarande lösenord var felaktigt.",
     "fieldEmpty": "Fältet får inte vara tomt.",
-    "passwordLengthRequirement": "Lösenordet måste vara minst 6 karaktärer."
+    "passwordLengthRequirement": "Lösenordet måste vara minst 6 karaktärer.",
+    "waitingForConfirmation": "Email väntar på verifiering."
 }

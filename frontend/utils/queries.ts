@@ -250,6 +250,8 @@ export const GET_ME = gql`
     query {
         getMe {
             ${USER_PROPERTIES}
+            email
+            emailVerified
         }
     }
 `

@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { useAuth } from '../../../contexts/AuthProvider';
 import { useChange } from '../../../contexts/ChangeProvider';
 import { createNotification } from '../../../redux/actions';
-import { updateProfile } from '../../../utils';
+import { getMe, updateProfile } from '../../../utils';
 import { isAuthError, isBadRequest } from '../../../utils/errors';
 import { Input } from '../../Input';
 import { SettingsMain } from '../SettingsMain';
@@ -17,9 +17,10 @@ export const AccountPage = () => {
     const dispatch = useDispatch();
     const { setChanges, close } = useChange();
     const { user, updateUser } = useAuth();
-    const { username: _username } = user;
+    const { username: _username, email: _email } = user;
 
     const [username, setUsername] = useState(_username);
+    const [email, setEmail] = useState(_email);
     const [currentPassword, setCurrentPassword] = useState('');
     const [password, setPassword] = useState('');
 
@@ -27,14 +28,15 @@ export const AccountPage = () => {
     const onChange = async () => {
         // Creatiang new object instance
         let newUser = {...user};
-        newUser = {...user, ...{ username, password, currentPassword }};
+        console.log(email);
+        newUser = {...user, ...{ username, email, password, currentPassword }};
 
         // Deleting avatar/banner (expects type upload, is of type string)
         delete newUser.avatar;
         delete newUser.banner;
 
         // Updating user
-        const updatedUser = await updateProfile(newUser).catch(error => {
+        await updateProfile(newUser).catch(error => {
             if(isAuthError(error)) {
                 dispatch(createNotification(t('wrongPreviousPassword'), 'error'));
             }
@@ -42,6 +44,7 @@ export const AccountPage = () => {
                 dispatch(createNotification(t('fieldEmpty'), 'error'));
             }
         })
+        const updatedUser = await getMe();
         if(!updatedUser) return;
 
         // Updating local value
@@ -55,10 +58,11 @@ export const AccountPage = () => {
     const onReset = () => {
         // Resetting values
         setUsername(_username);
+        setEmail(_email);
         setPassword('');
     }
     
-    if(username !== _username || password) {
+    if(username !== _username || password || email !== _email) {
         setChanges(onChange, onReset);
     } else {
         close();
@@ -66,12 +70,25 @@ export const AccountPage = () => {
 
     return(
         <SettingsMain title={t('accountTab')}>
-            <Input 
-                defaultValue={username}
-                onChange={setUsername}
-                label={t('usernameLabel')}
-                placeholder={`${t('usernameLabel')}...`}
-            />
+            <AccountSection header={'General'}>
+                <Input 
+                    defaultValue={username}
+                    onChange={setUsername}
+                    label={t('usernameLabel')}
+                    placeholder={`${t('usernameLabel')}...`}
+                />
+                <Input 
+                    defaultValue={email}
+                    onChange={setEmail}
+                    label={t('emailLabel')}
+                    placeholder={`${t('emailLabel')}...`}
+                />
+                {!user.emailVerified && user.email && (
+                    <span className={styles['note']}>
+                        {t('waitingForConfirmation')}
+                    </span>
+                )}
+            </AccountSection>
             <AccountSection header={t('passwordLabel')}>
                 <Input 
                     defaultValue={currentPassword}
