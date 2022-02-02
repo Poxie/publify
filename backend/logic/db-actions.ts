@@ -589,7 +589,6 @@ export const sendEmailNotification: (props: EmailNotification) => Promise<void> 
     const author = await getUserById(authorId);
     const subject = `${author.displayName} published a new post`;
 
-    console.log((await ejs.renderFile(path.join(__dirname, '../templates/newPostTemplate.ejs'), { postId: targetId, author: author.displayName, avatar: author.avatar, authorId: author.id, content })))
     const options = {
         from: process.env.EMAILER_EMAIL,
         to: email,
@@ -604,7 +603,7 @@ export const createNotification: (notification: PartialNotification) => Promise<
 
     // Fetching user
     const user = await getUserById(userId);
-    if(user.email) {
+    if(user.email && user.emailNotifications && user.emailVerified) {
         sendEmailNotification({
             email: user.email,
             content: content,

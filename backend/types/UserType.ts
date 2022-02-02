@@ -9,6 +9,7 @@ export type UserType = {
     id: string;
     username: string;
     email?: string;
+    emailVerified?: boolean;
     displayName: string;
     avatar: string;
     color?: string;
