@@ -23,7 +23,7 @@ export const FeedPosts: React.FC<{posts: PostType[], isEnd: boolean}> = ({ posts
             })}
             
             {(posts.length === 0 || isEnd) && (
-                <Flex className={styles['empty']} flexDirection={'column'}>
+                <Flex className={styles['empty']} flexDirection={'column'} alignItems={'center'}>
                     <span>
                         {t('feedEndMessage')}
                     </span>
