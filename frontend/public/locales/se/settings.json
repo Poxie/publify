@@ -11,9 +11,11 @@
     "passwordLabel": "Lösenord",
     "currentPasswordLabel": "Nuvarande lösenord",
     "newPasswordLabel": "Nytt lösenord",
+    "general": "Allmänt",
     "accountUpdateSuccessful": "Kontot har uppdaterats.",
     "wrongPreviousPassword": "Nuvarande lösenord var felaktigt.",
     "fieldEmpty": "Fältet får inte vara tomt.",
     "passwordLengthRequirement": "Lösenordet måste vara minst 6 karaktärer.",
-    "waitingForConfirmation": "Email väntar på verifiering."
+    "waitingForConfirmation": "Email väntar på verifiering.",
+    "emailNotificationsDescription": "Jag vill bli meddelade genom email när jag får notifikationer."
 }

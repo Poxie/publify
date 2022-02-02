@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 import { useState } from 'react';
 import { useAuth } from '../../../contexts/AuthProvider';
@@ -7,6 +8,7 @@ import { SettingsMain } from '../SettingsMain';
 import { NotificationType } from './NotificationType';
 
 export const NotificationsPage = () => {
+    const { t } = useTranslation('settings');
     const { user, updateUser } = useAuth();
     const { emailNotifications } = user;
     const { setChanges, close } = useChange();
@@ -45,10 +47,10 @@ export const NotificationsPage = () => {
     }
 
     return(
-        <SettingsMain title={'Notifications'}>
+        <SettingsMain title={t('notificationsTab')}>
             <NotificationType 
-                title={'Email'}
-                subtitle={'I want to be notified by email when I receive notifications.'}
+                title={t('emailLabel')}
+                subtitle={t('emailNotificationsDescription')}
                 type={'email'}
                 value={email}
                 onChange={handleChange}

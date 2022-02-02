@@ -28,7 +28,6 @@ export const AccountPage = () => {
     const onChange = async () => {
         // Creatiang new object instance
         let newUser = {...user};
-        console.log(email);
         newUser = {...user, ...{ username, email, password, currentPassword }};
 
         // Deleting avatar/banner (expects type upload, is of type string)
@@ -70,7 +69,7 @@ export const AccountPage = () => {
 
     return(
         <SettingsMain title={t('accountTab')}>
-            <AccountSection header={'General'}>
+            <AccountSection header={t('general')}>
                 <Input 
                     defaultValue={username}
                     onChange={setUsername}

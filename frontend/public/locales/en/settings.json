@@ -11,9 +11,11 @@
     "passwordLabel": "Password",
     "currentPasswordLabel": "Current password",
     "newPasswordLabel": "New password",
+    "general": "General",
     "accountUpdateSuccessful": "Updated account successfully.",
     "wrongPreviousPassword": "Wrong previous password inputted.",
     "fieldEmpty": "Field may not be empty.",
     "passwordLengthRequirement": "Password must be at least 6 characters.",
-    "waitingForConfirmation": "Email is awaiting confirmation."
+    "waitingForConfirmation": "Email is awaiting confirmation.",
+    "emailNotificationsDescription": "I want to be notified by email when I receive notifications."
 }
