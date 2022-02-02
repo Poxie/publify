@@ -50,5 +50,8 @@
     "addMedia": "Lägg till media",
     "clearMedia": "Ta bort media",
     "myProfile": "Min profil",
-    "logout": "Logga ut"
+    "logout": "Logga ut",
+    "searchFor": "Sök efter",
+    "emptyQuery": "Skriv för att hitta en användare.",
+    "noUsersFound": "Inga användare hittades."
 }

@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import React, { useRef } from 'react';
 import { useEffect } from 'react';
@@ -9,6 +10,7 @@ import { Avatar } from '../Avatar';
 import { Flex } from '../Flex';
 
 export const NavbarSearchResults: React.FC<{query: string, close: () => void}> = ({ query, close }) => {
+    const { t } = useTranslation();
     const [items, setItems] = useState<UserType[]>([]);
     const ref = useRef<HTMLDivElement>(null);
 
@@ -35,7 +37,7 @@ export const NavbarSearchResults: React.FC<{query: string, close: () => void}> =
     return(
         <div className={styles['search-results']} ref={ref}>
             <div className={styles['search-header']}>
-                Search for {' '}
+                {t('searchFor')} {' '}
                 <span className={styles['search-query']}>
                     {query}
                 </span>
@@ -51,12 +53,12 @@ export const NavbarSearchResults: React.FC<{query: string, close: () => void}> =
             })}
             {!items.length && query && (
                 <span className={styles['result-info']}>
-                    There were no users found.
+                    {t('noUsersFound')}
                 </span>
             )}
             {!query && (
                 <span className={styles['result-info']}>
-                    Start typing to find a user.
+                    {t('emptyQuery')}
                 </span>
             )}
         </div>
@@ -64,6 +66,7 @@ export const NavbarSearchResults: React.FC<{query: string, close: () => void}> =
 }
 
 const SearchResult: React.FC<{user: UserType, close: () => void}> = ({ user, close }) => {
+    const { t } = useTranslation();
     const { avatar, displayName, username, followersCount } = user;
 
     return(
@@ -78,7 +81,7 @@ const SearchResult: React.FC<{user: UserType, close: () => void}> = ({ user, clo
                 <div className={styles['search-result-text']}>
                     {displayName}
                     <Flex className={styles['result-stats']}>
-                        {followersCount} followers
+                        {followersCount} {t('followers')}
                     </Flex>
                 </div>
             </Flex>
