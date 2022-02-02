@@ -90,9 +90,11 @@ export const ModalProvider: React.FC<Props> = ({ children }) => {
         setAnimatingOut(true);
         setTimeout(() => {
             setModals([]);
-            setActiveModal(null);
-            modalCount.current = 0;
+            setActiveModal(null)
+            setNewModal(null);
             setAnimatingOut(false);
+            setAnimatingNewModal(false);
+            modalCount.current = 0;
         }, 400);
     }
 
@@ -140,7 +142,7 @@ export const ModalProvider: React.FC<Props> = ({ children }) => {
                     <Flex 
                         className={styles['modal']}
                         style={{ 
-                            minWidth: dimensions.minWidth,
+                            width: dimensions.minWidth,
                             maxWidth: dimensions.maxWidth,
                             maxHeight,
                         }}

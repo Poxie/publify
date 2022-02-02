@@ -83,7 +83,7 @@
     background-color: var(--background-secondary);
     border-radius: var(--border-radius);
     overflow: hidden;
-    max-width: 950px;
+    max-width: 100% !important;
     min-height: 200px;
     pointer-events: all;
     z-index: 2;
