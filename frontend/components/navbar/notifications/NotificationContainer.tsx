@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 import { useRef } from 'react';
 import { useState } from 'react';
@@ -5,9 +6,11 @@ import { useEffect } from 'react';
 import styles from '../../../styles/Navbar.module.scss';
 import { getMyNotifications, readMyNotifications } from '../../../utils';
 import { Notification as NotificationType } from '../../../utils/types';
+import { Flex } from '../../Flex';
 import { Notification } from './Notification';
 
 export const NotificationContainer = () => {
+    const { t } = useTranslation();
     const [notifications, setNotifications] = useState<NotificationType[]>([]);
     const ref = useRef<HTMLDivElement>(null);
     const isFetching = useRef(false);
@@ -66,6 +69,16 @@ export const NotificationContainer = () => {
                     />
                 )
             })}
+            {!isFetching.current && length.current === 0 && (
+                <Flex className={styles['empty']} alignItems={'center'} flexDirection={'column'}>
+                    <span className={styles['empty-header']}>
+                        {t('emptyNotificationsTitle')}
+                    </span>
+                    <span>
+                        {t('emptyNotificationsSubtitle')}
+                    </span>
+                </Flex>
+            )}
         </div>
     )
 }

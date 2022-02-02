@@ -57,5 +57,7 @@
     "feedEndMessage": "Seems like you have hit the end. Follow more users to get this page more active and fun!",
     "exploreUsersButton": "Explore Users",
     "notLoggedInTitle": "You are not logged in.",
-    "notLoggedInSubtitle": "You may still explore explore the platform and what's within, but some features may be limited."
+    "notLoggedInSubtitle": "You may still explore explore the platform and what's within, but some features may be limited.",
+    "emptyNotificationsTitle": "There are no notifications here.",
+    "emptyNotificationsSubtitle": "Follow more users to get notifications when they publish posts!"
 }

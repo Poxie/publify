@@ -57,5 +57,7 @@
     "feedEndMessage": "Ser ut som att du har nått slutet. Följ fler användare för att få den här sidan att vara mer aktiv!",
     "exploreUsersButton": "Utforska Användare",
     "notLoggedInTitle": "Du är inte inloggad.",
-    "notLoggedInSubtitle": "Du får fortfarande utforska platformen och det som finns på den, men vissa funktioner kan vara begränsade."
+    "notLoggedInSubtitle": "Du får fortfarande utforska platformen och det som finns på den, men vissa funktioner kan vara begränsade.",
+    "emptyNotificationsTitle": "Du har inga notifikationer.",
+    "emptyNotificationsSubtitle": "Följ fler användare för att få notifikationer när de lägger upp inlägg!"
 }

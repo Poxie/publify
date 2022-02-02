@@ -85,6 +85,16 @@
     height: 22px;
     border-radius: 50%;
 }
+.empty {
+    padding: var(--spacing);
+    color: var(--text-muted);
+    font-weight: var(--text-muted-font-weight);
+    text-align: center;
+}
+.empty-header {
+    color: var(--text-primary);
+    margin-bottom: var(--spacing);
+}
 .notification-container {
     background-color: var(--background-tertiary);
     position: absolute;
