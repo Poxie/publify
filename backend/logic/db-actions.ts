@@ -53,6 +53,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 const sizeOf = promisify(imageSize);
 const useColors = require('colorthief');
+import ejs from 'ejs';
 import nodemailer from 'nodemailer';
 const transporter = nodemailer.createTransport({
     service: process.env.EMAILER_SERVICE,
@@ -582,16 +583,18 @@ type EmailNotification = {
     content: string;
     authorId: string;
     type: string;
+    targetId?: string;
 }
-export const sendEmailNotification: (props: EmailNotification) => Promise<void> = async ({ email, content, authorId, type }) => {
+export const sendEmailNotification: (props: EmailNotification) => Promise<void> = async ({ email, content, authorId, type, targetId }) => {
     const author = await getUserById(authorId);
     const subject = `${author.displayName} published a new post`;
 
+    console.log((await ejs.renderFile(path.join(__dirname, '../templates/newPostTemplate.ejs'), { postId: targetId, author: author.displayName, avatar: author.avatar, authorId: author.id, content })))
     const options = {
         from: process.env.EMAILER_EMAIL,
         to: email,
         subject,
-        text: content
+        html: (await ejs.renderFile(path.join(__dirname, '../templates/newPostTemplate.ejs'), { postId: targetId, author: author.displayName, avatar: author.avatar, authorId: author.id, content }))
     }
     transporter.sendMail(options).catch(console.error);
 }
@@ -606,6 +609,7 @@ export const createNotification: (notification: PartialNotification) => Promise<
             email: user.email,
             content: content,
             authorId,
+            targetId,
             type
         })
     }

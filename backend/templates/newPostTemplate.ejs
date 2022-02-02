@@ -1,0 +1,33 @@
+<body style="background-color: #101922; color: #fff;">
+    <a 
+        href='<%- process.env.FRONTEND_ORIGIN -%>/posts/<%- postId -%>'
+        class="container" 
+        style="
+            margin-top: 10px;
+            display: block;
+            text-decoration: none;
+            color: #fff;
+        "
+    >
+        <div style="display: flex; align-items: center;">
+            <img 
+                style="
+                    width: 60px; 
+                    height: 60px; 
+                    background-color: #192734; 
+                    margin-right: 15px;
+                "
+                src="<%- process.env.IMAGE_ENDPOINT -%>/avatars/<%- authorId -%>/<%- avatar -%>.png" 
+                alt=""
+            >
+            <div>
+                <div style="font-size: 20px; font-weight: 600;">
+                    <%- author -%>
+                </div>
+                <span style="font-size: 17px;">
+                    <%- content -%>
+                </span>
+            </div>
+        </div>
+    </a>
+</body>
