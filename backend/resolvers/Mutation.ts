@@ -1,8 +1,11 @@
-import { createtPostLike, destroyPost, createPost, destroyPostLike, generateUserId, getPostById, getUserById, insertUser, createComment, destroyComment, getCommentById, createMedia, updateProfileProperties, saveUserImage, getDominantColor, updateCustomAbout, insertCustomAbout, destroyCustomAbout, createFollow, getFollow, destroyFollow, readUserNotifications, comparePasswords } from "../logic/db-actions";
+import jwt from 'jsonwebtoken';
+import { createtPostLike, destroyPost, createPost, destroyPostLike, generateUserId, getPostById, getUserById, insertUser, createComment, destroyComment, getCommentById, createMedia, updateProfileProperties, saveUserImage, getDominantColor, updateCustomAbout, insertCustomAbout, destroyCustomAbout, createFollow, getFollow, destroyFollow, readUserNotifications, comparePasswords, transporter } from "../logic/db-actions";
 import { Comment, Like } from "../types";
 import { DatabaseUser } from "../types/DatabaseUser";
 import { Post } from "../types/Post";
 import { UserType } from "../types/UserType";
+import dotenv from 'dotenv';
+dotenv.config();
 
 // Checking authorization
 const checkUserExistence: (context: any) => Promise<UserType> = async (context) => {
@@ -146,6 +149,28 @@ export const Mutation = {
 
             // Else just override value as null
             if(!value) value = null;
+
+            // If value is email
+            if(key === 'email') {
+                if(!process.env.JSON_WEB_TOKEN_SECRET_KEY) continue;
+
+                jwt.sign(
+                    { email: value, id: user.id },
+                    process.env.JSON_WEB_TOKEN_SECRET_KEY,
+                    {expiresIn: '1d'},
+                    (error, token) => {
+                        if(error) console.error(error);
+
+                        const url = `${process.env.BACKEND_ORIGIN}/confirm/${token}`;
+                        transporter.sendMail({
+                            to: value,
+                            subject: 'Confirm Email',
+                            html: `Please click <a href="${url}">here</a> to confirm your email. It will be accessible for one day.`
+                        })
+                    }
+                )
+                propertiesToUpdate.push({key: 'emailVerified', value: false});
+            }
 
             // If value is password
             if(key === 'currentPassword') continue;

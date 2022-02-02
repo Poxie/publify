@@ -7,6 +7,7 @@ declare global {
             MYSQL_DATABASE: string;
             JSON_WEB_TOKEN_SECRET_KEY: string;
             FRONTEND_ORIGIN: string;
+            BACKEND_ORIGIN: string;
             IMAGE_ENDPOINT: string;
             EMAILER_HOST: string;
             EMAILER_PORT: number;

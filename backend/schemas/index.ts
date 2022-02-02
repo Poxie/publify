@@ -12,6 +12,7 @@ export const typeDefs = gql`
     type User {
         id: String!
         username: String!
+        email: String
         displayName: String!
         avatar: String
         banner: String
@@ -118,6 +119,7 @@ export const typeDefs = gql`
         # Profile stuff
         updateProfile(
             username: String
+            email: String
             currentPassword: String
             password: String
             displayName: String

@@ -8,6 +8,7 @@ export type CustomAbout = {
 export type UserType = {
     id: string;
     username: string;
+    email?: string;
     displayName: string;
     avatar: string;
     color?: string;
