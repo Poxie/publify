@@ -46,7 +46,8 @@ export const Query = {
     },
     getMyNotifications: async (parent: any, args: any, context: any) => {
         const id = context.userId;
-        const notifications = await getUserNotifications(id);
+        const { startIndex, endIndex } = args;
+        const notifications = await getUserNotifications(id, startIndex, endIndex);
         return notifications;
     },
     getMyFeed: async (parent: any, args: any, context: any) => {

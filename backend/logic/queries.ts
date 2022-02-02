@@ -18,7 +18,7 @@ export const SELECT_FOLLOWERS_COUNT = 'SELECT count(*) AS followersCount FROM `f
 export const SELECT_FOLLOWERS_IDS = 'SELECT followerId FROM `followers` WHERE userId = ?';
 export const SELECT_POST_COUNT = 'SELECT count(*) AS postCount FROM `posts` WHERE authorId = ?';
 export const SELECT_NOTIFICATION = 'SELECT * FROM notifications WHERE id = ?';
-export const SELECT_USER_NOTIFICATIONS = 'SELECT * FROM notifications WHERE userId = ?';
+export const SELECT_USER_NOTIFICATIONS = 'SELECT * FROM notifications WHERE userId = ? ORDER BY createdAt DESC LIMIT ?, ?';
 export const SELECT_USER_NOTIFICATION_COUNT = 'SELECT count(*) AS notificationCount FROM `notifications` WHERE userId = ? AND `read` = 0';
 export const SELECT_MOST_FOLLOWERS = 'SELECT userId, COUNT(*) AS magnitude FROM followers GROUP BY userId ORDER BY magnitude DESC LIMIT 10';
 export const SELECT_MOST_LIKES = 'SELECT parentId, COUNT(*) AS magnitude FROM likes GROUP BY parentId ORDER BY magnitude DESC LIMIT 10';

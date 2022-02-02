@@ -89,7 +89,7 @@ export const typeDefs = gql`
         getUserMedia(id: String!, startIndex: Int, endIndex: Int): [Media]
         getPostsByAuthorId(id: String!, startIndex: Int, endIndex: Int): [Post]
         getCommentsByParentId(parentId: String!): [Comment]!
-        getMyNotifications: [Notification]!
+        getMyNotifications(startIndex: Int, endIndex: Int): [Notification]!
         getMyNotificationCount: Int!
         getMyFeed: [Post]!
         getExploreUsers: [User]!

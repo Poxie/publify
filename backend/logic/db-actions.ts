@@ -562,8 +562,9 @@ export const getNotification: (id: string) => Promise<Notification> = async (id)
     const [notifications] = await connection.promise().query<Notification[]>(SELECT_NOTIFICATION, [id]);
     return notifications[0];
 }
-export const getUserNotifications: (id: string) => Promise<Notification[]> = async (id) => {
-    const [notifications] = await connection.promise().query<Notification[]>(SELECT_USER_NOTIFICATIONS, [id]);
+export const getUserNotifications: (id: string, startIndex?: number, endIndex?: number) => Promise<Notification[]> = async (id, startIndex=0, endIndex=8) => {
+    const count = endIndex - startIndex;
+    const [notifications] = await connection.promise().query<Notification[]>(SELECT_USER_NOTIFICATIONS, [id, startIndex, count]);
     return notifications;
 }
 export const getUserNotificationCount: (id: string) => Promise<number> = async (id) => {
