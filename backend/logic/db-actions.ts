@@ -643,9 +643,9 @@ export const notifyUsers: (type: 'post', targetId: string) => Promise<void> = as
 }
 
 // Feed
-export const getUserFeed: (id: string) => Promise<Post[]> = async (id) => {
+export const getUserFeed: (id: string, startIndex?: number, endIndex?: number) => Promise<Post[]> = async (id, startIndex, endIndex) => {
     // Fetching user notifications
-    const notifications = await getUserNotifications(id);
+    const notifications = await getUserNotifications(id, startIndex, endIndex);
 
     // Getting posts from notifications
     const posts: Post[] = [];

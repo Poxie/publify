@@ -52,7 +52,8 @@ export const Query = {
     },
     getMyFeed: async (parent: any, args: any, context: any) => {
         const id = context.userId;
-        const feed = await getUserFeed(id);
+        const { startIndex, endIndex } = args;
+        const feed = await getUserFeed(id, startIndex, endIndex);
         return feed;
     },
     getExploreUsers: async (parent: any, args: any) => {

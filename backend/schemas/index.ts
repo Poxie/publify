@@ -91,7 +91,7 @@ export const typeDefs = gql`
         getCommentsByParentId(parentId: String!): [Comment]!
         getMyNotifications(startIndex: Int, endIndex: Int): [Notification]!
         getMyNotificationCount: Int!
-        getMyFeed: [Post]!
+        getMyFeed(startIndex: Int, endIndex: Int): [Post]!
         getExploreUsers: [User]!
         getExplorePosts: [Post]!
         getAutoCompletedUsers(query: String!): [User]!
