@@ -20,4 +20,5 @@ export type UserType = {
     education?: string;
     relationship?: string;
     customAbouts?: CustomAbout[];
+    emailNotifications?: boolean;
 }

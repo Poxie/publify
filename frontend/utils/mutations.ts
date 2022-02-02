@@ -100,8 +100,34 @@ export const CREATE_USER = gql`
 `
 
 export const UPDATE_PROFILE = gql`
-    mutation($username: String, $email: String, $password: String, $currentPassword: String, $displayName: String, $bio: String, $avatar: Upload, $banner: Upload, $relationship: String, $education: String, $location: String) {
-        updateProfile(username: $username, email: $email, password: $password, currentPassword: $currentPassword, displayName: $displayName, bio: $bio, avatar: $avatar, banner: $banner, relationship: $relationship, education: $education, location: $location) {
+    mutation(
+        $username: String, 
+        $email: String, 
+        $password: String, 
+        $currentPassword: String, 
+        $displayName: String, 
+        $bio: String, 
+        $avatar: Upload, 
+        $banner: Upload, 
+        $relationship: String,
+        $education: String, 
+        $location: String,
+        $emailNotifications: Boolean
+    ) {
+        updateProfile(
+            username: $username, 
+            email: $email, 
+            password: $password, 
+            currentPassword: $currentPassword, 
+            displayName: $displayName, 
+            bio: $bio, 
+            avatar: $avatar, 
+            banner: $banner, 
+            relationship: $relationship, 
+            education: $education, 
+            location: $location,
+            emailNotifications: $emailNotifications
+        ) {
             ${USER_PROPERTIES}
         }
     }

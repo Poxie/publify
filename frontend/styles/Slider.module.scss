@@ -1,0 +1,27 @@
+.slider {
+    width: 50px;
+    height: 25px;
+    background-color: var(--background-secondary);
+    border-radius: 120px;
+    position: relative;
+    transition: background-color .2s;
+    cursor: pointer;
+
+    &.active {
+        background-color: var(--color-primary);
+        .slider-dot {
+            left: calc(100% - 21px);
+        }
+    }
+}
+.slider-dot {
+    background-color: #fff;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 4px;
+    transition: left .2s;
+}

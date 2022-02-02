@@ -27,6 +27,7 @@ export const typeDefs = gql`
         education: String
         relationship: String
         customAbouts: [CustomAbout]
+        emailNotifications: Boolean
     }
     type Post {
         id: String!
@@ -130,6 +131,7 @@ export const typeDefs = gql`
             location: String
             education: String
             relationship: String
+            emailNotifications: Boolean
         ): User
         updateCustomAbout(
             id: String!

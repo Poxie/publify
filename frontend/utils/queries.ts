@@ -252,6 +252,7 @@ export const GET_ME = gql`
             ${USER_PROPERTIES}
             email
             emailVerified
+            emailNotifications
         }
     }
 `

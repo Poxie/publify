@@ -134,13 +134,18 @@
 
 // Account
 .account-section {
+    &:first-child {
+        .account-section-header {
+            margin-top: 0;
+        }
+    }
     form:not(:last-child) {
         margin-bottom: 10px;
     }
 }
 .account-section-header {
     position: relative;
-    padding: var(--spacing) 0;
+    margin: var(--spacing) 0;
 
     span {
         background-color: var(--background-primary);
@@ -161,12 +166,31 @@
         left: 0;
         top: 50%;
         transform: translateY(-50%);
+        margin-top: 1.5px;
     }
+}
+.note {
+    font-size: 14px;
+    color: var(--text-muted);
+    font-weight: var(--text-muted-font-weight);
+    font-style: italic;
 }
 .password-error {
     color: red;
     font-size: 14px;
     font-weight: 600;
+}
+
+// Notifications
+.notification-title {
+    font-size: 18px;
+    font-weight: 600;
+}
+.notification-subtitle {
+    font-size: 14px;
+    color: var(--text-muted);
+    font-weight: var(--text-muted-font-weight);
+    margin-top: 5px;
 }
 
 @media only screen and (max-width: 600px) {
