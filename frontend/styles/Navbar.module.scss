@@ -86,7 +86,7 @@
     border-radius: 50%;
 }
 .empty {
-    padding: var(--spacing);
+    padding: calc(var(--spacing) * 2);
     color: var(--text-muted);
     font-weight: var(--text-muted-font-weight);
     text-align: center;
