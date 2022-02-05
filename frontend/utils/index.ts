@@ -11,15 +11,10 @@ const getAccessToken = () => {
 }
 
 // Returning pure data from GraphQL response
-const sanitizeData = (data: string, query: string) => {
-    let rootQuery;
-    try {
-        rootQuery = query.split('{')[1].split('(')[0].trim().replaceAll('}', '').trim();
-    } catch (error) {
-        console.error(error);
-        console.log(query);
-    }
-    return data[rootQuery];
+const sanitizeData = (data: string) => {
+    const query = Object.keys(data)[0];
+    const sanitized = data[query];
+    return sanitized;
 }
 
 // Exporting GraphQL client
@@ -33,7 +28,7 @@ const request: (query: string, variables?: Object) => Promise<any> = async (quer
     const response = await client.request(query, variables);
 
     // Sanitizing data - returning pure data
-    const data = sanitizeData(response, query);
+    const data = sanitizeData(response);
 
     // Returning data
     return data
