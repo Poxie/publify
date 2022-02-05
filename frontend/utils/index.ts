@@ -12,7 +12,13 @@ const getAccessToken = () => {
 
 // Returning pure data from GraphQL response
 const sanitizeData = (data: string, query: string) => {
-    const rootQuery = query.split('{')[1].split('(')[0].trim().replaceAll('}', '').trim();
+    let rootQuery;
+    try {
+        rootQuery = query.split('{')[1].split('(')[0].trim().replaceAll('}', '').trim();
+    } catch (error) {
+        console.error(error);
+        console.log(query);
+    }
     return data[rootQuery];
 }
 
